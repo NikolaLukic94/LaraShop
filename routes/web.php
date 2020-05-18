@@ -36,3 +36,9 @@ Route::get('/products/create', 'ProductController@store');
 Route::get('/product-types', 'ProductTypeController@getAll');
 
 Route::get('/users/', 'UserController@getAll');
+
+// Route::get('/invoices/', 'InvoiceController@getAll');
+
+Route::get('/invoice-status-codes', 'InvoiceStatusCodeController@getAll');
+Route::get('/invoice-status-codes/index', 'InvoiceStatusCodeController@index');
+// Route::get('/orders/', 'OrderController@getAll');

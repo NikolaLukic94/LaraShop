@@ -8,6 +8,34 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+
+import Vuex from 'vuex'
+Vue.use(Vuex)
+import storeData from "./store/store"
+
+import VueGoodTablePlugin from 'vue-good-table';
+// import the styles
+// import 'vue-good-table/dist/vue-good-table.css'
+
+Vue.use(VueGoodTablePlugin);
+
+const store = new Vuex.Store(
+   storeData
+)
+
+window.axios = require('axios')
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+
+let token = document.head.querySelector('meta[name="csrf-token"]')
+
+if (token) {
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content
+} else {
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token')
+}
+
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -19,7 +47,14 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+import Vue from 'vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import VueMeta from 'vue-meta'
+
+Vue.use(VueAxios, axios)
+
+Vue.component('invoice-status-code-component', require('./components/InvoiceStatusCodeComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +64,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    store,
+    
 });
