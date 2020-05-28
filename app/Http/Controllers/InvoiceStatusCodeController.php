@@ -19,4 +19,29 @@ class InvoiceStatusCodeController extends Controller
     {
     	return view('invoiceStatusCodes.index');
     }
+
+    public function store(Request $request) 
+    {
+        $newInvoiceStatusCode = InvoiceStatusCode::create([
+            'name' => $request->name
+        ]);
+
+        return response()->json([
+            'createdInvoice' => $newInvoiceStatusCode,
+            'status' => 'success',
+            'message' => 'New invoice status code has been added'
+        ]);
+    }
+
+    public function delete($id) 
+    {
+        $invoiceStatusCode = InvoiceStatusCode::find($id);
+
+        $invoiceStatusCode->delete();
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Invoice status code has been deleted'
+        ]);
+    }
 }

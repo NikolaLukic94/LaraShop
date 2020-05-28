@@ -5,7 +5,7 @@
             theme="black-rhino"
             styleClass="vgt-table striped"
             :columns="columns"
-            :rows="getInvoiceStatusCodes">
+            :rows="getProductTypes">
             <div slot="table-actions">
                 <button class="btn btn-primary" @click="openAddModal">Add New Status</button>
             </div>
@@ -31,22 +31,22 @@
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
-        name: 'invoice-status-code-component',
+        name: 'product-types-component',
         computed: {
             ...mapGetters(
-                'indexStatusCodes',
+                'productTypes',
                 [
-                    'getInvoiceStatusCodes'
+                    'getProductTypes'
                 ])
         },
         methods: {
             ...mapActions(
-                'indexStatusCodes',
+                'productTypes',
                 [
-                    'setInvoiceStatusCodes',
-                    'createInvoiceStatusCode',
-                    'deleteInvoiceStatusCode',
-                    'updateInvoiceStatusCode'
+                    'setProductTypes',
+                    'createProductType',
+                    'deleteProductType',
+                    'updateProductType'
                 ]),
                 openAddModal() {
                   this.$swal({
@@ -141,7 +141,7 @@
         },
         data: function () {
             return {
-                newInvoiceStatusColumnName: '',
+                newProductTypeName: '',
                 columns: [
                     {
                       label: 'Name',
@@ -159,7 +159,7 @@
             }
         },
         created() {
-            this.setInvoiceStatusCodes();
+            this.setProductTypes();
         },             
     }
 </script>

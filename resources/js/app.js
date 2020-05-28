@@ -11,17 +11,21 @@ window.Vue = require('vue');
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
-import storeData from "./store/store"
+import store from "./store/store"
 
 import VueGoodTablePlugin from 'vue-good-table';
 // import the styles
 // import 'vue-good-table/dist/vue-good-table.css'
 
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+Vue.use(VueSweetalert2);
+
 Vue.use(VueGoodTablePlugin);
 
-const store = new Vuex.Store(
-   storeData
-)
+// const store = new Vuex.Store(
+//    store
+// )
 
 window.axios = require('axios')
 
@@ -55,7 +59,9 @@ import VueMeta from 'vue-meta'
 Vue.use(VueAxios, axios)
 
 Vue.component('invoice-status-code-component', require('./components/InvoiceStatusCodeComponent.vue').default);
-
+Vue.component('order-item-status-codes-component', require('./components/OrderItemsStatusCodeComponent.vue').default);
+Vue.component('order-status-codes-component', require('./components/OrderStatusCodesComponent').default);
+Vue.component('product-types-component', require('./components/ProductTypeComponent').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -65,5 +71,4 @@ Vue.component('invoice-status-code-component', require('./components/InvoiceStat
 const app = new Vue({
     el: '#app',
     store,
-    
 });

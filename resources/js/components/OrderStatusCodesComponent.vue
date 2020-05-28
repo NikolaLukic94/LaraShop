@@ -5,7 +5,7 @@
             theme="black-rhino"
             styleClass="vgt-table striped"
             :columns="columns"
-            :rows="getInvoiceStatusCodes">
+            :rows="getOrderStatusCodes">
             <div slot="table-actions">
                 <button class="btn btn-primary" @click="openAddModal">Add New Status</button>
             </div>
@@ -31,22 +31,22 @@
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
-        name: 'invoice-status-code-component',
+        name: 'order-item-status-codes-component',
         computed: {
             ...mapGetters(
-                'indexStatusCodes',
+                'orderStatusCodes',
                 [
-                    'getInvoiceStatusCodes'
+                    'getOrderStatusCodes'
                 ])
         },
         methods: {
             ...mapActions(
-                'indexStatusCodes',
+                'orderStatusCodes',
                 [
-                    'setInvoiceStatusCodes',
-                    'createInvoiceStatusCode',
-                    'deleteInvoiceStatusCode',
-                    'updateInvoiceStatusCode'
+                    'setOrderStatusCodes',
+                    'createOrderStatusCode',
+                    'deleteOrderStatusCodes',
+                    'updateOrderStatusCode'
                 ]),
                 openAddModal() {
                   this.$swal({
@@ -141,7 +141,7 @@
         },
         data: function () {
             return {
-                newInvoiceStatusColumnName: '',
+                newOrderItemStatusColumnName: '',
                 columns: [
                     {
                       label: 'Name',
@@ -159,7 +159,7 @@
             }
         },
         created() {
-            this.setInvoiceStatusCodes();
+            this.setOrderStatusCodes();
         },             
     }
 </script>
