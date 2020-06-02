@@ -1,5 +1,6 @@
 <template>
   <div>
+    <sidebar-component></sidebar-component> 
     <div class="container">
         <vue-good-table
             theme="black-rhino"
@@ -117,7 +118,7 @@
                       }
                     });
                 },
-                openDeleteModal() {
+                openDeleteModal(rowId) {
                   this.$swal.fire({
                       title: 'Are you sure?',
                       text: "This will delete it permanently!",
@@ -127,14 +128,15 @@
                       cancelButtonColor: '#d33',
                       confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
-                        this.deleteInvoiceStatusCode(result);
                       if (result.value) {
+                        console.log(rowId);
+                        this.deleteInvoiceStatusCode(rowId);
 
-                        Swal.fire(
-                          'Deleted!',
-                          'Invoice status code has been deleted.',
-                          'success'
-                        )
+                        // Swal.fire(
+                        //   'Deleted!',
+                        //   'Invoice status code has been deleted.',
+                        //   'success'
+                        // )
                       }
                     })
                 },
@@ -155,7 +157,7 @@
                       label: 'Action',
                       field: 'action',
                     },                    
-                ]
+                ],
             }
         },
         created() {

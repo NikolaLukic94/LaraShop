@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Request\StoreInvoiceStatusCode;
 use Illuminate\Http\Request;
 use App\InvoiceStatusCode;
 use App\Http\Resources\InvoiceStatusCodeResource as InvoiceResource;
@@ -20,7 +21,7 @@ class InvoiceStatusCodeController extends Controller
     	return view('invoiceStatusCodes.index');
     }
 
-    public function store(Request $request) 
+    public function store(StoreInvoiceStatusCode $request) 
     {
         $newInvoiceStatusCode = InvoiceStatusCode::create([
             'name' => $request->name

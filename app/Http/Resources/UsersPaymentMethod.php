@@ -16,8 +16,8 @@ class UsersPaymentMethod extends JsonResource
     {
         return [
             'id' => $this->id,
-            'creditCardNumber' => $this->credit_card_number,
-            'paymentMethod' => $this->paymentMethod,
+            'name' => $this->name,
+            'createdAt' => $this->created_at
         ];
     }
 }

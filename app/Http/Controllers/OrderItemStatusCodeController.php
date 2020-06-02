@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Request\StoreOrderItemStatusCode;
 use App\OrderItemStatusCode;
 use Illuminate\Http\Request;
 use App\Http\Resources\OrderItemStatusCode as OrderItemStatusCodeResource;
@@ -20,7 +21,7 @@ class OrderItemStatusCodeController extends Controller
     	return view('orderItemStatusCodes.index');
     }
 
-    public function store(Request $request) 
+    public function store(StoreOrderItemStatusCode $request) 
     {
         $newOrderItemStatusCode = OrderItemStatusCode::create([
             'name' => $request->name

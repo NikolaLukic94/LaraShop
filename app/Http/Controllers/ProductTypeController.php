@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Request\StoreProductType;
 use App\ProductType;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductType as ProductTypeResource;
@@ -24,7 +25,7 @@ class ProductTypeController extends Controller
         return view('productTypes.index');
     }
 
-    public function store(Request $request) 
+    public function store(StoreProductType $request) 
     {
         $newProductType = ProductType::create([
             'name' => $request->name

@@ -17,8 +17,13 @@ class UserController extends Controller
      */
     public function getAll()
     {
-        $products = User::paginate(15);
+        $users = User::paginate(15);
         //return collection of articles as a resource
-        return UserResource::collection($products);
+        return UserResource::collection($users);
+    }
+
+    public function index()
+    {
+    	return view('users.index');
     }
 }

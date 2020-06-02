@@ -29,15 +29,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/products/index', 'ProductController@index');
 Route::get('/products', 'ProductController@getAll');
+Route::get('/products/index', 'ProductController@index');
 Route::get('/products/create', 'ProductController@store');
 
-Route::get('/product-types', 'ProductTypeController@getAll');
-
 Route::get('/users/', 'UserController@getAll');
+Route::get('/users/index', 'UserController@index');
 
 // Route::get('/invoices/', 'InvoiceController@getAll');
+
+Route::get('/invoices', 'InvoiceController@getAll');
+Route::get('/invoices/index', 'InvoiceController@index');
 
 Route::get('/invoice-status-codes', 'InvoiceStatusCodeController@getAll');
 Route::get('/invoice-status-codes/index', 'InvoiceStatusCodeController@index');
@@ -58,3 +60,8 @@ Route::get('/product-types', 'ProductTypeController@getAll');
 Route::get('/product-types/index', 'ProductTypeController@index');
 Route::post('/product-types/create', 'ProductTypeController@store');
 Route::post('/product-types/delete/{id}', 'ProductTypeController@delete');
+
+Route::get('/payment-methods', 'PaymentMethodController@getAll');
+Route::get('/payment-methods/index', 'PaymentMethodController@index');
+Route::post('/payment-methods/create', 'PaymentMethodController@store');
+Route::post('/payment-methods/delete/{id}', 'PaymentMethodController@delete');

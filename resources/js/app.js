@@ -10,7 +10,9 @@ window.Vue = require('vue');
 
 
 import Vuex from 'vuex'
+
 Vue.use(Vuex)
+
 import store from "./store/store"
 
 import VueGoodTablePlugin from 'vue-good-table';
@@ -22,6 +24,10 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 Vue.use(VueSweetalert2);
 
 Vue.use(VueGoodTablePlugin);
+
+import VueSidebarMenu from 'vue-sidebar-menu'
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+Vue.use(VueSidebarMenu)
 
 // const store = new Vuex.Store(
 //    store
@@ -62,6 +68,11 @@ Vue.component('invoice-status-code-component', require('./components/InvoiceStat
 Vue.component('order-item-status-codes-component', require('./components/OrderItemsStatusCodeComponent.vue').default);
 Vue.component('order-status-codes-component', require('./components/OrderStatusCodesComponent').default);
 Vue.component('product-types-component', require('./components/ProductTypeComponent').default);
+Vue.component('payment-methods-component', require('./components/PaymentMethodComponent.vue').default);
+Vue.component('users-component', require('./components/UsersComponent.vue').default);
+Vue.component('products-component', require('./components/ProductComponent.vue').default);
+Vue.component('invoices-component', require('./components/InvoiceComponent.vue').default);
+Vue.component('sidebar-component', require('./components/SidebarComponent').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

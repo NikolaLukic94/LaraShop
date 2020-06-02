@@ -14,12 +14,11 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductTypeSeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(PaymentMethodSeeder::class);
-        $this->call(UserPaymentMethodSeeder::class);
         $this->call(UserAddressSeeder::class);
         $this->call(OrderStatusCodesSeeder::class);
         $this->call(OrderItemsStatusCodesSeeder::class);
         $this->call(InvoiceStatusCodesSeeder::class);
-        $this->call(UserPaymentMethodSeeder::class);
         $this->call(OrderItemsSeeder::class);
+        $this->call(UserPaymentMethodSeeder::class);
     }
 }

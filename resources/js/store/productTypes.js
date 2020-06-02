@@ -3,32 +3,32 @@ const state = {
 }
 
 const getters = {
-    getProductTypesCodes: state => state.productTypes,
+    getProductTypes: state => state.productTypes,
 };
 
 const actions = {
-    setProductTypesCodes({commit}) {
+    setProductTypes({commit}) {
         return axios.get('/product-types')
               .then((response) => {
-                commit('setProductTypesCodes', response.data.data); 
+                commit('setProductTypes', response.data.data); 
               })
               .catch(function (error) {
                 console.log(error);
               })
-        },
-        createProductType({commit}, name) {
-            return axios.post('/product-types', {
-                name: name
+    },
+    createProductType({commit}, name) {
+        return axios.post('/product-types', {
+            name: name
+        })
+            .then((reponse) => {
+                commit('createProductType', response)
             })
-                .then((reponse) => {
-                    commit('createProductTypeCode', response)
-                })
-                .catch(err => console.log(err))
-        },
+            .catch(err => console.log(err))
+    },
     deleteProductType({commit}, id) {
         return axios.post('/product-types/delete/' + id)
             .then((reponse) => {
-                commit('deleteProductTypeCodes', id)
+                commit('deleteProductType', id)
             })
             .catch(err => console.log(err))
     },
@@ -37,24 +37,24 @@ const actions = {
             name: name
         })
         .then((response) => {
-            commit('updateProductTypeCode', {id, name})
+            commit('updateProductType', {id, name})
         })
     }
 };
 
 const mutations = {
-    setProductTypesCodes: (state, productTypes) => {
-        state.productTypesCodes = productTypes;
+    setProductTypes: (state, productTypes) => {
+        state.productTypes = productTypes;
     },
-    createProductTypeCode: (state, createdProductTypes) => {
-        state.productTypesCodes.push(createdProductTypesCode);
+    createProductType: (state, createdProductTypes) => {
+        state.productTypes.push(createdProductTypes);
     },
-    deleteProductTypesCodes: (state, id) => {
-        state.productTypesCodes = state.productTypesCodes.find(inv => inv.id !== id)
+    deleteProductType: (state, id) => {
+        state.productTypes = state.productTypes.find(inv => inv.id !== id)
     },
-    updateProductTypesCode: (state, {id, name}) => {
-        let updatedProductTypeCode = state.productTypesCodes.find(inv => inv.id === id);
-        updatedProductTypeCode.name = name;
+    updateProductType: (state, {id, name}) => {
+        let updatedProductType = state.productTypes.find(inv => inv.id === id);
+        updatedProductType.name = name;
     }
 };
 
