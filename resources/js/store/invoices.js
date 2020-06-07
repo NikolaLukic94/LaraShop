@@ -9,12 +9,12 @@ const getters = {
 const actions = {
     setInvoices({commit}) {
         return axios.get('/invoices')
-              .then((response) => {
+            .then((response) => {
                 commit('setInvoices', response.data.data); 
-              })
-              .catch(function (error) {
+            })
+            .catch(function (error) {
                 console.log(error);
-              })
+            })
     },
 };
 

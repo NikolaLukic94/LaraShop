@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Request\StoreOrderStatusCode;
+use App\Http\Requests\StoreOrderStatusCode;
+use App\Http\Requests\UpdateOrderStatusCode;
 use App\Http\Resources\OrderStatusCode as OrderStatusCodeResource;
 use Illuminate\Http\Request;
 use App\OrderStatusCode;
@@ -30,7 +31,22 @@ class OrderStatusCodeController extends Controller
         return response()->json([
             'createdInvoice' => $codes,
             'status' => 'success',
-            'message' => 'New order item status code has been added'
+            'message' => 'New order status code has been added'
+        ]);
+    }
+
+    public function update(UpdateOrderStatusCode $request) 
+    {
+        $code = OrderStatusCode::find($id);
+
+        $code->name = $request->name;
+
+        $code->save();
+
+        return response()->json([
+            'updatedOrderStatusCode' => $code,
+            'status' => 'success',
+            'message' => 'Order status code has been updated!'
         ]);
     }
 
@@ -42,7 +58,7 @@ class OrderStatusCodeController extends Controller
         
         return response()->json([
             'status' => 'success',
-            'message' => 'Order item status code status code has been deleted'
+            'message' => 'Order status code status code has been deleted'
         ]);
     }
 }

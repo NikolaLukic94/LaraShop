@@ -50,7 +50,7 @@ const mutations = {
         state.productTypes.push(createdProductTypes);
     },
     deleteProductType: (state, id) => {
-        state.productTypes = state.productTypes.find(inv => inv.id !== id)
+        state.productTypes = state.productTypes.filter(inv => inv.id !== id)
     },
     updateProductType: (state, {id, name}) => {
         let updatedProductType = state.productTypes.find(inv => inv.id === id);

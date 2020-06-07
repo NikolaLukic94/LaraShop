@@ -61,18 +61,6 @@
                       showLoaderOnConfirm: true,
                       preConfirm: (name) => {
                         this.createInvoiceStatusCode(name);
-                        // return fetch(`//api.github.com/users/${login}`)
-                        //   .then(response => {
-                        //     if (!response.ok) {
-                        //       throw new Error(response.statusText)
-                        //     }
-                        //     return response.json()
-                        //   })
-                        //   .catch(error => {
-                        //     Swal.showValidationMessage(
-                        //       `Request failed: ${error}`
-                        //     )
-                        //   })
                       },
                       allowOutsideClick: () => !Swal.isLoading()
                     }).then((result) => {
@@ -119,6 +107,7 @@
                     });
                 },
                 openDeleteModal(rowId) {
+                  console.log('deleting')
                   this.$swal.fire({
                       title: 'Are you sure?',
                       text: "This will delete it permanently!",
@@ -129,9 +118,8 @@
                       confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
                       if (result.value) {
-                        console.log(rowId);
                         this.deleteInvoiceStatusCode(rowId);
-
+                        console.log('p')
                         // Swal.fire(
                         //   'Deleted!',
                         //   'Invoice status code has been deleted.',

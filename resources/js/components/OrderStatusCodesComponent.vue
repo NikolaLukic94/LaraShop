@@ -7,7 +7,7 @@
             :columns="columns"
             :rows="getOrderStatusCodes">
             <div slot="table-actions">
-                <button class="btn btn-primary" @click="openAddModal">Add New Status</button>
+                <button class="btn btn-primary" @click="openAddModal">Add New Order Status Code</button>
             </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
@@ -117,7 +117,7 @@
                       }
                     });
                 },
-                openDeleteModal() {
+                openDeleteModal(rowId) {
                   this.$swal.fire({
                       title: 'Are you sure?',
                       text: "This will delete it permanently!",
@@ -127,9 +127,8 @@
                       cancelButtonColor: '#d33',
                       confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
-                        this.deleteInvoiceStatusCode(result);
+                        this.deleteOrderStatusCodes(rowId);
                       if (result.value) {
-
                         Swal.fire(
                           'Deleted!',
                           'Invoice status code has been deleted.',

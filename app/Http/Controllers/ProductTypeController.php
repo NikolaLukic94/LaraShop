@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Request\StoreProductType;
+use App\Http\Requests\StoreProductType;
+use App\Http\Requests\UpdateProductType;
 use App\ProductType;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductType as ProductTypeResource;
@@ -35,6 +36,21 @@ class ProductTypeController extends Controller
             'createdInvoice' => $newProductType,
             'status' => 'success',
             'message' => 'New product type has been added'
+        ]);
+    }
+
+    public function update(UpdateProductType $request, $id) 
+    {
+        $productType = ProductType::find($id);
+
+        $productType->name = $request->name;
+
+        $productType->save();
+
+        return response()->json([
+            'productType' => $productType,
+            'status' => 'success',
+            'message' => 'Product type has been updated!'
         ]);
     }
 

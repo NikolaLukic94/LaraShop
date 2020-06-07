@@ -2139,19 +2139,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         confirmButtonText: 'Save',
         showLoaderOnConfirm: true,
         preConfirm: function preConfirm(name) {
-          _this.createInvoiceStatusCode(name); // return fetch(`//api.github.com/users/${login}`)
-          //   .then(response => {
-          //     if (!response.ok) {
-          //       throw new Error(response.statusText)
-          //     }
-          //     return response.json()
-          //   })
-          //   .catch(error => {
-          //     Swal.showValidationMessage(
-          //       `Request failed: ${error}`
-          //     )
-          //   })
-
+          _this.createInvoiceStatusCode(name);
         },
         allowOutsideClick: function allowOutsideClick() {
           return !Swal.isLoading();
@@ -2201,6 +2189,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     openDeleteModal: function openDeleteModal(rowId) {
       var _this2 = this;
 
+      console.log('deleting');
       this.$swal.fire({
         title: 'Are you sure?',
         text: "This will delete it permanently!",
@@ -2211,14 +2200,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
         if (result.value) {
-          console.log(rowId);
+          _this2.deleteInvoiceStatusCode(rowId);
 
-          _this2.deleteInvoiceStatusCode(rowId); // Swal.fire(
+          console.log('p'); // Swal.fire(
           //   'Deleted!',
           //   'Invoice status code has been deleted.',
           //   'success'
           // )
-
         }
       });
     }
@@ -2370,7 +2358,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     },
-    openDeleteModal: function openDeleteModal() {
+    openDeleteModal: function openDeleteModal(rowId) {
       var _this2 = this;
 
       this.$swal.fire({
@@ -2382,7 +2370,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
-        _this2.deleteInvoiceStatusCode(result);
+        _this2.deleteOrderItemStatusCodes(rowId);
 
         if (result.value) {
           Swal.fire('Deleted!', 'Invoice status code has been deleted.', 'success');
@@ -2537,7 +2525,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     },
-    openDeleteModal: function openDeleteModal() {
+    openDeleteModal: function openDeleteModal(rowId) {
       var _this2 = this;
 
       this.$swal.fire({
@@ -2549,7 +2537,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
-        _this2.deleteInvoiceStatusCode(result);
+        _this2.deleteOrderStatusCodes(rowId);
 
         if (result.value) {
           Swal.fire('Deleted!', 'Invoice status code has been deleted.', 'success');
@@ -2707,7 +2695,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     openDeleteModal: function openDeleteModal(id) {
       var _this2 = this;
 
-      console.log('deleting', id);
       this.$swal.fire({
         title: 'Are you sure?',
         text: "This will delete it permanently!",
@@ -2717,11 +2704,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
-        _this2.deleteInvoiceStatusCode(result);
+        _this2.deletePaymentMethods(id); // if (result.value) {
+        //   Swal.fire(
+        //     'Deleted!',
+        //     'Invoice status code has been deleted.',
+        //     'success'
+        //   )
+        // }
 
-        if (result.value) {
-          Swal.fire('Deleted!', 'Invoice status code has been deleted.', 'success');
-        }
       });
     }
   }),
@@ -3056,7 +3046,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
-        _this2.deleteInvoiceStatusCode(result);
+        _this2.deleteProductType(result);
 
         if (result.value) {
           Swal.fire('Deleted!', 'Invoice status code has been deleted.', 'success');
@@ -58169,7 +58159,7 @@ var render = function() {
                     staticClass: "btn btn-primary",
                     on: { click: _vm.openAddModal }
                   },
-                  [_vm._v("Add New Status")]
+                  [_vm._v("Add New Order Status Code")]
                 )
               ]
             )
@@ -74846,7 +74836,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 var state = {
   invoiceStatusCodes: []
-};
+}; // todo: rename from index to invoice
+
 var getters = {
   getInvoiceStatusCodes: function getInvoiceStatusCodes(state) {
     return state.invoiceStatusCodes;
@@ -74856,13 +74847,8 @@ var actions = {
   setInvoiceStatusCodes: function setInvoiceStatusCodes(_ref) {
     var commit = _ref.commit;
     return axios.get('/invoice-status-codes').then(function (response) {
-      // handle success
-      console.log(response);
       commit('setInvoiceStatusCodes', response.data.data);
-    })["catch"](function (error) {
-      // handle error
-      console.log(error);
-    });
+    })["catch"](function (error) {});
   },
   createInvoiceStatusCode: function createInvoiceStatusCode(_ref2, name) {
     var commit = _ref2.commit;
@@ -74901,11 +74887,11 @@ var mutations = {
     state.invoiceStatusCodes = invoiceStatusCodes;
   },
   createInvoiceStatusCode: function createInvoiceStatusCode(state, createdInvoice) {
-    console.log(createdInvoice);
+    console.log(createdInvoice, state.invoiceStatusCodes);
     state.invoiceStatusCodes.push(createdInvoice);
   },
   "delete": function _delete(state, id) {
-    state.invoiceStatusCodes = state.invoiceStatusCodes.find(function (inv) {
+    state.invoiceStatusCodes = state.invoiceStatusCodes.filter(function (inv) {
       return inv.id !== id;
     });
   },
@@ -75039,7 +75025,7 @@ var mutations = {
     state.orderItemStatusCodes.push(createdOrderItemStatusCode);
   },
   deleteOrderItemStatusCodes: function deleteOrderItemStatusCodes(state, id) {
-    state.orderItemStatusCodes = state.orderItemStatusCodes.find(function (inv) {
+    state.orderItemStatusCodes = state.orderItemStatusCodes.filter(function (inv) {
       return inv.id !== id;
     });
   },
@@ -75131,7 +75117,7 @@ var mutations = {
     state.orderStatusCodes.push(createdOrderStatusCode);
   },
   deleteOrderStatusCodes: function deleteOrderStatusCodes(state, id) {
-    state.orderStatusCodes = state.orderStatusCodes.find(function (inv) {
+    state.orderStatusCodes = state.orderStatusCodes.filter(function (inv) {
       return inv.id !== id;
     });
   },
@@ -75220,7 +75206,7 @@ var mutations = {
     state.paymentMethods.push(createdPaymentMethod);
   },
   deletePaymentMethod: function deletePaymentMethod(state, id) {
-    state.paymentMethods = state.paymentMethods.find(function (p) {
+    state.paymentMethods = state.paymentMethods.filter(function (p) {
       return p.id !== id;
     });
   },
@@ -75309,7 +75295,7 @@ var mutations = {
     state.productTypes.push(createdProductTypes);
   },
   deleteProductType: function deleteProductType(state, id) {
-    state.productTypes = state.productTypes.find(function (inv) {
+    state.productTypes = state.productTypes.filter(function (inv) {
       return inv.id !== id;
     });
   },

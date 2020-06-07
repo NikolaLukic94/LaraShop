@@ -53,7 +53,7 @@ const mutations = {
         state.orderItemStatusCodes.push(createdOrderItemStatusCode);
     },
     deleteOrderItemStatusCodes: (state, id) => {
-        state.orderItemStatusCodes = state.orderItemStatusCodes.find(inv => inv.id !== id)
+        state.orderItemStatusCodes = state.orderItemStatusCodes.filter(inv => inv.id !== id)
     },
     updateOrderItemStatusCode: (state, {id, name}) => {
         let updatedOrderItemStatusCode = state.orderItemStatusCodes.find(inv => inv.id === id);

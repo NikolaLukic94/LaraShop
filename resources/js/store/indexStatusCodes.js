@@ -1,7 +1,7 @@
 const state = {
     invoiceStatusCodes: [],
 }
-
+// todo: rename from index to invoice
 const getters = {
     getInvoiceStatusCodes: state => state.invoiceStatusCodes,
 };
@@ -10,13 +10,9 @@ const actions = {
     setInvoiceStatusCodes({commit}) {
         return axios.get('/invoice-status-codes')
               .then((response) => {
-                // handle success
-                console.log(response)
                 commit('setInvoiceStatusCodes', response.data.data); 
               })
               .catch(function (error) {
-                // handle error
-                console.log(error);
               })
         },
         createInvoiceStatusCode({commit}, name) {
@@ -50,11 +46,11 @@ const mutations = {
         state.invoiceStatusCodes = invoiceStatusCodes;
     },
     createInvoiceStatusCode: (state, createdInvoice) => {
-        console.log(createdInvoice);
+        console.log(createdInvoice, state.invoiceStatusCodes)
         state.invoiceStatusCodes.push(createdInvoice);
     },
     delete: (state, id) => {
-        state.invoiceStatusCodes = state.invoiceStatusCodes.find(inv => inv.id !== id)
+        state.invoiceStatusCodes = state.invoiceStatusCodes.filter(inv => inv.id !== id)
     },
     updateInvoiceStatusCode: (state, {id, name}) => {
         let updatedInvoiceStatusCode = state.invoiceStatusCodes.find(inv => inv.id === id);

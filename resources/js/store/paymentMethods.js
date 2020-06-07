@@ -16,15 +16,15 @@ const actions = {
                 console.log(error);
               })
         },
-        createPaymentMethods({commit}, name) {
-            return axios.post('/payment-methods', {
-                name: name
+    createPaymentMethods({commit}, name) {
+        return axios.post('/payment-methods', {
+            name: name
+        })
+            .then((reponse) => {
+                commit('createPaymentMethod', response)
             })
-                .then((reponse) => {
-                    commit('createPaymentMethod', response)
-                })
-                .catch(err => console.log(err))
-        },
+            .catch(err => console.log(err))
+    },
     deletePaymentMethods({commit}, id) {
         return axios.post('/payment-methods/delete/' + id)
             .then((reponse) => {
@@ -50,7 +50,7 @@ const mutations = {
         state.paymentMethods.push(createdPaymentMethod);
     },
     deletePaymentMethod: (state, id) => {
-        state.paymentMethods = state.paymentMethods.find(p => p.id !== id)
+        state.paymentMethods = state.paymentMethods.filter(p => p.id !== id)
     },
     updatePaymentMethod: (state, {id, name}) => {
         let updatedPaymentMethod = state.paymentMethods.find(p => p.id === id);

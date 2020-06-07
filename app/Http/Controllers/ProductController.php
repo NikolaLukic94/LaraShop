@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Request\StoreProduct;
 use App\Product;
+
+use App\Http\Requests\StoreProduct;
+use App\Http\Requests\UpdateProduct;
 use Illuminate\Http\Request;
 use App\Http\Resources\Product as ProductResource;
 use App\Http\Resources\ProductRelationshipsResource as ProductRelationshipsResource;
@@ -93,7 +95,7 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProduct $request, Product $product)
     {
         $product = Product::findOrFail($id);
 

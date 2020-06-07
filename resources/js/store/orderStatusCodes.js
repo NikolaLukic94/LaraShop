@@ -28,21 +28,21 @@ const actions = {
                 })
                 .catch(err => console.log(err))
         },
-    deleteOrderStatusCodes({commit}, id) {
-        return axios.post('/order-status-codes/delete/' + id)
-            .then((reponse) => {
-                commit('deleteOrderStatusCodes', id)
+        deleteOrderStatusCodes({commit}, id) {
+            return axios.post('/order-status-codes/delete/' + id)
+                .then((reponse) => {
+                    commit('deleteOrderStatusCodes', id)
+                })
+                .catch(err => console.log(err))
+        },
+        updateOrderStatusCode({commit}, {id, name}) {
+            return axios.post('/order-status-codes/edit/' + id, {
+                name: name
             })
-            .catch(err => console.log(err))
-    },
-    updateOrderStatusCode({commit}, {id, name}) {
-        return axios.post('/order-status-codes/edit/' + id, {
-            name: name
-        })
-        .then((response) => {
-            commit('updateOrderStatusCode', {id, name})
-        })
-    }
+            .then((response) => {
+                commit('updateOrderStatusCode', {id, name})
+            })
+        }
 };
 
 const mutations = {
@@ -53,7 +53,7 @@ const mutations = {
         state.orderStatusCodes.push(createdOrderStatusCode);
     },
     deleteOrderStatusCodes: (state, id) => {
-        state.orderStatusCodes = state.orderStatusCodes.find(inv => inv.id !== id)
+        state.orderStatusCodes = state.orderStatusCodes.filter(inv => inv.id !== id)
     },
     updateOrderStatusCode: (state, {id, name}) => {
         let updatedOrderStatusCode = state.orderStatusCodes.find(inv => inv.id === id);

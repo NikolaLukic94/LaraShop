@@ -13,7 +13,7 @@ class StoreInvoice extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,7 @@ class StoreInvoice extends FormRequest
             'order_id' => 'required|numeric',
             'invoice_status_code_id' => 'required|numeric',
             'date' => 'required|date',
-            'invoice_details' => 'required|date',
+            'invoice_details' => 'sometimes|alphanumeric',
         ];
     }
 }

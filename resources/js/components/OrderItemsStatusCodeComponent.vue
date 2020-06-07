@@ -117,7 +117,7 @@
                       }
                     });
                 },
-                openDeleteModal() {
+                openDeleteModal(rowId) {
                   this.$swal.fire({
                       title: 'Are you sure?',
                       text: "This will delete it permanently!",
@@ -127,9 +127,8 @@
                       cancelButtonColor: '#d33',
                       confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
-                        this.deleteInvoiceStatusCode(result);
+                        this.deleteOrderItemStatusCodes(rowId);
                       if (result.value) {
-
                         Swal.fire(
                           'Deleted!',
                           'Invoice status code has been deleted.',
@@ -137,7 +136,7 @@
                         )
                       }
                     })
-                },
+                },                
         },
         data: function () {
             return {

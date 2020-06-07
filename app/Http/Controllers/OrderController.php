@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Request\StoreOrder;
+use App\Http\Requests\StoreOrder;
+use App\Http\Requests\UpdateOrder;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -19,6 +20,23 @@ class OrderController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'New order has been placed!'
+        ]);
+    }
+
+    public function update(UpdateOrder $request, $id) 
+    {
+        $order = Order::find($id);
+
+        $order->date_placed = $request->datePlaced;
+        $order->order_details = $request->orderDetails;
+        $order->user_id = $request->userId;
+        $order->order_status_codes_id = $request->orderStatusCodeId;
+
+        $order->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Order has been updated!'
         ]);
     }
 

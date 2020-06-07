@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Request\StoreInvoiceStatusCode;
+use App\Http\Requests\StoreInvoiceStatusCode;
+use App\Http\Requests\UpdateInvoiceStatusCode;
 use Illuminate\Http\Request;
 use App\InvoiceStatusCode;
 use App\Http\Resources\InvoiceStatusCodeResource as InvoiceResource;
@@ -12,7 +13,7 @@ class InvoiceStatusCodeController extends Controller
     public function getAll()
     {
     	$invoiceStatusCodes = InvoiceStatusCode::paginate(15);
-        //return collection of articles as a resource
+
         return InvoiceResource::collection($invoiceStatusCodes);
     }
 
@@ -29,6 +30,21 @@ class InvoiceStatusCodeController extends Controller
 
         return response()->json([
             'createdInvoice' => $newInvoiceStatusCode,
+            'status' => 'success',
+            'message' => 'New invoice status code has been added'
+        ]);
+    }
+
+    public function update(UpdateInvoiceStatusCode $request, $id) 
+    {
+        $invoiceStatusCode = InvoiceStatusCode::find($id);
+
+        $invoiceStatusCode->name = $request->name;
+
+        $invoiceStatusCode->save();
+
+        return response()->json([
+            'updatedInvoice' => $invoiceStatusCode,
             'status' => 'success',
             'message' => 'New invoice status code has been added'
         ]);

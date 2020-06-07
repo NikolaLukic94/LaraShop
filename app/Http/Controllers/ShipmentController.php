@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Request\StoreShipment;
+use App\Http\Requests\StoreShipment;
+use App\Http\Requests\UpdateShipment;
 use Illuminate\Http\Request;
 
 class ShipmentController extends Controller
@@ -20,6 +21,24 @@ class ShipmentController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Shipment has been created'
+        ]);
+    }
+
+    public function update(UpdateShipment $request, $id)
+    {
+        $shipment = Shipment::find($id);
+
+        $shipment->order_id = $request->orderId;
+        $shipment->invoice_id = $request->invoiceId;
+        $shipment->tracking_number = $request->trackingNumber;
+        $shipment->date = $request->date;
+        $shipment->other_shipment_details = $request->otherShipmentDetails;
+
+        $shipment->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Shipment has been updated!'
         ]);
     }
 

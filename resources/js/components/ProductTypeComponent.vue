@@ -127,7 +127,7 @@
                       cancelButtonColor: '#d33',
                       confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
-                        this.deleteInvoiceStatusCode(result);
+                        this.deleteProductType(result);
                       if (result.value) {
 
                         Swal.fire(

@@ -1,7 +1,9 @@
 <?php
 
-use App\Request\StoreUserAddresses;
 namespace App\Http\Controllers;
+
+use App\Http\Requests\StoreUserAddresses;
+use App\Http\Requests\UpdateUserAddresses;
 
 use Illuminate\Http\Request;
 
@@ -25,6 +27,29 @@ class UserAddressController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Address has been added'
+        ]);
+    }
+
+    public function update(UpdateUserAddresses $request)
+    {
+        $userAddress = UserAddress::find($id);
+
+        $userAddress->first_name = $request->firstName;
+        $userAddress->last_name = $request->lastName;
+        $userAddress->phone_number = $request->phoneNumber;
+        $userAddress->address_line_1 = $request->addressLineOne;
+        $userAddress->address_line_2 = $request->addressLineTwo;
+        $userAddress->city = $request->city;
+        $userAddress->county = $request->county;
+        $userAddress->zip = $request->zip;
+        $userAddress->country = $request->country;
+        $userAddress->user_id = $request->userId;
+
+        $userAddress->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Address has been updated'
         ]);
     }
 

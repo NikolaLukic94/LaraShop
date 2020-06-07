@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Invoice;
+use App\Http\Requests\StoreInvoice;
+use App\Http\Requests\UpdateInvoice;
 use Illuminate\Http\Request;
 use App\Http\Resources\Invoice as InvoiceResource;
 
@@ -20,7 +22,7 @@ class InvoiceController extends Controller
     	return view('invoices.index');
     }
 
-    public function store(Request $request)
+    public function store(StoreInvoice $request)
     {
         Invoice::create([
             'order_id' => $request->orderId,
@@ -32,6 +34,23 @@ class InvoiceController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'New invoice has been created'
+        ]);
+    }
+
+    public function update(UpdateInvoice $request, $id)
+    {
+        $invoice = Invoice::find($id);
+
+        $invoice->order_id = $request->orderId;
+        $invoice->invoice_status_code_id = $request->invoiceStatusCodeId;
+        $invoice->date = $request->date;
+        $invoice->invoice_details = $request->invoiceDetails;
+
+        $invoice->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Invoice has been updated'
         ]);
     }
 

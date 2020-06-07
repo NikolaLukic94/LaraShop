@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests\StoreUserPaymentMethod;
+use App\Http\Requests\UpdateUserPaymentMethod;
 use Illuminate\Http\Request;
 
 class UserPaymentMethodController extends Controller
@@ -17,6 +19,22 @@ class UserPaymentMethodController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'User payment method has been added!'
+        ]);
+    }
+
+    public function update(UpdateUserPaymentMethod $request, $id)
+    {
+        $userPaymentMethod = UserPaymentMethod::find($id);
+
+        $userPaymentMethod->credit_card_number = $required->creditCardNumber;
+        $userPaymentMethod->user_id = $required->userId;
+        $userPaymentMethod->payment_method_id = $required->paymentMethodId;
+
+        $userPaymentMethod->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User payment method has been updated!'
         ]);
     }
 
