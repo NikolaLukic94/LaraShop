@@ -24,12 +24,12 @@ class OrderStatusCodeController extends Controller
 
     public function store(StoreOrderStatusCode $request) 
     {
-        $codes = OrderStatusCode::create([
+        $code = OrderStatusCode::create([
             'name' => $request->name
         ]);
 
         return response()->json([
-            'createdInvoice' => $codes,
+            'createdOrderStatusCode' => $code,
             'status' => 'success',
             'message' => 'New order status code has been added'
         ]);

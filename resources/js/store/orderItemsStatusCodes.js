@@ -20,16 +20,16 @@ const actions = {
               })
         },
         createOrderItemStatusCode({commit}, name) {
-            return axios.post('/order-items-status-codes', {
+            return axios.post('/order-item-status-codes/create', {
                 name: name
             })
-                .then((reponse) => {
-                    commit('createOrderItemStatusCode', response)
+                .then(function (response) {
+                    commit('createOrderItemStatusCode', response.data.createdOrderItemStatusCode)
                 })
                 .catch(err => console.log(err))
         },
     deleteOrderItemStatusCodes({commit}, id) {
-        return axios.post('/order-items-status-codes/delete/' + id)
+        return axios.post('/order-item-status-codes/delete/' + id)
             .then((reponse) => {
                 commit('deleteOrderItemStatusCodes', id)
             })

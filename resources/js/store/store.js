@@ -11,7 +11,8 @@ import productTypes from './productTypes';
 import paymentMethods from './paymentMethods';
 import users from './users';
 import products from './products';
-import invoices from './invoices'
+import invoices from './invoices';
+import landingProductsPage from './landingProductsPage';
 
 const debug = process.env.NODE_ENV !== 'production';
 
@@ -24,7 +25,8 @@ export default new Vuex.Store({
     paymentMethods,
     users,
     products,
-    invoices
+    invoices,
+    landingProductsPage
   },
   strict:debug
 

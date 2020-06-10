@@ -15,15 +15,15 @@ const actions = {
               .catch(function (error) {
               })
         },
-        createInvoiceStatusCode({commit}, name) {
-            return axios.post('/invoice-status-codes/create', {
-                name: name
+    createInvoiceStatusCode({commit}, name) {
+        return axios.post('/invoice-status-codes/create', {
+            name: name
+        })
+            .then(function (response) {
+                commit('createInvoiceStatusCode', response.data.createdInvoice)
             })
-                .then((reponse) => {
-                    commit('createInvoiceStatusCode', response)
-                })
-                .catch(err => console.log(err))
-        },
+            .catch(err => console.log(err))
+    },
     deleteInvoiceStatusCode({commit}, id) {
         return axios.post('/invoice-status-codes/delete/' + id)
             .then((reponse) => {
@@ -46,7 +46,6 @@ const mutations = {
         state.invoiceStatusCodes = invoiceStatusCodes;
     },
     createInvoiceStatusCode: (state, createdInvoice) => {
-        console.log(createdInvoice, state.invoiceStatusCodes)
         state.invoiceStatusCodes.push(createdInvoice);
     },
     delete: (state, id) => {

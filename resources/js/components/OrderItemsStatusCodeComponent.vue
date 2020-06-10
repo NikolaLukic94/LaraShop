@@ -7,7 +7,7 @@
             :columns="columns"
             :rows="getOrderItemStatusCodes">
             <div slot="table-actions">
-                <button class="btn btn-primary" @click="openAddModal">Add New Status</button>
+                <button class="btn btn-primary" @click="openAddModal">Add New Order Item Status Code</button>
             </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
@@ -59,7 +59,7 @@
                       confirmButtonText: 'Save',
                       showLoaderOnConfirm: true,
                       preConfirm: (name) => {
-                        this.createInvoiceStatusCode(name);
+                        this.createOrderItemStatusCode(name);
                         // return fetch(`//api.github.com/users/${login}`)
                         //   .then(response => {
                         //     if (!response.ok) {

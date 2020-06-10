@@ -17,11 +17,11 @@ const actions = {
               })
     },
     createProductType({commit}, name) {
-        return axios.post('/product-types', {
+        return axios.post('/product-types/create', {
             name: name
         })
-            .then((reponse) => {
-                commit('createProductType', response)
+            .then((response) => {
+                commit('createProductType', response.data.createdProductType)
             })
             .catch(err => console.log(err))
     },

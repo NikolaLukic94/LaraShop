@@ -29,6 +29,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function home()
+    {
+        return view('products.home');
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return view('products.index');
@@ -41,7 +51,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-
+        return view('products.index-browse');
     }
 
     /**
@@ -60,6 +70,17 @@ class ProductController extends Controller
             'product_type_id' => $request->product_type_id
         ]);
 
+        $images = $request->images;
+
+        foreach($images as $image) {
+            $imagePath = Storage::disk('uploads')->put($product->name . '/products' . $product->id, $image);
+
+            ProductImage::create([
+                'product_id' => $product,
+                'image_path' => $imagePath
+            ]);
+        }
+
         return response()->json([
             'status' => 'success',
             'message' => 'Product created successfully'
@@ -77,13 +98,7 @@ class ProductController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
+    public function browse()
     {
         //
     }

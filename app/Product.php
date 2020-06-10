@@ -20,4 +20,8 @@ class Product extends Model
         return $this->hasMany('App\OrderItem');
     }
 
+    public function productImages()
+    {
+        return $this->hasMany('App/ProductImage');
+    }
 }

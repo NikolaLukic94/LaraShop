@@ -29,11 +29,12 @@ class ProductTypeController extends Controller
     public function store(StoreProductType $request) 
     {
         $newProductType = ProductType::create([
-            'name' => $request->name
+            'name' => $request->name,
+            'description' => $request->name // todo: finish
         ]);
 
         return response()->json([
-            'createdInvoice' => $newProductType,
+            'createdProductType' => $newProductType,
             'status' => 'success',
             'message' => 'New product type has been added'
         ]);

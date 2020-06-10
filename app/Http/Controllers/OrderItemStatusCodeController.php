@@ -30,7 +30,7 @@ class OrderItemStatusCodeController extends Controller
         ]);
 
         return response()->json([
-            'createdInvoice' => $newOrderItemStatusCode,
+            'createdOrderItemStatusCode' => $newOrderItemStatusCode,
             'status' => 'success',
             'message' => 'New order status code has been added'
         ]);

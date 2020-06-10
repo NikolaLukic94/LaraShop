@@ -1,26 +1,64 @@
 <template>
   <div>
     <div class="container">
-        <vue-good-table
-            theme="black-rhino"
-            styleClass="vgt-table striped"
-            :columns="columns"
-            :rows="getUsers">
-            <div slot="table-actions">
-                <button class="btn btn-primary" @click="openAddModal">Add New User</button>
+        <div class="row">
+            <div class="col-sm">
+            <div class="card border-0">
+                <img class="card-img-top" src="/img/logo.jpg" alt="Card image cap">
+                <hr>
+                <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p style="color:red"> $9.99</p>
+                <a href="#" class="btn btn-primary">Add to cart</a>
+                </div>
             </div>
-            <template slot="table-row" slot-scope="props">
-              <span v-if="props.column.field == 'action'">
-                <button class="btn btn-primary" @click="openEditModal(props.row.id)">Edit</button>
-                <button class="btn btn-primary" @click="openDeleteModal(props.row.id)">Delete</button>
-              </span>
-              <span v-else>
-                {{props.formattedRow[props.column.field]}}
-              </span>
-            </template>
-
-        </vue-good-table>
-    </div>
+            </div>
+            <div class="col-sm">
+            <div class="card border-0">
+                <img class="card-img-top" src="/img/logo.jpg" alt="Card image cap">
+                <hr>
+                <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p style="color:red"> $9.99</p>
+                <a href="#" class="btn btn-primary">Add to cart</a>
+                </div>
+            </div>
+            </div>
+            <div class="col-sm">
+            <div class="card border-0">
+                <img class="card-img-top" src="/img/logo.jpg" alt="Card image cap">
+                <hr>
+                <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p style="color:red"> $9.99</p>
+                <a href="#" class="btn btn-primary">Add to cart</a>
+                </div>
+            </div>
+            </div>
+            <div class="col-sm">
+            <div class="card border-0">
+                <img class="card-img-top" src="/img/logo.jpg" alt="Card image cap">
+                <hr>
+                <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p style="color:red"> $9.99</p>
+                <a href="#" class="btn btn-primary">Add to cart</a>
+                </div>
+            </div>
+            </div>
+            <div class="col-sm">
+            <div class="card border-0">
+                <img class="card-img-top" src="/img/logo.jpg" alt="Card image cap">
+                <hr>
+                <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p style="color:red"> $9.99</p>
+                <a href="#" class="btn btn-primary">Add to cart</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
   </div>
 </template>
 
@@ -31,24 +69,26 @@
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
-        name: 'users-component',
+        name: 'invoice-status-code-component',
         computed: {
             ...mapGetters(
-                'users',
+                'indexStatusCodes',
                 [
-                    'getUsers'
+                    'getInvoiceStatusCodes'
                 ])
         },
         methods: {
             ...mapActions(
-                'users',
+                'indexStatusCodes',
                 [
-                    'setUsers',
-                    'deleteUser'
+                    'setInvoiceStatusCodes',
+                    'createInvoiceStatusCode',
+                    'deleteInvoiceStatusCode',
+                    'updateInvoiceStatusCode'
                 ]),
-                openAddModal() {
+                openAddModal(name) {
                   this.$swal({
-                      title: 'Add a new user',
+                      title: 'Add a new invoice status code',
                       input: 'text',
                       inputAttributes: {
                         autocapitalize: 'off'
@@ -57,27 +97,15 @@
                       confirmButtonText: 'Save',
                       showLoaderOnConfirm: true,
                       preConfirm: (name) => {
-                        this.createUser(name);
-                        // return fetch(`//api.github.com/users/${login}`)
-                        //   .then(response => {
-                        //     if (!response.ok) {
-                        //       throw new Error(response.statusText)
-                        //     }
-                        //     return response.json()
-                        //   })
-                        //   .catch(error => {
-                        //     Swal.showValidationMessage(
-                        //       `Request failed: ${error}`
-                        //     )
-                        //   })
+                        this.createInvoiceStatusCode(name);
                       },
                       allowOutsideClick: () => !Swal.isLoading()
                     }).then((result) => {
                       if (result.value) {
-                        Swal.fire({
-                          title: `${result.value.login}'s avatar`,
-                          imageUrl: result.value.avatar_url
-                        })
+                        // Swal.fire({
+                        //   title: `${result.value.login}'s avatar`,
+                        //   imageUrl: result.value.avatar_url
+                        // })
                       }
                     });
                 },
@@ -116,6 +144,7 @@
                     });
                 },
                 openDeleteModal(rowId) {
+                  console.log('deleting')
                   this.$swal.fire({
                       title: 'Are you sure?',
                       text: "This will delete it permanently!",
@@ -125,29 +154,25 @@
                       cancelButtonColor: '#d33',
                       confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
-                        this.deleteUser(rowId);
                       if (result.value) {
-
-                        Swal.fire(
-                          'Deleted!',
-                          'Invoice status code has been deleted.',
-                          'success'
-                        )
+                        this.deleteInvoiceStatusCode(rowId);
+                        console.log('p')
+                        // Swal.fire(
+                        //   'Deleted!',
+                        //   'Invoice status code has been deleted.',
+                        //   'success'
+                        // )
                       }
                     })
                 },
         },
         data: function () {
             return {
-                newPaymentMethod: '',
+                newInvoiceStatusColumnName: '',
                 columns: [
                     {
-                      label: 'First name',
-                      field: 'firstName',
-                    },
-                                        {
-                      label: 'Last Name',
-                      field: 'lastName',
+                      label: 'Name',
+                      field: 'name',
                     },
                     {
                       label: 'Created',
@@ -157,11 +182,11 @@
                       label: 'Action',
                       field: 'action',
                     },                    
-                ]
+                ],
             }
         },
         created() {
-            this.setUsers();
+            this.setInvoiceStatusCodes();
         },             
     }
 </script>

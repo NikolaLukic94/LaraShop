@@ -45,7 +45,7 @@
                 [
                     'setPaymentMethods',
                     'createPaymentMethod',
-                    'deletePaymentMethod',
+                    'deletePaymentMethods',
                     'updatePaymentMethod'
                 ]),
                 openAddModal() {
@@ -59,7 +59,7 @@
                       confirmButtonText: 'Save',
                       showLoaderOnConfirm: true,
                       preConfirm: (name) => {
-                        this.createInvoiceStatusCode(name);
+                        this.createPaymentMethod(name);
                         // return fetch(`//api.github.com/users/${login}`)
                         //   .then(response => {
                         //     if (!response.ok) {
@@ -117,7 +117,7 @@
                       }
                     });
                 },
-                openDeleteModal(id) {
+                openDeleteModal(rowId) {
                   this.$swal.fire({
                       title: 'Are you sure?',
                       text: "This will delete it permanently!",
@@ -127,15 +127,14 @@
                       cancelButtonColor: '#d33',
                       confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
-                        this.deletePaymentMethods(id);
-                      // if (result.value) {
-
-                      //   Swal.fire(
-                      //     'Deleted!',
-                      //     'Invoice status code has been deleted.',
-                      //     'success'
-                      //   )
-                      // }
+                      if (result.value) {
+                        this.deletePaymentMethods(rowId);
+                        // Swal.fire(
+                        //   'Deleted!',
+                        //   'Invoice status code has been deleted.',
+                        //   'success'
+                        // )
+                      }
                     })
                 },
         },

@@ -59,7 +59,7 @@
                       confirmButtonText: 'Save',
                       showLoaderOnConfirm: true,
                       preConfirm: (name) => {
-                        this.createInvoiceStatusCode(name);
+                        this.createOrderStatusCode(name);
                         // return fetch(`//api.github.com/users/${login}`)
                         //   .then(response => {
                         //     if (!response.ok) {

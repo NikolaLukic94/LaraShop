@@ -8,7 +8,7 @@
             :columns="columns"
             :rows="getInvoiceStatusCodes">
             <div slot="table-actions">
-                <button class="btn btn-primary" @click="openAddModal">Add New Status</button>
+                <button class="btn btn-primary" @click="openAddModal">Add New Invoice Status Code</button>
             </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
@@ -49,7 +49,7 @@
                     'deleteInvoiceStatusCode',
                     'updateInvoiceStatusCode'
                 ]),
-                openAddModal() {
+                openAddModal(name) {
                   this.$swal({
                       title: 'Add a new invoice status code',
                       input: 'text',
@@ -65,10 +65,10 @@
                       allowOutsideClick: () => !Swal.isLoading()
                     }).then((result) => {
                       if (result.value) {
-                        Swal.fire({
-                          title: `${result.value.login}'s avatar`,
-                          imageUrl: result.value.avatar_url
-                        })
+                        // Swal.fire({
+                        //   title: `${result.value.login}'s avatar`,
+                        //   imageUrl: result.value.avatar_url
+                        // })
                       }
                     });
                 },

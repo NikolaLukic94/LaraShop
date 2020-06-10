@@ -25,6 +25,8 @@
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" rel="stylesheet">
 
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
@@ -59,8 +61,19 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/users/index">Users</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cart/index">
+                                    <b><i class="fa fa-shopping-cart" aria-hidden="true"></i></b>
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" 
+                                    class="nav-link dropdown-toggle" 
+                                    href="#" role="button" 
+                                    data-toggle="dropdown" 
+                                    aria-haspopup="true" 
+                                    aria-expanded="false" 
+                                    v-pre>
                                     Products <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -125,6 +138,10 @@
                                     </form>
                                 </div>
                             </li>
+                            <form class="form-inline my-2 my-lg-0 pl-2">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
                         @endguest
                     </ul>
                 </div>

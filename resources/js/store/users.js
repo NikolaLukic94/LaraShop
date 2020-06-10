@@ -15,12 +15,22 @@ const actions = {
               .catch(function (error) {
                 console.log(error);
               })
-        },
+    },
+    deleteUser({commit}, id) {
+        return axios.post('/users/delete/' + id)
+            .then(function (response) {
+                commit('delete', id)
+            })
+            .catch(err => console.log(err))
+    },
 };
 
 const mutations = {
     setUsers: (state, users) => {
         state.users = users;
+    },
+    delete: (state, id) => {
+        state.users = state.users.filter(usr => usr.id !== id)
     },
 };
 

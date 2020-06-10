@@ -26,4 +26,16 @@ class UserController extends Controller
     {
     	return view('users.index');
     }
+
+    public function delete($id) 
+    {
+        $user = User::find($id);
+
+        $user->delete();
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Product type has been deleted'
+        ]);
+    }
 }

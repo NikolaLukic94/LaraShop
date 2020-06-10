@@ -9,19 +9,19 @@ const getters = {
 const actions = {
     setPaymentMethods({commit}) {
         return axios.get('/payment-methods')
-              .then((response) => {
+            .then((response) => {
                 commit('setPaymentMethods', response.data.data); 
-              })
-              .catch(function (error) {
+            })
+            .catch(function (error) {
                 console.log(error);
-              })
+            })
         },
-    createPaymentMethods({commit}, name) {
-        return axios.post('/payment-methods', {
-            name: name
-        })
-            .then((reponse) => {
-                commit('createPaymentMethod', response)
+        createPaymentMethod({commit}, name) {
+            return axios.post('/payment-methods/create', {
+                name: name
+            })
+            .then((response) => {
+                commit('createPaymentMethod', response.data.createdPaymentMethod)
             })
             .catch(err => console.log(err))
     },

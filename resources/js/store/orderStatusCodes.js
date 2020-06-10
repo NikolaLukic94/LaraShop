@@ -18,31 +18,31 @@ const actions = {
                 // handle error
                 console.log(error);
               })
-        },
-        createOrderStatusCode({commit}, name) {
-            return axios.post('/order-status-codes', {
-                name: name
+    },
+    createOrderStatusCode({commit}, name) {
+        return axios.post('/order-status-codes/create', {
+            name: name
+        })
+            .then(function (response) {
+                commit('createOrderStatusCode', response.data.createdOrderStatusCode)
             })
-                .then((reponse) => {
-                    commit('createOrderStatusCode', response)
-                })
-                .catch(err => console.log(err))
-        },
-        deleteOrderStatusCodes({commit}, id) {
-            return axios.post('/order-status-codes/delete/' + id)
-                .then((reponse) => {
-                    commit('deleteOrderStatusCodes', id)
-                })
-                .catch(err => console.log(err))
-        },
-        updateOrderStatusCode({commit}, {id, name}) {
-            return axios.post('/order-status-codes/edit/' + id, {
-                name: name
+            .catch(err => console.log(err))
+    },
+    deleteOrderStatusCodes({commit}, id) {
+        return axios.post('/order-status-codes/delete/' + id)
+            .then((reponse) => {
+                commit('deleteOrderStatusCodes', id)
             })
-            .then((response) => {
-                commit('updateOrderStatusCode', {id, name})
-            })
-        }
+            .catch(err => console.log(err))
+    },
+    updateOrderStatusCode({commit}, {id, name}) {
+        return axios.post('/order-status-codes/edit/' + id, {
+            name: name
+        })
+        .then((response) => {
+            commit('updateOrderStatusCode', {id, name})
+        })
+    }
 };
 
 const mutations = {

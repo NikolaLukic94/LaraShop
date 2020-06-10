@@ -7,7 +7,7 @@
             :columns="columns"
             :rows="getProductTypes">
             <div slot="table-actions">
-                <button class="btn btn-primary" @click="openAddModal">Add New Status</button>
+                <button class="btn btn-primary" @click="openAddModal">Add New Product Type</button>
             </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
@@ -59,7 +59,7 @@
                       confirmButtonText: 'Save',
                       showLoaderOnConfirm: true,
                       preConfirm: (name) => {
-                        this.createInvoiceStatusCode(name);
+                        this.createProductType(name);
                         // return fetch(`//api.github.com/users/${login}`)
                         //   .then(response => {
                         //     if (!response.ok) {
@@ -117,7 +117,8 @@
                       }
                     });
                 },
-                openDeleteModal() {
+                openDeleteModal(rowId) {
+                  console.log('deleting')
                   this.$swal.fire({
                       title: 'Are you sure?',
                       text: "This will delete it permanently!",
@@ -127,14 +128,14 @@
                       cancelButtonColor: '#d33',
                       confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
-                        this.deleteProductType(result);
                       if (result.value) {
-
-                        Swal.fire(
-                          'Deleted!',
-                          'Invoice status code has been deleted.',
-                          'success'
-                        )
+                        this.deleteProductType(rowId);
+                        console.log('p')
+                        // Swal.fire(
+                        //   'Deleted!',
+                        //   'Invoice status code has been deleted.',
+                        //   'success'
+                        // )
                       }
                     })
                 },
