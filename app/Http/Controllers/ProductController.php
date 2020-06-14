@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Product;
-
+use App\ProductImage;
+use Storage;
 use App\Http\Requests\StoreProduct;
 use App\Http\Requests\UpdateProduct;
 use Illuminate\Http\Request;
@@ -73,7 +74,9 @@ class ProductController extends Controller
         $images = $request->images;
 
         foreach($images as $image) {
-            $imagePath = Storage::disk('uploads')->put($product->name . '/products' . $product->id, $image);
+            $imagePath = Storage::disk('uploads')->put(
+                $product->name . '/products' . $product->id, $image
+            );
 
             ProductImage::create([
                 'product_id' => $product,

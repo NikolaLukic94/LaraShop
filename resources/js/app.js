@@ -61,8 +61,10 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueMeta from 'vue-meta'
+import Element from 'element-ui'
 
 Vue.use(VueAxios, axios)
+Vue.use(Element)
 
 Vue.component('invoice-status-code-component', require('./components/InvoiceStatusCodeComponent.vue').default);
 Vue.component('order-item-status-codes-component', require('./components/OrderItemsStatusCodeComponent.vue').default);

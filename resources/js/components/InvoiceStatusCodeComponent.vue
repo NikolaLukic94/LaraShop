@@ -1,6 +1,5 @@
 <template>
   <div>
-    <sidebar-component></sidebar-component> 
     <div class="container">
         <vue-good-table
             theme="black-rhino"
@@ -12,7 +11,7 @@
             </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
-                <button class="btn btn-primary" @click="openEditModal(props.row.id)">Edit</button>
+                <button class="btn btn-primary" @click="openEditModal(props.row)">Edit</button>
                 <button class="btn btn-primary" @click="openDeleteModal(props.row.id)">Delete</button>
               </span>
               <span v-else>
@@ -72,10 +71,11 @@
                       }
                     });
                 },
-                openEditModal() {
+                openEditModal(row) {
                   this.$swal({
                       title: 'Update the name',
                       input: 'text',
+                       inputPlaceholder: row.name,
                       inputAttributes: {
                         autocapitalize: 'off'
                       },
@@ -83,18 +83,7 @@
                       confirmButtonText: 'Save',
                       showLoaderOnConfirm: true,
                       preConfirm: (login) => {
-                        return fetch(`//api.github.com/users/${login}`)
-                          .then(response => {
-                            if (!response.ok) {
-                              throw new Error(response.statusText)
-                            }
-                            return response.json()
-                          })
-                          .catch(error => {
-                            Swal.showValidationMessage(
-                              `Request failed: ${error}`
-                            )
-                          })
+                        this.updateInvoiceStatusCode(name);
                       },
                       allowOutsideClick: () => !Swal.isLoading()
                     }).then((result) => {

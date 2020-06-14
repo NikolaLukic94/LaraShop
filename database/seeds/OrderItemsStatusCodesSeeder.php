@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
+use Carbon\Carbon;
 class OrderItemsStatusCodesSeeder extends Seeder
 {
     /**
@@ -13,10 +14,12 @@ class OrderItemsStatusCodesSeeder extends Seeder
     {
     	DB::table('order_item_status_codes')->insert([
             'name' => 'Delivered',
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
 		DB::table('order_item_status_codes')->insert([
             'name' => 'Out of Stock',
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
     }
 }

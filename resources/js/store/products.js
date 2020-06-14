@@ -15,7 +15,17 @@ const actions = {
             .catch(function (error) {
             console.log(error);
             })
-        },
+    },
+    // createProductType({commit}, parameters) {
+    //     console.log(parameters)
+    //     return axios.post('/product-types/create', {
+    //         name: name
+    //     })
+    //         .then((response) => {
+    //             commit('createProductType', response.data.createdProductType)
+    //         })
+    //         .catch(err => console.log(err))
+    // },
 };
 
 const mutations = {

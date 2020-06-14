@@ -17,6 +17,9 @@ class ProductRelationshipsResource extends JsonResource
         return [
             'productType'   => [
                 'data'  => new ProductType($this->productType),
+            ],
+            'images' => [
+                'data' => ProductImage::collection($this->productImages)
             ]
         ];
     }

@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "element-ui": "^2.13.2",
+        "form-data": "^3.0.0",
         "startbootstrap-simple-sidebar": "^5.1.1",
         "vue-axios": "^2.1.5",
         "vue-good-table": "^2.19.2",

@@ -34,8 +34,20 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <form>
           <div class="modal-body">
             <div class="container">
+              <div>
+                <el-upload action="/" list-type="picture-card"
+                  :on-preview="handlePictureCardPreview"
+                  :on-change="updateImageList"
+                  :auto-upload="false">
+                  <i class="el-icon-plus"></i>
+                </el-upload>
+                <el-dialog :visible.sync="dialogVisible">
+                  <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+              </div>
               <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
@@ -87,7 +99,9 @@
               </div>
             </div>
           </div>
+          </form>
           <div class="modal-footer">
+            <button type="button" class="btn btn-success" @click="createProduct">Save product</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary">Save changes</button>
           </div>
@@ -115,9 +129,54 @@
                 [
                     'setProducts',
                 ]),
+                createProduct(e) {
+                  var FormData = require('form-data');
+                  // var fs = require('fs');
+                  var formData = new FormData();
+                  this.isCreatingPost = true;
+                  // let formData = new FormData();
+                  formData.append('product_type_id', 1)
+                  formData.append('name', this.name)
+                  formData.append('name', this.name)
+                  formData.append('description', this.description)
+                  formData.append('price', this.price)
+                  formData.append('quantity', this.quantity)
+                  formData.append('color', this.color)
+                  formData.append('size', this.size)
+                  formData.append('other', this.size)
+                  $.each(this.imageList, function (key, image) {
+                    formData.append(`images[${key}]`, image);
+                  });
+                  // return axios.post('/products/create', {
+                  //       name: this.name,
+                  //       description: this.description,
+                  //       price: this.price,
+                  //       quantity: this.quantity,
+                  //       color: this.color,
+                  //       size: this.size,
+                  //       other: this.other,
+                  //       images: this.imageList
 
+                  //   })
+                  //       .then((response) => {
+                  //         console.log(response)
+                  //           // commit('createProductType', response.data.createdProductType)
+                  //       })
+                  //       .catch(err => console.log(err))
 
-                
+                  return axios.post('/products/create', formData, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                  }).then((res) => {
+                    console.log(res)
+                  }) 
+                },
+                updateImageList(file) {
+                  this.imageList.push(file.raw);
+                },
+                handlePictureCardPreview(file) {
+                  this.dialogImageUrl = file.url;
+                  this.dialogVisible = true;
+                },
                 openAddModal() {
                   this.$swal({
                       title: 'Add a new invoice status code',
@@ -207,6 +266,12 @@
                 size: '',
                 other: '',
                 newPaymentMethod: '',
+                dialogImageUrl: '',
+                dialogVisible: false,
+                imageList: [],
+                status_message: '',
+                status: '',
+                isCreatingProduct: false,
                 columns: [
                     {
                       label: 'Name',
@@ -252,3 +317,33 @@
         },             
     }
 </script>
+
+<style>
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 178px;
+    height: 178;
+    display: block;
+  }
+
+</style>

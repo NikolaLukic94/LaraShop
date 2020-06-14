@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class ProductSeeder extends Seeder
 {
@@ -16,7 +17,8 @@ class ProductSeeder extends Seeder
             'description' => 'Windows 10 activation key',
             'price' => 19,// change type to float
             'quantity' => rand(4, 99),
-            'product_type_id' => 2
+            'product_type_id' => 2,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
 
         ]);
 
@@ -25,7 +27,8 @@ class ProductSeeder extends Seeder
             'description' => 'High quality mic',
             'price' => 19,// change type to float
             'quantity' => rand(4, 99),
-            'product_type_id' => 1
+            'product_type_id' => 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
     }
