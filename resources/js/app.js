@@ -76,6 +76,7 @@ Vue.component('products-component', require('./components/ProductComponent.vue')
 Vue.component('invoices-component', require('./components/InvoiceComponent.vue').default);
 Vue.component('sidebar-component', require('./components/SidebarComponent').default);
 Vue.component('landing-products-page', require('./components/LandingProductsPage').default);
+Vue.component('cart-items', require('./components/CartItem').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

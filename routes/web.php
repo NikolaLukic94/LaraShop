@@ -29,7 +29,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'verified'], function () {
 
-    Route::get('/cart/index/{id}', 'CartController@index');
+    Route::post('/cart-items/quantity/increase/{id}', 'CartItemController@increaseQuantity');
+    Route::post('/cart-items/quantity/decrease/{id}', 'CartItemController@decreaseQuantity');
+    Route::post('/cart-items/quantity/change/{id}', 'CartItemController@changeQuantity');
+    Route::post('/cart-items/delete/{id}', 'CartItemController@destroy');
+
+    Route::get('/checkout', 'CartController@checkout');
+    Route::get('/cart/getAll', 'CartController@getAll');
+    Route::get('/cart-items/index', 'CartController@all');
+    Route::get('/cart/index', 'CartController@index');
     Route::post('/cart/create/{id}', 'CartController@store'); // create users cart
     Route::post('/cart-items/create', 'CartItemController@store'); // create users cart
 

@@ -24,4 +24,58 @@ class CartItemController extends Controller
             'message' => 'New item added to cart!'
         ]);
     }
+
+    public function increaseQuantity($id) 
+    {
+        $cartItem = CartItem::find($id);
+
+        $cartItem->quantity = $cartItem->quantity + 1;
+
+        $cartItem->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Quantity increased!'
+        ]);
+    }
+    
+    public function decreaseQuantity($id)
+    {
+        $cartItem = CartItem::find($id);
+
+        $cartItem->quantity = $cartItem->quantity - 1;
+
+        $cartItem->save();
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Quantity decreased!'
+        ]);
+    }
+
+    public function changeQuantity($id, $request)
+    {
+        $cartItem = CartItem::find($id);
+
+        $cartItem->quantity = $request->newQuantity;
+
+        $cartItem->save();
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Quantity updated!'
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $cartItem = CartItem::find($id);
+
+        $cartItem->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Item removed!'
+        ]);
+    }
 }
