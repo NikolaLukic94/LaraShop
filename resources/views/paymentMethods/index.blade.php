@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div>
-	<payment-methods-component></payment-methods-component>
-</div>
+<sidebar-component></sidebar-component>
+
+<payment-methods-component></payment-methods-component>
 
 @endsection

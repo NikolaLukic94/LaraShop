@@ -29,14 +29,19 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'verified'], function () {
 
-    Route::post('/cart-items/quantity/increase/{id}', 'CartItemController@increaseQuantity');
-    Route::post('/cart-items/quantity/decrease/{id}', 'CartItemController@decreaseQuantity');
-    Route::post('/cart-items/quantity/change/{id}', 'CartItemController@changeQuantity');
-    Route::post('/cart-items/delete/{id}', 'CartItemController@destroy');
+    Route::group(['prefix' => '/cart-items'], function() {
+        Route::post('/quantity/increase/{id}', 'CartItemController@increaseQuantity');
+        Route::post('/quantity/decrease/{id}', 'CartItemController@decreaseQuantity');
+        Route::post('/quantity/change/{id}', 'CartItemController@changeQuantity');
+        Route::post('/delete/{id}', 'CartItemController@destroy');
+        // todo: move
+        Route::get('/index', 'CartController@all');
+    });
+
 
     Route::get('/checkout', 'CartController@checkout');
     Route::get('/cart/getAll', 'CartController@getAll');
-    Route::get('/cart-items/index', 'CartController@all');
+
     Route::get('/cart/index', 'CartController@index');
     Route::post('/cart/create/{id}', 'CartController@store'); // create users cart
     Route::post('/cart-items/create', 'CartItemController@store'); // create users cart

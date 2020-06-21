@@ -1,11 +1,22 @@
 <template>
-  <sidebar-menu :menu="menu" />
+  <sidebar-menu :menu="menu"/>
 </template>
 
 <script>
     export default {
         data() {
             return {
+                // Sidebar Collapse state
+                collapsed: {
+                    type: Boolean,
+                    default: true
+                },
+                // Sidebar width (expanded)
+                width: {
+                    type: String,
+                    default: '150px'
+                },
+                
                 menu: [
                     {
                         header: true,
@@ -19,8 +30,8 @@
                     },
                     {
                         // href: '/charts',
-                        title: 'Charts',
-                        icon: 'fa fa-chart-area',
+                        title: 'Shiping',
+                        icon: 'fa fa-truck',
                         child: [
                             {
                                 href: '/charts/sublink',
@@ -31,7 +42,7 @@
                     {
                         // href: '/invoices/index',
                         title: 'Invoices',
-                        icon: 'fa fa-chart-area',
+                        icon: 'fa fa-files-o',
                         child: [
                             {
                                 href: '/invoices/all',
@@ -46,7 +57,7 @@
                     {
                         href: '#',
                         title: 'Products',
-                        icon: 'fa fa-chart-area',
+                        icon: 'fa fa-book',
                         child: [
                             {
                                 href: '/products/index',
@@ -65,7 +76,7 @@
                     {
                         href: '#',
                         title: 'Orders',
-                        icon: 'fa fa-chart-area',
+                        icon: 'fa fa-first-order',
                         child: [
                             {
                                 href: '/orders/index',

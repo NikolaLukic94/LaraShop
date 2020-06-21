@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div>
-	<invoices-component></invoices-component>
-</div>
+<sidebar-component></sidebar-component>
+
+<invoices-component></invoices-component>
 
 @endsection

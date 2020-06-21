@@ -2,9 +2,8 @@
 
 @section('content')
 
-<div>
-	<products-component></products-component>
-</div>
+<sidebar-component></sidebar-component>
 
+<products-component></products-component>
 
 @endsection

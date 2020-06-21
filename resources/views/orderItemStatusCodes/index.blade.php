@@ -4,7 +4,6 @@
 
 
 <div>
-	<!-- <div id="app"> -->
 	<order-item-status-codes-component></order-item-status-codes-component>
 	<!-- </div> -->
 </div>

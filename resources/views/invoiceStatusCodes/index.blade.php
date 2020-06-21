@@ -2,12 +2,8 @@
 
 @section('content')
 
+<sidebar-component></sidebar-component>
 
-<div>
-	<!-- <div id="app"> -->
-	<invoice-status-code-component></invoice-status-code-component>
-	<!-- </div> -->
-</div>
-
+<invoice-status-code-component></invoice-status-code-component>
 
 @endsection
