@@ -58,15 +58,15 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="/users/index">Users</a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" href="/cart/index">
                                     <b><i class="fa fa-shopping-cart" aria-hidden="true"></i></b>
                                 </a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <!-- <li class="nav-item dropdown">
                                 <a id="navbarDropdown" 
                                     class="nav-link dropdown-toggle" 
                                     href="#" role="button" 
@@ -120,13 +120,13 @@
                                        Invoice Status Codes
                                     </a>
                                 </div>
-                            </li>
+                            </li> -->
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-right pr-3" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -138,10 +138,11 @@
                                     </form>
                                 </div>
                             </li>
-                            <form class="form-inline my-2 my-lg-0 pl-2">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            </form>
+                            <form class="form-inline active-cyan-4">
+                                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+                                    aria-label="Search">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                                </form>
                         @endguest
                     </ul>
                 </div>

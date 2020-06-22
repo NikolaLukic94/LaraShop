@@ -14,6 +14,8 @@ import products from './products';
 import invoices from './invoices';
 import landingProductsPage from './landingProductsPage';
 import cartItem from './CartItem';
+import userAddress from './userAddress';
+import orderReview from './orderReview';
 
 const debug = process.env.NODE_ENV !== 'production';
 
@@ -28,7 +30,9 @@ export default new Vuex.Store({
     products,
     invoices,
     landingProductsPage,
-    cartItem
+    cartItem,
+    userAddress,
+    orderReview
   },
   strict:debug
 

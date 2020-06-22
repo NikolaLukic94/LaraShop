@@ -3,19 +3,13 @@
 @section('content')
 
 <div class="container">
-    <div class="card border-0">
-        <div class="row d-flex justify-content-center">
-            <div class="card">
-                Credit Card
-            </div>
-            <div class="card">
-                Credit Card
-            </div>
-            <div class="card">
-                Credit Card
-            </div>
-        </div>
-    </div>
+
+    <user-addresses></user-addresses>
+
+    <user-payment-methods></user-payment-methods>
+    
+    <order-review></order-review>
+
 </div>
 
 @endsection

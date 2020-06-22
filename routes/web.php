@@ -36,8 +36,13 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/delete/{id}', 'CartItemController@destroy');
         // todo: move
         Route::get('/index', 'CartController@all');
+
     });
 
+    Route::group(['prefix' => '/user-addresses'], function() {
+        Route::get('/', 'UserAddressController@getAll');
+        Route::post('/create', 'UserAddressController@store');
+    });
 
     Route::get('/checkout', 'CartController@checkout');
     Route::get('/cart/getAll', 'CartController@getAll');

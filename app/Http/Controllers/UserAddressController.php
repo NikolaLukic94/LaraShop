@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUserAddresses;
 use App\Http\Requests\UpdateUserAddresses;
+use App\Http\Resources\UserAddresses as UserAddressesResource;
 
 use Illuminate\Http\Request;
 
 class UserAddressController extends Controller
 {
+    public function getAll()
+    {
+        $addresses = Auth::user()->addresses;
+        //return collection of articles as a resource
+        return UserAddressesResource::collection($addresses);
+    }
+
     public function store(StoreUserAddresses $request)
     {
         $userAddress = UserAddress::create([
@@ -29,8 +38,8 @@ class UserAddressController extends Controller
             'message' => 'Address has been added'
         ]);
     }
-
-    public function update(UpdateUserAddresses $request)
+    // UpdateUserAddresses
+    public function update(Request $request)
     {
         $userAddress = UserAddress::find($id);
 

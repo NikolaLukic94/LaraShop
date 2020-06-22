@@ -4,25 +4,37 @@
 
 <script>
     export default {
+        props: {
+                collapsed: {
+        type: Boolean,
+        default: true
+    },
+
+                // width: {
+                //     type: String,
+                //     default: '250px'
+                // },
+                // showOneChild: {
+                //     type: Boolean,
+                //     default: false
+                // },
+        },
         data() {
             return {
                 // Sidebar Collapse state
-                collapsed: {
-                    type: Boolean,
-                    default: true
-                },
-                // Sidebar width (expanded)
-                width: {
-                    type: String,
-                    default: '150px'
-                },
-                
+                // collapsed: {
+                //     type: Boolean,
+                //     default: true
+                // },
+                // component: {
+                //     hidden: true
+                // },
                 menu: [
-                    {
-                        header: true,
-                        title: 'Main Navigation',
-                        hiddenOnCollapse: true
-                    },
+                    // {
+                    //     header: false,
+                    //     // title: 'Main Navigation',
+                    //     hiddenOnCollapse: true
+                    // },
                     {
                         href: '/users/index',
                         title: 'Users',
@@ -85,11 +97,16 @@
                             {
                                 href: '/order-status-codes/index',
                                 title: 'Order Status Codes'
-                            }                            
+                            },
+                            {
+                                href: '/order-item-status-codes/index',
+                                title: 'Order Item Status Codes'
+                            }                              
                         ]
                     }                                                             
                 ]
             }
-        }
+        },
     }
 </script>
+
