@@ -18,6 +18,9 @@ class CreateUserPaymentMethodsTable extends Migration
             $table->id();
             $table->string('credit_card_number');
 
+            $table->string('owner');
+            $table->string('cardType');
+
             $table->unsignedBigInteger('payment_method_id');
             $table->foreign('payment_method_id')->references('id')->on('payment_methods');
 

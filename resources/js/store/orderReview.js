@@ -8,7 +8,7 @@ const getters = {
 
 const actions = {
     setOrders({commit}) {
-        return axios.get('/order-review')
+        return axios.get('/cart-items/index')
             .then((response) => {
                 commit('setOrders', response.data.data); 
             })

@@ -4,27 +4,106 @@
     <h3><b>Payment method</b></h3>
     <div class="card">
     <div class="container">
-        <div class="row d-flex justify-content-center pt-3">
-            <div class="col">
-                <div class="card">
-                    Credit Card
+        <div class="d-flex justify-content-center pt-3">
+            <div class="card">
+                <img src="/img/card.png" width="45" class="mt-3 mr-3 ml-3 mb-3" height="45" alt="Image"/>
+            </div>
+            <div class="card">
+                <img src="/img/paypal.png" width="45" class="mt-3 mr-3 ml-3 mb-3" height="45" alt="Image"/>
+            </div>
+            <div class="card">
+                <img src="/img/delivery.png" width="45" class="mt-3 mr-3 ml-3 mb-3" height="45" alt="Image"/>
+            </div>
+        </div>
+        <div class="card border-0">
+            <div class="row">
+                <div class="col-8">
+                    <label for="basic-url">Owner</label>
+                    <div class="input-group mb-3">
+                        <input 
+                            @input="validateField(owner,  'ownerError',  'Owner is required')"
+                            v-model="owner"
+                            type="text" 
+                            class="form-control" 
+                            id="basic-url" 
+                            aria-describedby="basic-addon3">
+                    </div>
+                    <small>{{ getValidationError('ownerError') }}</small>
+                </div>
+                <div class="col-4">
+                    <label for="basic-url">CCV</label>
+                    <div class="input-group mb-3">
+                        <input 
+                            @input="validateField(ccv,  'ccvError',  'CCV is required')"
+                            v-model="ccv"
+                            type="text" 
+                            class="form-control" 
+                            id="basic-url" 
+                            aria-describedby="basic-addon3">
+                    </div>  
+                    <small>{{ getValidationError('ccvError') }}</small>                  
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
-                    Pay Pal
+            <div class="row">
+                <div class="col">
+                    <label for="basic-url">Card Number</label>
+                    <div class="input-group mb-3">
+                        <input 
+                            @input="validateField(cardNumber, 'cardNumberError', 'Card Number is required')"
+                            v-model="cardNumber"
+                            type="text" 
+                            class="form-control" 
+                            id="basic-url" 
+                            aria-describedby="basic-addon3">
+                    </div>
+                    <small>{{ getValidationError('cardNumberError') }}</small>               
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
-                    Upon Delivery 
-                    <!-- applicable if paperback -->
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="basic-url">Expiration</label>
+                    <div class="input-group mb-3">
+                        <input 
+                            @input="validateField(expiration,  'expirationError',  'Expiration date is required')"
+                            v-model="expiration"
+                            type="text" 
+                            class="form-control" 
+                            id="basic-url" 
+                            aria-describedby="basic-addon3">
+                    </div>
+                    <small>{{ getValidationError('expirationError') }}</small>      
+                </div>
+                <div class="col-md-4">
+                    <label for="basic-url">Year</label>
+                    <div class="input-group mb-3">
+                        <input 
+                            @input="validateField(year,  'yearError',  'Year is required')"
+                            v-model="year"
+                            type="text" 
+                            class="form-control" 
+                            id="basic-url" 
+                            aria-describedby="basic-addon3">
+                    </div>
+                    <small>{{ getValidationError('yearError') }}</small>      
+                </div>
+                <div class="col-md-4">
+                    <label for="basic-url">Card (Visa/Electron)</label>
+                    <div class="input-group mb-3">
+                        <input 
+                            @input="validateField(cardType,  'cardTypeError',  'Card Type is required')"
+                            v-model="cardType"
+                            type="text" 
+                            class="form-control" 
+                            id="basic-url" 
+                            aria-describedby="basic-addon3">
+                    </div>
+                    <small>{{ getValidationError('cardTypeError') }}</small>      
                 </div>
             </div>
         </div>
         <div class="custom-control custom-checkbox pb-3">
-            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-            <label class="custom-control-label" for="defaultUnchecked">Save payment info</label>
+            <input type="checkbox" class="custom-control-input" id="paymentInfo" @input="validateData()">
+            <label class="custom-control-label" for="paymentInfo">Save payment info</label>
         </div>
         </div>
     </div>
@@ -52,6 +131,66 @@
                 [
                     'setUserPaymentMethod',
                 ]),
+                getValidationError(inputFieldName) {
+                    let inputFieldError = this.errors.find(e => e[0] === inputFieldName);
+                    return !inputFieldError || inputFieldError === null ? null : inputFieldError[1];
+                },
+                validateField(input, errorName, message) {
+                    if (!input) {
+                        this.errors.push([errorName, message]);
+                    } else {
+                        this.errors = this.errors.filter(e => e[0] !== errorName)
+                    }  
+                },
+                validateData() {
+                    if (!this.owner) {
+                        this.errors.push(['ownerError', "Owner is required."]);
+                    } else {
+                        this.error.filter(e => e[0] === 'ownerError')
+                    }
+
+                    if (!this.ccv) {
+                         this.errors.push(['ccvError', "CCV is required."]);
+                    } else {
+                        this.errors.filter(e => e[0] === 'ccvError')
+                    }
+
+                    if (!this.cardNumber) {
+                        this.errors.push(['cardNumberError', "Card Number is required."]);
+                    } else {
+                        this.errors.filter(e => e[0] === 'cardNumberError')
+                    }
+
+                    if (!this.expiration) {
+                        this.errors.push(['expirationError', "Expiration is required."]);
+                    } else {
+                        this.errors.filter(e => e[0] === 'expirationError')
+                    }
+
+                    if (!this.year) {
+                        this.errors.push(['yearError', "Year is required."]);
+                    } else {
+                        this.errors.filter(e => e[0] === 'yearError')
+                    }
+
+                    if (!this.cardType) {
+                        this.errors.push(['cardTypeError', "Card Type is required."]);
+                    } else {
+                        this.errors.filter(e => e[0] === 'cardTypeError')
+                    }
+                }
+        },
+        data: function () {
+            return {
+                errors: [],
+
+                owner: '',
+                ccv: '',
+                cardNumber: '',
+                expiration: '',
+                year: '',
+                cardType: '',
+            }
         },
         created() {
             this.setUserPaymentMethod();
