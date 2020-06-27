@@ -25,10 +25,6 @@ Vue.use(VueSweetalert2);
 
 Vue.use(VueGoodTablePlugin);
 
-import VueSidebarMenu from 'vue-sidebar-menu'
-import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
-Vue.use(VueSidebarMenu)
-
 // const store = new Vuex.Store(
 //    store
 // )
@@ -74,12 +70,15 @@ Vue.component('payment-methods-component', require('./components/PaymentMethodCo
 Vue.component('users-component', require('./components/UsersComponent.vue').default);
 Vue.component('products-component', require('./components/ProductComponent.vue').default);
 Vue.component('invoices-component', require('./components/InvoiceComponent.vue').default);
-Vue.component('sidebar-component', require('./components/SidebarComponent').default);
 Vue.component('landing-products-page', require('./components/LandingProductsPage').default);
 Vue.component('cart-items', require('./components/CartItem').default);
+// remove from top level
 Vue.component('user-addresses', require('./components/UserAddressComponent').default);
 Vue.component('user-payment-methods', require('./components/PaymentMethod').default);
 Vue.component('order-review', require('./components/OrderReview').default);
+
+Vue.component('order-component', require('./components/OrderComponent').default);
+Vue.component('checkout-component', require('./components/CheckoutComponent').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserAddress;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUserAddresses;
 use App\Http\Requests\UpdateUserAddresses;

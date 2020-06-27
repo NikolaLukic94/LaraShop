@@ -17,7 +17,7 @@ class UsersPaymentMethod extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'createdAt' => $this->created_at
+            'createdAt' => $this->created_at->diffForHumans()
         ];
     }
 }

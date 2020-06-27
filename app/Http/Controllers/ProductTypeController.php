@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductType;
 use App\Http\Requests\UpdateProductType;
-use App\ProductType;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductType as ProductTypeResource;
 

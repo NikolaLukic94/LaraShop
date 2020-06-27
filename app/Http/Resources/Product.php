@@ -23,7 +23,8 @@ class Product extends JsonResource
             'quantity' => $this->quantity,
             'size' => $this->size,
             'otherProductDetails' => $this->other_product_details,
-            'relationships' => new ProductRelationshipsResource($this),         
+            'relationships' => new ProductRelationshipsResource($this),    
+            'createdAt' => $this->created_at->diffForHumans(),     
         ];
     }
 

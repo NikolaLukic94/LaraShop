@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserPaymentMethod;
 use App\Http\Requests\StoreUserPaymentMethod;
 use App\Http\Requests\UpdateUserPaymentMethod;
 use Illuminate\Http\Request;

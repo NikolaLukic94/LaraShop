@@ -2,12 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use App\Http\Requests\UpdatePayment;
 use App\Http\Requests\StorePayment;
 use Illuminate\Http\Request;
+use App\Http\Resources\Payment as PaymentResource;
 
 class PaymentController extends Controller
 {
+    public function getAll()
+    {
+    	$payments = Payment::paginate(15);
+        //return collection of articles as a resource
+        return PaymentResource::collection($payments);
+    }
+
+    public function index()
+    {
+        return view('payments.index');
+    }
+
     public function store(StorePayment $request)
     {
         Payment::create([

@@ -15,9 +15,10 @@ class ProductType extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'         => (string)$this->id,
-            'name'      => (string)$this->name,
-            'description'      => (string)$this->description
+            'id' => (string)$this->id,
+            'name'  => (string)$this->name,
+            'description' => (string)$this->description,
+            'createdAt' => $this->created_at->diffForHumans()
         ];
     }
 }

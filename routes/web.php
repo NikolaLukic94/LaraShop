@@ -39,6 +39,12 @@ Route::group(['middleware' => 'verified'], function () {
 
     });
 
+    Route::group(['prefix' => '/orders'], function() {
+        Route::get('/', 'OrderController@getAll');
+        Route::get('/index', 'OrderController@index');
+    });
+
+
     Route::group(['prefix' => '/user-addresses'], function() {
         Route::get('/', 'UserAddressController@getAll');
         Route::post('/create', 'UserAddressController@store');
@@ -83,8 +89,12 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/product-types/create', 'ProductTypeController@store');
         Route::post('/product-types/delete/{id}', 'ProductTypeController@delete');
     });
-    
-    
+        
+    Route::group(['prefix' => 'payments'], function() {
+        Route::get('/', 'PaymentController@getAll');
+        Route::get('/index', 'PaymentController@index');
+    });
+
     Route::group(['prefix' => 'payment-methods'], function() {
         Route::get('/', 'PaymentMethodController@getAll');
         Route::get('/index', 'PaymentMethodController@index');

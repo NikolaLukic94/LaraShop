@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use App\ProductImage;
+use App\Models\Product;
+use App\Models\ProductImage;
 use Storage;
 use App\Http\Requests\StoreProduct;
 use App\Http\Requests\UpdateProduct;

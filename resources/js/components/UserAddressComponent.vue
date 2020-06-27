@@ -227,59 +227,15 @@
                     }  
                 },
                 validateData() {
-                    if (!this.firstName) {
-                        this.errors.push(['firstNameError', "First Name is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'firstNameError')
-                    }
-
-                    if (!this.lastName) {
-                         this.errors.push(['lastNameError', "Last Name is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'lastNameError')
-                    }
-
-                    if (!this.addressLineOne) {
-                        this.errors.push(['addressLineOneError', "Address is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'addressLineOneError')
-                    }
-
-                    if (!this.addressLineTwo) {
-                        this.errors.push(['addressLineTwoError', "Address is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'addressLineTwoError')
-                    }
-
-                    if (!this.phoneNumber) {
-                        this.errors.push(['phoneNumberError', "Phone number is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'phoneNumberError')
-                    }
-
-                    if (!this.city) {
-                        this.errors.push(['cityError', "City is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'cityError')
-                    }
-
-                    if (!this.county) {
-                        this.errors.push(['countyError', "County is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'countyError')
-                    }
-
-                    if (!this.zip) {
-                        this.errors.push(['zipError', "ZIP is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'zipError')
-                    }
-
-                    if (!this.country) {
-                        this.errors.push(['countryError', "Country is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'countryError')
-                    }
+                    this.validateField(this.firstName, 'firstNameError', 'First Name is required');
+                    this.validateField(this.lastName, 'lastNameError', 'Last Name is required');
+                    this.validateField(this.phoneNumber, 'phoneNumberError', 'Phone Number is required');
+                    this.validateField(this.addressLineOne, 'addressLineOneError', 'Address Line 1 is required');
+                    this.validateField(this.addressLineTwo, 'addressLineTwoError', 'Address Line 2 is required');
+                    this.validateField(this.city, 'cityError', 'City is required');
+                    this.validateField(this.county, 'countyError', 'County is required');
+                    this.validateField(this.zip, 'zipError', 'ZIP is required');
+                    this.validateField(this.country,  'countryError',  'Country is required');
                 }
         },
         data: function () {

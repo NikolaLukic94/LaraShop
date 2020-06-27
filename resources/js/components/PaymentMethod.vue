@@ -143,41 +143,12 @@
                     }  
                 },
                 validateData() {
-                    if (!this.owner) {
-                        this.errors.push(['ownerError', "Owner is required."]);
-                    } else {
-                        this.error.filter(e => e[0] === 'ownerError')
-                    }
-
-                    if (!this.ccv) {
-                         this.errors.push(['ccvError', "CCV is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'ccvError')
-                    }
-
-                    if (!this.cardNumber) {
-                        this.errors.push(['cardNumberError', "Card Number is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'cardNumberError')
-                    }
-
-                    if (!this.expiration) {
-                        this.errors.push(['expirationError', "Expiration is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'expirationError')
-                    }
-
-                    if (!this.year) {
-                        this.errors.push(['yearError', "Year is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'yearError')
-                    }
-
-                    if (!this.cardType) {
-                        this.errors.push(['cardTypeError', "Card Type is required."]);
-                    } else {
-                        this.errors.filter(e => e[0] === 'cardTypeError')
-                    }
+                    this.validateField(this.owner, 'ownerError', 'Owner is required');
+                    this.validateField(this.ccv,  'ccvError',  'CCV is required');
+                    this.validateField(this.cardNumber, 'cardNumberError', 'Card Number is required');
+                    this.validateField(this.expiration,  'expirationError',  'Expiration date is required');
+                    this.validateField(this.year,  'yearError',  'Year is required');
+                    this.validateField(this.cardType,  'cardTypeError',  'Card Type is required');
                 }
         },
         data: function () {

@@ -87,10 +87,6 @@
                 'cartItem', 
                 [
                     'setCartItems', 
-                    'increaseQuantity', 
-                    'decreaseQuantity', 
-                    'changeQuantity',
-                    'deleteCartItem'
                 ]
             ),
         },

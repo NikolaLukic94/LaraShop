@@ -18,7 +18,8 @@ class Payment extends JsonResource
             'id' => $this->id,
             'paymentDate' => $this->payment_date,
             'paymentAmount' => $this->payment_amount,
-            'createdAt' => $this->created_at->diffForHumans()
+            'createdAt' => $this->created_at->diffForHumans(),
+            'relationships' => new PaymentRelationships($this),
         ];
     }
 }

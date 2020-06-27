@@ -2,6 +2,9 @@
   <div>
     <div class="container">
         <vue-good-table
+            :pagination-options="{
+              enabled: true
+            }"
             theme="black-rhino"
             styleClass="vgt-table striped"
             :columns="columns"
@@ -11,9 +14,13 @@
             </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
-                <button class="btn btn-primary" @click="openEditModal(props.row.id)">Edit</button>
-                <button class="btn btn-primary" @click="openDeleteModal(props.row.id)">Delete</button>
-              </span>
+                <button class="btn btn-primary" @click="openEditModal(props.row)">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </button>
+                <button class="btn btn-primary" @click="openDeleteModal(props.row.id)">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </span>              
               <span v-else>
                 {{props.formattedRow[props.column.field]}}
               </span>

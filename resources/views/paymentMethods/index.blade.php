@@ -2,8 +2,13 @@
 
 @section('content')
 
-<sidebar-component></sidebar-component>
-
-<payment-methods-component></payment-methods-component>
+<div class="container-fluid">
+    <div class="row min-vh-100 flex-column flex-md-row" style="height:100%;">
+        @include('sidebar')
+        <main class="col bg-faded py-3 flex-grow-1">
+            <payment-methods-component></payment-methods-component>
+        </main>
+    </div>
+</div>
 
 @endsection

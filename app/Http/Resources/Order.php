@@ -18,7 +18,8 @@ class Order extends JsonResource
             'id' => $this->id,
             'datePlaced' => $this->date_placed,
             'orderDetails' => $this->order_details,
-            'createdAt' => $this->created_at->diffForHumans()
+            'createdAt' => $this->created_at->diffForHumans(),
+            'relationships' => new OrderRelationships($this),
         ];
     }
 }

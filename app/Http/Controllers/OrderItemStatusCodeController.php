@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\OrderItemStatusCode;
+use App\Models\OrderItemStatusCode;
 
 use App\Http\Requests\StoreOrderItemStatusCode;
 use App\Http\Requests\UpdateOrderItemStatusCode;

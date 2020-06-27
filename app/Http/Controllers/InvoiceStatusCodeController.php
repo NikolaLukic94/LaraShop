@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInvoiceStatusCode;
 use App\Http\Requests\UpdateInvoiceStatusCode;
 use Illuminate\Http\Request;
-use App\InvoiceStatusCode;
+use App\Models\InvoiceStatusCode;
 use App\Http\Resources\InvoiceStatusCodeResource as InvoiceResource;
 
 class InvoiceStatusCodeController extends Controller

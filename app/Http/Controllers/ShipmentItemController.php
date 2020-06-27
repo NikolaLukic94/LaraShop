@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ShipmentItem;
 use App\Http\Requests\StoreShipmentItem;
 use App\Http\Requests\UpdateShipmentItem;
 use Illuminate\Http\Request;

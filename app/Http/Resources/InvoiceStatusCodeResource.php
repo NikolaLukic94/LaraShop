@@ -17,7 +17,7 @@ class InvoiceStatusCodeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'createdAt' => $this->created_at->diffForHumans()
+            'createdAt' => $this->created_at->diffForHumans(),
         ];
     }
 }

@@ -2,12 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Http\Requests\StoreOrder;
 use App\Http\Requests\UpdateOrder;
 use Illuminate\Http\Request;
+use App\Http\Resources\Order as OrderResource;
 
 class OrderController extends Controller
 {
+    public function getAll() 
+    {
+        $orders = Order::paginate(15);
+
+        return OrderResource::collection($orders);
+    }
+
+    public function index()
+    {
+        return view('orders.index');
+    }
+
     public function store(StoreOrder $request) 
     {
         Order::create([

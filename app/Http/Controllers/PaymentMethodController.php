@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePaymentMethod;
 use App\Http\Requests\UpdatePaymentMethod;
-use App\PaymentMethod;
+use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use App\Http\Resources\UsersPaymentMethod as PaymentMethodResource;
 
