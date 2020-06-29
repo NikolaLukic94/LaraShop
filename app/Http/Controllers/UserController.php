@@ -10,7 +10,6 @@ use App\Http\Resources\UserRelationshipsResource as UserRelationshipsResource;
 
 class UserController extends Controller
 {
-
     /**
      * Return a resource.
      *
@@ -26,6 +25,13 @@ class UserController extends Controller
     public function index()
     {
     	return view('users.index');
+    }
+
+    public function show($id)
+    {
+        return view('users.show', [
+            'user' => User::find($id)
+        ]);
     }
 
     public function delete($id) 

@@ -65,6 +65,7 @@ Route::group(['middleware' => 'verified'], function () {
     Route::group(['prefix' => 'invoice-status-codes'], function() {
         Route::get('/', 'InvoiceStatusCodeController@getAll');
         Route::get('/index', 'InvoiceStatusCodeController@index');
+        Route::post('/update/{id}', 'InvoiceStatusCodeController@update');
         Route::post('/create', 'InvoiceStatusCodeController@store');
         Route::post('/delete/{id}', 'InvoiceStatusCodeController@delete');
     });
@@ -113,6 +114,7 @@ Route::group(['middleware' => 'verified'], function () {
     Route::group(['prefix' => 'users'], function() {
         Route::get('/', 'UserController@getAll');
         Route::get('/index', 'UserController@index');
+        Route::get('/show/{id}', 'UserController@show');
         Route::post('/delete/{id}', 'UserController@delete');
     });
 

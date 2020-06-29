@@ -28,7 +28,8 @@
                             id="basic-url" 
                             aria-describedby="basic-addon3">
                     </div>
-                    <small>{{ getValidationError('ownerError') }}</small>
+                    <!-- <small>{{ getValidationError('ownerError') }}</small> -->
+                    <span class="help-block pull-left">{{ getValidationError('ownerError') }}</span>
                 </div>
                 <div class="col-4">
                     <label for="basic-url">CCV</label>
@@ -41,7 +42,8 @@
                             id="basic-url" 
                             aria-describedby="basic-addon3">
                     </div>  
-                    <small>{{ getValidationError('ccvError') }}</small>                  
+                    <!-- <small>{{ getValidationError('ccvError') }}</small>    -->
+                    <span class="help-block pull-left">{{ getValidationError('ccvError') }}</span>               
                 </div>
             </div>
             <div class="row">
@@ -56,7 +58,8 @@
                             id="basic-url" 
                             aria-describedby="basic-addon3">
                     </div>
-                    <small>{{ getValidationError('cardNumberError') }}</small>               
+                    <!-- <small>{{ getValidationError('cardNumberError') }}</small>       -->
+                    <span class="help-block pull-left">{{ getValidationError('cardNumberError') }}</span>         
                 </div>
             </div>
             <div class="row">
@@ -71,7 +74,8 @@
                             id="basic-url" 
                             aria-describedby="basic-addon3">
                     </div>
-                    <small>{{ getValidationError('expirationError') }}</small>      
+                    <!-- <small>{{ getValidationError('expirationError') }}</small>    -->
+                    <span class="help-block pull-left">{{ getValidationError('expirationError') }}</span>   
                 </div>
                 <div class="col-md-4">
                     <label for="basic-url">Year</label>
@@ -84,7 +88,8 @@
                             id="basic-url" 
                             aria-describedby="basic-addon3">
                     </div>
-                    <small>{{ getValidationError('yearError') }}</small>      
+                    <!-- <small>{{ getValidationError('yearError') }}</small>    -->
+                    <span class="help-block pull-left">{{ getValidationError('yearError') }}</span>   
                 </div>
                 <div class="col-md-4">
                     <label for="basic-url">Card (Visa/Electron)</label>
@@ -97,7 +102,8 @@
                             id="basic-url" 
                             aria-describedby="basic-addon3">
                     </div>
-                    <small>{{ getValidationError('cardTypeError') }}</small>      
+                    <span class="help-block pull-left">{{ getValidationError('cardTypeError') }}</span>
+                    <!-- <small>{{ getValidationError('cardTypeError') }}</small>       -->
                 </div>
             </div>
         </div>
@@ -143,12 +149,12 @@
                     }  
                 },
                 validateData() {
-                    this.validateField(this.owner, 'ownerError', 'Owner is required');
-                    this.validateField(this.ccv,  'ccvError',  'CCV is required');
-                    this.validateField(this.cardNumber, 'cardNumberError', 'Card Number is required');
-                    this.validateField(this.expiration,  'expirationError',  'Expiration date is required');
-                    this.validateField(this.year,  'yearError',  'Year is required');
-                    this.validateField(this.cardType,  'cardTypeError',  'Card Type is required');
+                    this.validateField(this.owner, 'ownerError', '* Owner is required');
+                    this.validateField(this.ccv,  'ccvError',  '* CCV is required');
+                    this.validateField(this.cardNumber, 'cardNumberError', '* Card Number is required');
+                    this.validateField(this.expiration,  'expirationError',  '* Expiration date is required');
+                    this.validateField(this.year,  'yearError',  '* Year is required');
+                    this.validateField(this.cardType,  'cardTypeError',  '* Card Type is required');
                 }
         },
         data: function () {

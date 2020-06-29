@@ -17,6 +17,7 @@ import cartItem from './CartItem';
 import userAddress from './userAddress';
 import orderReview from './orderReview';
 import order from './order';
+import shipmentStatus from './shipmentStatus'
 
 const debug = process.env.NODE_ENV !== 'production';
 
@@ -34,7 +35,8 @@ export default new Vuex.Store({
     cartItem,
     userAddress,
     orderReview,
-    order
+    order,
+    shipmentStatus
   },
   strict:debug
 

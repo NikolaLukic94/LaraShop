@@ -24,12 +24,76 @@ class OrderController extends Controller
 
     public function store(StoreOrder $request) 
     {
-        Order::create([
-            'date_placed' => $request->datePlaced,
-            'order_details' => $request->orderDetails,
-            'user_id' => $request->userId,
-            'order_status_codes_id' => $request->orderStatusCodeId,
-        ]);
+        // need to create orde items and order
+        DB::beginTransaction();
+
+        try {
+
+            $order = Order::create([
+                'date_placed' => $request->datePlaced,
+                'order_details' => $request->orderDetails,
+                'user_id' => $request->userId,
+                'order_status_codes_id' => $request->orderStatusCodeId,
+            ]);
+
+            $cartItems = Cart::where('user_id', Auth::id())->cartItems;
+
+            $paymentAmount = 0;
+
+            foreach ($cartItems as $cartItem) {
+                OrderItem::create([
+                    'user_id' => Auth::id(),
+                    'order_id' => $order->id,
+                    'order_item_status_code_id' => 1,
+                    'product_id' => $cartItem->product_id,
+                    'price' => $cartItem->price,
+                    'quantity' => $cartItem->quantity
+                ]);
+
+                $paymentAmount += $cartItem->price * $cartItem->quantity;
+            }
+
+            $invoice = Invoice::create([
+                'order_id' => $order->id,
+                'invoice_status_code_id' => 1,
+                'date' => new Date(),
+                'invoice_details' => 'test'
+            ]);
+
+            Payment::create([
+                'invoice_id' => $invoice,
+                'payment_date' =>  new Date(),
+                'paymentAmount' => $paymentAmount,
+                'payment_methods' => 1
+            ]);
+
+            $shipment = Shipment::create([
+                'order_id' => $order->id,
+                'invoice_id' => $invoice->id,
+                'tracking_number' => rand(1,9999999),
+                'date' => new Date()
+            ]);
+
+
+            $orderItems = OrderItem::where('order_id', $order->id)->get();
+
+            foreach ($orderItems as $orderItem) {
+                ShipmentItem::create([
+                    'shipment_id' => $shipment,
+                    'order_item_id' => $orderItem->id
+                ]);
+            }
+
+            // DB::insert(...);
+
+            // if paperback, send an email to admin to receive notification about pending shipment
+        
+            DB::commit();
+            // all good
+        } catch (\Exception $e) {
+            DB::rollback();
+            // something went wrong
+        }
 
         return response()->json([
             'status' => 'success',

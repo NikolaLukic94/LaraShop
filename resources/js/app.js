@@ -77,6 +77,7 @@ Vue.component('user-addresses', require('./components/UserAddressComponent').def
 Vue.component('user-payment-methods', require('./components/PaymentMethod').default);
 Vue.component('order-review', require('./components/OrderReview').default);
 
+Vue.component('shipment-status-component', require('./components/ShipmentStatus').default);
 Vue.component('order-component', require('./components/OrderComponent').default);
 Vue.component('checkout-component', require('./components/CheckoutComponent').default);
 /**

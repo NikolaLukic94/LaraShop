@@ -16,11 +16,6 @@
               <button class="btn btn-info">This week</button>
               <button class="btn btn-info">This month</button>
             </div>
-              <div slot="table-actions-bottom">
-                <button class="btn btn-info">
-                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
-                </button>
-            </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
                 <button class="btn btn-primary">

@@ -18,8 +18,8 @@ class UserAddressController extends Controller
         //return collection of articles as a resource
         return UserAddressesResource::collection($addresses);
     }
-
-    public function store(StoreUserAddresses $request)
+    // StoreUserAddresses
+    public function store(Request $request)
     {
         $userAddress = UserAddress::create([
             'first_name' => $request->firstName,
@@ -31,7 +31,7 @@ class UserAddressController extends Controller
             'county' => $request->county,
             'zip' => $request->zip,
             'country' => $request->country,
-            'user_id' => $request->userId,
+            'user_id' => Auth::id()
         ]);
 
         return response()->json([

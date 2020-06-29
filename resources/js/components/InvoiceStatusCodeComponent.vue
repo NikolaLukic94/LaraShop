@@ -14,7 +14,7 @@
             </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
-                <button class="btn btn-primary" @click="openEditModal(props.row)">
+                <button class="btn btn-primary" @click="openEditModal(props.row.id, props.row.name)">
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </button>
                 <button class="btn btn-primary" @click="openDeleteModal(props.row.id)">
@@ -78,19 +78,23 @@
                       }
                     });
                 },
-                openEditModal(row) {
+                openEditModal(rowId, rowName) {
+                  console.log('aaaaaaaaa', rowId, rowName)
                   this.$swal({
                       title: 'Update the name',
                       input: 'text',
-                       inputPlaceholder: row.name,
+                      inputPlaceholder: rowName,
                       inputAttributes: {
                         autocapitalize: 'off'
                       },
                       showCancelButton: true,
                       confirmButtonText: 'Save',
                       showLoaderOnConfirm: true,
-                      preConfirm: (login) => {
-                        this.updateInvoiceStatusCode(name);
+                      preConfirm: (text) => {
+                        let f = {};
+                        f.id = rowId;
+                        f.input = text 
+                        this.updateInvoiceStatusCode(f);
                       },
                       allowOutsideClick: () => !Swal.isLoading()
                     }).then((result) => {

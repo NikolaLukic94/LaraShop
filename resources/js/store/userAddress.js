@@ -16,21 +16,21 @@ const actions = {
         })
     },
     saveUserAddress({commit}, request) {
-        console.log('saving new address')
-        return axios.post('/user-addresses/create', 
-            // firstName: request.firstName,
-            // lastName: request.lastName,
-            // addressLineOne: request.addressLineOne,
-            // addressLineTwo: request.addressLineTwo,
-            // phoneNumber: request.phone_number,
-            // city: request.city,
-            // county: request.county,
-            // zip: request.zip,
-            // country: request.country
-            request
+        console.log('request', request.firstName)
+        return axios.post('/user-addresses/create', {
+                firstName: request.firstName,
+                lastName: request.lastName,
+                addressLineOne: request.addressLineOne,
+                addressLineTwo: request.addressLineTwo,
+                phoneNumber: request.phone_number,
+                city: request.city,
+                county: request.county,
+                zip: request.zip,
+                country: request.country
+            }
         )
         .then(function (response) {
-            commit('createInvoiceStatusCode', response.data.createdInvoice)
+            commit('storeUserAddresses', response.data.createdInvoice)
         })
         .catch(err => console.log(err))
     }
