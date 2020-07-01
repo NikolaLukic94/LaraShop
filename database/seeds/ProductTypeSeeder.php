@@ -13,13 +13,13 @@ class ProductTypeSeeder extends Seeder
     public function run()
     {
         DB::table('product_types')->insert([
-            'name' => 'hardware',
+            'name' => 'paperback',
             'description' => Str::random(10),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
 
         DB::table('product_types')->insert([
-            'name' => 'software',
+            'name' => 'digital',
             'description' => Str::random(10),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);

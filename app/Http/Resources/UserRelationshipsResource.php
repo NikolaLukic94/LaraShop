@@ -16,7 +16,8 @@ class UserRelationshipsResource extends JsonResource
     {
         return [
             'addresses'   => UserAddresses::collection($this->addresses),
-            'userPaymentMethods' => UsersPaymentMethod::collection($this->paymentMethods)
+            'userPaymentMethods' => UsersPaymentMethod::collection($this->paymentMethods),
+            'cartItems' => CartItem::collection($this->cartItems)
         ];
     }
 }

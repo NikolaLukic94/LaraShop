@@ -27,11 +27,16 @@ class UserController extends Controller
     	return view('users.index');
     }
 
+    public function getUserData($id)
+    {
+        $user = User::find($id);
+
+        return new UserResource($user);
+    }
+
     public function show($id)
     {
-        return view('users.show', [
-            'user' => User::find($id)
-        ]);
+        return view('users.show');
     }
 
     public function delete($id) 

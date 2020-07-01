@@ -15,6 +15,7 @@ class CreateShipmentStatusesTable extends Migration
     {
         Schema::create('shipment_statuses', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->timestamps();
         });
     }
