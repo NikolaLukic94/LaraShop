@@ -8,7 +8,6 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
@@ -42,17 +41,6 @@ if (token) {
 }
 
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -80,6 +68,9 @@ Vue.component('order-review', require('./components/OrderReview').default);
 Vue.component('shipment-status-component', require('./components/ShipmentStatus').default);
 Vue.component('order-component', require('./components/OrderComponent').default);
 Vue.component('checkout-component', require('./components/CheckoutComponent').default);
+Vue.component('user-profile-component', require('./components/UserComponent').default);
+Vue.component('shipment-component', require('./components/ShipmentComponent').default);
+Vue.component('sidebar-component', require('./components/SidebarComponent').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

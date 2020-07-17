@@ -19,7 +19,7 @@ class UserResource extends JsonResource
             'firstName' => $this->name,
             'lastName' => $this->email,
             'relationships' => new UserRelationshipsResource($this),       
-            'createdAt' => $this->created_at->diffForHumans()  
+            // 'createdAt' => $this->created_at->diffForHumans()  
         ];
     }
 

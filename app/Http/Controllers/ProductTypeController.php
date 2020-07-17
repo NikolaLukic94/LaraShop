@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductType;
 use App\Http\Requests\UpdateProductType;
 use App\Models\ProductType;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductType as ProductTypeResource;
 
@@ -57,13 +58,22 @@ class ProductTypeController extends Controller
 
     public function delete($id) 
     {
-        $productType = ProductType::find($id);
+        $products = Product::where('product_type_id', $id)->get();
 
-        $productType->delete();
-        
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Product type has been deleted'
-        ]);
+        if (count($products) > 0) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unable to delete Product type in use'
+            ]);
+        } else {
+            $productType = ProductType::find($id);
+
+            $productType->delete();
+            
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Product type has been deleted'
+            ]);
+        }
     }
 }

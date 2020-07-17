@@ -25,7 +25,7 @@ class UserAddresses extends JsonResource
             'county' => $this->county,
             'country' => $this->country,
             'zip' => $this->zip,
-            'createdAt' => $this->created_at->diffForHumans()
+            // 'createdAt' => $this->created_at->diffForHumans()
         ];
     }
 

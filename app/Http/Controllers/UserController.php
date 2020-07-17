@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Resources\UserResource as UserResource;
 use App\Http\Resources\UserRelationshipsResource as UserRelationshipsResource;
 
-
 class UserController extends Controller
 {
     /**

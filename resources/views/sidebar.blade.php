@@ -1,6 +1,9 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
   <div class="sidebar-sticky pt-3">
     <ul class="nav flex-column pt-5">
+    <div class="text-center pb-3">
+      <i class="fa fa-book fa-3x" aria-hidden="true" style="color:white;"></i>
+    </div>
       <li class="nav-item sidebar-item">
         <a class="nav-link" href="/reports">
             <i class="fa fa-bar-chart fa-fw"></i> 
@@ -40,7 +43,7 @@
               <span class="d-none d-md-inline">Shiping</span></a>
       </li>
       <li class="nav-item sidebar-item">
-        <a class="nav-link" href="/invoices/all">
+        <a class="nav-link" href="/invoices/index">
         <i class="fa fa-files-o codeply fa-fw"></i> 
             <span class="d-none d-md-inline">Invoices</span></a>
     </li>
@@ -59,17 +62,11 @@
         <i class="fa fa-book fa-fw"></i> 
             <span class="d-none d-md-inline">Payment Methods</span></a>
     </li>
-      
       <li class="nav-item sidebar-item">
         <a class="nav-link" href="#">
+        <i class="fa fa-file" aria-hidden="true"></i>
           <span data-feather="bar-chart-2"></span>
           Reports
-        </a>
-      </li>
-      <li class="nav-item sidebar-item">
-        <a class="nav-link" href="#">
-          <span data-feather="layers"></span>
-          Integrations
         </a>
       </li>
     </ul>

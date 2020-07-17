@@ -18,12 +18,14 @@
             </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
-                <button class="btn btn-primary">
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                </button>
-                <button class="btn btn-primary">
-                  <i class="fa fa-trash" aria-hidden="true"></i>
-                </button>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button class="btn btn-info" @click="openEditModal(props.row)">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </div>
               </span>
               <span v-else>
                 {{props.formattedRow[props.column.field]}}

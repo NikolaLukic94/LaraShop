@@ -6,9 +6,22 @@ use App\Models\Shipment;
 use App\Http\Requests\StoreShipment;
 use App\Http\Requests\UpdateShipment;
 use Illuminate\Http\Request;
+use App\Http\Resources\Shipment as ShipmentResource;
 
 class ShipmentController extends Controller
 {
+    public function getAll()
+    {
+    	$shipments = Shipment::paginate(15);
+
+        return ShipmentResource::collection($shipments);
+    }
+
+    public function index()
+    {
+    	return view('shipments.index');
+    }
+
     public function store(StoreShipment $request)
     {
         Shipment::create([
