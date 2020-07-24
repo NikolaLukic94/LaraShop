@@ -55,7 +55,7 @@
         <a class="nav-link" href="#">Contacts</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Search</a>
+        <a class="nav-link" href="/products/search"><i class="fa fa-search" aria-hidden="true"></i></a>
       </li>
     </ul>
       <!-- <form class="form-inline mt-2 mt-md-0">

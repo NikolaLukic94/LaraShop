@@ -47,6 +47,8 @@ import VueAxios from 'vue-axios'
 import VueMeta from 'vue-meta'
 import Element from 'element-ui'
 
+import _ from 'lodash'
+
 Vue.use(VueAxios, axios)
 Vue.use(Element)
 
@@ -71,6 +73,8 @@ Vue.component('checkout-component', require('./components/CheckoutComponent').de
 Vue.component('user-profile-component', require('./components/UserComponent').default);
 Vue.component('shipment-component', require('./components/ShipmentComponent').default);
 Vue.component('sidebar-component', require('./components/SidebarComponent').default);
+Vue.component('search-page-component', require('./components/SearchPageComponent').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -1,9 +1,11 @@
 const state = {
     products: [],
+    filteredProducts: []
 }
 
 const getters = {
     getProducts: state => state.products,
+    getFilteredProducts: state => state.filteredProducts
 };
 
 const actions = {
@@ -16,21 +18,36 @@ const actions = {
             console.log(error);
             })
     },
-    // createProductType({commit}, parameters) {
-    //     console.log(parameters)
-    //     return axios.post('/product-types/create', {
-    //         name: name
-    //     })
-    //         .then((response) => {
-    //             commit('createProductType', response.data.createdProductType)
-    //         })
-    //         .catch(err => console.log(err))
-    // },
+    setFilteredProducts({commit}) {
+        return axios.get('/products')
+            .then((response) => {
+            commit('setFilteredProducts', response.data.data); 
+            })
+            .catch(function (error) {
+            console.log(error);
+            })
+    },
+    filterForProduct({commit}, name) {
+        return axios.post('/products/filter', {
+            name: name
+        })
+            .then(function (response) {
+                console.log('response', response.data.data)
+                commit('filterForProduct', response.data.data)
+            })
+            .catch(err => console.log(err))
+    }
 };
 
 const mutations = {
     setProducts: (state, products) => {
         state.products = products;
+    },
+    setFilteredProducts: (state, products) => {
+        state.filteredProducts = products;
+    },
+    filterForProduct: (state, filteredProducts) => {
+        state.filteredProducts = filteredProducts;
     },
 };
 

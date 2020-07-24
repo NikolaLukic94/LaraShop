@@ -148,4 +148,23 @@ class ProductController extends Controller
             'message' => 'Product deleted successfully'
         ]);
     }
+
+    public function search() 
+    {
+        // get recommended books - the ones sold the most
+        // $books = Product::popular();
+         // maybe to add rating to books
+        // for now, just take some to display them right away
+
+        return view('products.search');
+    }
+
+    public function filter(Request $request) 
+    {
+        $products =  Product::where('name', 'like', '%'. $request->name.'%')
+            ->orWhere('name', 'like', '%'. $request->name.'%')
+            ->get();
+
+        return ProductResource::collection($products);
+    }
 }

@@ -108,6 +108,8 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/index', 'ProductController@index');// todo: redo to be admin only
         Route::get('/index/all', 'ProductController@browse');// todo: redo to be users only
         Route::post('/create', 'ProductController@store');
+        Route::get('/search', 'ProductController@search');
+        Route::post('/filter', 'ProductController@filter');
     });
 
     Route::group(['prefix' => 'shipments'], function() {

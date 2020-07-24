@@ -40,7 +40,7 @@ export default new Vuex.Store({
     order,
     shipmentStatus,
     user,
-    shipment
+    shipment,
   },
   strict:debug
 
