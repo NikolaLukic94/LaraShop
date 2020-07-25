@@ -21,8 +21,8 @@ class PaymentController extends Controller
     {
         return view('payments.index');
     }
-
-    public function store(StorePayment $request)
+    // StorePayment
+    public function store(Request $request)
     {
         Payment::create([
             'invoice_id' => $request->invoiceId,

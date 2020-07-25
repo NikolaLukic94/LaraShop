@@ -29,6 +29,7 @@ Route::group(['middleware' => 'verified'], function () {
 
     Route::group(['prefix' => '/cart-items'], function() {
         Route::post('/quantity/increase/{id}', 'CartItemController@increaseQuantity');
+        Route::post('/store', 'CartItemController@store');
         Route::post('/quantity/decrease/{id}', 'CartItemController@decreaseQuantity');
         Route::post('/quantity/change/{id}', 'CartItemController@changeQuantity');
         Route::post('/delete/{id}', 'CartItemController@destroy');
@@ -42,6 +43,9 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/index', 'OrderController@index');
     });
 
+    Route::group(['prefix' => '/user-payments'], function() {
+        Route::post('/create', 'UserPaymentMethodController@store');
+    });
 
     Route::group(['prefix' => '/user-addresses'], function() {
         Route::get('/api/user/show/{id}', 'UserController@getUserData');
@@ -93,6 +97,8 @@ Route::group(['middleware' => 'verified'], function () {
     Route::group(['prefix' => 'payments'], function() {
         Route::get('/', 'PaymentController@getAll');
         Route::get('/index', 'PaymentController@index');
+        Route::post('/store', 'PaymentController@store');
+        Route::post('/delete/{id}', 'PaymentController@delete');
     });
 
     Route::group(['prefix' => 'payment-methods'], function() {

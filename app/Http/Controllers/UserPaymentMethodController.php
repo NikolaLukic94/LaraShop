@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\UserPaymentMethod;
 use App\Http\Requests\StoreUserPaymentMethod;
 use App\Http\Requests\UpdateUserPaymentMethod;
@@ -9,12 +9,17 @@ use Illuminate\Http\Request;
 
 class UserPaymentMethodController extends Controller
 {
-    public function store(StoreUserPaymentMethod $request)
+    public function store(Request $request)
     {
         UserPaymentMethod::create([
-            'credit_card_number' => $required->creditCardNumber,
-            'user_id' => $required->userId,
-            'payment_method_id' => $required->paymentMethodId,
+            'ccv' => $request->ccv,
+            'year' => $request->year,
+            'cardType' => $request->cardType,
+            'owner' => $request->owner,
+            'credit_card_number' => $request->cardNumber,
+            'user_id' => Auth::id(),
+            'expiration' => $request->expiration,
+            'payment_method_id' => $request->paymentMethodId,
         ]);
 
         return response()->json([

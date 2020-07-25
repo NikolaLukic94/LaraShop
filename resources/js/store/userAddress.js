@@ -16,7 +16,6 @@ const actions = {
         })
     },
     saveUserAddress({commit}, request) {
-        console.log('request', request.firstName)
         return axios.post('/user-addresses/create', {
                 firstName: request.firstName,
                 lastName: request.lastName,

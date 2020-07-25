@@ -146,7 +146,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="custom-control custom-checkbox pb-2 row">
+                    <!-- <div class="custom-control custom-checkbox pb-2 row">
                         <input 
                             type="checkbox" 
                             class="custom-control-input" 
@@ -154,6 +154,13 @@
                             @input="sendCreateUserAddressRequest(); validateData()">
                             <label class="custom-control-label" for="defaultUnchecked">Save address</label>
                     </div>
+                    <div class="custom-control custom-checkbox pb-2 row">
+                        <input 
+                            type="checkbox" 
+                            class="custom-control-input" 
+                            id="defaultUnchecked">
+                            <label class="custom-control-label" for="defaultUnchecked">Use this address</label>
+                    </div> -->
                 </div>
             </div>
         </div>

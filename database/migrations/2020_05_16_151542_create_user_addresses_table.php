@@ -26,7 +26,7 @@ class CreateUserAddressesTable extends Migration
             $table->string('zip');
             $table->string('country');
             
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();

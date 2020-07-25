@@ -24,7 +24,7 @@ class OrderController extends Controller
 
     public function store(StoreOrder $request) 
     {
-        // need to create orde items and order
+        // need to create order items and order
         DB::beginTransaction();
 
         try {
@@ -74,7 +74,6 @@ class OrderController extends Controller
                 'date' => new Date()
             ]);
 
-
             $orderItems = OrderItem::where('order_id', $order->id)->get();
 
             foreach ($orderItems as $orderItem) {
@@ -94,6 +93,11 @@ class OrderController extends Controller
             DB::rollback();
             // something went wrong
         }
+
+        // todo: auto delete user address if not saved for future use
+        // or maybe save it and don't ask user, even better
+        
+        // todo: auto delete payment data if not save for future use
 
         return response()->json([
             'status' => 'success',

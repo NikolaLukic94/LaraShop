@@ -13,13 +13,15 @@ class CartItemController extends Controller
     {
         $cart = Cart::firstOrCreate(['user_id' => Auth::id()]);
 
-        CartItem::create([
+        $cartItem = CartItem::create([
             'cart_id' => $cart->id,
-            'product_id' => $request->id,
-            'quantity' => $request->quantity
+            'product_id' => $request->productId,
+            // 'quantity' => $request->quantity
+            'quantity' => 1
         ]);
 
         return response()->json([
+            'cartItem' => $cartItem,
             'status' => 'success',
             'message' => 'New item added to cart!'
         ]);

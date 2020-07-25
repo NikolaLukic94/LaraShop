@@ -20,6 +20,7 @@ import order from './order';
 import shipmentStatus from './shipmentStatus';
 import user from './user';
 import shipment from './shipment';
+import payment from './payment';
 
 const debug = process.env.NODE_ENV !== 'production';
 
@@ -41,6 +42,7 @@ export default new Vuex.Store({
     shipmentStatus,
     user,
     shipment,
+    payment
   },
   strict:debug
 

@@ -16,6 +16,10 @@ class CreateUserPaymentMethodsTable extends Migration
         Schema::create('user_payment_methods', function (Blueprint $table) {
             
             $table->id();
+
+            $table->string('ccv');
+            $table->string('year');
+            $table->string('expiration');
             $table->string('credit_card_number');
 
             $table->string('owner');

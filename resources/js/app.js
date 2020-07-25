@@ -74,6 +74,7 @@ Vue.component('user-profile-component', require('./components/UserComponent').de
 Vue.component('shipment-component', require('./components/ShipmentComponent').default);
 Vue.component('sidebar-component', require('./components/SidebarComponent').default);
 Vue.component('search-page-component', require('./components/SearchPageComponent').default);
+Vue.component('cart-component', require('./components/CartComponent').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

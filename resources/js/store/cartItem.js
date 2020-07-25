@@ -13,7 +13,7 @@ const getters = {
         })
 
         return total;
-    }
+    },
 };
 
 const actions = {
@@ -64,7 +64,20 @@ const actions = {
             .catch(function (error) {
                 console.log(error);
             })
-    }
+    },
+    storeCartItem: ({commit}, productId) => {
+        console.log('qq', productId)
+        return axios.post('/cart-items/store', {
+            productId: productId,
+            // quantity: quantity
+        })
+            .then((response) => {
+            commit('storeCartItem', response.data.data); 
+            })
+            .catch(function (error) {
+            console.log(error);
+            })
+    },
 };
 
 const mutations = {
@@ -85,6 +98,9 @@ const mutations = {
     changeQuantity: (state, cartId, newQuantity) => {
         let item = state.cartItems.find(c => c.id === cartId); 
         item.quantity = newQuantity;
+    },
+    storeCartItem: (state, cartItem) => {
+        state.cartItems.push(cartItem);
     }
 };
 

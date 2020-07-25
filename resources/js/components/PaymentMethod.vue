@@ -28,7 +28,6 @@
                             id="basic-url" 
                             aria-describedby="basic-addon3">
                     </div>
-                    <!-- <small>{{ getValidationError('ownerError') }}</small> -->
                     <span class="help-block pull-left">{{ getValidationError('ownerError') }}</span>
                 </div>
                 <div class="col-4">
@@ -42,7 +41,6 @@
                             id="basic-url" 
                             aria-describedby="basic-addon3">
                     </div>  
-                    <!-- <small>{{ getValidationError('ccvError') }}</small>    -->
                     <span class="help-block pull-left">{{ getValidationError('ccvError') }}</span>               
                 </div>
             </div>
@@ -58,7 +56,6 @@
                             id="basic-url" 
                             aria-describedby="basic-addon3">
                     </div>
-                    <!-- <small>{{ getValidationError('cardNumberError') }}</small>       -->
                     <span class="help-block pull-left">{{ getValidationError('cardNumberError') }}</span>         
                 </div>
             </div>
@@ -74,7 +71,6 @@
                             id="basic-url" 
                             aria-describedby="basic-addon3">
                     </div>
-                    <!-- <small>{{ getValidationError('expirationError') }}</small>    -->
                     <span class="help-block pull-left">{{ getValidationError('expirationError') }}</span>   
                 </div>
                 <div class="col-md-4">
@@ -88,7 +84,6 @@
                             id="basic-url" 
                             aria-describedby="basic-addon3">
                     </div>
-                    <!-- <small>{{ getValidationError('yearError') }}</small>    -->
                     <span class="help-block pull-left">{{ getValidationError('yearError') }}</span>   
                 </div>
                 <div class="col-md-4">
@@ -103,13 +98,12 @@
                             aria-describedby="basic-addon3">
                     </div>
                     <span class="help-block pull-left">{{ getValidationError('cardTypeError') }}</span>
-                    <!-- <small>{{ getValidationError('cardTypeError') }}</small>       -->
                 </div>
             </div>
         </div>
         <div class="custom-control custom-checkbox pb-3">
             <input type="checkbox" class="custom-control-input" id="paymentInfo" @input="validateData()">
-            <label class="custom-control-label" for="paymentInfo">Save payment info</label>
+            <!-- <label class="custom-control-label" for="paymentInfo" @click="savePaymentInfo()">Save payment info</label> -->
         </div>
         </div>
     </div>
@@ -137,6 +131,11 @@
                 [
                     'setUserPaymentMethod',
                 ]),
+            ...mapActions(
+                'payment',
+                [
+                    'createPayment',
+                ]),
                 getValidationError(inputFieldName) {
                     let inputFieldError = this.errors.find(e => e[0] === inputFieldName);
                     return !inputFieldError || inputFieldError === null ? null : inputFieldError[1];
@@ -155,6 +154,18 @@
                     this.validateField(this.expiration,  'expirationError',  '* Expiration date is required');
                     this.validateField(this.year,  'yearError',  '* Year is required');
                     this.validateField(this.cardType,  'cardTypeError',  '* Card Type is required');
+                },
+                savePaymentInfo() {
+                    let payload = {};
+
+                    payload.owner = this.owner;
+                    payload.ccv = this.ccv;
+                    payload.cardNumber = this.cardNumber,
+                    payload.expiration = this.expiration,
+                    payload.year = this.year,
+                    payload.cardType = this.cardType
+
+                    this.createPayment(payload);
                 }
         },
         data: function () {

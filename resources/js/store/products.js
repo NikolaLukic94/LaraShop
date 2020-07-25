@@ -12,19 +12,19 @@ const actions = {
     setProducts({commit}) {
         return axios.get('/products')
             .then((response) => {
-            commit('setProducts', response.data.data); 
+                commit('setProducts', response.data.data); 
             })
             .catch(function (error) {
-            console.log(error);
+                console.log(error);
             })
     },
     setFilteredProducts({commit}) {
         return axios.get('/products')
             .then((response) => {
-            commit('setFilteredProducts', response.data.data); 
+                commit('setFilteredProducts', response.data.data); 
             })
             .catch(function (error) {
-            console.log(error);
+                console.log(error);
             })
     },
     filterForProduct({commit}, name) {
@@ -47,7 +47,10 @@ const mutations = {
         state.filteredProducts = products;
     },
     filterForProduct: (state, filteredProducts) => {
+        console.log('productsproducts', filteredProducts)
+        console.log(state.filteredProducts)
         state.filteredProducts = filteredProducts;
+        console.log(state.filteredProducts)
     },
 };
 

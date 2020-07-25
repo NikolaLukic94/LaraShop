@@ -22,6 +22,9 @@ class CreateShipmentItemsTable extends Migration
             $table->unsignedBigInteger('order_item_id')->nullable();
             $table->foreign('order_item_id')->references('id')->on('order_items');
 
+            $table->unsignedBigInteger('user_address_id')->nullable();
+            $table->foreign('user_address_id')->references('id')->on('user_addresses');
+
             $table->timestamps();
         });
     }
