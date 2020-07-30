@@ -1,5 +1,6 @@
 const state = {
     payments: [],
+    errors: []
 }
 
 const getters = {
@@ -10,7 +11,7 @@ const actions = {
     setPayments({commit}) {
         return axios.get('/payments')
             .then((response) => {
-                commit('setPayment', response.data.data); 
+                commit('setPayment', response.data.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -66,7 +67,7 @@ const mutations = {
 
 export default {
     namespaced: true,
-    state, 
+    state,
     getters,
     actions,
     mutations,

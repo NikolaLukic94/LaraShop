@@ -6,11 +6,12 @@ use App\Models\Order;
 use App\Http\Requests\StoreOrder;
 use App\Http\Requests\UpdateOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Order as OrderResource;
 
 class OrderController extends Controller
 {
-    public function getAll() 
+    public function getAll()
     {
         $orders = Order::paginate(15);
 
@@ -21,8 +22,8 @@ class OrderController extends Controller
     {
         return view('orders.index');
     }
-
-    public function store(StoreOrder $request) 
+    //StoreOrder
+    public function store(Request $request)
     {
         // need to create order items and order
         DB::beginTransaction();
@@ -32,7 +33,7 @@ class OrderController extends Controller
             $order = Order::create([
                 'date_placed' => $request->datePlaced,
                 'order_details' => $request->orderDetails,
-                'user_id' => $request->userId,
+                'user_id' => Auth::id(),
                 'order_status_codes_id' => $request->orderStatusCodeId,
             ]);
 
@@ -62,7 +63,7 @@ class OrderController extends Controller
 
             Payment::create([
                 'invoice_id' => $invoice,
-                'payment_date' =>  new Date(),
+                'payment_date' => new Date(),
                 'paymentAmount' => $paymentAmount,
                 'payment_methods' => 1
             ]);
@@ -70,7 +71,7 @@ class OrderController extends Controller
             $shipment = Shipment::create([
                 'order_id' => $order->id,
                 'invoice_id' => $invoice->id,
-                'tracking_number' => rand(1,9999999),
+                'tracking_number' => rand(1, 9999999),
                 'date' => new Date()
             ]);
 
@@ -86,7 +87,7 @@ class OrderController extends Controller
             // DB::insert(...);
 
             // if paperback, send an email to admin to receive notification about pending shipment
-        
+
             DB::commit();
             // all good
         } catch (\Exception $e) {
@@ -96,7 +97,7 @@ class OrderController extends Controller
 
         // todo: auto delete user address if not saved for future use
         // or maybe save it and don't ask user, even better
-        
+
         // todo: auto delete payment data if not save for future use
 
         return response()->json([
@@ -105,7 +106,7 @@ class OrderController extends Controller
         ]);
     }
 
-    public function update(UpdateOrder $request, $id) 
+    public function update(UpdateOrder $request, $id)
     {
         $order = Order::find($id);
 
@@ -122,12 +123,12 @@ class OrderController extends Controller
         ]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $order = Order::find($id);
 
         $order->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Order has been deleted'

@@ -16,14 +16,14 @@
             </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button class="btn btn-info" @click="openEditModal(props.row)">
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                </button>
-                <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
-                  <i class="fa fa-trash" aria-hidden="true"></i>
-                </button>
-            </div>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                  <button class="btn btn-info" @click="openEditModal(props.row)">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </button>
+                  <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+              </div>
               </span>
               <span v-else>
                 {{props.formattedRow[props.column.field]}}
@@ -43,11 +43,11 @@
             </button>
           </div>
           <div class="modal-body">
-            <input type="text" style="width:100%">
+            <input type="text" style="width:100%" v-model="name">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" ref="modalClose">Close</button>
+            <button type="button" class="btn btn-primary" @click="callSaveInvoiceStatusCode()">Save</button>
           </div>
         </div>
       </div>
@@ -67,10 +67,7 @@
         name: 'invoice-status-code-component',
         computed: {
             ...mapGetters(
-                'indexStatusCodes',
-                [
-                    'getInvoiceStatusCodes'
-                ])
+                'indexStatusCodes', ['getInvoiceStatusCodes'])
         },
         methods: {
             ...mapActions(
@@ -109,7 +106,6 @@
                     });
                 },
                 openDeleteModal(rowId) {
-                  console.log('deleting')
                   this.$swal.fire({
                       title: 'Are you sure?',
                       text: "This will delete it permanently!",
@@ -121,7 +117,6 @@
                     }).then((result) => {
                       if (result.value) {
                         this.deleteInvoiceStatusCode(rowId);
-                        console.log('p')
                         // Swal.fire(
                         //   'Deleted!',
                         //   'Invoice status code has been deleted.',
@@ -130,9 +125,14 @@
                       }
                     })
                 },
+                callSaveInvoiceStatusCode() {
+                  this.createInvoiceStatusCode(this.name);
+                  this.$refs.modalClose.click();
+                }
         },
         data: function () {
             return {
+                name: '',
                 newInvoiceStatusColumnName: '',
                 columns: [
                     {

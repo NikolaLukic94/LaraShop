@@ -18,8 +18,8 @@ const actions = {
     },
     createProductType({commit}, name) {
         return axios.post('/product-types/create', {
-            name: name
-        })
+                name: name
+            })
             .then((response) => {
                 commit('createProductType', response.data.createdProductType)
             })

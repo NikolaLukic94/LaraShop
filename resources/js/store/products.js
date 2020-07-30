@@ -36,6 +36,23 @@ const actions = {
                 commit('filterForProduct', response.data.data)
             })
             .catch(err => console.log(err))
+    },
+    createProduct({commit}, request) {
+
+        return axios.post('/products/create', {
+            productTypeId: 1,
+            name: request.name,
+            description: request.description,
+            price: request.price,
+            quantity: request.quantity,
+            color: request.color,
+            size: request.size,
+            other: request.other,
+        })
+            .then(function (response) {
+                commit('createProduct', response.data.createdProduct)
+            })
+            .catch(err => console.log(err)) 
     }
 };
 
@@ -47,11 +64,11 @@ const mutations = {
         state.filteredProducts = products;
     },
     filterForProduct: (state, filteredProducts) => {
-        console.log('productsproducts', filteredProducts)
-        console.log(state.filteredProducts)
         state.filteredProducts = filteredProducts;
-        console.log(state.filteredProducts)
     },
+    createProduct: (state, createdProduct) => {
+        state.products.push(createdProduct);
+    }
 };
 
 export default {

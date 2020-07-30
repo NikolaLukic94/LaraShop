@@ -20,12 +20,15 @@
                 <div class="col-8">
                     <label for="basic-url">Owner</label>
                     <div class="input-group mb-3">
-                        <input 
-                            @input="validateField(owner,  'ownerError',  'Owner is required')"
+                        <input
+                            @input="
+                                    callUpdateNewAddressField({fieldName:'owner', fieldValue: owner});
+                                    callValidate('ownerError', 'Owner is required');
+                                "
                             v-model="owner"
-                            type="text" 
-                            class="form-control" 
-                            id="basic-url" 
+                            type="text"
+                            class="form-control"
+                            id="basic-url"
                             aria-describedby="basic-addon3">
                     </div>
                     <span class="help-block pull-left">{{ getValidationError('ownerError') }}</span>
@@ -33,68 +36,83 @@
                 <div class="col-4">
                     <label for="basic-url">CCV</label>
                     <div class="input-group mb-3">
-                        <input 
-                            @input="validateField(ccv,  'ccvError',  'CCV is required')"
+                        <input
+                            @input="
+                                    callUpdateNewAddressField({fieldName:'ccv', fieldValue: ccv});
+                                    callValidate('ccvError', 'CCV is required');
+                                "
                             v-model="ccv"
-                            type="text" 
-                            class="form-control" 
-                            id="basic-url" 
+                            type="text"
+                            class="form-control"
+                            id="basic-url"
                             aria-describedby="basic-addon3">
-                    </div>  
-                    <span class="help-block pull-left">{{ getValidationError('ccvError') }}</span>               
+                    </div>
+                    <span class="help-block pull-left">{{ getValidationError('ccvError') }}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <label for="basic-url">Card Number</label>
                     <div class="input-group mb-3">
-                        <input 
-                            @input="validateField(cardNumber, 'cardNumberError', 'Card Number is required')"
+                        <input
+                            @input="
+                                    callUpdateNewAddressField({fieldName:'cardNumber', fieldValue: cardNumber});
+                                    callValidate('cardNumberError', 'Card Number is required');
+                                "
                             v-model="cardNumber"
-                            type="text" 
-                            class="form-control" 
-                            id="basic-url" 
+                            type="text"
+                            class="form-control"
+                            id="basic-url"
                             aria-describedby="basic-addon3">
                     </div>
-                    <span class="help-block pull-left">{{ getValidationError('cardNumberError') }}</span>         
+                    <span class="help-block pull-left">{{ getValidationError('cardNumberError') }}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <label for="basic-url">Expiration</label>
                     <div class="input-group mb-3">
-                        <input 
-                            @input="validateField(expiration,  'expirationError',  'Expiration date is required')"
+                        <input
+                            @input="
+                                    callUpdateNewAddressField({fieldName:'expiration', fieldValue: expiration});
+                                    callValidate('expirationError', 'Expiration date is required');
+                                "
                             v-model="expiration"
-                            type="text" 
-                            class="form-control" 
-                            id="basic-url" 
+                            type="text"
+                            class="form-control"
+                            id="basic-url"
                             aria-describedby="basic-addon3">
                     </div>
-                    <span class="help-block pull-left">{{ getValidationError('expirationError') }}</span>   
+                    <span class="help-block pull-left">{{ getValidationError('expirationError') }}</span>
                 </div>
                 <div class="col-md-4">
                     <label for="basic-url">Year</label>
                     <div class="input-group mb-3">
-                        <input 
-                            @input="validateField(year,  'yearError',  'Year is required')"
+                        <input
+                            @input="
+                                    callUpdateNewAddressField({fieldName:'year', fieldValue: year});
+                                    callValidate('yearError', 'Year is required');
+                                "
                             v-model="year"
-                            type="text" 
-                            class="form-control" 
-                            id="basic-url" 
+                            type="text"
+                            class="form-control"
+                            id="basic-url"
                             aria-describedby="basic-addon3">
                     </div>
-                    <span class="help-block pull-left">{{ getValidationError('yearError') }}</span>   
+                    <span class="help-block pull-left">{{ getValidationError('yearError') }}</span>
                 </div>
                 <div class="col-md-4">
                     <label for="basic-url">Card (Visa/Electron)</label>
                     <div class="input-group mb-3">
-                        <input 
-                            @input="validateField(cardType,  'cardTypeError',  'Card Type is required')"
+                        <input
+                            @input="
+                                    callUpdateNewAddressField({fieldName:'cardType', fieldValue: cardType});
+                                    callValidate('cardTypeError', 'Card Type is required');
+                                "
                             v-model="cardType"
-                            type="text" 
-                            class="form-control" 
-                            id="basic-url" 
+                            type="text"
+                            class="form-control"
+                            id="basic-url"
                             aria-describedby="basic-addon3">
                     </div>
                     <span class="help-block pull-left">{{ getValidationError('cardTypeError') }}</span>
@@ -103,7 +121,6 @@
         </div>
         <div class="custom-control custom-checkbox pb-3">
             <input type="checkbox" class="custom-control-input" id="paymentInfo" @input="validateData()">
-            <!-- <label class="custom-control-label" for="paymentInfo" @click="savePaymentInfo()">Save payment info</label> -->
         </div>
         </div>
     </div>
@@ -120,16 +137,18 @@
         name: 'user-payment-methods',
         computed: {
             ...mapGetters(
-                'paymentMethod',
+                'paymentMethods',
                 [
                     'getUserPaymentMethods'
                 ])
         },
         methods: {
             ...mapActions(
-                'paymentMethod',
+                'paymentMethods',
                 [
                     'setUserPaymentMethod',
+                    'updateNewPaymentMethod',
+                    'validateField'
                 ]),
             ...mapActions(
                 'payment',
@@ -140,21 +159,7 @@
                     let inputFieldError = this.errors.find(e => e[0] === inputFieldName);
                     return !inputFieldError || inputFieldError === null ? null : inputFieldError[1];
                 },
-                validateField(input, errorName, message) {
-                    if (!input) {
-                        this.errors.push([errorName, message]);
-                    } else {
-                        this.errors = this.errors.filter(e => e[0] !== errorName)
-                    }  
-                },
-                validateData() {
-                    this.validateField(this.owner, 'ownerError', '* Owner is required');
-                    this.validateField(this.ccv,  'ccvError',  '* CCV is required');
-                    this.validateField(this.cardNumber, 'cardNumberError', '* Card Number is required');
-                    this.validateField(this.expiration,  'expirationError',  '* Expiration date is required');
-                    this.validateField(this.year,  'yearError',  '* Year is required');
-                    this.validateField(this.cardType,  'cardTypeError',  '* Card Type is required');
-                },
+
                 savePaymentInfo() {
                     let payload = {};
 
@@ -166,6 +171,12 @@
                     payload.cardType = this.cardType
 
                     this.createPayment(payload);
+                },
+                callUpdatePaymentMethod(attr) {
+                    this.updateNewPaymentMethod(attr);
+                },
+                callValidate(input) {
+                    this.validateField(input);
                 }
         },
         data: function () {
@@ -182,6 +193,6 @@
         },
         created() {
             this.setUserPaymentMethod();
-        },             
+        },
     }
 </script>

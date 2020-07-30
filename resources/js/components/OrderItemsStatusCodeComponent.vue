@@ -47,8 +47,13 @@
             <input type="text" style="width:100%" v-model="name">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" ref="modalClose">Close</button>
+            <button 
+              type="button" 
+              class="btn btn-primary" 
+              @click="handleCreateItemStatusCode()">
+              Save
+            </button>
           </div>
         </div>
       </div>
@@ -81,40 +86,10 @@
                     'deleteOrderItemStatusCodes',
                     'updateOrderItemStatusCode'
                 ]),
-                openAddModal() {
-                  this.$swal({
-                      title: 'Add a new invoice status code',
-                      input: 'text',
-                      inputAttributes: {
-                        autocapitalize: 'off'
-                      },
-                      showCancelButton: true,
-                      confirmButtonText: 'Save',
-                      showLoaderOnConfirm: true,
-                      preConfirm: (name) => {
-                        this.createOrderItemStatusCode(name);
-                        // return fetch(`//api.github.com/users/${login}`)
-                        //   .then(response => {
-                        //     if (!response.ok) {
-                        //       throw new Error(response.statusText)
-                        //     }
-                        //     return response.json()
-                        //   })
-                        //   .catch(error => {
-                        //     Swal.showValidationMessage(
-                        //       `Request failed: ${error}`
-                        //     )
-                        //   })
-                      },
-                      allowOutsideClick: () => !Swal.isLoading()
-                    }).then((result) => {
-                      if (result.value) {
-                        Swal.fire({
-                          title: `${result.value.login}'s avatar`,
-                          imageUrl: result.value.avatar_url
-                        })
-                      }
-                    });
+                handleCreateItemStatusCode() {
+                  this.createOrderItemStatusCode(this.name);
+                  this.$refs.modalClose.click();
+                  this.name = '';
                 },
                 openEditModal() {
                   this.$swal({

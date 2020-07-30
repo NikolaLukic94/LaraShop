@@ -61,30 +61,35 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProduct $request)
+    // StoreProduct
+    public function store(Request $request)
     {
         $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
+            'color' => $request->color,
+            'size' => $request->size,
+            // 'other' => $request->other,
             'quantity' => $request->quantity,
-            'product_type_id' => $request->product_type_id
+            'product_type_id' => $request->productTypeId
         ]);
 
-        $images = $request->images;
+        // $images = $request->images;
 
-        foreach($images as $image) {
-            $imagePath = Storage::disk('uploads')->put(
-                $product->name . '/products' . $product->id, $image
-            );
+        // foreach($images as $image) {
+        //     $imagePath = Storage::disk('uploads')->put(
+        //         $product->name . '/products' . $product->id, $image
+        //     );
 
-            ProductImage::create([
-                'product_id' => $product,
-                'image_path' => $imagePath
-            ]);
-        }
+        //     ProductImage::create([
+        //         'product_id' => $product,
+        //         'image_path' => $imagePath
+        //     ]);
+        // }
 
         return response()->json([
+            'createdProduct' => $product,
             'status' => 'success',
             'message' => 'Product created successfully'
         ]);

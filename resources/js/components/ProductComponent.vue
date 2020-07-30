@@ -12,7 +12,7 @@
             <div slot="table-actions">
                 <!-- <button class="btn btn-primary" @click="openAddModal">Add New Products</button> -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-              Add modal
+              <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
             </div>
             <template slot="table-row" slot-scope="props">
@@ -109,8 +109,8 @@
           </div>
           </form>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" @click="createProduct">Save product</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success" @click="sendCreateProductRequest()">Save product</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" ref="modalClose">Close</button>
             <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
@@ -136,25 +136,37 @@
                 'products',
                 [
                     'setProducts',
+                    'createProduct'
                 ]),
-                createProduct(e) {
-                  var FormData = require('form-data');
-                  // var fs = require('fs');
-                  var formData = new FormData();
+                sendCreateProductRequest() {
+
                   this.isCreatingPost = true;
-                  // let formData = new FormData();
-                  formData.append('product_type_id', 1)
-                  formData.append('name', this.name)
-                  formData.append('name', this.name)
-                  formData.append('description', this.description)
-                  formData.append('price', this.price)
-                  formData.append('quantity', this.quantity)
-                  formData.append('color', this.color)
-                  formData.append('size', this.size)
-                  formData.append('other', this.size)
-                  $.each(this.imageList, function (key, image) {
-                    formData.append(`images[${key}]`, image);
-                  });
+
+                  let payload = {};
+
+                  payload.productTypeId = 1;
+                  payload.name = this.name;
+                  payload.description = this.description;
+                  payload.price = this.price;
+                  payload.quantity = this.quantity;
+                  payload.color = this.color;
+                  payload.size = this.size;
+                  payload.other = this.other;
+
+                  this.createProduct(payload);
+
+                  this.name = '';
+                  this.description = '';
+                  this.price = '';
+                  this.quantity = '';
+                  this.color = '';
+                  this.size = '';
+                  this.other = '';
+
+                  this.$refs.modalClose.click()
+                  // $.each(this.imageList, function (key, image) {
+                    // formData.append(`images[${key}]`, image);
+                  // });
                   // return axios.post('/products/create', {
                   //       name: this.name,
                   //       description: this.description,
@@ -172,11 +184,11 @@
                   //       })
                   //       .catch(err => console.log(err))
 
-                  return axios.post('/products/create', formData, {
-                    headers: {'Content-Type': 'multipart/form-data'}
-                  }).then((res) => {
-                    console.log(res)
-                  }) 
+                  // return axios.post('/products/create', formData, {
+                  //   headers: {'Content-Type': 'multipart/form-data'}
+                  // }).then((res) => {
+                  //   // console.log(res)
+                  // }) 
                 },
                 updateImageList(file) {
                   this.imageList.push(file.raw);
@@ -184,29 +196,6 @@
                 handlePictureCardPreview(file) {
                   this.dialogImageUrl = file.url;
                   this.dialogVisible = true;
-                },
-                openAddModal() {
-                  this.$swal({
-                      title: 'Add a new invoice status code',
-                      input: 'text',
-                      inputAttributes: {
-                        autocapitalize: 'off'
-                      },
-                      showCancelButton: true,
-                      confirmButtonText: 'Save',
-                      showLoaderOnConfirm: true,
-                      preConfirm: (name) => {
-                        this.createInvoiceStatusCode(name);
-                      },
-                      allowOutsideClick: () => !Swal.isLoading()
-                    }).then((result) => {
-                      if (result.value) {
-                        Swal.fire({
-                          title: `${result.value.login}'s avatar`,
-                          imageUrl: result.value.avatar_url
-                        })
-                      }
-                    });
                 },
                 openEditModal() {
                   this.$swal({

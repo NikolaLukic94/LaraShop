@@ -20,7 +20,7 @@ const actions = {
     setCartItems({commit}) {
         return axios.get('/cart-items/index')
             .then((response) => {
-                commit('setCartItems', response.data.data); 
+                commit('setCartItems', response.data.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -29,7 +29,7 @@ const actions = {
     deleteCartItem({commit}, id) {
         return axios.post('/cart-items/delete/' + id)
             .then((response) => {
-                commit('deleteCartItem', id); 
+                commit('deleteCartItem', id);
             })
             .catch(function (error) {
                 console.log(error);
@@ -38,7 +38,7 @@ const actions = {
     increaseQuantity({commit}, id) {
         return axios.post('/cart-items/quantity/increase/' + id)
             .then((response) => {
-                commit('increaseQuantity', id); 
+                commit('increaseQuantity', id);
             })
             .catch(function (error) {
                 console.log(error);
@@ -48,7 +48,7 @@ const actions = {
     decreaseQuantity({commit}, id) {
         return axios.post('/cart-items/quantity/decrease/' + id)
             .then((response) => {
-                commit('decreaseQuantity', id); 
+                commit('decreaseQuantity', id);
             })
             .catch(function (error) {
                 console.log(error);
@@ -59,7 +59,7 @@ const actions = {
             'quantity': newQuantity
         })
             .then((response) => {
-                commit('changeQuantity', id, newQuantity); 
+                commit('changeQuantity', id, newQuantity);
             })
             .catch(function (error) {
                 console.log(error);
@@ -72,10 +72,10 @@ const actions = {
             // quantity: quantity
         })
             .then((response) => {
-            commit('storeCartItem', response.data.data); 
+                commit('storeCartItem', response.data.data);
             })
             .catch(function (error) {
-            console.log(error);
+                console.log(error);
             })
     },
 };
@@ -85,18 +85,18 @@ const mutations = {
         state.cartItems = cartItems;
     },
     deleteCartItem: (state, id) => {
-        state.cartItems = state.cartItems.filter(c => c.id !== id); 
+        state.cartItems = state.cartItems.filter(c => c.id !== id);
     },
     increaseQuantity: (state, cartId) => {
-        let item = state.cartItems.find(c => c.id === cartId); 
+        let item = state.cartItems.find(c => c.id === cartId);
         item.quantity = item.quantity + 1;
     },
     decreaseQuantity: (state, cartId) => {
-        let item = state.cartItems.find(c => c.id === cartId); 
+        let item = state.cartItems.find(c => c.id === cartId);
         item.quantity = item.quantity - 1;
     },
     changeQuantity: (state, cartId, newQuantity) => {
-        let item = state.cartItems.find(c => c.id === cartId); 
+        let item = state.cartItems.find(c => c.id === cartId);
         item.quantity = newQuantity;
     },
     storeCartItem: (state, cartItem) => {
@@ -106,7 +106,7 @@ const mutations = {
 
 export default {
     namespaced: true,
-    state, 
+    state,
     getters,
     actions,
     mutations,
