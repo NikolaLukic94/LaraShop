@@ -46,6 +46,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueMeta from 'vue-meta'
 import Element from 'element-ui'
+import Vuetify from 'vuetify';
+Vue.use(Vuetify);
 
 import _ from 'lodash'
 
@@ -85,4 +87,5 @@ Vue.component('cart-component', require('./components/CartComponent').default);
 const app = new Vue({
     el: '#app',
     store,
+    vuetify: new Vuetify(),
 });

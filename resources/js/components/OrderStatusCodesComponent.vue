@@ -1,5 +1,10 @@
 <template>
   <div>
+    <v-app>
+    <v-alert type="warning" :value="true">
+      Vuetify was installed properly
+    </v-alert>
+  </v-app>
     <div class="container">
         <vue-good-table
             :pagination-options="{
