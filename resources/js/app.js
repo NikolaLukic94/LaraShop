@@ -45,6 +45,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueMeta from 'vue-meta'
 import Element from 'element-ui'
+import Vuetify from 'vuetify';
+Vue.use(Vuetify);
 
 import Vuetify from 'vuetify';
 Vue.use(Vuetify);
