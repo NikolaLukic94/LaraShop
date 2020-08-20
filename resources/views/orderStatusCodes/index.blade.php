@@ -3,7 +3,6 @@
 @include('partials.navbar')
 
 @section('content')
-
 <div class="container-fluid">
   <div class="row">
     @include('sidebar')

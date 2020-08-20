@@ -1,27 +1,27 @@
 <template>
-  <div>
-    <user-addresses></user-addresses>
+    <div>
+        <order-review></order-review>
 
-    <user-payment-methods></user-payment-methods>
+        <user-addresses></user-addresses>
 
-    <order-review></order-review>
+        <user-payment-methods></user-payment-methods>
 
-    <div class="row pt-3">
-        <div class="col">
-            <button class="btn btn-info text-center" @click="placeNewOrder()">Place order</button>
-        </div>
+<!--        <div class="row pt-3">-->
+<!--            <div class="col">-->
+                <button class="btn btn-info text-center" @click="placeNewOrder">Place order</button>
+<!--            </div>-->
+<!--        </div>-->
     </div>
-  </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { mapActions } from 'vuex';
+    import {mapGetters} from 'vuex';
+    import {mapActions} from 'vuex';
 
     export default {
         name: 'checkout-component',
         computed: {
-            ...mapGetters('userAddress', ['getNewAddress']),
+            ...mapGetters('userAddress', ['getNewAddress', 'getErrors']),
             ...mapGetters('paymentMethods', ['getNewPaymentMethod'])
         },
         methods: {
@@ -29,10 +29,15 @@
             ...mapActions('userAddress', ['validateData']),
             ...mapActions('paymentMethods', ['validatePaymentData']),
             placeNewOrder() {
-                this.validateData();
-                this.validatePaymentData();
+                console.log('placing order')
                 // validate user addresses and card data
-                // create new order and redirect to successful order page
+                // this.validateData();
+                // this.validatePaymentData();
+                // create new order (along with other stuff) and redirect to successful order page
+                // if (this.getErrors.length === 0 && this.getPaymentErrors.length === 0) {
+                this.createOrder();
+                // }
+
             }
         },
     }

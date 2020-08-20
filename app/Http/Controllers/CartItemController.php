@@ -27,7 +27,7 @@ class CartItemController extends Controller
         ]);
     }
 
-    public function increaseQuantity($id) 
+    public function increaseQuantity($id)
     {
         $cartItem = CartItem::find($id);
 
@@ -40,7 +40,7 @@ class CartItemController extends Controller
             'message' => 'Quantity increased!'
         ]);
     }
-    
+
     public function decreaseQuantity($id)
     {
         $cartItem = CartItem::find($id);
@@ -48,7 +48,7 @@ class CartItemController extends Controller
         $cartItem->quantity = $cartItem->quantity - 1;
 
         $cartItem->save();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Quantity decreased!'
@@ -62,7 +62,7 @@ class CartItemController extends Controller
         $cartItem->quantity = $request->newQuantity;
 
         $cartItem->save();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Quantity updated!'

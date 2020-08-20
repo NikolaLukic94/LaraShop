@@ -1,12 +1,11 @@
 <template>
   <div>
-    <li class="nav-item" v-if="getCartItems.length > 0">
+    <li class="nav-item pl-3" v-if="getCartItems.length > 0">
       <b>
         <a class="nav-link" href="/cart/index"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
         <p>{{ getCartItems.length }}</p>
         </a>
-      
-      </b> 
+      </b>
     </li>
   </div>
 </template>
@@ -32,6 +31,6 @@
         },
         created() {
             this.setCartItems();
-        },             
+        },
     }
 </script>

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    protected $fillable = [
+        'date_placed', 'order_details', 'user_id', 'order_status_codes_id'
+    ];
+
     public function orderStatusCode()
     {
         return $this->belongsTo(OrderStatusCode::class);
@@ -21,5 +25,5 @@ class Order extends Model
         return $this->hasMany(Invoice::class);
     }
 
-    
+
 }

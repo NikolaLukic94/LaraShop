@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Resources\CartItem as CartItemResource;
 use Illuminate\Http\Request;
 use App\Models\CartItem;
@@ -19,7 +20,6 @@ class CartController extends Controller
         return CartItemResource::collection($cartItem);
     }
 
-    // cart belongs to one user and can have many products
     public function index()
     {
         return view('cart.index');

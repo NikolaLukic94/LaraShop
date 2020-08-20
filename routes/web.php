@@ -41,6 +41,7 @@ Route::group(['middleware' => 'verified'], function () {
     Route::group(['prefix' => '/orders'], function() {
         Route::get('/', 'OrderController@getAll');
         Route::get('/index', 'OrderController@index');
+        Route::post('/create', 'OrderController@store');
     });
 
     Route::group(['prefix' => '/user-payments'], function() {
@@ -64,7 +65,7 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/', 'InvoiceController@getAll');
         Route::get('/index', 'InvoiceController@index');
     });
-    
+
     Route::group(['prefix' => 'invoice-status-codes'], function() {
         Route::get('/', 'InvoiceStatusCodeController@getAll');
         Route::get('/index', 'InvoiceStatusCodeController@index');
@@ -72,28 +73,28 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/create', 'InvoiceStatusCodeController@store');
         Route::post('/delete/{id}', 'InvoiceStatusCodeController@delete');
     });
-    
+
     Route::group(['prefix' => 'order-item-status-codes'], function() {
         Route::get('/', 'OrderItemStatusCodeController@getAll');
         Route::get('/index', 'OrderItemStatusCodeController@index');
         Route::post('/create', 'OrderItemStatusCodeController@store');
         Route::post('/delete/{id}', 'OrderItemStatusCodeController@delete');
     });
-    
+
     Route::group(['prefix' => 'order-status-codes'], function() {
         Route::get('/', 'OrderStatusCodeController@getAll');
         Route::get('/index', 'OrderStatusCodeController@index');
         Route::post('/create', 'OrderStatusCodeController@store');
         Route::post('/delete/{id}', 'OrderStatusCodeController@delete');
     });
-    
+
     Route::group(['prefix' => 'product-types'], function() {
         Route::get('', 'ProductTypeController@getAll');
         Route::get('/index', 'ProductTypeController@index');
         Route::post('/create', 'ProductTypeController@store');
         Route::post('/delete/{id}', 'ProductTypeController@delete');
     });
-        
+
     Route::group(['prefix' => 'payments'], function() {
         Route::get('/', 'PaymentController@getAll');
         Route::get('/index', 'PaymentController@index');
@@ -125,7 +126,7 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/index/all', 'ShipmentController@browse');// todo: redo to be users only
         // Route::post('/create', 'ShipmentController@store');
     });
-    
+
     Route::group(['prefix' => 'users'], function() {
         Route::get('/', 'UserController@getAll');
         Route::get('/index', 'UserController@index');

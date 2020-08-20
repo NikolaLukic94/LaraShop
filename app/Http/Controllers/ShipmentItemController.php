@@ -27,7 +27,7 @@ class ShipmentItemController extends Controller
         $shipmentItem = ShipmentItem::find($id);
 
         $shipmentItem->shipment_id = $request->shipmentId;
-        $shipmentItem->order_item_id = $request->orderItemId;        
+        $shipmentItem->order_item_id = $request->orderItemId;
 
         $shipmentItem->save();
 
@@ -37,12 +37,12 @@ class ShipmentItemController extends Controller
         ]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $shipmentItem = ShipmentItem::find($id);
 
         $shipmentItem->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Shipment item has been deleted'

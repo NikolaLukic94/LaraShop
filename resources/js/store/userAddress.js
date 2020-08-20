@@ -1,27 +1,16 @@
 const state = {
     userAddresses: [],
-    newAddress: [
-        // firstName = '',
-        // lastName = '',
-        // addressLineOne = '',
-        // addressLineTwo = '',
-        // phoneNumber = '',
-        // city = '',
-        // county = '',
-        // zip = '',
-        // country = '',
+    nn: [
+            ['firstName', '']
+            ['lastName', ''],
+            ['addressLineOne', ''],
+            ['addressLineTwo', ''],
+            ['phoneNumber', ''],
+            ['city', ''],
+            ['county', ''],
+            ['zip', ''],
+            ['country', ''],
     ],
-    nn: {
-        firstName: '',
-        lastName: '',
-        addressLineOne: '',
-        addressLineTwo: '',
-        phoneNumber: '',
-        city: '',
-        county: '',
-        zip: '',
-        country: '',
-    },
     errors: []
 }
 
@@ -41,15 +30,18 @@ const actions = {
             })
     },
     updateNewAddressField({commit}, attrName) {
-        state.newAddress[attrName.fieldName] = attrName.fieldValue;
+        console.log(attrName, 'attrName')
+        commit('updateNewAddressField', attrName);
     },
     validateField({commit}, input) {
         let name = input.errorName.replace("Error", "");
 
-        if (!state.nn.name) {
-            state.errors.push([input.errorName, input.errorMessage]);
+        if (state.nn.name == null) {
+            console.log('abc', state.nn)
+            let theError = {name: input.errorName, message: input.errorMessage}
+            commit('pushError', theError)
         } else {
-            state.errors = state.errors.filter(e => e[0] !== input.errorName)
+            commit('removeError', input.errorName)
         }
     },
     validateData({commit}) {
@@ -72,11 +64,21 @@ const mutations = {
     validateData: (state, input) => {
         let name = input.errorName.replace("Error", "");
 
-        if (!state.nn.name) {
+        if (state.nn.name == null) {
             state.errors.push([input.errorName, input.errorMessage]);
         } else {
             state.errors = state.errors.filter(e => e[0] !== input.errorName)
         }
+    },
+    updateNewAddressField: (state, input) => {
+        let st = input.fieldName;
+        state.nn.st = input.fieldValue;
+    },
+    pushError: (state, theError) => {
+        state.errors.push([theError.name, theError.message]);
+    },
+    removeError: (state, errorName) => {
+        state.errors = state.errors.filter(e => e[0] !== errorName)
     }
 };
 

@@ -33,6 +33,11 @@
     <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+
+    <script src=”{{ asset('js/app.js') }}” defer></script>
 </head>
 <body>
     <div id="app">
@@ -49,7 +54,7 @@ body {
   font-size: .875rem;
   background-image: url("background.jpg");
 
-  
+
 }
 
 .feather {
@@ -70,7 +75,7 @@ body {
   z-index: 100; /* Behind the navbar */
   padding: 48px 0 0; /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-  
+
 }
 
 @media (max-width: 767.98px) {

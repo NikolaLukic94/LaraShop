@@ -12,14 +12,14 @@ class ShipmentController extends Controller
 {
     public function getAll()
     {
-    	$shipments = Shipment::paginate(15);
-
-        return ShipmentResource::collection($shipments);
+        return ShipmentResource::collection(
+            Shipment::paginate(15)
+        );
     }
 
     public function index()
     {
-    	return view('shipments.index');
+        return view('shipments.index');
     }
 
     public function store(StoreShipment $request)
@@ -56,12 +56,12 @@ class ShipmentController extends Controller
         ]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $shipment = Shipment::find($id);
 
         $shipment->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Shipment has been deleted'

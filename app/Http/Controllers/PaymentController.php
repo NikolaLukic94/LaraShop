@@ -12,15 +12,17 @@ class PaymentController extends Controller
 {
     public function getAll()
     {
-    	$payments = Payment::paginate(15);
         //return collection of articles as a resource
-        return PaymentResource::collection($payments);
+        return PaymentResource::collection(
+            Payment::paginate(15)
+        );
     }
 
     public function index()
     {
         return view('payments.index');
     }
+
     // StorePayment
     public function store(Request $request)
     {
@@ -52,12 +54,12 @@ class PaymentController extends Controller
         ]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $payment = Payment::find($id);
 
         $payment->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Payment item has been deleted'

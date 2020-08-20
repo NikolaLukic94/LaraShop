@@ -32,7 +32,7 @@
 
         </vue-good-table>
     </div>
-  
+
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -92,7 +92,7 @@
                       preConfirm: (text) => {
                         let f = {};
                         f.id = rowId;
-                        f.input = text 
+                        f.input = text
                         this.updateInvoiceStatusCode(f);
                       },
                       allowOutsideClick: () => !Swal.isLoading()
@@ -146,12 +146,14 @@
                     {
                       label: 'Action',
                       field: 'action',
-                    },                    
+                    },
                 ],
             }
         },
         created() {
             this.setInvoiceStatusCodes();
-        },             
+        },
     }
 </script>
+
+

@@ -12,17 +12,18 @@ class OrderStatusCodeController extends Controller
 {
     public function getAll()
     {
-    	$codes = OrderStatusCode::paginate(15);
         //return collection of articles as a resource
-        return OrderStatusCodeResource::collection($codes);
+        return OrderStatusCodeResource::collection(
+            OrderStatusCode::paginate(15)
+        );
     }
 
     public function index()
     {
-    	return view('orderStatusCodes.index');
+        return view('orderStatusCodes.index');
     }
 
-    public function store(StoreOrderStatusCode $request) 
+    public function store(StoreOrderStatusCode $request)
     {
         $code = OrderStatusCode::create([
             'name' => $request->name
@@ -35,7 +36,7 @@ class OrderStatusCodeController extends Controller
         ]);
     }
 
-    public function update(UpdateOrderStatusCode $request) 
+    public function update(UpdateOrderStatusCode $request)
     {
         $code = OrderStatusCode::find($id);
 
@@ -50,12 +51,12 @@ class OrderStatusCodeController extends Controller
         ]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $codes = OrderStatusCode::find($id);
 
         $codes->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Order status code status code has been deleted'

@@ -19,6 +19,7 @@ const actions = {
     createOrder({commit}) {
         return axios.post('/orders/create')
             .then((response) => {
+                console.log(response)
                 commit('createOrder', response.data.data);
             })
             .catch(function (error) {

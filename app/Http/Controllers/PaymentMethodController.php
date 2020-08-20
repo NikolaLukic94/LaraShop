@@ -12,17 +12,18 @@ class PaymentMethodController extends Controller
 {
     public function getAll()
     {
-    	$paymentMethods = PaymentMethod::paginate(15);
         //return collection of articles as a resource
-        return PaymentMethodResource::collection($paymentMethods);
+        return PaymentMethodResource::collection(
+            PaymentMethod::paginate(15)
+        );
     }
 
     public function index()
     {
-    	return view('paymentMethods.index');
+        return view('paymentMethods.index');
     }
 
-    public function store(StorePaymentMethod $request) 
+    public function store(StorePaymentMethod $request)
     {
         $newPaymentMethod = PaymentMethod::create([
             'name' => $request->name
@@ -35,7 +36,7 @@ class PaymentMethodController extends Controller
         ]);
     }
 
-    public function update(UpdatePaymentMethod $request, $id) 
+    public function update(UpdatePaymentMethod $request, $id)
     {
         $paymentMethod = PaymentMethod::find($id);
 
@@ -50,12 +51,12 @@ class PaymentMethodController extends Controller
         ]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $paymentMethod = PaymentMethod::find($id);
 
         $paymentMethod->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Order status code status code has been deleted'

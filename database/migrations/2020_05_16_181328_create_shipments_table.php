@@ -22,9 +22,9 @@ class CreateShipmentsTable extends Migration
             $table->unsignedBigInteger('invoice_id')->nullable();
             $table->foreign('invoice_id')->references('id')->on('invoices');
 
-            $table->string('tracking_number');
+            $table->string('tracking_number')->nullable();
             $table->date('date');
-            $table->text('other_shipment_details');
+            $table->text('other_shipment_details')->nullable();
 
 
             $table->timestamps();

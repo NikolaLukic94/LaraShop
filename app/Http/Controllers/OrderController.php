@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\Invoice;
 use App\Models\Order;
 use App\Http\Requests\StoreOrder;
 use App\Http\Requests\UpdateOrder;
+use App\Models\OrderItem;
+use App\Models\Payment;
+use App\Models\Shipment;
+use App\Models\ShipmentItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Order as OrderResource;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -22,22 +30,23 @@ class OrderController extends Controller
     {
         return view('orders.index');
     }
+
     //StoreOrder
     public function store(Request $request)
     {
         // need to create order items and order
-        DB::beginTransaction();
-
-        try {
+//        DB::beginTransaction();
+//
+//        try {
 
             $order = Order::create([
-                'date_placed' => $request->datePlaced,
-                'order_details' => $request->orderDetails,
+                'date_placed' => date('Y-m-d'),
+                'order_details' => "request->orderDetails",
                 'user_id' => Auth::id(),
-                'order_status_codes_id' => $request->orderStatusCodeId,
+                'order_status_codes_id' => 1,
             ]);
 
-            $cartItems = Cart::where('user_id', Auth::id())->cartItems;
+            $cartItems = Cart::where('user_id', Auth::id())->first()->cartItems;
 
             $paymentAmount = 0;
 
@@ -47,7 +56,7 @@ class OrderController extends Controller
                     'order_id' => $order->id,
                     'order_item_status_code_id' => 1,
                     'product_id' => $cartItem->product_id,
-                    'price' => $cartItem->price,
+                    'price' => 12, //$cartItem->price,
                     'quantity' => $cartItem->quantity
                 ]);
 
@@ -57,14 +66,14 @@ class OrderController extends Controller
             $invoice = Invoice::create([
                 'order_id' => $order->id,
                 'invoice_status_code_id' => 1,
-                'date' => new Date(),
+                'date' => Carbon::now(),
                 'invoice_details' => 'test'
             ]);
 
             Payment::create([
                 'invoice_id' => $invoice,
-                'payment_date' => new Date(),
-                'paymentAmount' => $paymentAmount,
+                'payment_date' => Carbon::now(),
+                'paymentAmount' => 12,//$paymentAmount,
                 'payment_methods' => 1
             ]);
 
@@ -72,7 +81,8 @@ class OrderController extends Controller
                 'order_id' => $order->id,
                 'invoice_id' => $invoice->id,
                 'tracking_number' => rand(1, 9999999),
-                'date' => new Date()
+                'date' => Carbon::now()->toDateString(),
+                'other_shipment_details' => 'test'
             ]);
 
             $orderItems = OrderItem::where('order_id', $order->id)->get();
@@ -80,7 +90,8 @@ class OrderController extends Controller
             foreach ($orderItems as $orderItem) {
                 ShipmentItem::create([
                     'shipment_id' => $shipment,
-                    'order_item_id' => $orderItem->id
+                    'order_item_id' => $orderItem->id,
+                    'other_shipment_details' => 'none'
                 ]);
             }
 
@@ -88,12 +99,12 @@ class OrderController extends Controller
 
             // if paperback, send an email to admin to receive notification about pending shipment
 
-            DB::commit();
+//            DB::commit();
             // all good
-        } catch (\Exception $e) {
-            DB::rollback();
+//        } catch (\Exception $e) {
+//            DB::rollback();
             // something went wrong
-        }
+//        }
 
         // todo: auto delete user address if not saved for future use
         // or maybe save it and don't ask user, even better

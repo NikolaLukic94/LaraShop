@@ -20,11 +20,12 @@ class ProductController extends Controller
      */
     public function getAll()
     {
-        $products = Product::paginate(15);
         //return collection of articles as a resource
-        return ProductResource::collection($products);
+        return ProductResource::collection(
+            Product::paginate(15)
+        );
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +35,7 @@ class ProductController extends Controller
     {
         return view('products.home');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -58,7 +59,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     // StoreProduct
@@ -98,7 +99,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
@@ -114,8 +115,8 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateProduct $request, Product $product)
@@ -128,7 +129,7 @@ class ProductController extends Controller
         $product->quantity = $request->quantity;
         $product->product_type_id = $request->product_type_id;
 
-        $product->save();  
+        $product->save();
 
         return response()->json([
             'status' => 'success',
@@ -139,7 +140,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
     public function destroy($productId)
@@ -154,20 +155,20 @@ class ProductController extends Controller
         ]);
     }
 
-    public function search() 
+    public function search()
     {
         // get recommended books - the ones sold the most
         // $books = Product::popular();
-         // maybe to add rating to books
+        // maybe to add rating to books
         // for now, just take some to display them right away
 
         return view('products.search');
     }
 
-    public function filter(Request $request) 
+    public function filter(Request $request)
     {
-        $products =  Product::where('name', 'like', '%'. $request->name.'%')
-            ->orWhere('name', 'like', '%'. $request->name.'%')
+        $products = Product::where('name', 'like', '%' . $request->name . '%')
+            ->orWhere('name', 'like', '%' . $request->name . '%')
             ->get();
 
         return ProductResource::collection($products);

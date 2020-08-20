@@ -40,14 +40,16 @@ if (token) {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token')
 }
 
-
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueMeta from 'vue-meta'
 import Element from 'element-ui'
 
+import Vuetify from 'vuetify';
+Vue.use(Vuetify);
 import _ from 'lodash'
+import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(VueAxios, axios)
 Vue.use(Element)
@@ -75,6 +77,8 @@ Vue.component('shipment-component', require('./components/ShipmentComponent').de
 Vue.component('sidebar-component', require('./components/SidebarComponent').default);
 Vue.component('search-page-component', require('./components/SearchPageComponent').default);
 Vue.component('cart-component', require('./components/CartComponent').default);
+Vue.component('landing-page', require('./components/LandingPage').default);
+Vue.component('navbar-component', require('./components/Navbar').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -85,4 +89,5 @@ Vue.component('cart-component', require('./components/CartComponent').default);
 const app = new Vue({
     el: '#app',
     store,
+    vuetify: new Vuetify(),
 });

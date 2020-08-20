@@ -12,14 +12,14 @@ class InvoiceController extends Controller
 {
     public function getAll()
     {
-    	$invoices = Invoice::paginate(15);
+        $invoices = Invoice::paginate(15);
 
         return InvoiceResource::collection($invoices);
     }
 
     public function index()
     {
-    	return view('invoices.index');
+        return view('invoices.index');
     }
 
     public function store(StoreInvoice $request)
@@ -54,12 +54,12 @@ class InvoiceController extends Controller
         ]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $invoice = Invoice::find($id);
 
         $invoice->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Invoice has been deleted'

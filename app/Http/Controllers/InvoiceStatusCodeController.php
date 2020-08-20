@@ -12,17 +12,17 @@ class InvoiceStatusCodeController extends Controller
 {
     public function getAll()
     {
-    	$invoiceStatusCodes = InvoiceStatusCode::paginate(15);
-
-        return InvoiceResource::collection($invoiceStatusCodes);
+        return InvoiceResource::collection(
+            InvoiceStatusCode::paginate(15)
+        );
     }
 
     public function index()
     {
-    	return view('invoiceStatusCodes.index');
+        return view('invoiceStatusCodes.index');
     }
 
-    public function store(StoreInvoiceStatusCode $request) 
+    public function store(StoreInvoiceStatusCode $request)
     {
         $newInvoiceStatusCode = InvoiceStatusCode::create([
             'name' => $request->name
@@ -35,7 +35,7 @@ class InvoiceStatusCodeController extends Controller
         ]);
     }
 
-    public function update(UpdateInvoiceStatusCode $request, $id) 
+    public function update(UpdateInvoiceStatusCode $request, $id)
     {
         $invoiceStatusCode = InvoiceStatusCode::find($id);
 
@@ -50,12 +50,12 @@ class InvoiceStatusCodeController extends Controller
         ]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $invoiceStatusCode = InvoiceStatusCode::find($id);
 
         $invoiceStatusCode->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Invoice status code has been deleted'

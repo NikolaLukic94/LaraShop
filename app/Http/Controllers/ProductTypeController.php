@@ -18,16 +18,18 @@ class ProductTypeController extends Controller
      */
     public function getAll()
     {
-        $products = ProductType::paginate(15);
         //return collection of articles as a resource
-        return ProductTypeResource::collection($products);
+        return ProductTypeResource::collection(
+            ProductType::paginate(15)
+        );
     }
+
     public function index()
     {
         return view('productTypes.index');
     }
 
-    public function store(StoreProductType $request) 
+    public function store(StoreProductType $request)
     {
         $newProductType = ProductType::create([
             'name' => $request->name,
@@ -41,7 +43,7 @@ class ProductTypeController extends Controller
         ]);
     }
 
-    public function update(UpdateProductType $request, $id) 
+    public function update(UpdateProductType $request, $id)
     {
         $productType = ProductType::find($id);
 
@@ -56,7 +58,7 @@ class ProductTypeController extends Controller
         ]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $products = Product::where('product_type_id', $id)->get();
 
@@ -69,7 +71,7 @@ class ProductTypeController extends Controller
             $productType = ProductType::find($id);
 
             $productType->delete();
-            
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Product type has been deleted'

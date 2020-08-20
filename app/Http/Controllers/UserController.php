@@ -16,14 +16,15 @@ class UserController extends Controller
      */
     public function getAll()
     {
-        $users = User::paginate(15);
         //return collection of articles as a resource
-        return UserResource::collection($users);
+        return UserResource::collection(
+            User::paginate(15)
+        );
     }
 
     public function index()
     {
-    	return view('users.index');
+        return view('users.index');
     }
 
     public function getUserData($id)
@@ -38,12 +39,12 @@ class UserController extends Controller
         return view('users.show');
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $user = User::find($id);
 
         $user->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Product type has been deleted'

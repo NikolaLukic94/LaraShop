@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class OrderItemController extends Controller
 {
-    public function store(StoreOrderItem $request) 
+    public function store(StoreOrderItem $request)
     {
         OrderItem::create([
             'user_id' => $request->userId,
@@ -24,7 +24,7 @@ class OrderItemController extends Controller
         ]);
     }
 
-    public function update(UpdateOrderItem $request, $id) 
+    public function update(UpdateOrderItem $request, $id)
     {
         $orderItem = OrderItem::find($id);
 
@@ -42,12 +42,12 @@ class OrderItemController extends Controller
         ]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $orderItem = OrderItem::find($id);
 
         $orderItem->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'Order item has been deleted'

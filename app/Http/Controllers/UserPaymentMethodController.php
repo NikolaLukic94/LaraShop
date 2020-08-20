@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserPaymentMethod;
 use App\Http\Requests\StoreUserPaymentMethod;
@@ -44,12 +45,12 @@ class UserPaymentMethodController extends Controller
         ]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $userPaymentMethod = UserPaymentMethod::find($id);
 
         $userPaymentMethod->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'User payment method has been deleted'

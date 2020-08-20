@@ -14,10 +14,12 @@ class UserAddressController extends Controller
 {
     public function getAll()
     {
-        $addresses = Auth::user()->addresses;
         //return collection of articles as a resource
-        return UserAddressesResource::collection($addresses);
+        return UserAddressesResource::collection(
+            Auth::user()->addresses
+        );
     }
+
     // StoreUserAddresses
     public function store(Request $request)
     {
@@ -39,6 +41,7 @@ class UserAddressController extends Controller
             'message' => 'Address has been added'
         ]);
     }
+
     // UpdateUserAddresses
     public function update(Request $request)
     {
@@ -63,12 +66,12 @@ class UserAddressController extends Controller
         ]);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $userAddress = UserAddress::find($id);
 
         $userAddress->delete();
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'User address has been deleted'

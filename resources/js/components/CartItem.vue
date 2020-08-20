@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div class="container">
+      <navbar-component></navbar-component>
+
+      <div class="container">
 
         <div class="card border-0">
         <div class="row">
             <div class="col-sm">
-                
+
             </div>
             <div class="col-sm">
 
@@ -50,7 +52,7 @@
                 </div>
             </div>
         </div>
-        
+
         <hr>
     </div>
     <!-- <nav class="navbar navbar-light bg-faded"> -->
@@ -61,8 +63,8 @@
                 Add more items
                 </div>
                 <div class="col-4">
-                    <b>Total: $ {{ this.getTotalPremium }}</b> 
-                    
+                    <b>Total: $ {{ this.getTotalPremium }}</b>
+
                 </div>
                 <div class="col-4">
                     <a href="/checkout">Checkout</a>
@@ -83,15 +85,15 @@
         name: 'cart-items',
         computed: {
             ...mapGetters('cartItem', [
-                'getCartItems', 
+                'getCartItems',
                 'getTotalPremium'
             ])
         },
         methods: {
             ...mapActions(
-                'cartItem', 
+                'cartItem',
                 [
-                    'setCartItems', 
+                    'setCartItems',
                     'increaseQuantity',
                     'decreaseQuantity',
                     'changeQuantity',
@@ -100,11 +102,11 @@
         },
         data: function () {
             return {
-                
+
             }
         },
         created() {
             this.setCartItems();
-        },             
+        },
     }
 </script>

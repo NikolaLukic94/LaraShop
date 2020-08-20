@@ -1,18 +1,20 @@
 const state = {
     paymentMethods: [],
-    newPaymentMethod: {
-        owner: '',
-        ccv: '',
-        cardNumber: '',
-        expiration: '',
-        year: '',
-        cardType: '',
-    }
+    newPaymentMethod: [
+        ['owner', ''],
+        ['ccv', ''],
+        ['cardNumber', ''],
+        ['expiration', ''],
+        ['year', ''],
+        ['cardType', ''],
+    ],
+    errors: []
 }
 
 const getters = {
     getPaymentMethods: state => state.paymentMethods,
-    getNewPaymentMethod: state => state.newPaymentMethod
+    getNewPaymentMethod: state => state.newPaymentMethod,
+    getPaymentErrors: state => state.errors
 };
 
 const actions = {
@@ -24,15 +26,15 @@ const actions = {
             .catch(function (error) {
                 console.log(error);
             })
-        },
+    },
     createPaymentMethod({commit}, name) {
         return axios.post('/payment-methods/create', {
             name: name
         })
-        .then((response) => {
-            commit('createPaymentMethod', response.data.createdPaymentMethod)
-        })
-        .catch(err => console.log(err))
+            .then((response) => {
+                commit('createPaymentMethod', response.data.createdPaymentMethod)
+            })
+            .catch(err => console.log(err))
     },
     deletePaymentMethods({commit}, id) {
         return axios.post('/payment-methods/delete/' + id)
@@ -45,29 +47,30 @@ const actions = {
         return axios.post('/payment-methods/edit/' + id, {
             name: name
         })
-        .then((response) => {
-            commit('updatePaymentMethod', {id, name})
-        })
+            .then((response) => {
+                commit('updatePaymentMethod', {id, name})
+            })
     },
     updateNewPaymentMethod({commit}, attrName) {
-        state.newPaymentMethod[attrName.fieldName] = attrName.fieldValue;
+        commit('updateNewPaymentField', attrName);
     },
-    validateField({commit}, input) {
+    validatePaymentField({commit}, input) {
         let name = input.errorName.replace("Error", "");
 
-        if (!state.nn.name) {
-            state.errors.push([input.errorName, input.errorMessage]);
+        if (!state.newPaymentMethod.name) {
+            let theError = {name: input.errorName, message: input.errorMessage}
+            commit('pushError', theError)
         } else {
-            state.errors = state.errors.filter(e => e[0] !== input.errorName)
+            commit('removeError', input.errorName)
         }
     },
     validatePaymentData({commit}) {
-        commit('validateData', {errorName:'ownerError', errorMessage: '* Owner is required'});
-        commit('validateData', {errorName:'ccvError', errorMessage: '* Card Number is required'});
-        commit('validateData', {errorName:'cardNumberError', errorMessage: '* Card Number is required'});
-        commit('validateData', {errorName:'expirationError', errorMessage: '* Expiration date is required'});
-        commit('validateData', {errorName:'yearError', errorMessage: '* Year is required'});
-        commit('validateData', {errorName:'cardTypeError', errorMessage: '* Card Type is required'});
+        commit('validatePaymentData', {errorName: 'ownerError', errorMessage: '* Owner is required'});
+        commit('validatePaymentData', {errorName: 'ccvError', errorMessage: '* Card Number is required'});
+        commit('validatePaymentData', {errorName: 'cardNumberError', errorMessage: '* Card Number is required'});
+        commit('validatePaymentData', {errorName: 'expirationError', errorMessage: '* Expiration date is required'});
+        commit('validatePaymentData', {errorName: 'yearError', errorMessage: '* Year is required'});
+        commit('validatePaymentData', {errorName: 'cardTypeError', errorMessage: '* Card Type is required'});
     },
 };
 
@@ -85,14 +88,24 @@ const mutations = {
         let updatedPaymentMethod = state.paymentMethods.find(p => p.id === id);
         updatedPaymentMethod.name = name;
     },
-    validateData: (state, input) => {
+    validatePaymentData: (state, input) => {
         let name = input.errorName.replace("Error", "");
 
-        if (!state.nn.name) {
+        if (!state.newPaymentMethod.name) {
             state.errors.push([input.errorName, input.errorMessage]);
         } else {
             state.errors = state.errors.filter(e => e[0] !== input.errorName)
         }
+    },
+    updateNewPaymentField: (state, input) => {
+        let st = input.fieldName;
+        state.newPaymentMethod.st = input.fieldValue;
+    },
+    pushError: (state, theError) => {
+        state.errors.push([theError.name, theError.message]);
+    },
+    removeError: (state, errorName) => {
+        state.errors = state.errors.filter(e => e[0] !== errorName)
     }
 };
 
