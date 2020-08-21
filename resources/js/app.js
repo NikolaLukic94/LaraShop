@@ -48,8 +48,8 @@ import Element from 'element-ui'
 import Vuetify from 'vuetify';
 Vue.use(Vuetify);
 
-import Vuetify from 'vuetify';
-Vue.use(Vuetify);
+// import Vuetify from 'vuetify';
+// Vue.use(Vuetify);
 import _ from 'lodash'
 import 'vuetify/dist/vuetify.min.css'
 
