@@ -6,11 +6,7 @@
 
         <user-payment-methods></user-payment-methods>
 
-<!--        <div class="row pt-3">-->
-<!--            <div class="col">-->
-                <button class="btn btn-info text-center" @click="placeNewOrder">Place order</button>
-<!--            </div>-->
-<!--        </div>-->
+        <button class="btn btn-info text-center" @click="placeNewOrder">Place order</button>
     </div>
 </template>
 

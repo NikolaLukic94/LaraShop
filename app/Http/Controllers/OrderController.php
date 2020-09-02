@@ -73,7 +73,7 @@ class OrderController extends Controller
             Payment::create([
                 'invoice_id' => $invoice,
                 'payment_date' => Carbon::now(),
-                'paymentAmount' => 12,//$paymentAmount,
+                'payment_amount' => 12,//$paymentAmount,
                 'payment_methods' => 1
             ]);
 

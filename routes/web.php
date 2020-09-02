@@ -25,6 +25,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
+Route::get('/test-sidebar', function () {
+    return view('test');
+});
+
 Route::group(['middleware' => 'verified'], function () {
 
     Route::group(['prefix' => '/cart-items'], function() {

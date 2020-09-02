@@ -10,7 +10,7 @@ const actions = {
     setInvoiceStatusCodes({commit}) {
         return axios.get('/invoice-status-codes')
               .then((response) => {
-                commit('setInvoiceStatusCodes', response.data.data); 
+                commit('setInvoiceStatusCodes', response.data.data);
               })
               .catch(function (error) {
               })
@@ -33,7 +33,7 @@ const actions = {
     },
     updateInvoiceStatusCode({commit}, inputParams) {
         return axios.post('/invoice-status-codes/update/' + inputParams.id, {
-            name: inputParams.input
+            name: inputParams.name
         })
         .then((response) => {
             commit('updateInvoiceStatusCode', inputParams)
@@ -59,7 +59,7 @@ const mutations = {
 
 export default {
     namespaced: true,
-    state, 
+    state,
     getters,
     actions,
     mutations,

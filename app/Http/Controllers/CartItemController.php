@@ -13,17 +13,27 @@ class CartItemController extends Controller
     {
         $cart = Cart::firstOrCreate(['user_id' => Auth::id()]);
 
-        $cartItem = CartItem::create([
-            'cart_id' => $cart->id,
-            'product_id' => $request->productId,
-            // 'quantity' => $request->quantity
-            'quantity' => 1
-        ]);
+        $cartItem = CartItem::where('product_id', $request->productId)->where('cart_id', $cart->id)->first();
+
+        if ($cartItem === null) {
+            $cartItem = CartItem::create([
+                'cart_id' => $cart->id,
+                'product_id' => $request->productId,
+                'quantity' => 1
+            ]);
+
+            $message = 'New item added to cart!';
+        } else {
+            $cartItem->quantity= $cartItem->quantity + 1;
+            $cartItem->save();
+
+            $message = 'Quantity increased!';
+        }
 
         return response()->json([
             'cartItem' => $cartItem,
             'status' => 'success',
-            'message' => 'New item added to cart!'
+            'message' => $message
         ]);
     }
 

@@ -1,6 +1,7 @@
 const state = {
     cartItems: [],
-    getTotalPremium: 0
+    getTotalPremium: 0,
+    allAreDigital: false
 }
 
 const getters = {
@@ -20,11 +21,15 @@ const actions = {
     setCartItems({commit}) {
         return axios.get('/cart-items/index')
             .then((response) => {
+                commit('setAllAreDigital', response.data.data);
                 commit('setCartItems', response.data.data);
             })
             .catch(function (error) {
                 console.log(error);
             })
+    },
+    setAllAreDigital() {
+        commit('setAllAreDigital', cartItems);
     },
     deleteCartItem({commit}, id) {
         return axios.post('/cart-items/delete/' + id)
@@ -101,6 +106,16 @@ const mutations = {
     },
     storeCartItem: (state, cartItem) => {
         state.cartItems.push(cartItem);
+    },
+    setAllAreDigital: (state, cartItems) => {
+        console.log('aaa')
+        let allAreDigital = cartItems.find(
+            p => p.relationships.product.data.relationships.productType.data.name !== 'digital'
+        );
+
+        if (allAreDigital) {
+            state.allAreDigital = true;
+        }
     }
 };
 

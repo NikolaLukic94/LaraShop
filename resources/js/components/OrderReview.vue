@@ -35,10 +35,10 @@
                     <v-col>
                         ${{ cartItem.quantity * cartItem.relationships.product.data.price }}
                     </v-col>
-                    <v-col>
-                        <i class="fa fa-remove" @click="deleteCartItem(cartItem.id)"></i>
-                        <i class="fa fa-heart" aria-hidden="true"></i>
-                    </v-col>
+<!--                    <v-col>-->
+<!--                        <i class="fa fa-remove" @click="deleteCartItem(cartItem.id)"></i>-->
+<!--                        <i class="fa fa-heart" aria-hidden="true"></i>-->
+<!--                    </v-col>-->
                 </v-row>
             </v-container>
         </v-card>

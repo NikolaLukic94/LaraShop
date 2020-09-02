@@ -1,85 +1,78 @@
 <template>
-  <div>
-      <navbar-component></navbar-component>
+    <div>
+        <v-app>
+            <navbar-component></navbar-component>
+            <v-card
+                class="mx-auto mt-3"
+                max-width="600"
+                outlined
+            >
+                <v-container v-for="cartItem in getCartItems" :key="cartItem.id">
+                    <v-row dense>
+                        <v-card
+                            class="card-outter"
+                            color="#385F73"
+                            dark
+                        >
+                            <v-row>
+                                <v-col cols="4">
+                                    <v-img src="https://picsum.photos/510/300?random" class="ml-3" aspect-ratio="1.7"
+                                           height="230px"></v-img>
+                                </v-col>
+                                <v-col cols="8">
+                                    <v-card-title class="headline">
+                                        {{ cartItem.relationships.product.data.name }}
+                                    </v-card-title>
 
-      <div class="container">
+                                    <v-card-subtitle>Listen to your favorite artists and albums whenever and wherever,
+                                        online and offline.
+                                    </v-card-subtitle>
 
-        <div class="card border-0">
-        <div class="row">
-            <div class="col-sm">
+                                    <v-card-actions class="card-actions">
+                                        <v-btn text>
+                                            <i class="fa fa-plus-circle pr-3" aria-hidden="true"
+                                               @click="increaseQuantity(cartItem.id)">
+                                            </i>
+                                        </v-btn>
 
-            </div>
-            <div class="col-sm">
+                                        <input type="text" :value="cartItem.quantity"
+                                               style="width:25px; color: white"
+                                               @input="changeQuantity()">
 
-            </div>
-            <div class="col-sm">
-                Price
-            </div>
-            <div class="col-sm">
-                Quantity
-            </div>
-            <div class="col-sm">
-                Total
-            </div>
-            <div class="col-sm">
+                                        <v-btn text>
+                                            <i class="fa fa-minus-circle pr-3" aria-hidden="true"
+                                               @click="decreaseQuantity(cartItem.id)">
+                                            </i>
+                                        </v-btn>
+                                        ${{ cartItem.quantity * cartItem.relationships.product.data.price }}
+                                        <v-btn text><i class="fa fa-remove"
+                                                       @click="deleteCartItem(cartItem.id)"></i>
+                                        </v-btn>
+                                    </v-card-actions>
+                                </v-col>
+                            </v-row>
 
-            </div>
-        </div>
-        <hr>
-        <div v-if="getCartItems.length > 0" >
-            <div class="row" v-for="cartItem in getCartItems">
-                <div class="col-sm">
-                    <img src="/img/logo.jpg" width="185" height="150" alt="Image"/>
-                </div>
-                <div class="col-sm align-self-center">
-                    <p>{{cartItem.relationships.product.data.name}}</p>
-                    <p>Author</p>
-                </div>
-                <div class="col-sm align-self-center">
-                <!-- ${{ cartItem.relationships.product.data.price }} -->
-                </div>
-                <div class="col-sm align-self-center">
-                    <i class="fa fa-plus-circle" aria-hidden="true" @click="increaseQuantity(cartItem.id)"></i>
-                    <input type="text" :value="cartItem.quantity" style="width:25px" @input="changeQuantity()">
-                    <i class="fa fa-minus-circle" aria-hidden="true" @click="decreaseQuantity(cartItem.id)"></i>
-                </div>
-                <div class="col-sm align-self-center">
-                    ${{ cartItem.quantity * cartItem.relationships.product.data.price }}
-                </div>
-                <div class="col-sm align-self-center">
-                    <i class="fa fa-remove" @click="deleteCartItem(cartItem.id)"></i>
-                    <i class="fa fa-heart" aria-hidden="true"></i>
-                </div>
-            </div>
-        </div>
-
-        <hr>
+                        </v-card>
+                    </v-row>
+                </v-container>
+                <v-container>
+                    <v-btn><i class="fa fa-arrow-left" aria-hidden="true"></i>Add more items</v-btn>
+                    <v-btn text>
+                        <b>Total: $ {{ this.getTotalPremium }}</b>
+                    </v-btn>
+                    <v-btn>
+                        <!--                    <a href="/checkout">Checkout</a>-->
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>Checkout
+                    </v-btn>
+                </v-container>
+            </v-card>
+        </v-app>
     </div>
-    <!-- <nav class="navbar navbar-light bg-faded"> -->
-        <!-- <div class="container text-center"> -->
-            <div class="row">
-                <div class="col-4">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                Add more items
-                </div>
-                <div class="col-4">
-                    <b>Total: $ {{ this.getTotalPremium }}</b>
-
-                </div>
-                <div class="col-4">
-                    <a href="/checkout">Checkout</a>
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                </div>
-            </div>
-        <!-- </div> -->
-    <!-- </nav> -->
-    </div>
-  </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { mapActions } from 'vuex';
+    import {mapGetters} from 'vuex';
+    import {mapActions} from 'vuex';
 
     export default {
         name: 'cart-items',
@@ -101,12 +94,21 @@
             ),
         },
         data: function () {
-            return {
-
-            }
+            return {}
         },
         created() {
             this.setCartItems();
         },
     }
 </script>
+
+<style>
+    .card-outter {
+        position: relative;
+    }
+
+    .card-actions {
+        position: absolute;
+        bottom: 0;
+    }
+</style>
