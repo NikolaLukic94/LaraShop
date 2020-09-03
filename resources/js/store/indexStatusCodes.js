@@ -14,7 +14,7 @@ const actions = {
               })
               .catch(function (error) {
               })
-        },
+    },
     createInvoiceStatusCode({commit}, name) {
         return axios.post('/invoice-status-codes/create', {
             name: name
@@ -53,7 +53,7 @@ const mutations = {
     },
     updateInvoiceStatusCode: (state, inputParams) => {
         let updatedInvoiceStatusCode = state.invoiceStatusCodes.find(inv => inv.id === inputParams.id);
-        updatedInvoiceStatusCode.name = inputParams.input;
+        updatedInvoiceStatusCode.name = inputParams.name;
     }
 };
 

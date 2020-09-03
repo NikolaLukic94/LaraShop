@@ -32,12 +32,12 @@ const actions = {
             })
             .catch(err => console.log(err))
     },
-    updateProductTypeCode({commit}, {id, name}) {
-        return axios.post('/product-type/edit/' + id, {
-            name: name
+    updateProductType({commit}, inputParams) {
+        return axios.post('/product-types/edit/' + inputParams.id, {
+            name: inputParams.name
         })
         .then((response) => {
-            commit('updateProductType', {id, name})
+            commit('updateProductType', inputParams)
         })
     }
 };
@@ -52,9 +52,9 @@ const mutations = {
     deleteProductType: (state, id) => {
         state.productTypes = state.productTypes.filter(inv => inv.id !== id)
     },
-    updateProductType: (state, {id, name}) => {
-        let updatedProductType = state.productTypes.find(inv => inv.id === id);
-        updatedProductType.name = name;
+    updateProductType: (state, inputParams) => {
+        let updatedProductType = state.productTypes.find(pt => pt.id === inputParams.id);
+        updatedProductType.name = inputParams.name;
     }
 };
 

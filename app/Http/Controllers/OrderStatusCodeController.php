@@ -35,8 +35,8 @@ class OrderStatusCodeController extends Controller
             'message' => 'New order status code has been added'
         ]);
     }
-
-    public function update(UpdateOrderStatusCode $request)
+    // UpdateOrderStatusCode
+    public function update(Request $request, $id)
     {
         $code = OrderStatusCode::find($id);
 

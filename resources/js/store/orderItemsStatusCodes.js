@@ -10,12 +10,10 @@ const actions = {
     setOrderItemStatusCodes({commit}) {
         return axios.get('/order-item-status-codes')
               .then((response) => {
-                // handle success
                 console.log(response)
                 commit('setOrderItemStatusCodes', response.data.data); 
               })
               .catch(function (error) {
-                // handle error
                 console.log(error);
               })
         },
@@ -35,12 +33,12 @@ const actions = {
             })
             .catch(err => console.log(err))
     },
-    updateOrderItemStatusCode({commit}, {id, name}) {
-        return axios.post('/order-items-status-codes/edit/' + id, {
-            name: name
+    updateOrderItemStatusCode({commit}, inputParams) {
+        return axios.post('/order-item-status-codes/edit/' + inputParams.id, {
+            name: inputParams.name
         })
         .then((response) => {
-            commit('updateInvoiceStatusCode', {id, name})
+            commit('updateOrderItemStatusCode', {inputParams})
         })
     }
 };
@@ -55,9 +53,9 @@ const mutations = {
     deleteOrderItemStatusCodes: (state, id) => {
         state.orderItemStatusCodes = state.orderItemStatusCodes.filter(inv => inv.id !== id)
     },
-    updateOrderItemStatusCode: (state, {id, name}) => {
-        let updatedOrderItemStatusCode = state.orderItemStatusCodes.find(inv => inv.id === id);
-        updatedOrderItemStatusCode.name = name;
+    updateOrderItemStatusCode: (state, {inputParams}) => {
+        let updatedOrderItemStatusCode = state.orderItemStatusCodes.find(inv => inv.id === inputParams.id);
+        updatedOrderItemStatusCode.name = inputParams.name;
     }
 };
 

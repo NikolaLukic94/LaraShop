@@ -17,12 +17,60 @@
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
               <div class="btn-group" role="group" aria-label="Basic example">
-                  <button class="btn btn-info" @click="openEditModal(props.row)">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                  </button>
                   <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   </button>
+                  <div class="text-center">
+                    <v-dialog
+                        v-model="dialog"
+                        width="500"
+                    >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                                color="red lighten-2"
+                                dark
+                                v-bind="attrs"
+                                v-on="on"
+                            >
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </v-btn>
+                        </template>
+
+                        <v-card>
+                            <v-card-title class="headline grey lighten-2">
+                                Edit
+                            </v-card-title>
+
+                            <v-container>
+                                <v-text-field
+                                    v-model="name">
+                                </v-text-field>
+                            </v-container>
+
+                            <v-divider></v-divider>
+
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                    <v-btn
+                                        color="green darken-1"
+                                        text
+                                        @click="dialog = false"
+                                    >
+                                    Close
+                                  </v-btn>
+                                <v-btn
+                                    color="primary"
+                                    text
+                                    @click="
+                                        dialog = false;
+                                        updatePaymentMethod({id: props.row.id, name: name})"
+                                >
+                                    Update
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                  </div>
               </div>
               </span> 
               <span v-else>
@@ -80,40 +128,6 @@
                     'deletePaymentMethods',
                     'updatePaymentMethod'
                 ]),
-                openEditModal() {
-                  this.$swal({
-                      title: 'Update the name',
-                      input: 'text',
-                      inputAttributes: {
-                        autocapitalize: 'off'
-                      },
-                      showCancelButton: true,
-                      confirmButtonText: 'Save',
-                      showLoaderOnConfirm: true,
-                      preConfirm: (login) => {
-                        return fetch(`//api.github.com/users/${login}`)
-                          .then(response => {
-                            if (!response.ok) {
-                              throw new Error(response.statusText)
-                            }
-                            return response.json()
-                          })
-                          .catch(error => {
-                            Swal.showValidationMessage(
-                              `Request failed: ${error}`
-                            )
-                          })
-                      },
-                      allowOutsideClick: () => !Swal.isLoading()
-                    }).then((result) => {
-                      if (result.value) {
-                        Swal.fire({
-                          title: `${result.value.login}'s avatar`,
-                          imageUrl: result.value.avatar_url
-                        })
-                      }
-                    });
-                },
                 openDeleteModal(rowId) {
                   this.$swal.fire({
                       title: 'Are you sure?',
@@ -142,6 +156,8 @@
         },
         data: function () {
             return {
+                dialog: false,
+                name: '',              
                 newPaymentMethod: '',
                 columns: [
                     {

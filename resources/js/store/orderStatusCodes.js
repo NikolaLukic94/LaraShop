@@ -35,12 +35,12 @@ const actions = {
             })
             .catch(err => console.log(err))
     },
-    updateOrderStatusCode({commit}, {id, name}) {
-        return axios.post('/order-status-codes/edit/' + id, {
-            name: name
+    updateOrderStatusCode({commit}, inputParams) {
+        return axios.post('/order-status-codes/edit/' + inputParams.id, {
+            name: inputParams.name
         })
         .then((response) => {
-            commit('updateOrderStatusCode', {id, name})
+            commit('updateOrderStatusCode', inputParams)
         })
     }
 };
@@ -55,9 +55,9 @@ const mutations = {
     deleteOrderStatusCodes: (state, id) => {
         state.orderStatusCodes = state.orderStatusCodes.filter(inv => inv.id !== id)
     },
-    updateOrderStatusCode: (state, {id, name}) => {
-        let updatedOrderStatusCode = state.orderStatusCodes.find(inv => inv.id === id);
-        updatedOrderStatusCode.name = name;
+    updateOrderStatusCode: (state, inputParams) => {
+        let updatedOrderStatusCode = state.orderStatusCodes.find(inv => inv.id === inputParams.id);
+        updatedOrderStatusCode.name = inputParams.name;
     }
 };
 

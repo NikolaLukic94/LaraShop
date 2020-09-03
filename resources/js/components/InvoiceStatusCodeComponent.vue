@@ -14,12 +14,10 @@
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                     </button>
                 </div>
+                <!-- edit modal -->
                 <template slot="table-row" slot-scope="props">
                     <span v-if="props.column.field == 'action'">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button class="btn btn-info" @click="openEditModal(props.row)">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </button>
                             <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
@@ -35,7 +33,7 @@
                                             v-bind="attrs"
                                             v-on="on"
                                         >
-                                            Click Me
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </v-btn>
                                     </template>
 
@@ -45,7 +43,9 @@
                                         </v-card-title>
 
                                         <v-container>
-                                            <v-text-field :model="name"></v-text-field>
+                                            <v-text-field
+                                                v-model="name">
+                                            </v-text-field>
                                         </v-container>
 
                                         <v-divider></v-divider>
@@ -73,10 +73,10 @@
                                 </v-dialog>
                             </div>
                       </div>
-                  </span>
+                    </span>
                     <span v-else>
-                {{props.formattedRow[props.column.field]}}
-              </span>
+                        {{props.formattedRow[props.column.field]}}
+                    </span>
                 </template>
             </vue-good-table>
         </div>
@@ -140,11 +140,11 @@
                 }).then((result) => {
                     if (result.value) {
                         this.deleteInvoiceStatusCode(rowId);
-                        // Swal.fire(
-                        //   'Deleted!',
-                        //   'Invoice status code has been deleted.',
-                        //   'success'
-                        // )
+                        Swal.fire(
+                          'Deleted!',
+                          'Invoice status code has been deleted.',
+                          'success'
+                        )
                     }
                 })
             },

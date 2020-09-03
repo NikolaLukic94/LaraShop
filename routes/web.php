@@ -81,6 +81,7 @@ Route::group(['middleware' => 'verified'], function () {
     Route::group(['prefix' => 'order-item-status-codes'], function() {
         Route::get('/', 'OrderItemStatusCodeController@getAll');
         Route::get('/index', 'OrderItemStatusCodeController@index');
+        Route::post('/edit/{id}', 'OrderItemStatusCodeController@update');
         Route::post('/create', 'OrderItemStatusCodeController@store');
         Route::post('/delete/{id}', 'OrderItemStatusCodeController@delete');
     });
@@ -88,6 +89,7 @@ Route::group(['middleware' => 'verified'], function () {
     Route::group(['prefix' => 'order-status-codes'], function() {
         Route::get('/', 'OrderStatusCodeController@getAll');
         Route::get('/index', 'OrderStatusCodeController@index');
+        Route::post('/edit/{id}', 'OrderStatusCodeController@update');
         Route::post('/create', 'OrderStatusCodeController@store');
         Route::post('/delete/{id}', 'OrderStatusCodeController@delete');
     });
@@ -96,6 +98,7 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('', 'ProductTypeController@getAll');
         Route::get('/index', 'ProductTypeController@index');
         Route::post('/create', 'ProductTypeController@store');
+        Route::post('/edit/{id}', 'ProductTypeController@update');
         Route::post('/delete/{id}', 'ProductTypeController@delete');
     });
 
@@ -110,6 +113,7 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/', 'PaymentMethodController@getAll');
         Route::get('/index', 'PaymentMethodController@index');
         Route::post('/create', 'PaymentMethodController@store');
+        Route::post('/edit/{id}', 'PaymentMethodController@update');
         Route::post('/delete/{id}', 'PaymentMethodController@delete');
     });
 

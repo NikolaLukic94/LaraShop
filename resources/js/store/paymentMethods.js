@@ -43,12 +43,12 @@ const actions = {
             })
             .catch(err => console.log(err))
     },
-    updatePaymentMethod({commit}, {id, name}) {
-        return axios.post('/payment-methods/edit/' + id, {
-            name: name
+    updatePaymentMethod({commit}, inputParams) {
+        return axios.post('/payment-methods/edit/' + inputParams.id, {
+            name: inputParams.name
         })
             .then((response) => {
-                commit('updatePaymentMethod', {id, name})
+                commit('updatePaymentMethod', inputParams)
             })
     },
     updateNewPaymentMethod({commit}, attrName) {
@@ -84,9 +84,9 @@ const mutations = {
     deletePaymentMethod: (state, id) => {
         state.paymentMethods = state.paymentMethods.filter(p => p.id !== id)
     },
-    updatePaymentMethod: (state, {id, name}) => {
-        let updatedPaymentMethod = state.paymentMethods.find(p => p.id === id);
-        updatedPaymentMethod.name = name;
+    updatePaymentMethod: (state, inputParams) => {
+        let updatedPaymentMethod = state.paymentMethods.find(p => p.id === inputParams.id);
+        updatedPaymentMethod.name = inputParams.name;
     },
     validatePaymentData: (state, input) => {
         let name = input.errorName.replace("Error", "");
