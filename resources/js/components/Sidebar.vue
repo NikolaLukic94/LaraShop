@@ -67,7 +67,7 @@
                 toggleMini: false,
                 items: [
                     { title:"Home", href:"/", icon:"mdi-home-outline"},
-                    { title:"Dashboard", href:"/", icon:"mdi-file-document-multiple" },
+                    { title:"Dashboard", href:"/dashboard", icon:"mdi-file-document-multiple" },
                     { title:"Users", href:"/users/index", icon:"mdi-shield-account" },
                     // { title:"Payment Methods", href:"/payment-methods/index", icon:"mdi-crown-outline" },
                     { title:"Reports", href:"/reports", icon:"mdi-alarm-light-outline" },

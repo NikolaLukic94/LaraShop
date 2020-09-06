@@ -142,6 +142,9 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/delete/{id}', 'UserController@delete');
     });
 
+    Route::get('/dashboard', 'DashboardChartController@index');
+    Route::get('/dashboard/monthly-breakdown', 'DashboardChartController@getMonthlySalesBreakdown');
+
     Route::post('/product-images/create', 'ProductImage@store');
     Route::post('/product-images/delete/{id}', 'ProductImage@delete');
 });

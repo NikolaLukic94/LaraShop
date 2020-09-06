@@ -85,6 +85,8 @@ Vue.component('new-sidebar-component', require('./components/Sidebar').default);
 Vue.component('login-form-component', require('./components/LoginFormComponent').default)
 Vue.component('register-form-component', require('./components/RegisterComponent').default)
 Vue.component('footer-component', require('./components/FooterComponent').default)
+Vue.component('dashboard-chart-component', require('./components/DashboardChart').default)
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

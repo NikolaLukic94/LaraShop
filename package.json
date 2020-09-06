@@ -26,11 +26,13 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.1",
+        "chart.js": "^2.9.3",
         "element-ui": "^2.13.2",
         "form-data": "^3.0.0",
         "material-design-icons-iconfont": "^5.0.1",
         "startbootstrap-simple-sidebar": "^5.1.2",
         "vue-axios": "^2.1.5",
+        "vue-chartjs": "^3.5.1",
         "vue-good-table": "^2.19.2",
         "vue-meta": "^2.3.3",
         "vue-sidebar-menu": "^4.5.4",
