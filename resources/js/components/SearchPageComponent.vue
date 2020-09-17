@@ -69,35 +69,10 @@
                                             </v-btn>
                                         </v-card-actions>
                                     </v-card>
-
-
-                                    <!--              <div class="row d-flex justify-content-around">-->
-                                    <!--                      <img src="/img/cover.jpg" width="125" height="150" alt="Image"/>-->
-                                    <!--              </div>-->
-                                    <!--              <div class="row d-flex justify-content-around pt-2">-->
-                                    <!--                {{product.name}}-->
-                                    <!--              </div>-->
-                                    <!--              <div class="row d-flex justify-content-around pt-2" style="color:red">-->
-                                    <!--                <b>${{ product.price }}</b>-->
-                                    <!--              </div>-->
-                                    <!--              <div class="row d-flex justify-content-around pt-1">-->
-                                    <!--                <span v-if="hover && hoverId === product.id">-->
-                                    <!--                  <button type="button" class="btn btn-primary btn-sm" @click="callStoreCartItem(product.id)">-->
-                                    <!--                    Add to Cart-->
-                                    <!--                    </button>-->
-                                    <!--                  </span>-->
-                                    <!--                <span v-if="hover && hoverId === product.id">-->
-                                    <!--                  <button type="button" class="btn btn-primary btn-sm">-->
-                                    <!--                    See-->
-                                    <!--                  </button>-->
-                                    <!--                </span>-->
-                                    <!--              </div>-->
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--              </v-row>-->
-                    <!--          </v-container>-->
                 </div>
             </div>
         </v-app>

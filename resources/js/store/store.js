@@ -18,7 +18,6 @@ import userAddress from './userAddress';
 import orderReview from './orderReview';
 import order from './order';
 import shipmentStatus from './shipmentStatus';
-import user from './user';
 import shipment from './shipment';
 import payment from './payment';
 
@@ -40,7 +39,6 @@ export default new Vuex.Store({
     orderReview,
     order,
     shipmentStatus,
-    user,
     shipment,
     payment
   },

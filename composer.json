@@ -16,7 +16,7 @@
         "laravel/socialite": "^4.4",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "spatie/laravel-permission": "^3.13"
+        "spatie/laravel-permission": "^3.17"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

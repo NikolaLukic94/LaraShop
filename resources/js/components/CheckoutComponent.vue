@@ -1,11 +1,8 @@
 <template>
     <div>
         <order-review></order-review>
-
         <user-addresses></user-addresses>
-
         <user-payment-methods></user-payment-methods>
-
         <button class="btn btn-info text-center" @click="placeNewOrder">Place order</button>
     </div>
 </template>

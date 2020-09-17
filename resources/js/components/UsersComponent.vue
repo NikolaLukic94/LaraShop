@@ -1,203 +1,280 @@
 <template>
-  <div>
-    <div class="container">
-        <vue-good-table
-            :pagination-options="{
+    <div>
+        <div class="text-center">
+            <v-dialog
+                v-model="dialog"
+                width="500"
+            >
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        color="red lighten-2"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </v-btn>
+                </template>
+
+                <v-card>
+                    <v-card-title class="headline grey lighten-2">
+                        Add new users
+                    </v-card-title>
+                    <v-container class="grey lighten-5">
+                        <div>
+                            <v-text-field
+                                label="Name"
+                                v-model="userName"
+                                hide-details="auto"
+                                class="mb-3">
+                            </v-text-field>
+                        </div>
+                        <div>
+                            <v-text-field
+                                label="Email"
+                                v-model="userEmail"
+                                hide-details="auto"
+                                class="mb-3">
+                            </v-text-field>
+                        </div>
+                        <div>
+                            <v-text-field
+                                label="Password"
+                                v-model="userPassword"
+                                hide-details="auto"
+                                class="mb-3">
+                            </v-text-field>
+                        </div>
+                    </v-container>
+                    <v-divider></v-divider>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="green darken-1"
+                            text
+                            @click="dialog = false"
+                        >
+                            Close
+                        </v-btn>
+                        <v-btn
+                            color="primary"
+                            text
+                            @click="
+                          dialog = false;
+                          storeUser({name: userName, email: userEmail, password: userPassword})"
+                        >
+                            Save
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+        </div>
+        <div class="container">
+            <vue-good-table
+                :pagination-options="{
               enabled: true
-            }"        
-            theme="black-rhino"
-            styleClass="vgt-table striped"
-            :columns="columns"
-            :rows="getUsers">
-            <div slot="table-actions">
-              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-              </button>
-            </div>
-            <template slot="table-row" slot-scope="props">
+            }"
+                theme="black-rhino"
+                styleClass="vgt-table striped"
+                :columns="columns"
+                :rows="getUsers">
+                <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
               <div class="btn-group" role="group" aria-label="Basic example">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button class="btn btn-info" @click="openEditModal(props.row)">
-                      <i class="fa fa-eye" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-info" @click="openEditModal(props.row)">
-                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
+                    <v-dialog
+                        v-model="dialog"
+                        width="500"
+                    >
+                        <v-card>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                    <v-btn
+                                        color="green darken-1"
+                                        text
+                                        @click="editDialog = false"
+                                    >
+                                    Close
+                                  </v-btn>
+                                <v-btn
+                                    color="primary"
+                                    text
+                                    @click="
+                                        editDialog = false;
+                                        updateUser({id: props.row.id, name: name, email: email, password: password})"
+                                >
+                                    Update
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+        <v-btn-toggle
+          v-model="toggle_multiple"
+          dense
+          background-color="primary"
+          dark
+          multiple
+        >
+          <v-btn>
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </v-btn>
+
+          <v-btn @click="editDialog = false">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </v-btn>
+
+          <v-btn @click="openDeleteModal(props.row.id)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </v-btn>
+        </v-btn-toggle>
+
+                    <v-dialog
+                        v-model="dialog"
+                        width="500"
+                    >
+                    
+
+                        <v-card>
+                            <v-card-title class="headline grey lighten-2">
+                                Edit
+                            </v-card-title>
+
+                                <v-text-field
+                                    v-model="uName">
+                                </v-text-field>
+
+
+                                <v-text-field
+                                    v-model="uEmail">
+                                </v-text-field>
+
+                                <v-text-field
+                                    v-model="uPassword">
+                                </v-text-field>
+
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                    <v-btn
+                                        color="green darken-1"
+                                        text
+                                        @click="editDialog = false"
+                                    >
+                                    Close
+                                  </v-btn>
+                                <v-btn
+                                    color="primary"
+                                    text
+                                    @click="
+                                        editDialog = false;
+                                        updateUser({id: props.row.id, name: name, email: email, password: password})"
+                                >
+                                    Update
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
                 </div>
               </div>
-              </span> 
-              <span v-else>
+              </span>
+                    <span v-else>
                 {{props.formattedRow[props.column.field]}}
               </span>
-            </template>
+                </template>
 
-        </vue-good-table>
-    </div>
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <input type="text" style="width:100%">
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save</button>
-            </div>
-          </div>
+            </vue-good-table>
         </div>
-      </div>
-
-  </div>
+    </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { mapActions } from 'vuex';
-    import { VueGoodTable } from 'vue-good-table';
+    import {mapGetters} from 'vuex';
+    import {mapActions} from 'vuex';
+    import {VueGoodTable} from 'vue-good-table';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
         name: 'users-component',
         computed: {
             ...mapGetters(
-                'users',
-                [
-                    'getUsers'
-                ])
+                'users', ['getUsers'])
         },
         methods: {
             ...mapActions(
                 'users',
                 [
                     'setUsers',
-                    'deleteUser'
+                    'deleteUser',
+                    'storeUser',
+                    'updateUser'
                 ]),
-                openAddModal() {
-                  this.$swal({
-                      title: 'Add a new user',
-                      input: 'text',
-                      inputAttributes: {
-                        autocapitalize: 'off'
-                      },
-                      showCancelButton: true,
-                      confirmButtonText: 'Save',
-                      showLoaderOnConfirm: true,
-                      preConfirm: (name) => {
-                        this.createUser(name);
-                        // return fetch(`//api.github.com/users/${login}`)
-                        //   .then(response => {
-                        //     if (!response.ok) {
-                        //       throw new Error(response.statusText)
-                        //     }
-                        //     return response.json()
-                        //   })
-                        //   .catch(error => {
-                        //     Swal.showValidationMessage(
-                        //       `Request failed: ${error}`
-                        //     )
-                        //   })
-                      },
-                      allowOutsideClick: () => !Swal.isLoading()
-                    }).then((result) => {
-                      if (result.value) {
-                        Swal.fire({
-                          title: `${result.value.login}'s avatar`,
-                          imageUrl: result.value.avatar_url
-                        })
-                      }
-                    });
-                },
-                openEditModal() {
-                  this.$swal({
-                      title: 'Update the name',
-                      input: 'text',
-                      inputAttributes: {
-                        autocapitalize: 'off'
-                      },
-                      showCancelButton: true,
-                      confirmButtonText: 'Save',
-                      showLoaderOnConfirm: true,
-                      preConfirm: (login) => {
-                        return fetch(`//api.github.com/users/${login}`)
-                          .then(response => {
-                            if (!response.ok) {
-                              throw new Error(response.statusText)
-                            }
-                            return response.json()
-                          })
-                          .catch(error => {
-                            Swal.showValidationMessage(
-                              `Request failed: ${error}`
-                            )
-                          })
-                      },
-                      allowOutsideClick: () => !Swal.isLoading()
-                    }).then((result) => {
-                      if (result.value) {
-                        Swal.fire({
-                          title: `${result.value.login}'s avatar`,
-                          imageUrl: result.value.avatar_url
-                        })
-                      }
-                    });
-                },
-                openDeleteModal(rowId) {
-                  this.$swal.fire({
-                      title: 'Are you sure?',
-                      text: "This will delete it permanently!",
-                      icon: 'warning',
-                      showCancelButton: true,
-                      confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        this.deleteUser(rowId);
-                      if (result.value) {
+            openDeleteModal(rowId) {
+                this.$swal.fire({
+                    title: 'Are you sure?',
+                    text: "This will delete it permanently!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    this.deleteUser(rowId);
+                    if (result.value) {
 
                         Swal.fire(
-                          'Deleted!',
-                          'Invoice status code has been deleted.',
-                          'success'
+                            'Deleted!',
+                            'Invoice status code has been deleted.',
+                            'success'
                         )
-                      }
-                    })
-                },
+                    }
+                })
+            },
         },
         data: function () {
             return {
+                uName: null,
+                uEmail: null,
+                uPassword: null,
+
+                editDialog: false,
+                dialog: false,
+                userName: null,
+                userEmail: null,
+                userPassword: null,
+                name: [
+                    v => !!v || 'Name is required',
+                    v => v.length <= 10 || 'Name must be less than 10 characters',
+                ],
+                email: [
+                    v => !!v || 'Email is required',
+                    v => v.length <= 10 || 'Email must be less than 25 characters',
+                ],
+                password: [
+                    v => !!v || 'Password is required',
+                    v => v.length > 8 || 'Password must be at least 8 characters',
+                ],
                 newPaymentMethod: '',
                 columns: [
                     {
-                      label: 'First name',
-                      field: 'firstName',
-                    },
-                                        {
-                      label: 'Last Name',
-                      field: 'lastName',
+                        label: 'First name',
+                        field: 'firstName',
                     },
                     {
-                      label: 'Created',
-                      field: 'createdAt',
+                        label: 'Last Name',
+                        field: 'lastName',
                     },
                     {
-                      label: 'Action',
-                      field: 'action',
-                    },                    
+                        label: 'Created',
+                        field: 'createdAt',
+                    },
+                    {
+                        label: 'Action',
+                        field: 'action',
+                    },
                 ]
             }
         },
         created() {
             this.setUsers();
-        },             
+        },
     }
 </script>

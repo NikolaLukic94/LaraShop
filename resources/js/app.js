@@ -74,7 +74,6 @@ Vue.component('order-review', require('./components/OrderReview').default);
 Vue.component('shipment-status-component', require('./components/ShipmentStatus').default);
 Vue.component('order-component', require('./components/OrderComponent').default);
 Vue.component('checkout-component', require('./components/CheckoutComponent').default);
-Vue.component('user-profile-component', require('./components/UserComponent').default);
 Vue.component('shipment-component', require('./components/ShipmentComponent').default);
 Vue.component('sidebar-component', require('./components/SidebarComponent').default);
 Vue.component('search-page-component', require('./components/SearchPageComponent').default);

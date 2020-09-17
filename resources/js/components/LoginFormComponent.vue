@@ -21,7 +21,8 @@
                             :counter="10"
                             label="Email"
                             required
-                        ></v-text-field>
+                        >
+                        </v-text-field>
                         <v-text-field
                             v-model="password"
                             name="password"
@@ -29,12 +30,14 @@
                             v-validate="'required|min:8'"
                             label="Password"
                             required
-                        ></v-text-field>
+                        >
+                        </v-text-field>
                         <v-checkbox
                             v-model="checkbox"
                             :error-messages="checkboxErrors"
                             label="Remember me"
-                        ></v-checkbox>
+                        >
+                        </v-checkbox>
                         <v-btn color="grey" type="submit">Password reset</v-btn>
                         <v-btn @click="validate()" color="teal" type="submit">Log In</v-btn>
                     </form>

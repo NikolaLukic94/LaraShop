@@ -25,38 +25,72 @@
                 </v-list-item>
                 <v-container class="grey lighten-5">
                     <div>
-                        <v-text-field label="First Name" :rules="firstNameRules" hide-details="auto"
-                                      class="mb-3"></v-text-field>
+                        <v-text-field 
+                            label="First Name" 
+                            :rules="firstNameRules" 
+                            hide-details="auto"
+                            class="mb-3"></v-text-field>
                     </div>
                     <div>
-                        <v-text-field label="Last Name" :rules="lastNameRules" hide-details="auto"
-                                      class="mb-3"></v-text-field>
+                        <v-text-field 
+                            label="Last Name" 
+                            :rules="lastNameRules" 
+                            hide-details="auto"
+                            class="mb-3">
+                        </v-text-field>
                     </div>
                     <div>
-                        <v-text-field label="Phone Number" :rules="phoneNumberRules" hide-details="auto"
-                                      class="mb-3"></v-text-field>
+                        <v-text-field 
+                            label="Phone Number" 
+                            :rules="phoneNumberRules" 
+                            hide-details="auto"
+                            class="mb-3"></v-text-field>
                     </div>
                     <div>
-                        <v-text-field label="Address Line 1" :rules="addressLineOneRules" hide-details="auto"
-                                      class="mb-3"></v-text-field>
+                        <v-text-field 
+                            label="Address Line 1" 
+                            :rules="addressLineOneRules" 
+                            hide-details="auto"
+                            class="mb-3"></v-text-field>
                     </div>
                     <div>
-                        <v-text-field label="Address Line 2" :rules="addressLineTwoRules" hide-details="auto"
-                                      class="mb-3"></v-text-field>
+                        <v-text-field 
+                            label="Address Line 2" 
+                            :rules="addressLineTwoRules" 
+                            hide-details="auto"
+                            class="mb-3">
+                        </v-text-field>
                     </div>
                     <div>
-                        <v-text-field label="City" :rules="cityRules" hide-details="auto" class="mb-3"></v-text-field>
+                        <v-text-field 
+                            label="City" 
+                            :rules="cityRules" 
+                            hide-details="auto" 
+                            class="mb-3">
+                        </v-text-field>
                     </div>
                     <div>
-                        <v-text-field label="County" :rules="countyRules" hide-details="auto"
-                                      class="mb-3"></v-text-field>
+                        <v-text-field 
+                            label="County" 
+                            :rules="countyRules" 
+                            hide-details="auto"
+                            class="mb-3">
+                        </v-text-field>
                     </div>
                     <div>
-                        <v-text-field label="ZIP" :rules="zipRules" hide-details="auto" class="mb-3"></v-text-field>
+                        <v-text-field 
+                            label="ZIP" 
+                            :rules="zipRules" 
+                            hide-details="auto" 
+                            class="mb-3">
+                        </v-text-field>
                     </div>
                     <div>
-                        <v-text-field label="Country" :rules="countryRules" hide-details="auto"
-                                      class="mb-3"></v-text-field>
+                        <v-text-field 
+                            label="Country" :rules="countryRules"
+                            hide-details="auto"
+                            class="mb-3">
+                        </v-text-field>
                     </div>
                 </v-container>
             </v-card>

@@ -32,28 +32,6 @@
 
         </vue-good-table>
     </div>
-
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add new invoice</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <input type="text" style="width:100%">
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
   </div>
 </template>
 
@@ -76,75 +54,6 @@
                 [
                     'setInvoices',
                 ]),
-                openAddModal() {
-                  this.$swal({
-                      title: 'Add a new invoice status code',
-                      input: 'text',
-                      inputAttributes: {
-                        autocapitalize: 'off'
-                      },
-                      showCancelButton: true,
-                      confirmButtonText: 'Save',
-                      showLoaderOnConfirm: true,
-                      preConfirm: (name) => {
-                        this.createInvoiceStatusCode(name);
-                        // return fetch(`//api.github.com/users/${login}`)
-                        //   .then(response => {
-                        //     if (!response.ok) {
-                        //       throw new Error(response.statusText)
-                        //     }
-                        //     return response.json()
-                        //   })
-                        //   .catch(error => {
-                        //     Swal.showValidationMessage(
-                        //       `Request failed: ${error}`
-                        //     )
-                        //   })
-                      },
-                      allowOutsideClick: () => !Swal.isLoading()
-                    }).then((result) => {
-                      if (result.value) {
-                        Swal.fire({
-                          title: `${result.value.login}'s avatar`,
-                          imageUrl: result.value.avatar_url
-                        })
-                      }
-                    });
-                },
-                openEditModal() {
-                  this.$swal({
-                      title: 'Update the name',
-                      input: 'text',
-                      inputAttributes: {
-                        autocapitalize: 'off'
-                      },
-                      showCancelButton: true,
-                      confirmButtonText: 'Save',
-                      showLoaderOnConfirm: true,
-                      preConfirm: (login) => {
-                        return fetch(`//api.github.com/users/${login}`)
-                          .then(response => {
-                            if (!response.ok) {
-                              throw new Error(response.statusText)
-                            }
-                            return response.json()
-                          })
-                          .catch(error => {
-                            Swal.showValidationMessage(
-                              `Request failed: ${error}`
-                            )
-                          })
-                      },
-                      allowOutsideClick: () => !Swal.isLoading()
-                    }).then((result) => {
-                      if (result.value) {
-                        Swal.fire({
-                          title: `${result.value.login}'s avatar`,
-                          imageUrl: result.value.avatar_url
-                        })
-                      }
-                    });
-                },
                 openDeleteModal($rowId) {
                   this.$swal.fire({
                       title: 'Are you sure?',

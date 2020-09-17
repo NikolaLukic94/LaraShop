@@ -9,11 +9,11 @@
             </v-app-bar>
         </v-app>
         <v-navigation-drawer dark
-            v-model="sidebarMenu"
-            app
-            floating
-            :permanent="sidebarMenu"
-            color="grey darken-4"
+                             v-model="sidebarMenu"
+                             app
+                             floating
+                             :permanent="sidebarMenu"
+                             color="grey darken-4"
         >
             <v-list dense>
                 <v-list-item>
@@ -56,7 +56,6 @@
 </template>
 
 
-
 <script>
 
     export default {
@@ -66,20 +65,19 @@
                 sidebarMenu: true,
                 toggleMini: false,
                 items: [
-                    { title:"Home", href:"/", icon:"mdi-home-outline"},
-                    { title:"Dashboard", href:"/dashboard", icon:"mdi-file-document-multiple" },
-                    { title:"Users", href:"/users/index", icon:"mdi-shield-account" },
+                    {title: "Home", href: "/", icon: "mdi-home-outline"},
+                    {title: "Dashboard", href: "/dashboard", icon: "mdi-file-document-multiple"},
+                    {title: "Users", href: "/users/index", icon: "mdi-shield-account"},
                     // { title:"Payment Methods", href:"/payment-methods/index", icon:"mdi-crown-outline" },
-                    { title:"Reports", href:"/reports", icon:"mdi-alarm-light-outline" },
-                    { title:"Orders", href:"/orders/index", icon:"mdi-shield-account" },
+                    {title: "Reports", href: "/reports", icon: "mdi-alarm-light-outline"},
+                    {title: "Orders", href: "/orders/index", icon: "mdi-shield-account"},
                     // { title:"Order Status Codes", href:"/order-status-codes/index", icon:"mdi-palette-swatch" },
                     // { title:"Order Item Status Code", href:"/order-item-status-codes/index", icon:"mdi-account-search-outline" },
-                    { title:"Shipments", href:"/shipments/index", icon:"mdi-bus-clock" },
-                    { title:"Products", href:"/products/index", icon:"mdi-shape-square-rounded-plus" },
+                    {title: "Shipments", href: "/shipments/index", icon: "mdi-bus-clock"},
+                    {title: "Products", href: "/products/index", icon: "mdi-shape-square-rounded-plus"},
                     // { title:"Product Types", href:"/product-types/index", icon:"mdi-settings-outline" },
-                    { title:"Invoices", href:"/invoices/index", icon:"mdi-email-newsletter" },
                     // { title:"Invoice Status Codes", href:"/invoice-status-codes/index", icon:"mdi-settings-outline" },
-                    { title: 'Roles & Permissions', href: "/", icon: "mdi-wrench"}
+                    {title: 'Roles & Permissions', href: "/", icon: "mdi-wrench"}
                 ],
                 supportItems: [
                     {
@@ -87,11 +85,11 @@
                         name: 'Support :',
                         children: [
                             // { id: 2, name: 'Orders : app'},
-                            { id: 3, name: 'Order Status Codes' },
-                            { id: 4, name: 'Order Item Status Code' },
-                            { id: 3, name: 'Product Types' },
-                            { id: 3, name: 'Payment Methods' },
-                            { id: 3, name: 'Invoice Status Codes' },
+                            {id: 3, name: 'Order Status Codes'},
+                            {id: 4, name: 'Order Item Status Code'},
+                            {id: 3, name: 'Product Types'},
+                            {id: 3, name: 'Payment Methods'},
+                            {id: 3, name: 'Invoice Status Codes'},
                         ],
                     },
                 ],

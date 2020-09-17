@@ -23,6 +23,21 @@ const actions = {
             })
             .catch(err => console.log(err))
     },
+    storeUser({commit}, userParams) {
+        return axios.post('/users/create', {
+                name: userParams.name,
+                password: userParams.password,
+                email: userParams.email
+            })
+            .then((response) => {
+                commit('setUser', response.data.user); 
+            })
+            .catch(function (error) {
+        })
+    },
+    updateUser({commit}, userData) {
+        
+    }
 };
 
 const mutations = {
@@ -32,6 +47,9 @@ const mutations = {
     delete: (state, id) => {
         state.users = state.users.filter(usr => usr.id !== id)
     },
+    setUser: (state, user) => {
+        state.users.push(user)
+    }
 };
 
 export default {

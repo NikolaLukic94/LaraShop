@@ -138,6 +138,7 @@ Route::group(['middleware' => 'verified'], function () {
     Route::group(['prefix' => 'users'], function() {
         Route::get('/', 'UserController@getAll');
         Route::get('/index', 'UserController@index');
+        Route::post('/create', 'UserController@store');
         Route::get('/show/{id}', 'UserController@show');
         Route::post('/delete/{id}', 'UserController@delete');
     });
@@ -147,6 +148,13 @@ Route::group(['middleware' => 'verified'], function () {
 
     Route::post('/product-images/create', 'ProductImage@store');
     Route::post('/product-images/delete/{id}', 'ProductImage@delete');
+
+    Route::group(['prefix' => 'roles'], function() {
+        Route::get('/index', 'RoleController@index');
+        Route::get('/create', 'RoleController@create');
+        Route::post('/create', 'RoleController@store');
+    });
+
 });
 
 

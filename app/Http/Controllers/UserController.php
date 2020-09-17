@@ -34,6 +34,21 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
+    public function store(Request $request)
+    {
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password // encode
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'New user added!',
+            'user' => new UserResource($user)
+        ]);
+    }
+
     public function show($id)
     {
         return view('users.show');

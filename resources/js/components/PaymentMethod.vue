@@ -23,25 +23,52 @@
             </v-list-item>
             <v-container class="grey lighten-5">
                 <div>
-                    <v-text-field label="Owner" :rules="ownerRules" hide-details="auto" class="mb-3"></v-text-field>
+                    <v-text-field 
+                    label="Owner" 
+                    :rules="ownerRules" 
+                    hide-details="auto" 
+                    class="mb-3">
+                </v-text-field>
                 </div>
                 <div>
-                    <v-text-field label="CCV" :rules="ccvRules" hide-details="auto" class="mb-3"></v-text-field>
+                    <v-text-field 
+                    label="CCV" 
+                    :rules="ccvRules" 
+                    hide-details="auto" 
+                    class="mb-3">
+                </v-text-field>
                 </div>
                 <div>
-                    <v-text-field label="Card Number" :rules="cardNumberRules" hide-details="auto"
-                                  class="mb-3"></v-text-field>
+                    <v-text-field
+                     label="Card Number" 
+                    :rules="cardNumberRules" 
+                    hide-details="auto"
+                    class="mb-3">
+                </v-text-field>
                 </div>
                 <div>
-                    <v-text-field label="Expiration date" :rules="expirationDateRules" hide-details="auto"
-                                  class="mb-3"></v-text-field>
+                    <v-text-field 
+                    label="Expiration date" 
+                    :rules="expirationDateRules" 
+                    hide-details="auto"
+                    class="mb-3">
+                </v-text-field>
                 </div>
                 <div>
-                    <v-text-field label="Year" :rules="yearRules" hide-details="auto" class="mb-3"></v-text-field>
+                    <v-text-field 
+                    label="Year" 
+                    :rules="yearRules" 
+                    hide-details="auto" 
+                    class="mb-3">
+                </v-text-field>
                 </div>
                 <div>
-                    <v-text-field label="Card Type" :rules="cardTypeRules" hide-details="auto"
-                                  class="mb-3"></v-text-field>
+                    <v-text-field 
+                    label="Card Type" 
+                    :rules="cardTypeRules" 
+                    hide-details="auto"
+                    class="mb-3">
+                </v-text-field>
                 </div>
             </v-container>
         </v-card>
