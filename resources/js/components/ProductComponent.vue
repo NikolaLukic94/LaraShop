@@ -11,9 +11,9 @@
             :rows="getProducts">
             <div slot="table-actions">
                 <!-- <button class="btn btn-primary" @click="openAddModal">Add New Products</button> -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
               <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
+            </button> -->
             </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
@@ -33,7 +33,7 @@
         </vue-good-table>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -115,7 +115,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -136,7 +136,8 @@
                 'products',
                 [
                     'setProducts',
-                    'createProduct'
+                    'createProduct',
+                    'deleteProduct'
                 ]),
                 sendCreateProductRequest() {
 
@@ -231,7 +232,7 @@
                       }
                     });
                 },
-                openDeleteModal() {
+                openDeleteModal(id) {
                   this.$swal.fire({
                       title: 'Are you sure?',
                       text: "This will delete it permanently!",
@@ -241,12 +242,12 @@
                       cancelButtonColor: '#d33',
                       confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
-                        this.deleteInvoiceStatusCode(result);
+                        this.deleteProduct(id);
                       if (result.value) {
 
                         Swal.fire(
                           'Deleted!',
-                          'Invoice status code has been deleted.',
+                          'Product status code has been deleted.',
                           'success'
                         )
                       }

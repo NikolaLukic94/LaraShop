@@ -1,23 +1,24 @@
 <template>
     <div id="app">
-            <v-toolbar class="headling text-uppercase">
-                <v-toolbar-title><i>BookStore</i></v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-toolbar-items class="hidden-sm-and-down">
-                    <v-btn
-                        v-for="item in menu"
-                        :key="item.icon"
-                        :to="item.link"
-                        :href="item.href"
-                        flat
-                    >{{ item.title }}
-                    </v-btn>
-                </v-toolbar-items>
-                <cart-component></cart-component>
-            </v-toolbar>
+        <v-toolbar class="headling text-uppercase">
+            <v-toolbar-title>
+                <i>BookStore</i>
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-items class="hidden-sm-and-down">
+                <v-btn
+                    v-for="item in menu"
+                    :key="item.icon"
+                    :to="item.link"
+                    :href="item.href"
+                    flat
+                >{{ item.title }}
+                </v-btn>
+            </v-toolbar-items>
+            <cart-component></cart-component>
+        </v-toolbar>
     </div>
 </template>
-
 
 <script>
     export default {

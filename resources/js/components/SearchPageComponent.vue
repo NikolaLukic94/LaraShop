@@ -8,24 +8,8 @@
                     </v-text-field>
                 </template>
             </v-container>
-            <!--    <div class="container">-->
-            <!--      <div class="input-group mb-3">-->
-            <!--        <input type="text"-->
-            <!--               class="form-control"-->
-            <!--               v-model="searchValue"-->
-            <!--               placeholder="Search everything"-->
-            <!--               aria-label="Recipient's username"-->
-            <!--               aria-describedby="basic-addon2">-->
-            <!--        <div class="input-group-append">-->
-            <!--          <button class="btn btn-outline-secondary" type="button" @click="searchForProduct()">Search</button>-->
-            <!--        </div>-->
-            <!--      </div>-->
-            <!--    </div>-->
             <div v-if="chunkedProducts">
                 <div class="container">
-                    <!--          <v-container class="grey lighten-5">-->
-                    <!--              <v-row no-gutters>-->
-
                     <div class="row" v-for="products in chunkedProducts">
                         <div class="col-sm" v-for="product in products">
                             <div class="card border-0 pt-2 pb-2 mt-2 mb-2"
@@ -33,8 +17,6 @@
                                  @mouseleave="hover = false; hoverId = null"
                             >
                                 <div class="container">
-
-
                                     <v-card
                                         class="mx-auto"
                                         max-width="220"
@@ -45,13 +27,10 @@
                                             src="/img/cover.jpg"
                                         >
                                         </v-img>
-
                                         <v-card-subtitle class="pb-0">{{product.name}}</v-card-subtitle>
-
                                         <v-card-text class="text--primary">
                                             <div> ${{ product.price }}</div>
                                         </v-card-text>
-
                                         <v-card-actions>
                                             <v-btn
                                                 color="light-blue"
@@ -59,7 +38,6 @@
                                             >
                                                 View
                                             </v-btn>
-
                                             <v-btn
                                                 @click="callStoreCartItem(product.id)"
                                                 color="light-blue"
@@ -89,17 +67,13 @@
         name: 'product',
         computed: {
             chunkedProducts() {
-                return _.chunk(Object.values(this.getFilteredProducts), 3);
+                return _.chunk(Object.values(this.getFilteredProducts), 4);
             },
             ...mapGetters('products', ['getFilteredProducts']),
         },
         methods: {
             ...mapActions(
-                'products',
-                [
-                    'setFilteredProducts',
-                    'filterForProduct',
-                ]),
+                'products', ['setFilteredProducts', 'filterForProduct']),
             ...mapActions('cartItem', ['storeCartItem']),
             searchForProduct() {
                 this.filterForProduct(this.searchValue);

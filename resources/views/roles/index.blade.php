@@ -11,16 +11,48 @@
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Roles</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group mr-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-                        </div>
+                        <form action="/roles/create" method="get">
+                            <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="fa fa-plus"></i></button>
+                        </form> 
                     </div>
                 </div>
                 
-                @foreach ($roles as $role)
-                    {{ $role->name }}
-                @endforeach
+                <div class="card">
+                    <div class="card-header">
+                        Roles
+                    </div>
+                    <div class="container">
+                        @foreach ($roles as $role)
+                            <div class="row">
+                                <div class="col">
+                                    {{ $role->name }}
+                                </div>
+                                <div class="col">
+                                    <a href="/roles/show/{{ $role->id }}">See</a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- <div class="card mt-3">
+                    <div class="card-header">
+                        Permissions
+                    </div>
+                    <div class="card-body">
+                        @foreach ($permissions as $permission)
+                            <div class="row">
+                                <div class="col">
+                                    {{ $permission->name }}
+                                </div>
+                                <div class="col">
+                                    <a href="{{ route('user.delete', $user->id) }}"><i class="fa fa-trash"></i>Delete</a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div> -->
+
             </main>
         </div>
     </div>

@@ -143,9 +143,9 @@ class ProductController extends Controller
      * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($productId)
+    public function destroy($id)
     {
-        $product = Submission::find($id);
+        $product = Product::find($id);
 
         $product->delete();
 

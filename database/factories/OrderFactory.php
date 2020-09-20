@@ -4,14 +4,13 @@
 
 use App\Model;
 use Faker\Generator as Faker;
-use App\Models\User;
 use App\Models\Order;
+use App\Models\User;
 
-$factory->define(Order::class, function (Faker $faker) {
+$factory->define(App\Models\Order::class, function (Faker $faker) {
     return [
-        'date_placed' => $faker->date,
-        'order_details' => $faker->word,
-        'user_id' => rand(1, User::all()->count()),
-        'order_status_codes_id' => rand(1,3)
+        'order_status_codes_id' => 1,
+        'user_id' => $faker->numberBetween(1, User::count()),
+        'date_placed' => $faker->dateTimeBetween('+1 week', '+6 month')
     ];
 });

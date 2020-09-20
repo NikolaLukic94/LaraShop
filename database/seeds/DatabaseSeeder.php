@@ -18,7 +18,13 @@ class DatabaseSeeder extends Seeder
         $this->call(OrderItemsStatusCodesSeeder::class);
         $this->call(InvoiceStatusCodesSeeder::class);
         $this->call(OrderItemsSeeder::class);
-        $this->call(UserPaymentMethodSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(RolesSeeder::class);
+        $this->call(PermissionsSeeder::class);
+
+        factory(App\Models\UserAddress::class, 50)->create();
+        factory(App\Models\User::class, 50)->create();
+        factory(App\Models\Product::class, 50)->create();
+        factory(App\Models\Order::class, 50)->create();
     }
 }

@@ -53,6 +53,13 @@ const actions = {
                 commit('createProduct', response.data.createdProduct)
             })
             .catch(err => console.log(err)) 
+    },
+    deleteProduct({commit}, id) {
+        return axios.post('/products/delete/' + id
+            ).then(function (response) {
+                commit('deleteProduct', id)
+            })
+            .catch(err => console.log(err)) 
     }
 };
 
@@ -68,6 +75,9 @@ const mutations = {
     },
     createProduct: (state, createdProduct) => {
         state.products.push(createdProduct);
+    },
+    deleteProduct: (state, id) => {
+        state.products = state.products.filter(p => p.id !== id);
     }
 };
 

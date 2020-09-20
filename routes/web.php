@@ -125,6 +125,7 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/create', 'ProductController@store');
         Route::get('/search', 'ProductController@search');
         Route::post('/filter', 'ProductController@filter');
+        Route::post('/delete/{id}', 'ProductController@destroy');
     });
 
     Route::group(['prefix' => 'shipments'], function() {
@@ -151,8 +152,10 @@ Route::group(['middleware' => 'verified'], function () {
 
     Route::group(['prefix' => 'roles'], function() {
         Route::get('/index', 'RoleController@index');
+        Route::get('/show/{id}', 'RoleController@show');
         Route::get('/create', 'RoleController@create');
         Route::post('/create', 'RoleController@store');
+        Route::post('/edit/{id}', 'RoleController@update');
     });
 
 });

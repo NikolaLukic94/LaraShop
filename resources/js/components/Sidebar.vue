@@ -77,7 +77,7 @@
                     {title: "Products", href: "/products/index", icon: "mdi-shape-square-rounded-plus"},
                     // { title:"Product Types", href:"/product-types/index", icon:"mdi-settings-outline" },
                     // { title:"Invoice Status Codes", href:"/invoice-status-codes/index", icon:"mdi-settings-outline" },
-                    {title: 'Roles & Permissions', href: "/", icon: "mdi-wrench"}
+                    {title: 'Roles & Permissions', href: "/roles/index", icon: "mdi-wrench"}
                 ],
                 supportItems: [
                     {

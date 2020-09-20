@@ -21,6 +21,7 @@ const actions = {
     setCartItems({commit}) {
         return axios.get('/cart-items/index')
             .then((response) => {
+                console.log(response)
                 commit('setAllAreDigital', response.data.data);
                 commit('setCartItems', response.data.data);
             })

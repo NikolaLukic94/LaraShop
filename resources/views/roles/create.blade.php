@@ -20,21 +20,21 @@
                 <div class="container">
                     <div class="card">
                         <div class="card-body">
-                        <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Name</span>
+                            <form action="/roles/create" method="POST">
+                                {{ csrf_field() }}
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Name</span>
+                                    </div>
+                                    <input
+                                        name="name"
+                                        type="text" 
+                                        class="form-control" 
+                                        placeholder="Enter name here..." 
+                                        aria-describedby="basic-addon1">
                                 </div>
-                                <input
-                                    name="name"
-                                    type="text" 
-                                    class="form-control" 
-                                    placeholder="Username" 
-                                    aria-label="Username" 
-                                    aria-describedby="basic-addon1">
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-info">Save</button>
+                                <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="fa fa-plus"></i></button>
+                            </form> 
                         </div>
                     </div>
                 </div>
