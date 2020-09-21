@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource as UserResource;
 use App\Http\Resources\UserRelationshipsResource as UserRelationshipsResource;
@@ -51,7 +53,22 @@ class UserController extends Controller
 
     public function show($id)
     {
-        return view('users.show');
+        return view('users.show', [
+            'permissions' => Permission::all(),
+            'user' => User::find($id),
+            'roles' => Role::all()
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->syncRoles($request->roles);
+
+        $user->syncPermissions($request->permissions);
+
+        return redirect('/users/show/' . $user->id);
     }
 
     public function delete($id)

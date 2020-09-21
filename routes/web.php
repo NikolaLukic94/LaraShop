@@ -31,7 +31,7 @@ Route::get('/test-sidebar', function () {
 
 Route::group(['middleware' => 'verified'], function () {
 
-    Route::group(['prefix' => '/cart-items'], function() {
+    Route::group(['prefix' => '/cart-items', 'middleware' => ['role:superadmin|admin|customer']], function() {
         Route::post('/quantity/increase/{id}', 'CartItemController@increaseQuantity');
         Route::post('/store', 'CartItemController@store');
         Route::post('/quantity/decrease/{id}', 'CartItemController@decreaseQuantity');
@@ -42,35 +42,37 @@ Route::group(['middleware' => 'verified'], function () {
 
     });
 
-    Route::group(['prefix' => '/orders'], function() {
+    Route::group(['prefix' => '/orders', 'middleware' => ['role:superadmin|admin']], function() {
         Route::get('/', 'OrderController@getAll');
         Route::get('/index', 'OrderController@index');
         Route::post('/create', 'OrderController@store');
     });
 
-    Route::group(['prefix' => '/user-payments'], function() {
+    Route::group(['prefix' => '/user-payments', 'middleware' => ['role:superadmin|admin']], function() {
         Route::post('/create', 'UserPaymentMethodController@store');
     });
 
-    Route::group(['prefix' => '/user-addresses'], function() {
+    Route::group(['prefix' => '/user-addresses', 'middleware' => ['role:superadmin|admin']], function() {
         Route::get('/api/user/show/{id}', 'UserController@getUserData');
         Route::get('/', 'UserAddressController@getAll');
         Route::post('/create', 'UserAddressController@store');
     });
 
-    Route::get('/checkout', 'CartController@checkout');
-    Route::get('/cart/getAll', 'CartController@getAll');
+    Route::group(['middleware' => ['role:superadmin|admin|customer']], function() {
+        Route::get('/checkout', 'CartController@checkout');
+        Route::get('/cart/getAll', 'CartController@getAll');
+    });
 
     Route::get('/cart/index', 'CartController@index');
     Route::post('/cart/create/{id}', 'CartController@store'); // create users cart
     Route::post('/cart-items/create', 'CartItemController@store'); // create users cart
 
-    Route::group(['prefix' => 'invoices'], function() {
+    Route::group(['prefix' => 'invoices', 'middleware' => ['role:superadmin|admin']], function() {
         Route::get('/', 'InvoiceController@getAll');
         Route::get('/index', 'InvoiceController@index');
     });
 
-    Route::group(['prefix' => 'invoice-status-codes'], function() {
+    Route::group(['prefix' => 'invoice-status-codes', 'middleware' => ['role:superadmin|admin']], function() {
         Route::get('/', 'InvoiceStatusCodeController@getAll');
         Route::get('/index', 'InvoiceStatusCodeController@index');
         Route::post('/update/{id}', 'InvoiceStatusCodeController@update');
@@ -78,7 +80,7 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/delete/{id}', 'InvoiceStatusCodeController@delete');
     });
 
-    Route::group(['prefix' => 'order-item-status-codes'], function() {
+    Route::group(['prefix' => 'order-item-status-codes', 'middleware' => ['role:superadmin|admin']], function() {
         Route::get('/', 'OrderItemStatusCodeController@getAll');
         Route::get('/index', 'OrderItemStatusCodeController@index');
         Route::post('/edit/{id}', 'OrderItemStatusCodeController@update');
@@ -86,7 +88,7 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/delete/{id}', 'OrderItemStatusCodeController@delete');
     });
 
-    Route::group(['prefix' => 'order-status-codes'], function() {
+    Route::group(['prefix' => 'order-status-codes', 'middleware' => ['role:superadmin|admin']], function() {
         Route::get('/', 'OrderStatusCodeController@getAll');
         Route::get('/index', 'OrderStatusCodeController@index');
         Route::post('/edit/{id}', 'OrderStatusCodeController@update');
@@ -94,7 +96,7 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/delete/{id}', 'OrderStatusCodeController@delete');
     });
 
-    Route::group(['prefix' => 'product-types'], function() {
+    Route::group(['prefix' => 'product-types', 'middleware' => ['role:superadmin|admin']], function() {
         Route::get('', 'ProductTypeController@getAll');
         Route::get('/index', 'ProductTypeController@index');
         Route::post('/create', 'ProductTypeController@store');
@@ -102,14 +104,14 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/delete/{id}', 'ProductTypeController@delete');
     });
 
-    Route::group(['prefix' => 'payments'], function() {
+    Route::group(['prefix' => 'payments', 'middleware' => ['role:superadmin|admin']], function() {
         Route::get('/', 'PaymentController@getAll');
         Route::get('/index', 'PaymentController@index');
         Route::post('/store', 'PaymentController@store');
         Route::post('/delete/{id}', 'PaymentController@delete');
     });
 
-    Route::group(['prefix' => 'payment-methods'], function() {
+    Route::group(['prefix' => 'payment-methods', 'middleware' => ['role:superadmin|admin']], function() {
         Route::get('/', 'PaymentMethodController@getAll');
         Route::get('/index', 'PaymentMethodController@index');
         Route::post('/create', 'PaymentMethodController@store');
@@ -128,29 +130,36 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/delete/{id}', 'ProductController@destroy');
     });
 
-    Route::group(['prefix' => 'shipments'], function() {
+    Route::group(['prefix' => 'shipments', 'middleware' => ['role:superadmin|admin']], function() {
         Route::get('/home', 'ShipmentController@home');
         Route::get('/', 'ShipmentController@getAll');
         Route::get('/index', 'ShipmentController@index');// todo: redo to be admin only
         Route::get('/index/all', 'ShipmentController@browse');// todo: redo to be users only
-        // Route::post('/create', 'ShipmentController@store');
     });
 
-    Route::group(['prefix' => 'users'], function() {
+    Route::group(['prefix' => 'users', 
+    // 'middleware' => ['role:superadmin|admin']
+    ], function() {
         Route::get('/', 'UserController@getAll');
         Route::get('/index', 'UserController@index');
+        Route::get('/user/{id}', 'UserController@user');
         Route::post('/create', 'UserController@store');
         Route::get('/show/{id}', 'UserController@show');
+        Route::post('/update/{id}', 'UserController@update');
         Route::post('/delete/{id}', 'UserController@delete');
     });
 
-    Route::get('/dashboard', 'DashboardChartController@index');
-    Route::get('/dashboard/monthly-breakdown', 'DashboardChartController@getMonthlySalesBreakdown');
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadmin|admin']], function() {
+        Route::get('/', 'DashboardChartController@index');
+        Route::get('/monthly-breakdown', 'DashboardChartController@getMonthlySalesBreakdown');
+    });
 
-    Route::post('/product-images/create', 'ProductImage@store');
-    Route::post('/product-images/delete/{id}', 'ProductImage@delete');
+    Route::group(['prefix' => 'product-images', 'middleware' => ['role:superadmin|admin']], function() {
+        Route::post('/create', 'ProductImage@store');
+        Route::post('/delete/{id}', 'ProductImage@delete');
+    });
 
-    Route::group(['prefix' => 'roles'], function() {
+    Route::group(['prefix' => 'roles', 'middleware' => ['role:superadmin|admin']], function() {
         Route::get('/index', 'RoleController@index');
         Route::get('/show/{id}', 'RoleController@show');
         Route::get('/create', 'RoleController@create');
