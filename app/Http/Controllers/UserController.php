@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserResource as UserResource;
 use App\Http\Resources\UserRelationshipsResource as UserRelationshipsResource;
 
@@ -29,9 +30,16 @@ class UserController extends Controller
         return view('users.index');
     }
 
-    public function getUserData($id)
+    public function getUserData($id = null)
     {
+        $id = $id !== null ? $id : Auth::id();
+
         $user = User::find($id);
+
+        // return response()->json([
+            // 'roles' => $user->roles,
+            // 'permissions' => $user->permissions
+        // ]);
 
         return new UserResource($user);
     }

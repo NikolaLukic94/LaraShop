@@ -75,7 +75,6 @@ Vue.component('shipment-status-component', require('./components/ShipmentStatus'
 Vue.component('order-component', require('./components/OrderComponent').default);
 Vue.component('checkout-component', require('./components/CheckoutComponent').default);
 Vue.component('shipment-component', require('./components/ShipmentComponent').default);
-Vue.component('sidebar-component', require('./components/SidebarComponent').default);
 Vue.component('search-page-component', require('./components/SearchPageComponent').default);
 Vue.component('cart-component', require('./components/CartComponent').default);
 Vue.component('landing-page', require('./components/LandingPage').default);
@@ -85,6 +84,7 @@ Vue.component('login-form-component', require('./components/LoginFormComponent')
 Vue.component('register-form-component', require('./components/RegisterComponent').default)
 Vue.component('footer-component', require('./components/FooterComponent').default)
 Vue.component('dashboard-chart-component', require('./components/DashboardChart').default)
+Vue.component('reports-component', require('./components/ReportsComponent').default)
 
 
 /**

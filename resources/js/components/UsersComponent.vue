@@ -108,25 +108,25 @@
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
-        <v-btn-toggle
-          v-model="toggle_multiple"
-          dense
-          background-color="primary"
-          dark
-          multiple
-        >
-          <v-btn>
-            <i class="fa fa-eye" aria-hidden="true"></i>
-          </v-btn>
+                    <v-btn-toggle
+                        v-model="toggle_multiple"
+                        dense
+                        background-color="primary"
+                        dark
+                        multiple
+                    >
+                    <v-btn>
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </v-btn>
 
-          <v-btn @click="editDialog = false">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          </v-btn>
+                    <v-btn @click="editDialog = false">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </v-btn>
 
-          <v-btn @click="openDeleteModal(props.row.id)">
-            <i class="fa fa-trash" aria-hidden="true"></i>
-          </v-btn>
-        </v-btn-toggle>
+                    <v-btn @click="openDeleteModal(props.row.id)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </v-btn>
+                    </v-btn-toggle>
 
                     <v-dialog
                         v-model="dialog"

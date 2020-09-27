@@ -31,7 +31,7 @@ Route::get('/test-sidebar', function () {
 
 Route::group(['middleware' => 'verified'], function () {
 
-    Route::group(['prefix' => '/cart-items', 'middleware' => ['role:superadmin|admin|customer']], function() {
+    Route::group(['prefix' => '/cart-items'], function() {
         Route::post('/quantity/increase/{id}', 'CartItemController@increaseQuantity');
         Route::post('/store', 'CartItemController@store');
         Route::post('/quantity/decrease/{id}', 'CartItemController@decreaseQuantity');
@@ -39,7 +39,6 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/delete/{id}', 'CartItemController@destroy');
         // todo: move
         Route::get('/index', 'CartController@all');
-
     });
 
     Route::group(['prefix' => '/orders', 'middleware' => ['role:superadmin|admin']], function() {
@@ -137,6 +136,12 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/index/all', 'ShipmentController@browse');// todo: redo to be users only
     });
 
+    Route::group(['prefix' => 'reports'
+    // , 'middleware' => ['role:superadmin|admin']
+], function() {
+        Route::get('/', 'ReportController@index');
+    });
+
     Route::group(['prefix' => 'users', 
     // 'middleware' => ['role:superadmin|admin']
     ], function() {
@@ -145,6 +150,7 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/user/{id}', 'UserController@user');
         Route::post('/create', 'UserController@store');
         Route::get('/show/{id}', 'UserController@show');
+        Route::get('/data/{id}', 'UserController@getUserData');
         Route::post('/update/{id}', 'UserController@update');
         Route::post('/delete/{id}', 'UserController@delete');
     });
@@ -166,7 +172,6 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/create', 'RoleController@store');
         Route::post('/edit/{id}', 'RoleController@update');
     });
-
 });
 
 

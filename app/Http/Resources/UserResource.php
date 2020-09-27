@@ -18,7 +18,9 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'firstName' => $this->name,
             'lastName' => $this->email,
-            'relationships' => new UserRelationshipsResource($this),       
+            'relationships' => new UserRelationshipsResource($this),     
+            'permissions' => $this->permissions,  
+            'roles' => $this->roles,  
             // 'createdAt' => $this->created_at->diffForHumans()  
         ];
     }

@@ -9,11 +9,11 @@
             </v-app-bar>
         </v-app>
         <v-navigation-drawer dark
-                             v-model="sidebarMenu"
-                             app
-                             floating
-                             :permanent="sidebarMenu"
-                             color="grey darken-4"
+            v-model="sidebarMenu"
+            app
+            floating
+            :permanent="sidebarMenu"
+            color="grey darken-4"
         >
             <v-list dense>
                 <v-list-item>
@@ -37,8 +37,8 @@
                 </v-btn>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list>
-                <v-list-item v-for="item in items" :key="item.title" :href="item.href">
+            <v-list v-if="this.isSuperadmin">
+                <v-list-item v-for="item in superAdminItems" :key="item.title" :href="item.href">
                     <v-list-item-icon class="mr-3">
                         <v-icon color="primary">{{ item.icon }}</v-icon>
                     </v-list-item-icon>
@@ -47,7 +47,27 @@
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
-            <v-treeview
+            <v-list v-if="this.isAdmin && !this.isSuperadmin">
+                <v-list-item v-for="item in adminItems" :key="item.title" :href="item.href">
+                    <v-list-item-icon class="mr-3">
+                        <v-icon color="primary">{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title class="primary--text">{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list>
+            <v-list v-if="this.isCustomer">
+                <v-list-item v-for="item in customerItems" :key="item.title" :href="item.href">
+                    <v-list-item-icon class="mr-3">
+                        <v-icon color="primary">{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title class="primary--text">{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list>
+            <v-treeview v-if="isSuperadmin"
                 hoverable
                 :items="supportItems"
             ></v-treeview>
@@ -62,9 +82,14 @@
         name: 'new-sidebar-component',
         data: function () {
             return {
+                roles: [],
+                permissions: [],
                 sidebarMenu: true,
                 toggleMini: false,
-                items: [
+                isSuperadmin: false,
+                isAdmin: false,
+                isCustomer: false,
+                superAdminItems: [
                     {title: "Home", href: "/", icon: "mdi-home-outline"},
                     {title: "Dashboard", href: "/dashboard", icon: "mdi-file-document-multiple"},
                     {title: "Users", href: "/users/index", icon: "mdi-shield-account"},
@@ -78,6 +103,13 @@
                     // { title:"Product Types", href:"/product-types/index", icon:"mdi-settings-outline" },
                     // { title:"Invoice Status Codes", href:"/invoice-status-codes/index", icon:"mdi-settings-outline" },
                     {title: 'Roles & Permissions', href: "/roles/index", icon: "mdi-wrench"}
+                ],
+                adminItems: [
+                    {title: "Home", href: "/", icon: "mdi-home-outline"},
+                    {title: "Dashboard", href: "/dashboard", icon: "mdi-file-document-multiple"},
+                    {title: "Orders", href: "/orders/index", icon: "mdi-shield-account"},
+                    {title: "Shipments", href: "/shipments/index", icon: "mdi-bus-clock"},
+                    {title: "Products", href: "/products/index", icon: "mdi-shape-square-rounded-plus"},
                 ],
                 supportItems: [
                     {
@@ -93,8 +125,42 @@
                         ],
                     },
                 ],
+                customerItems: [
+                    {title: "Home", href: "/", icon: "mdi-home-outline"},
+                    {title: "Profile", href: "/orders/index", icon: "mdi-shield-account"},
+                    {title: "My Orders", href: "/orders/index", icon: "mdi-shield-account"},
+                    {title: "Wishlist", href: "/orders/index", icon: "mdi-shield-account"},
+                    {title: "History", href: "/orders/index", icon: "mdi-shield-account"},
+                ]
             }
         },
+        methods: {
+            getUserPermissions() {
+                return axios.get('/users/data/1')
+                    .then((response) => {
+                        let superadmin = response.data.data.roles.find(r => r.name === "Superadmin");
+                        if (superadmin) {
+                            this.isSuperadmin = true;
+                        }     
+
+                        let admin = response.data.data.roles.find(r => r.name === "Admin");
+                        if (admin) {
+                            this.isAdmin = true;
+                        }    
+
+                        if (!admin && !superadmin) {
+                            this.isCustomer = true;
+                        }                  
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
+        },
+        created() {
+            this.getUserPermissions();
+            
+        }
     }
 </script>
 

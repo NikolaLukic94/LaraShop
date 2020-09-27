@@ -19,7 +19,8 @@
 <p>This project includes:</p>
 <ul>
     <li>Vue chart</li>
-    <li> Roles/permissions built with Spatie package, etc...</li>
+    <li>Roles/permissions built with Spatie package</li>
+    <li>Multiple formats report export (csv, xls, pdf)</li>
 </ul>
 
 <p>...more coming soon!</p>
