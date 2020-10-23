@@ -66,11 +66,13 @@
             </v-col>
         </v-row>
         <v-btn v-if="userReport || monthlyReport || productsReport"
+            @click="createReport()"
             class="mt-3"
             elevation="2"
             medium>
             Export
         </v-btn>
+        <a href="/reports/create">Get request</a>
     </v-container>
   </div>
 </template>
@@ -115,6 +117,17 @@
                     this.userReport = false;
                 }
             },
+            createReport() {
+                return axios.post('/reports/create', {
+                        'type' : 'User Report'
+                    })
+                    .then((response) => {
+                        console.log(response)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
         }
     }
 </script>

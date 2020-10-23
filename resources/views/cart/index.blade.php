@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
+@include('partials.navbar')
+
 @section('content')
 
-<div>
-	<cart-items></cart-items>
-</div>
+<cart-items></cart-items>
 
 @endsection

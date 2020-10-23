@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+    // return view('welcome');
+// });
+
+Route::get('/', 'HomeController@welcome');
 
 Auth::routes();
 
@@ -27,6 +29,18 @@ Auth::routes();
 
 Route::get('/test-sidebar', function () {
     return view('test');
+});
+
+Route::get('/aa', function () {
+    $data = \App\Models\User::with(['orders' => function ($orders) {
+            $orders->with('orderItems')
+                ->with('orderStatusCode')
+                ->with('invoice.payments.shipments.shipmentItems');
+        }])
+        ->where('id', 1)
+        ->first();
+
+    dd($data);
 });
 
 Route::group(['middleware' => 'verified'], function () {
@@ -58,9 +72,11 @@ Route::group(['middleware' => 'verified'], function () {
     });
 
     Route::group(['middleware' => ['role:superadmin|admin|customer']], function() {
-        Route::get('/checkout', 'CartController@checkout');
+        
         Route::get('/cart/getAll', 'CartController@getAll');
     });
+
+    Route::get('/checkout', 'CheckoutController@index');
 
     Route::get('/cart/index', 'CartController@index');
     Route::post('/cart/create/{id}', 'CartController@store'); // create users cart
@@ -140,6 +156,7 @@ Route::group(['middleware' => 'verified'], function () {
     // , 'middleware' => ['role:superadmin|admin']
 ], function() {
         Route::get('/', 'ReportController@index');
+        Route::get('/create', 'ReportController@store');
     });
 
     Route::group(['prefix' => 'users', 
@@ -165,7 +182,9 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/delete/{id}', 'ProductImage@delete');
     });
 
-    Route::group(['prefix' => 'roles', 'middleware' => ['role:superadmin|admin']], function() {
+    Route::group(['prefix' => 'roles'
+    // , 'middleware' => ['role:superadmin|admin']
+], function() {
         Route::get('/index', 'RoleController@index');
         Route::get('/show/{id}', 'RoleController@show');
         Route::get('/create', 'RoleController@create');

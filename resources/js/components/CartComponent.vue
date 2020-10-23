@@ -1,12 +1,11 @@
 <template>
   <div>
-    <li class="nav-item pl-3" v-if="getCartItems.length > 0">
-      <b>
-        <a class="nav-link" href="/cart/index"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    <button class="btn btn-warning primary float-right mr-3">
+      <a href="/cart/index" style="color: black;">
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         <p>{{ getCartItems.length }}</p>
-        </a>
-      </b>
-    </li>
+      </a>
+    </button>
   </div>
 </template>
 

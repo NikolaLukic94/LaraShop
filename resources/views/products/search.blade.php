@@ -1,14 +1,9 @@
 @extends('layouts.app')
 
+@include('partials.navbar')
+
 @section('content')
 
-<navbar-component></navbar-component>
-
-<div class="container-fluid">
-    <div class="container">
-        <search-page-component></search-page-component>
-    </div>
-</div>
-
+<search-page-component></search-page-component>
 
 @endsection

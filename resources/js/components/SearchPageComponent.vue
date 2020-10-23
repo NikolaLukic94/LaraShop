@@ -1,15 +1,21 @@
 <template>
     <div>
-        <v-app>
-            <v-container>
+        <nav class="navbar navbar-light bg-light justify-content-between">
+        <div class="container">
+            <a class="navbar-item text-warning"><b>BOOKSTORE</b></a>
+            
+            <v-container style="width: 600px;">
                 <template>
-                    <v-text-field>
-                        <v-icon slot="append" color="green" @click="searchForProduct()">fas fa-search</v-icon>
-                    </v-text-field>
+                    <v-text-field label="Search" @click="searchForProduct()"></v-text-field>
                 </template>
-            </v-container>
+            </v-container>            
+            
+            <cart-component></cart-component>  
+        </div>
+        </nav>
+
+        <v-app>
             <div v-if="chunkedProducts">
-                <div class="container">
                     <div class="row" v-for="products in chunkedProducts">
                         <div class="col-sm" v-for="product in products">
                             <div class="card border-0 pt-2 pb-2 mt-2 mb-2"
@@ -36,14 +42,21 @@
                                                 color="light-blue"
                                                 text
                                             >
-                                                View
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
                                             </v-btn>
                                             <v-btn
                                                 @click="callStoreCartItem(product.id)"
                                                 color="light-blue"
                                                 text
                                             >
-                                                Add to Cart
+                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                            </v-btn>
+                                            <v-btn
+                                                @click="callStoreCartItem(product.id)"
+                                                color="light-blue"
+                                                text
+                                            >
+                                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                             </v-btn>
                                         </v-card-actions>
                                     </v-card>
@@ -51,7 +64,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </v-app>
     </div>
@@ -67,7 +79,7 @@
         name: 'product',
         computed: {
             chunkedProducts() {
-                return _.chunk(Object.values(this.getFilteredProducts), 4);
+                return _.chunk(Object.values(this.getFilteredProducts), 6);
             },
             ...mapGetters('products', ['getFilteredProducts']),
         },
@@ -108,3 +120,10 @@
         },
     }
 </script>
+
+
+<style>
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+</style>

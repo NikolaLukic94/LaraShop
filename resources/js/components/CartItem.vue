@@ -1,7 +1,6 @@
 <template>
     <div>
         <v-app>
-            <navbar-component></navbar-component>
             <v-card
                 class="mx-auto mt-3"
                 max-width="600"
