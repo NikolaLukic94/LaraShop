@@ -31,18 +31,6 @@ Route::get('/test-sidebar', function () {
     return view('test');
 });
 
-Route::get('/aa', function () {
-    $data = \App\Models\User::with(['orders' => function ($orders) {
-            $orders->with('orderItems')
-                ->with('orderStatusCode')
-                ->with('invoice.payments.shipments.shipmentItems');
-        }])
-        ->where('id', 1)
-        ->first();
-
-    dd($data);
-});
-
 Route::group(['middleware' => 'verified'], function () {
 
     Route::group(['prefix' => '/cart-items'], function() {

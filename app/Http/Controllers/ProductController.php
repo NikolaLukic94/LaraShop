@@ -167,9 +167,15 @@ class ProductController extends Controller
 
     public function filter(Request $request)
     {
-        $products = Product::where('name', 'like', '%' . $request->name . '%')
-            ->orWhere('name', 'like', '%' . $request->name . '%')
+        if ($request->name == 'mostPopular') {
+            $products = Product::take(6)->get();
+        } else if ($request->name == 'recommended') {
+            $products = Product::take(6)->get();
+        } else {
+            $products = Product::where('name', 'like', '%' . $request->name . '%')
+            // ->orWhere('name', 'like', '%' . $request->name . '%')
             ->get();
+        }
 
         return ProductResource::collection($products);
     }

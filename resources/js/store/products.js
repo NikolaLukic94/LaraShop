@@ -1,11 +1,15 @@
 const state = {
     products: [],
-    filteredProducts: []
+    filteredProducts: [],
+    recomended: [],
+    mostPopular: []
 }
 
 const getters = {
     getProducts: state => state.products,
-    getFilteredProducts: state => state.filteredProducts
+    getFilteredProducts: state => state.filteredProducts,
+    getRecommended: state => state.recomended,
+    getMostPopular: state => state.mostPopular
 };
 
 const actions = {
@@ -28,12 +32,21 @@ const actions = {
             })
     },
     filterForProduct({commit}, name) {
+        let param = typeof name == "object" ? name.type : name;
+
         return axios.post('/products/filter', {
-            name: name
-        })
+                name: param
+            })
             .then(function (response) {
-                console.log('response', response.data.data)
-                commit('filterForProduct', response.data.data)
+
+                console.log('params ', param)
+                if (param == 'recommended') {
+                    commit('setRecomended', response.data.data)
+                } else if (param == 'mostPopular') {
+                    commit('setMostPopular', response.data.data)
+                } else {
+                    commit('filterForProduct', response.data.data)
+                }
             })
             .catch(err => console.log(err))
     },
@@ -78,6 +91,12 @@ const mutations = {
     },
     deleteProduct: (state, id) => {
         state.products = state.products.filter(p => p.id !== id);
+    },
+    setRecomended: (state, products) => {
+        state.recomended = products;
+    },
+    setMostPopular: (state, products) => {
+        state.mostPopular = products;
     }
 };
 

@@ -82,6 +82,7 @@ Vue.component('register-form-component', require('./components/RegisterComponent
 Vue.component('footer-component', require('./components/FooterComponent').default)
 Vue.component('dashboard-chart-component', require('./components/DashboardChart').default)
 Vue.component('reports-component', require('./components/ReportsComponent').default)
+Vue.component('products-table-component', require('./components/ProductsDisplay').default)
 
 
 /**

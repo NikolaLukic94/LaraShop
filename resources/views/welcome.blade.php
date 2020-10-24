@@ -1,22 +1,7 @@
 @extends('layouts.app')
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="csrf-token" content="{{ csrf_token() }}">
-  </head>
-  <body>
-    <header></header>
-<body>
-<div id="app">
-
-
 @include('partials.navbar')
-
-</div>
-
+@section('content')
 <nav class="navbar navbar-light bg-light justify-content-between">
   <div class="container">
     <a class="navbar-item text-warning"><b>BOOKSTORE</b></a>
@@ -25,6 +10,9 @@
       <button class="btn btn-outline-warning my-2 my-sm-0 btn-outline-secondary" type="submit" style="color: black; border: solid 1px;">Search</button>
     </form>
     <a class="navbar-item"><button type="button" class="btn btn-warning">Best Deals</button></a>
+    @if (Auth::check())
+      <cart-component></cart-component>  
+    @endif
   </div>
 </nav>
 
@@ -90,38 +78,14 @@
   </div>
 </div>
 
-<div class="col m-3">
+<div class="m-3">
   <p>Recomended for you</p>
-  <div class="row">
-  @foreach ($mostPopularProducts as $mpp)
-    <div class="col mt-2 mr-3 mb-2">
-    <div class="card h-100">
-      <img class="p-2 image" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
-      <p class="text-center">{{ $mpp->name }}</p>
-      <p class="text-center" style="color: #e60000">{{ $mpp->price }}</p>    
-    </div>
-    </div>
-  @endforeach
-  </div>
-</div>
+    <products-table-component :filter="'recommended'"></products-table-component> 
 
-<div class="col m-3">
   <p>Bestsellers</p>
-  <div class="container">
-  
-  </div>
-  <div class="row">
-  @foreach ($recomendedProducts as $rp)
-    <div class="col ml-3 mt-2 mr-3 mb-2">
-    <div class="card h-100">
-      <img class="p-2" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
-      <p class="text-center">{{ $rp->name }}</p>    
-      <p class="text-center" style="color: #e60000">{{ $rp->price }}</p>    
-    </div>
-    </div>
-  @endforeach
-  </div>
+    <products-table-component :filter="'mostPopular'"></products-table-component>
 </div>
+@endsection
 
 </body>
 </html>
