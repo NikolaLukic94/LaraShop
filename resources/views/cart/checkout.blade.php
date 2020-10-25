@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
+@include('partials.navbar')
+
 @section('content')
 
-    <navbar-component></navbar-component>
 
     <div class="container">
         <checkout-component></checkout-component>
     </div>
+
+    <!-- @include('partials.stripe-card') -->
 
 @endsection

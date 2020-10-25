@@ -38,8 +38,6 @@ const actions = {
                 name: param
             })
             .then(function (response) {
-
-                console.log('params ', param)
                 if (param == 'recommended') {
                     commit('setRecomended', response.data.data)
                 } else if (param == 'mostPopular') {
@@ -64,6 +62,11 @@ const actions = {
         })
             .then(function (response) {
                 commit('createProduct', response.data.createdProduct)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err)) 
     },
@@ -71,6 +74,11 @@ const actions = {
         return axios.post('/products/delete/' + id
             ).then(function (response) {
                 commit('deleteProduct', id)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err)) 
     }

@@ -22,6 +22,9 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 Vue.use(VueSweetalert2);
 
+import swal from 'sweetalert2'
+window.swal = swal;
+
 Vue.use(VueGoodTablePlugin);
 
 // const store = new Vuex.Store(
@@ -61,7 +64,6 @@ Vue.component('payment-methods-component', require('./components/PaymentMethodCo
 Vue.component('users-component', require('./components/UsersComponent.vue').default);
 Vue.component('products-component', require('./components/ProductComponent.vue').default);
 Vue.component('invoices-component', require('./components/InvoiceComponent.vue').default);
-Vue.component('landing-products-page', require('./components/LandingProductsPage').default);
 Vue.component('cart-items', require('./components/CartItem').default);
 // remove from top level
 Vue.component('user-addresses', require('./components/UserAddressComponent').default);
@@ -74,7 +76,6 @@ Vue.component('checkout-component', require('./components/CheckoutComponent').de
 Vue.component('shipment-component', require('./components/ShipmentComponent').default);
 Vue.component('search-page-component', require('./components/SearchPageComponent').default);
 Vue.component('cart-component', require('./components/CartComponent').default);
-Vue.component('landing-page', require('./components/LandingPage').default);
 Vue.component('navbar-component', require('./components/Navbar').default);
 Vue.component('new-sidebar-component', require('./components/Sidebar').default);
 Vue.component('login-form-component', require('./components/LoginFormComponent').default)
@@ -96,3 +97,13 @@ const app = new Vue({
     store,
     vuetify: new Vuetify(),
 });
+
+const toast = swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+
+window.toast = toast;
+

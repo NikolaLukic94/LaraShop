@@ -1,11 +1,11 @@
 <template>
   <div>
-    <button class="btn btn-warning primary float-right mr-3">
       <a href="/cart/index" style="color: black;">
+        <button class="btn btn-warning primary float-right mr-3">
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         <p>{{ getCartItems.length }}</p>
-      </a>
-    </button>
+      </button>
+    </a>
   </div>
 </template>
 

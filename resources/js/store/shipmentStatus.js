@@ -20,6 +20,11 @@ const actions = {
         })
         .then(function (response) {
             commit('createShipmentStatus', response.data.createdShipmentStatus)
+            toast.fire({
+                icon: response.data.status,
+                type: response.data.status,
+                title: response.data.message
+            })
         })
         .catch(err => console.log(err))
     },
@@ -27,6 +32,11 @@ const actions = {
         return axios.post('/shupment-statuses/delete/' + id)
             .then((reponse) => {
                 commit('deleteShipmentStatus', id)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
@@ -36,7 +46,13 @@ const actions = {
         })
         .then((response) => {
             commit('updateInvoiceStatusCode', {id, name})
+            toast.fire({
+                icon: response.data.status,
+                type: response.data.status,
+                title: response.data.message
+            })
         })
+        .catch(err => console.log(err))
     }
 };
 

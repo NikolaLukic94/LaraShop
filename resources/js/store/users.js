@@ -10,16 +10,21 @@ const actions = {
     setUsers({commit}) {
         return axios.get('/users')
             .then((response) => {
-            commit('setUsers', response.data.data); 
+                commit('setUsers', response.data.data); 
             })
             .catch(function (error) {
-            console.log(error);
+                console.log(error);
             })
     },
     deleteUser({commit}, id) {
         return axios.post('/users/delete/' + id)
             .then(function (response) {
                 commit('delete', id)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
@@ -31,13 +36,15 @@ const actions = {
             })
             .then((response) => {
                 commit('setUser', response.data.user); 
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(function (error) {
         })
     },
-    updateUser({commit}, userData) {
-        
-    }
 };
 
 const mutations = {

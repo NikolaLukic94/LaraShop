@@ -13,7 +13,9 @@ class CartItemController extends Controller
     {
         $cart = Cart::firstOrCreate(['user_id' => Auth::id()]);
 
-        $cartItem = CartItem::where('product_id', $request->productId)->where('cart_id', $cart->id)->first();
+        $cartItem = CartItem::where('product_id', $request->productId)
+            ->where('cart_id', $cart->id)
+            ->first();
 
         if ($cartItem === null) {
             $cartItem = CartItem::create([

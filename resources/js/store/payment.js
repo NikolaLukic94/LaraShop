@@ -29,6 +29,11 @@ const actions = {
             })
             .then((response) => {
                 commit('createPayment', response.data.createdPaymentMethod)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
@@ -36,6 +41,11 @@ const actions = {
         return axios.post('/payments/delete/' + id)
             .then((reponse) => {
                 commit('deletePayment', id)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
@@ -45,7 +55,13 @@ const actions = {
         })
         .then((response) => {
             commit('updatePayment', {id, name})
+            toast.fire({
+                icon: response.data.status,
+                type: response.data.status,
+                title: response.data.message
+            })
         })
+        .catch(err => console.log(err))
     }
 };
 

@@ -21,6 +21,11 @@ const actions = {
         })
             .then(function (response) {
                 commit('createInvoiceStatusCode', response.data.createdInvoice)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
@@ -28,6 +33,11 @@ const actions = {
         return axios.post('/invoice-status-codes/delete/' + id)
             .then((reponse) => {
                 commit('delete', id)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
@@ -37,6 +47,11 @@ const actions = {
         })
         .then((response) => {
             commit('updateInvoiceStatusCode', inputParams)
+            toast.fire({
+                icon: response.data.status,
+                type: response.data.status,
+                title: response.data.message
+            })
         })
     }
 };

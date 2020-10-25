@@ -29,10 +29,15 @@ const actions = {
     },
     createPaymentMethod({commit}, name) {
         return axios.post('/payment-methods/create', {
-            name: name
-        })
+                name: name
+            })
             .then((response) => {
                 commit('createPaymentMethod', response.data.createdPaymentMethod)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
@@ -40,19 +45,35 @@ const actions = {
         return axios.post('/payment-methods/delete/' + id)
             .then((reponse) => {
                 commit('deletePaymentMethod', id)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
     updatePaymentMethod({commit}, inputParams) {
         return axios.post('/payment-methods/edit/' + inputParams.id, {
-            name: inputParams.name
-        })
+                name: inputParams.name
+            })
             .then((response) => {
                 commit('updatePaymentMethod', inputParams)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
+            .catch(err => console.log(err))
     },
     updateNewPaymentMethod({commit}, attrName) {
         commit('updateNewPaymentField', attrName);
+        toast.fire({
+            icon: response.data.status,
+            type: response.data.status,
+            title: response.data.message
+        })
     },
     validatePaymentField({commit}, input) {
         let name = input.errorName.replace("Error", "");

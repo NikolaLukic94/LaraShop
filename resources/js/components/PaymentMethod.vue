@@ -24,13 +24,56 @@
             <v-container class="grey lighten-5">
                 <div>
                     <v-text-field 
-                    label="Owner" 
-                    :rules="ownerRules" 
-                    hide-details="auto" 
-                    class="mb-3">
-                </v-text-field>
+                        label="Name on Card" 
+                        :rules="ownerRules" 
+                        hide-details="auto" 
+                        class="mb-3">
+                    </v-text-field>
                 </div>
                 <div>
+                    <v-text-field
+                        label="Card Number" 
+                        :rules="cardNumberRules" 
+                        hide-details="auto"
+                        class="mb-3">
+                    </v-text-field>
+                </div>
+                <v-row no-gutters>
+                    <v-col
+                        cols="12"
+                        sm="4"
+                    >
+                        <v-text-field 
+                            label="CCV" 
+                            :rules="ccvRules" 
+                            hide-details="auto" 
+                            class="mb-3 mr-2">
+                        </v-text-field>
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        sm="4"
+                    >
+                        <v-text-field 
+                            label="Expiration month" 
+                            :rules="expirationDateRules" 
+                            hide-details="auto"
+                            class="mb-3 mr-2">
+                        </v-text-field>
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        sm="4"
+                    >
+                        <v-text-field 
+                            label="Expiration Year" 
+                            :rules="yearRules" 
+                            hide-details="auto" 
+                            class="mb-3">
+                        </v-text-field>
+                    </v-col>
+                </v-row>
+                <!-- <div>
                     <v-text-field 
                     label="CCV" 
                     :rules="ccvRules" 
@@ -69,7 +112,7 @@
                     hide-details="auto"
                     class="mb-3">
                 </v-text-field>
-                </div>
+                </div> -->
             </v-container>
         </v-card>
     </v-app>

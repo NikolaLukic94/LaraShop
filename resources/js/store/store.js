@@ -12,7 +12,6 @@ import paymentMethods from './paymentMethods';
 import users from './users';
 import products from './products';
 import invoices from './invoices';
-import landingProductsPage from './landingProductsPage';
 import cartItem from './CartItem';
 import userAddress from './userAddress';
 import orderReview from './orderReview';
@@ -33,7 +32,6 @@ export default new Vuex.Store({
     users,
     products,
     invoices,
-    landingProductsPage,
     cartItem,
     userAddress,
     orderReview,

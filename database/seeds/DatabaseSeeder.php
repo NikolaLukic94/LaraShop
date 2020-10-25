@@ -21,10 +21,11 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(RolesSeeder::class);
         $this->call(PermissionsSeeder::class);
+        $this->call(ProductsSeeder::class);
+        // $this->call(CuponsTableSeeder::class);
 
         factory(App\Models\UserAddress::class, 50)->create();
         factory(App\Models\User::class, 50)->create();
-        factory(App\Models\Product::class, 50)->create();
         factory(App\Models\Order::class, 50)->create();
     }
 }

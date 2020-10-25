@@ -31,6 +31,7 @@
         "form-data": "^3.0.0",
         "material-design-icons-iconfont": "^5.0.1",
         "startbootstrap-simple-sidebar": "^5.1.2",
+        "sweetalert2": "^10.8.1",
         "vue-axios": "^2.1.5",
         "vue-chartjs": "^3.5.1",
         "vue-good-table": "^2.19.2",

@@ -10,21 +10,28 @@ const actions = {
     setOrderStatusCodes({commit}) {
         return axios.get('/order-status-codes')
               .then((response) => {
-                // handle success
-                console.log(response)
                 commit('setOrderStatusCodes', response.data.data); 
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
               })
               .catch(function (error) {
-                // handle error
                 console.log(error);
               })
     },
     createOrderStatusCode({commit}, name) {
         return axios.post('/order-status-codes/create', {
-            name: name
-        })
+                name: name
+            })
             .then(function (response) {
                 commit('createOrderStatusCode', response.data.createdOrderStatusCode)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
@@ -32,6 +39,11 @@ const actions = {
         return axios.post('/order-status-codes/delete/' + id)
             .then((reponse) => {
                 commit('deleteOrderStatusCodes', id)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
@@ -41,6 +53,12 @@ const actions = {
         })
         .then((response) => {
             commit('updateOrderStatusCode', inputParams)
+            toast.fire({
+                icon: response.data.status,
+                type: response.data.status,
+                title: response.data.message
+            })
+            .catch(err => console.log(err))
         })
     }
 };

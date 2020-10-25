@@ -30,8 +30,12 @@ const actions = {
             })
     },
     updateNewAddressField({commit}, attrName) {
-        console.log(attrName, 'attrName')
         commit('updateNewAddressField', attrName);
+        toast.fire({
+            icon: response.data.status,
+            type: response.data.status,
+            title: response.data.message
+        })
     },
     validateField({commit}, input) {
         let name = input.errorName.replace("Error", "");

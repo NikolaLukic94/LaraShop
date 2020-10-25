@@ -24,4 +24,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+
+    public function scopeMightLike($query)
+    {
+        return $query->inRandomOrder()->take(5);
+    }
 }

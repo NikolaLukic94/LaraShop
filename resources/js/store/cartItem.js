@@ -36,6 +36,11 @@ const actions = {
         return axios.post('/cart-items/delete/' + id)
             .then((response) => {
                 commit('deleteCartItem', id);
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(function (error) {
                 console.log(error);
@@ -45,16 +50,25 @@ const actions = {
         return axios.post('/cart-items/quantity/increase/' + id)
             .then((response) => {
                 commit('increaseQuantity', id);
+                toast.fire({
+                    icon: "success",
+                    type: 'success',
+                    title: 'Quantity increased!'
+                })
             })
             .catch(function (error) {
                 console.log(error);
             })
-        // if success, commit
     },
     decreaseQuantity({commit}, id) {
         return axios.post('/cart-items/quantity/decrease/' + id)
             .then((response) => {
                 commit('decreaseQuantity', id);
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(function (error) {
                 console.log(error);
@@ -62,10 +76,15 @@ const actions = {
     },
     changeQuantity({commit}, id, newQuantity) {
         return axios.post('/cart-items/quantity/change/' + id, {
-            'quantity': newQuantity
-        })
+                'quantity': newQuantity
+            })
             .then((response) => {
                 commit('changeQuantity', id, newQuantity);
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(function (error) {
                 console.log(error);
@@ -74,11 +93,15 @@ const actions = {
     storeCartItem: ({commit}, productId) => {
         console.log('qq', productId)
         return axios.post('/cart-items/store', {
-            productId: productId,
-            // quantity: quantity
-        })
+                productId: productId,
+            })
             .then((response) => {
                 commit('storeCartItem', response.data.data);
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(function (error) {
                 console.log(error);

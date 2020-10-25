@@ -108,6 +108,7 @@
                     'increaseQuantity',
                     'decreaseQuantity',
                     'changeQuantity',
+                    'deleteCartItem'
                 ]
             ),
         },

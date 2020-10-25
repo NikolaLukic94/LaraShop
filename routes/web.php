@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-    // return view('welcome');
-// });
+// todo:  use books csv to insert book names and authors 
+// todo: use route::resource instead of individual routes
 
 Route::get('/', 'HomeController@welcome');
 
@@ -179,7 +178,12 @@ Route::group(['middleware' => 'verified'], function () {
         Route::post('/create', 'RoleController@store');
         Route::post('/edit/{id}', 'RoleController@update');
     });
+
+    Route::resource('cupons', 'CuponsController');
 });
+
+Route::get('stripe-payment', 'StripeController@handleGet');
+Route::post('stripe-payment', 'StripeController@handlePost')->name('stripe.payment');
 
 
 

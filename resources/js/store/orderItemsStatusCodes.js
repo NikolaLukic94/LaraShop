@@ -10,7 +10,6 @@ const actions = {
     setOrderItemStatusCodes({commit}) {
         return axios.get('/order-item-status-codes')
               .then((response) => {
-                console.log(response)
                 commit('setOrderItemStatusCodes', response.data.data); 
               })
               .catch(function (error) {
@@ -19,10 +18,15 @@ const actions = {
         },
         createOrderItemStatusCode({commit}, name) {
             return axios.post('/order-item-status-codes/create', {
-                name: name
-            })
+                    name: name
+                })
                 .then(function (response) {
                     commit('createOrderItemStatusCode', response.data.createdOrderItemStatusCode)
+                    toast.fire({
+                        icon: response.data.status,
+                        type: response.data.status,
+                        title: response.data.message
+                    })
                 })
                 .catch(err => console.log(err))
         },
@@ -30,6 +34,11 @@ const actions = {
         return axios.post('/order-item-status-codes/delete/' + id)
             .then((reponse) => {
                 commit('deleteOrderItemStatusCodes', id)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
@@ -39,6 +48,12 @@ const actions = {
         })
         .then((response) => {
             commit('updateOrderItemStatusCode', {inputParams})
+            toast.fire({
+                icon: response.data.status,
+                type: response.data.status,
+                title: response.data.message
+            })
+            .catch(err => console.log(err))
         })
     }
 };

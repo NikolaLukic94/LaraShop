@@ -17,7 +17,10 @@ class CreateProductsTable extends Migration
             
             $table->id();
             $table->string('name');
+            $table->string('author')->nullable();
+            $table->string('publisher')->nullable();
             $table->text('description')->nullable();
+            $table->text('genre')->nullable();
             $table->integer('price')->nullable();
             $table->string('color')->nullable();
             $table->string('size')->nullable();

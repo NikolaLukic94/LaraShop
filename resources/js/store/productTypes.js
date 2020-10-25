@@ -22,6 +22,11 @@ const actions = {
             })
             .then((response) => {
                 commit('createProductType', response.data.createdProductType)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
@@ -29,6 +34,11 @@ const actions = {
         return axios.post('/product-types/delete/' + id)
             .then((reponse) => {
                 commit('deleteProductType', id)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(err => console.log(err))
     },
@@ -38,7 +48,13 @@ const actions = {
         })
         .then((response) => {
             commit('updateProductType', inputParams)
+            toast.fire({
+                icon: response.data.status,
+                type: response.data.status,
+                title: response.data.message
+            })
         })
+        .catch(err => console.log(err))
     }
 };
 

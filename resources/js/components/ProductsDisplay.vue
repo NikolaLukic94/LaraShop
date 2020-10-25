@@ -37,7 +37,7 @@
         <div v-if="filter == 'none'">
             <div class="row" v-for="filteredProducts in this.chunkedProducts" :key="filteredProducts.id">
                 <div class="col" v-for="filteredProduct in filteredProducts" :key="filteredProduct.id">
-                    <div class="card h-100"
+                    <div class="card h-100 ml-2 mr-2"
                         @mouseover="hover = true; hoverId = filteredProduct.id"
                         @mouseleave="hover = false; hoverId = null"
                     >

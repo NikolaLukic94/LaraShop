@@ -21,6 +21,11 @@ const actions = {
             .then((response) => {
                 console.log(response)
                 commit('createOrder', response.data.data);
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
             .catch(function (error) {
                 console.log(error);
