@@ -8,7 +8,7 @@ const getters = {
 
 const actions = {
     setOrders({commit}) {
-        return axios.get('/orders')
+        return axios.get('/api/orders')
             .then((response) => {
                 commit('setOrders', response.data.data);
             })
@@ -17,7 +17,7 @@ const actions = {
             })
     },
     createOrder({commit}) {
-        return axios.post('/orders/create')
+        return axios.post('/orders')
             .then((response) => {
                 console.log(response)
                 commit('createOrder', response.data.data);

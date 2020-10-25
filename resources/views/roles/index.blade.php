@@ -28,31 +28,12 @@
                                     {{ $role->name }}
                                 </div>
                                 <div class="col">
-                                    <a href="/roles/show/{{ $role->id }}">See</a>
+                                    <a href="/roles/{{ $role->id }}">See</a>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                 </div>
-
-                <!-- <div class="card mt-3">
-                    <div class="card-header">
-                        Permissions
-                    </div>
-                    <div class="card-body">
-                        @foreach ($permissions as $permission)
-                            <div class="row">
-                                <div class="col">
-                                    {{ $permission->name }}
-                                </div>
-                                <div class="col">
-                                    <a href="{{ route('user.delete', $user->id) }}"><i class="fa fa-trash"></i>Delete</a>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div> -->
-
             </main>
         </div>
     </div>

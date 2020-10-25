@@ -8,13 +8,14 @@ const getters = {
 
 const actions = {
     setOrderStatusCodes({commit}) {
-        return axios.get('/order-status-codes')
+        return axios.get('/api/order-status-codes')
               .then((response) => {
                 commit('setOrderStatusCodes', response.data.data); 
+                console.log(response)
                 toast.fire({
-                    icon: response.data.status,
-                    type: response.data.status,
-                    title: response.data.message
+                    icon: 'success',
+                    type: 'success',
+                    title: 'Order status codes fetched!'
                 })
               })
               .catch(function (error) {
@@ -22,7 +23,7 @@ const actions = {
               })
     },
     createOrderStatusCode({commit}, name) {
-        return axios.post('/order-status-codes/create', {
+        return axios.post('/order-status-codes', {
                 name: name
             })
             .then(function (response) {
@@ -36,7 +37,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     deleteOrderStatusCodes({commit}, id) {
-        return axios.post('/order-status-codes/delete/' + id)
+        return axios.delete('/order-status-codes/' + id)
             .then((reponse) => {
                 commit('deleteOrderStatusCodes', id)
                 toast.fire({
@@ -48,7 +49,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     updateOrderStatusCode({commit}, inputParams) {
-        return axios.post('/order-status-codes/edit/' + inputParams.id, {
+        return axios.put('/order-status-codes/' + inputParams.id, {
             name: inputParams.name
         })
         .then((response) => {

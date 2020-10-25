@@ -8,7 +8,7 @@ const getters = {
 
 const actions = {
     setUsers({commit}) {
-        return axios.get('/users')
+        return axios.get('/api/users')
             .then((response) => {
                 commit('setUsers', response.data.data); 
             })
@@ -17,7 +17,7 @@ const actions = {
             })
     },
     deleteUser({commit}, id) {
-        return axios.post('/users/delete/' + id)
+        return axios.delete('/users/' + id)
             .then(function (response) {
                 commit('delete', id)
                 toast.fire({
@@ -29,7 +29,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     storeUser({commit}, userParams) {
-        return axios.post('/users/create', {
+        return axios.post('/users', {
                 name: userParams.name,
                 password: userParams.password,
                 email: userParams.email

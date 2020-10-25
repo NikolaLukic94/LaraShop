@@ -19,7 +19,7 @@ const getters = {
 
 const actions = {
     setPaymentMethods({commit}) {
-        return axios.get('/payment-methods')
+        return axios.get('/api/payment-methods')
             .then((response) => {
                 commit('setPaymentMethods', response.data.data);
             })
@@ -28,7 +28,7 @@ const actions = {
             })
     },
     createPaymentMethod({commit}, name) {
-        return axios.post('/payment-methods/create', {
+        return axios.post('/payment-methods', {
                 name: name
             })
             .then((response) => {
@@ -42,7 +42,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     deletePaymentMethods({commit}, id) {
-        return axios.post('/payment-methods/delete/' + id)
+        return axios.delete('/payment-methods/' + id)
             .then((reponse) => {
                 commit('deletePaymentMethod', id)
                 toast.fire({
@@ -54,7 +54,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     updatePaymentMethod({commit}, inputParams) {
-        return axios.post('/payment-methods/edit/' + inputParams.id, {
+        return axios.put('/payment-methods/' + inputParams.id, {
                 name: inputParams.name
             })
             .then((response) => {
@@ -67,14 +67,14 @@ const actions = {
             })
             .catch(err => console.log(err))
     },
-    updateNewPaymentMethod({commit}, attrName) {
-        commit('updateNewPaymentField', attrName);
-        toast.fire({
-            icon: response.data.status,
-            type: response.data.status,
-            title: response.data.message
-        })
-    },
+    // updateNewPaymentMethod({commit}, attrName) {
+    //     commit('updateNewPaymentField', attrName);
+    //     toast.fire({
+    //         icon: response.data.status,
+    //         type: response.data.status,
+    //         title: response.data.message
+    //     })
+    // },
     validatePaymentField({commit}, input) {
         let name = input.errorName.replace("Error", "");
 

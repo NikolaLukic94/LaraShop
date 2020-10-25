@@ -1,8 +1,8 @@
 <template>
-    <v-app class="mt-3">
+    <v-app>
             <span>
                 <v-card
-                    class="mx-auto"
+                    class="mx-auto mb-2"
                     max-width="570"
                     outlined
                 >
@@ -26,32 +26,17 @@
                 <v-container class="grey lighten-5">
                     <div>
                         <v-text-field 
-                            label="First Name" 
-                            :rules="firstNameRules" 
-                            hide-details="auto"
-                            class="mb-3"></v-text-field>
-                    </div>
-                    <div>
-                        <v-text-field 
-                            label="Last Name" 
-                            :rules="lastNameRules" 
+                            label="Recipient's Full Name" 
+                            :rules="addressLineOneRules" 
                             hide-details="auto"
                             class="mb-3">
                         </v-text-field>
-                    </div>
-                    <div>
-                        <v-text-field 
-                            label="Phone Number" 
-                            :rules="phoneNumberRules" 
-                            hide-details="auto"
-                            class="mb-3"></v-text-field>
-                    </div>
-                    <div>
                         <v-text-field 
                             label="Address Line 1" 
                             :rules="addressLineOneRules" 
                             hide-details="auto"
-                            class="mb-3"></v-text-field>
+                            class="mb-3">
+                        </v-text-field>
                     </div>
                     <div>
                         <v-text-field 
@@ -61,37 +46,65 @@
                             class="mb-3">
                         </v-text-field>
                     </div>
-                    <div>
-                        <v-text-field 
-                            label="City" 
-                            :rules="cityRules" 
-                            hide-details="auto" 
-                            class="mb-3">
-                        </v-text-field>
-                    </div>
-                    <div>
-                        <v-text-field 
-                            label="County" 
-                            :rules="countyRules" 
-                            hide-details="auto"
-                            class="mb-3">
-                        </v-text-field>
-                    </div>
-                    <div>
-                        <v-text-field 
-                            label="ZIP" 
-                            :rules="zipRules" 
-                            hide-details="auto" 
-                            class="mb-3">
-                        </v-text-field>
-                    </div>
-                    <div>
-                        <v-text-field 
-                            label="Country" :rules="countryRules"
-                            hide-details="auto"
-                            class="mb-3">
-                        </v-text-field>
-                    </div>
+                    <v-row no-gutters>
+                        <v-col
+                            cols="12"
+                            sm="4"
+                        >
+                            <v-text-field 
+                                label="City" 
+                                :rules="cityRules" 
+                                hide-details="auto" 
+                                class="mb-3 mr-3">
+                            </v-text-field>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            sm="4"
+                        >
+                            <v-text-field 
+                                label="County" 
+                                :rules="countyRules" 
+                                hide-details="auto"
+                                class="mb-3 mr-3">
+                            </v-text-field>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            sm="4"
+                        >
+                            <v-text-field 
+                                label="ZIP" 
+                                :rules="zipRules" 
+                                hide-details="auto" 
+                                class="mb-3">
+                            </v-text-field>
+                        </v-col>
+                    </v-row>
+
+                    <v-row no-gutters>
+                        <v-col
+                            cols="12"
+                            sm="6"
+                        >
+                            <v-text-field 
+                                label="Country" :rules="countryRules"
+                                hide-details="auto"
+                                class="mb-3 mr-3">
+                            </v-text-field>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            sm="6"
+                        >
+                            <v-text-field 
+                                type="number"
+                                label="Phone Number" 
+                                :rules="phoneNumberRules" 
+                                hide-details="auto"
+                                class="mb-3"></v-text-field>
+                        </v-col>
+                    </v-row>
                 </v-container>
             </v-card>
             </span>
@@ -120,6 +133,7 @@
                 </v-list-item>
             </v-card>
             </span>
+            <br>
     </v-app>
 </template>
 
@@ -180,23 +194,17 @@
                 country: '',
                 firstNameRules: [
                     v => !!v || 'Name is required',
-                    v => v.length <= 10 || 'Name must be less than 10 characters',
-                ],
-                lastNameRules: [
-                    v => !!v || 'Last Name is required',
-                    v => v.length <= 10 || 'Name must be less than 10 characters',
+                    v => v.length < 5 || 'Name must be at least 5 characters long',
                 ],
                 phoneNumberRules: [
                     v => !!v || 'Phone Number is required',
-                    v => v.length <= 10 || 'Name must be less than 10 characters',
+                    v => v.length <= 10 || 'Phone number should be at least 6 digits long',
                 ],
                 addressLineOneRules: [
                     v => !!v || 'Address is required',
-                    v => v.length <= 10 || 'Name must be less than 10 characters',
                 ],
                 addressLineTwoRules: [
                     v => !!v || 'Address is required',
-                    v => v.length <= 10 || 'Name must be less than 10 characters',
                 ],
                 cityRules: [
                     v => !!v || 'Name is required',
@@ -208,8 +216,8 @@
                 ],
                 zipRules: [
                     v => !!v || 'ZIP is required',
-                    v => v.length <= 10 || 'Name must be less than 10 characters',
                 ],
+                // make dropdown
                 countryRules: [
                     v => !!v || 'country is required',
                     v => v.length <= 10 || 'Name must be less than 10 characters',

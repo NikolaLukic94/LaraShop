@@ -19,7 +19,7 @@ const getters = {
 
 const actions = {
     setCartItems({commit}) {
-        return axios.get('/cart-items/index')
+        return axios.get('/api/cart-items')
             .then((response) => {
                 console.log(response)
                 commit('setAllAreDigital', response.data.data);
@@ -33,7 +33,7 @@ const actions = {
         commit('setAllAreDigital', cartItems);
     },
     deleteCartItem({commit}, id) {
-        return axios.post('/cart-items/delete/' + id)
+        return axios.delete('/cart-items/' + id)
             .then((response) => {
                 commit('deleteCartItem', id);
                 toast.fire({

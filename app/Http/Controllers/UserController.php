@@ -34,14 +34,9 @@ class UserController extends Controller
     {
         $id = $id !== null ? $id : Auth::id();
 
-        $user = User::find($id);
-
-        // return response()->json([
-            // 'roles' => $user->roles,
-            // 'permissions' => $user->permissions
-        // ]);
-
-        return new UserResource($user);
+        return new UserResource(
+            User::find($id)
+        );
     }
 
     public function store(Request $request)

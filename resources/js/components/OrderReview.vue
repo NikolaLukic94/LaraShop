@@ -2,7 +2,6 @@
     <v-app>
         <v-card
             class="mx-auto"
-            max-width="570"
             outlined
         >
             <v-card-title class="justify-center">
@@ -16,7 +15,7 @@
                         <h5>
                             <b>Your order</b>
                         </h5>
-                        <span>Change</span>
+                        <span><i>summary</i></span>
                     </div>
                     <v-list-item-title class="headline mb-1">Headline 5</v-list-item-title>
                     <v-list-item-subtitle>Greyhound divisely hello coldly fonwderfully</v-list-item-subtitle>

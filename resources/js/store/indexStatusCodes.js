@@ -8,15 +8,15 @@ const getters = {
 
 const actions = {
     setInvoiceStatusCodes({commit}) {
-        return axios.get('/invoice-status-codes')
+        return axios.get('/api/invoice-status-codes')
               .then((response) => {
                 commit('setInvoiceStatusCodes', response.data.data);
-              })
+            })
               .catch(function (error) {
-              })
+            })
     },
     createInvoiceStatusCode({commit}, name) {
-        return axios.post('/invoice-status-codes/create', {
+        return axios.post('/invoice-status-codes', {
             name: name
         })
             .then(function (response) {
@@ -30,7 +30,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     deleteInvoiceStatusCode({commit}, id) {
-        return axios.post('/invoice-status-codes/delete/' + id)
+        return axios.delete('/invoice-status-codes/' + id)
             .then((reponse) => {
                 commit('delete', id)
                 toast.fire({
@@ -42,7 +42,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     updateInvoiceStatusCode({commit}, inputParams) {
-        return axios.post('/invoice-status-codes/update/' + inputParams.id, {
+        return axios.put('/invoice-status-codes/' + inputParams.id, {
             name: inputParams.name
         })
         .then((response) => {

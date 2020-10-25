@@ -8,7 +8,7 @@ const getters = {
 
 const actions = {
     setProductTypes({commit}) {
-        return axios.get('/product-types')
+        return axios.get('/api/product-types')
               .then((response) => {
                 commit('setProductTypes', response.data.data); 
               })
@@ -17,7 +17,7 @@ const actions = {
               })
     },
     createProductType({commit}, name) {
-        return axios.post('/product-types/create', {
+        return axios.post('/product-types', {
                 name: name
             })
             .then((response) => {
@@ -31,7 +31,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     deleteProductType({commit}, id) {
-        return axios.post('/product-types/delete/' + id)
+        return axios.delete('/product-types/' + id)
             .then((reponse) => {
                 commit('deleteProductType', id)
                 toast.fire({
@@ -43,7 +43,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     updateProductType({commit}, inputParams) {
-        return axios.post('/product-types/edit/' + inputParams.id, {
+        return axios.put('/product-types/' + inputParams.id, {
             name: inputParams.name
         })
         .then((response) => {

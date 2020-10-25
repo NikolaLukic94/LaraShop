@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <order-review></order-review>
         <user-addresses></user-addresses>
         <user-payment-methods></user-payment-methods>

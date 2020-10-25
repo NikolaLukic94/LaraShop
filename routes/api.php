@@ -17,3 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/order-status-codes', 'OrderStatusCodeController@getAll');
+Route::get('/invoice-status-codes', 'InvoiceStatusCodeController@getAll');
+Route::get('/order-item-status-codes', 'OrderItemStatusCodeController@getAll');
+Route::get('/product-types', 'ProductTypeController@getAll');
+Route::get('/payment-methods', 'PaymentMethodController@getAll');
+Route::get('/cart-items', 'CartController@all');
+Route::get('/users', 'UserController@getAll');
+Route::get('/orders', 'OrderController@getAll');
+

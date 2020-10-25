@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Spatie\Permission\Models\Role;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
@@ -12,7 +13,8 @@ class RoleController extends Controller
     {
         return view('roles.index', [
             'roles' => Role::all(),
-            'permissions' => Permission::all()
+            'permissions' => Permission::all(),
+            'user' => Auth::user()
         ]);
     }
 

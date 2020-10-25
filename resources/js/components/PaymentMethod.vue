@@ -1,5 +1,5 @@
 <template>
-    <v-app class="mt-3">
+    <v-app>
         <v-card
             class="mx-auto"
             max-width="570"
@@ -182,15 +182,17 @@
                 cardType: '',
                 ownerRules: [
                     v => !!v || 'Owner is required',
-                    v => v.length <= 10 || 'Name must be less than 10 characters',
+                    v => v.length <= 30 || 'Name must be less than 30 characters',
+                    v => v.length > 5 || 'Name must be less at least 5 characters',
                 ],
                 ccvRules: [
                     v => !!v || 'CCV is required',
-                    v => v.length <= 4 || 'Name must be less than 4 characters',
+                    v => v.length == 3 || 'CCV must be 3 characters long',
                 ],
                 cardNumberRules: [
                     v => !!v || 'Card number is required',
-                    v => v.length <= 10 || 'Name must be less than 10 characters',
+                    v => v.length <= 19 || 'Card Number requires less than 19 characters',
+                    v => v.length > 8 || 'Card Number requires at least 8 characters',
                 ],
                 expirationDateRules: [
                     v => !!v || 'Expiration date is required',
@@ -200,10 +202,10 @@
                     v => !!v || 'Year rules is required',
                     v => v.length <= 10 || 'Name must be less than 10 characters',
                 ],
-                cardTypeRules: [
-                    v => !!v || 'Card type is required',
-                    v => v.length <= 10 || 'Name must be less than 10 characters',
-                ],
+                // cardTypeRules: [
+                //     v => !!v || 'Card type is required',
+                //     v => v.length <= 10 || 'Name must be less than 10 characters',
+                // ],
             }
         },
         created() {

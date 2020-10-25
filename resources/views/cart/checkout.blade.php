@@ -4,11 +4,6 @@
 
 @section('content')
 
-
-    <div class="container">
-        <checkout-component></checkout-component>
-    </div>
-
-    <!-- @include('partials.stripe-card') -->
+<checkout-component></checkout-component>
 
 @endsection
