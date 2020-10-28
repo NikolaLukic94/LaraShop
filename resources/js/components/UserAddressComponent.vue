@@ -26,6 +26,8 @@
                 <v-container class="grey lighten-5">
                     <div>
                         <v-text-field 
+                            v-model="recipient"
+                            @change='checkEmpty($event, "recipient")'
                             label="Recipient's Full Name" 
                             :rules="addressLineOneRules" 
                             hide-details="auto"
@@ -52,6 +54,7 @@
                             sm="4"
                         >
                             <v-text-field 
+                                v-model="city"
                                 label="City" 
                                 :rules="cityRules" 
                                 hide-details="auto" 
@@ -63,6 +66,7 @@
                             sm="4"
                         >
                             <v-text-field 
+                                v-model="county"
                                 label="County" 
                                 :rules="countyRules" 
                                 hide-details="auto"
@@ -88,6 +92,7 @@
                             sm="6"
                         >
                             <v-text-field 
+                                v-model="county"
                                 label="Country" :rules="countryRules"
                                 hide-details="auto"
                                 class="mb-3 mr-3">
@@ -97,7 +102,8 @@
                             cols="12"
                             sm="6"
                         >
-                            <v-text-field 
+                            <v-text-field
+                                v-model="phoneNumber" 
                                 type="number"
                                 label="Phone Number" 
                                 :rules="phoneNumberRules" 
@@ -183,6 +189,7 @@
         },
         data: function () {
             return {
+                recipient: '',
                 addressLineOne: '',
                 addressLineTwo: '',
                 firstName: '',
@@ -226,7 +233,6 @@
         },
         created() {
             this.setUserAddresses();
-            this.setOrders();
         },
     }
 </script>

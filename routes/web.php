@@ -16,17 +16,31 @@ Auth::routes();
 
 Route::group(['middleware' => 'verified'], function () {
 
-    Route::resource('invoice-status-codes', 'InvoiceStatusCodeController');
+    Route::get('/s', 'StoreController@indexA');
 
-    Route::resource('order-item-status-codes', 'OrderItemStatusCodeController');
+    Route::resource('invoice-status-codes', 'InvoiceStatusCodeController')->except([
+        'create', 'show'
+    ]);
 
-    Route::resource('order-status-codes', 'OrderStatusCodeController');
+    Route::resource('order-status-codes', 'OrderStatusCodeController')->except([
+        'create', 'show'
+    ]);
 
-    Route::resource('product-types', 'ProductTypeController');
+    Route::resource('product-types', 'ProductTypeController')->except([
+        'create', 'show'
+    ]);
 
-    Route::resource('payment-methods', 'PaymentMethodController');
+    Route::resource('payment-methods', 'PaymentMethodController')->except([
+        'create', 'show'
+    ]);
 
-    Route::resource('orders', 'OrderController');
+    Route::resource('orders', 'OrderController')->except([
+        'create', 'show'
+    ]);
+
+    Route::resource('order-item-status-codes', 'OrderItemStatusCodeController')->only([
+        'index', 'update', 'delete'
+    ]);
 
     Route::resource('users', 'UserController');
 
@@ -46,27 +60,21 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/index', 'InvoiceController@index');
     });
 
-    // cart item increase should be moved to store
-    // cart item decrease should be moved to delete
-    // cart item set quantity should be moved to update
-    Route::group(['prefix' => '/cart-items'], function() {
-        Route::post('/quantity/increase/{id}', 'CartItemController@increaseQuantity');
-        Route::post('/store', 'CartItemController@store');
-        Route::post('/quantity/decrease/{id}', 'CartItemController@decreaseQuantity');
-        Route::post('/quantity/change/{id}', 'CartItemController@changeQuantity');
-        Route::delete('/{id}', 'CartItemController@destroy');
-    });
+    Route::resource('cart-items', 'CartItemController')->only([
+        'store', 'destroy'
+    ]);
+    Route::post('/cart-items/{id}', 'CartItemController@update');
 
-    Route::group(['prefix' => '/user-addresses', 'middleware' => ['role:superadmin|admin']], function() {
-        Route::get('/api/user/show/{id}', 'UserController@getUserData');
+    Route::group(['prefix' => '/user-addresses'], function() {
         Route::get('/', 'UserAddressController@getAll');
         Route::post('/create', 'UserAddressController@store');
     });
 
     Route::get('/cart/index', 'CartController@index');
     Route::post('/cart/create/{id}', 'CartController@store'); // create users cart
-    Route::post('/cart-items/create', 'CartItemController@store'); // create users cart
-
+    // Route::post('/cart-items', 'CartItemController@store'); // create users cart
+    // tehnically, this is just an update
+    
     Route::group(['prefix' => 'products'], function() {
         Route::get('/home', 'ProductController@home');
         Route::get('/', 'ProductController@getAll');

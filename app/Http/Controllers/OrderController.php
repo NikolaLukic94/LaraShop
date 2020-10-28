@@ -134,10 +134,8 @@ class OrderController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete(Order $order)
     {
-        $order = Order::find($id);
-
         $order->delete();
 
         return response()->json([

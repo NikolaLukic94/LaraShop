@@ -39,52 +39,37 @@ class CartItemController extends Controller
         ]);
     }
 
-    public function increaseQuantity($id)
+    public function update(Request $request, $id)
     {
         $cartItem = CartItem::find($id);
 
-        $cartItem->quantity = $cartItem->quantity + 1;
+        if (!is_numeric($request->value)) {
+
+            $request->value == 'increase' ? $cartItem->quantity++ : $cartItem->quantity--;
+            $message = $request->value == 'increase' ? 'Quantity increased!' : 'Quantity decreased';
+
+            $cartItem->save();
+
+            return response()->json([
+                'quantity' => $cartItem->quantity,
+                'status' => 'success',
+                'message' => $message
+            ]);
+        }
+
+        $cartItem->quantity = $request->value;
 
         $cartItem->save();
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'Quantity increased!'
-        ]);
-    }
-
-    public function decreaseQuantity($id)
-    {
-        $cartItem = CartItem::find($id);
-
-        $cartItem->quantity = $cartItem->quantity - 1;
-
-        $cartItem->save();
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Quantity decreased!'
-        ]);
-    }
-
-    public function changeQuantity($id, $request)
-    {
-        $cartItem = CartItem::find($id);
-
-        $cartItem->quantity = $request->newQuantity;
-
-        $cartItem->save();
-
-        return response()->json([
+            'quantity' => $cartItem->quantity,
             'status' => 'success',
             'message' => 'Quantity updated!'
         ]);
     }
 
-    public function destroy($id)
+    public function destroy(CartItem $cartItem)
     {
-        $cartItem = CartItem::find($id);
-
         $cartItem->delete();
 
         return response()->json([

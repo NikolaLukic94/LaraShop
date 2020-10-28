@@ -136,7 +136,7 @@
         },
         methods: {
             getUserPermissions() {
-                return axios.get('/users/data/1')
+                return axios.get('/api/users/1')
                     .then((response) => {
                         let superadmin = response.data.data.roles.find(r => r.name === "Superadmin");
                         if (superadmin) {

@@ -26,4 +26,6 @@ Route::get('/payment-methods', 'PaymentMethodController@getAll');
 Route::get('/cart-items', 'CartController@all');
 Route::get('/users', 'UserController@getAll');
 Route::get('/orders', 'OrderController@getAll');
+Route::get('/stores', 'StoreController@index');
+Route::get('/users/{user}', 'UserController@show');
 

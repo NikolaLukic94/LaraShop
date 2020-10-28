@@ -38,25 +38,24 @@
                                         </v-row>
                                         <v-row>
                                             Paperback/digital:
-                                            {{ cartItem.relationships.product.data.relationships.productType.data.name
-                                            }}
+                                            {{ cartItem.relationships.product.data.relationships.productType.data.name}}
                                         </v-row>
                                     </v-card-subtitle>
 
                                     <v-card-actions class="card-actions">
                                         <v-btn text>
                                             <i class="fa fa-plus-circle pr-3" aria-hidden="true"
-                                               @click="increaseQuantity(cartItem.id)">
+                                               @click="changeQuantity({id:cartItem.id, value: 'increase'})">
                                             </i>
                                         </v-btn>
 
                                         <input type="text" :value="cartItem.quantity"
                                                style="width:25px; color: white"
-                                               @input="changeQuantity()">
+                                               @input="changeQuantity({id:cartItem.id, value: this.quantity})">
 
                                         <v-btn text>
                                             <i class="fa fa-minus-circle pr-3" aria-hidden="true"
-                                               @click="decreaseQuantity(cartItem.id)">
+                                               @click="changeQuantity({id: cartItem.id, value: 'decrease'})">
                                             </i>
                                         </v-btn>
 
@@ -112,8 +111,12 @@
                 ]
             ),
         },
+        // add there increase quantity, take current quantity, increase it or decrease it or set new, and 
+        // send that as post req and that's it, removes unncessary code
         data: function () {
-            return {}
+            return {
+                quantity: ''
+            }
         },
         created() {
             this.setCartItems();

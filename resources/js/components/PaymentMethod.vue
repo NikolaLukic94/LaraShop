@@ -24,6 +24,7 @@
             <v-container class="grey lighten-5">
                 <div>
                     <v-text-field 
+                        v-model="owner"
                         label="Name on Card" 
                         :rules="ownerRules" 
                         hide-details="auto" 
@@ -32,6 +33,7 @@
                 </div>
                 <div>
                     <v-text-field
+                        v-model="cardNumber"
                         label="Card Number" 
                         :rules="cardNumberRules" 
                         hide-details="auto"
@@ -44,6 +46,7 @@
                         sm="4"
                     >
                         <v-text-field 
+                            v-model="ccv"
                             label="CCV" 
                             :rules="ccvRules" 
                             hide-details="auto" 
@@ -73,48 +76,9 @@
                         </v-text-field>
                     </v-col>
                 </v-row>
-                <!-- <div>
-                    <v-text-field 
-                    label="CCV" 
-                    :rules="ccvRules" 
-                    hide-details="auto" 
-                    class="mb-3">
-                </v-text-field>
-                </div>
-                <div>
-                    <v-text-field
-                     label="Card Number" 
-                    :rules="cardNumberRules" 
-                    hide-details="auto"
-                    class="mb-3">
-                </v-text-field>
-                </div>
-                <div>
-                    <v-text-field 
-                    label="Expiration date" 
-                    :rules="expirationDateRules" 
-                    hide-details="auto"
-                    class="mb-3">
-                </v-text-field>
-                </div>
-                <div>
-                    <v-text-field 
-                    label="Year" 
-                    :rules="yearRules" 
-                    hide-details="auto" 
-                    class="mb-3">
-                </v-text-field>
-                </div>
-                <div>
-                    <v-text-field 
-                    label="Card Type" 
-                    :rules="cardTypeRules" 
-                    hide-details="auto"
-                    class="mb-3">
-                </v-text-field>
-                </div> -->
             </v-container>
         </v-card>
+        <button @click="sendRequest">Do it!</button>
     </v-app>
 </template>
 
@@ -138,15 +102,11 @@
             ...mapActions(
                 'paymentMethods',
                 [
-                    'setUserPaymentMethod',
                     'updateNewPaymentMethod',
                     'validatePaymentField'
                 ]),
             ...mapActions(
-                'payment',
-                [
-                    'createPayment',
-                ]),
+                'payment', ['createPayment']),
             getValidationError(inputFieldName) {
                 let inputFieldError = this.getPaymentErrors.find(e => e[0] === inputFieldName);
                 return !inputFieldError || inputFieldError === null ? null : inputFieldError[1];
@@ -157,9 +117,9 @@
                 payload.owner = this.owner;
                 payload.ccv = this.ccv;
                 payload.cardNumber = this.cardNumber,
-                    payload.expiration = this.expiration,
-                    payload.year = this.year,
-                    payload.cardType = this.cardType
+                payload.expiration = this.expiration,
+                payload.year = this.year,
+                payload.cardType = this.cardType
 
                 this.createPayment(payload);
             },
@@ -168,12 +128,22 @@
             },
             callValidate(input) {
                 this.validatePaymentField(input);
+            },
+            sendRequest() {
+                let stripeKey = document.getElementsByTagName('meta')['stripeKey'];
+
+                let token = Stripe.setPublishableKey(stripeKey);
+                Stripe.createToken({
+                    stripeToken: token,
+                    number: this.cardNumber,
+                    cvc: this.ccv,
+                    exp_month: this.expiration,
+                    exp_year: this.year
+                });
             }
         },
         data: function () {
             return {
-                // errors: [],
-
                 owner: '',
                 ccv: '',
                 cardNumber: '',
@@ -196,20 +166,11 @@
                 ],
                 expirationDateRules: [
                     v => !!v || 'Expiration date is required',
-                    v => v.length <= 10 || 'Name must be less than 10 characters',
                 ],
                 yearRules: [
                     v => !!v || 'Year rules is required',
-                    v => v.length <= 10 || 'Name must be less than 10 characters',
                 ],
-                // cardTypeRules: [
-                //     v => !!v || 'Card type is required',
-                //     v => v.length <= 10 || 'Name must be less than 10 characters',
-                // ],
             }
-        },
-        created() {
-            this.setUserPaymentMethod();
         },
     }
 </script>

@@ -54,10 +54,8 @@ class InvoiceController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete(Invoice $invoice)
     {
-        $invoice = Invoice::find($id);
-
         $invoice->delete();
 
         return response()->json([

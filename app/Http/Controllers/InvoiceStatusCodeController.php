@@ -50,10 +50,8 @@ class InvoiceStatusCodeController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete(InvoiceStatusCode $invoiceStatusCode)
     {
-        $invoiceStatusCode = InvoiceStatusCode::find($id);
-
         $invoiceStatusCode->delete();
 
         return response()->json([

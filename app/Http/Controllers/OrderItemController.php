@@ -42,10 +42,8 @@ class OrderItemController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete(OrderItem $orderItem)
     {
-        $orderItem = OrderItem::find($id);
-
         $orderItem->delete();
 
         return response()->json([

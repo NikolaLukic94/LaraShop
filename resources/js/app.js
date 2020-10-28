@@ -49,6 +49,13 @@ import VueAxios from 'vue-axios'
 import VueMeta from 'vue-meta'
 import Element from 'element-ui'
 import Vuetify from 'vuetify';
+import * as VueGoogleMaps from 'vue2-google-maps';
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: ''
+  }
+})
 Vue.use(Vuetify);
 import _ from 'lodash'
 import 'vuetify/dist/vuetify.min.css'
@@ -84,6 +91,7 @@ Vue.component('footer-component', require('./components/FooterComponent').defaul
 Vue.component('dashboard-chart-component', require('./components/DashboardChart').default)
 Vue.component('reports-component', require('./components/ReportsComponent').default)
 Vue.component('products-table-component', require('./components/ProductsDisplay').default)
+Vue.component('map-component', require('./components/MapComponent').default)
 
 
 /**

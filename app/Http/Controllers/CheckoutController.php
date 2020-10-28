@@ -13,7 +13,9 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        return view('cart.checkout');
+        return view('cart.checkout', [
+            'stripeKey' => env('STRIPE_KEY')
+        ]);
     }
 
     /**

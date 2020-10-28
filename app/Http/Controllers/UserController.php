@@ -19,7 +19,6 @@ class UserController extends Controller
      */
     public function getAll()
     {
-        //return collection of articles as a resource
         return UserResource::collection(
             User::paginate(15)
         );
@@ -30,13 +29,9 @@ class UserController extends Controller
         return view('users.index');
     }
 
-    public function getUserData($id = null)
+    public function show(User $user)
     {
-        $id = $id !== null ? $id : Auth::id();
-
-        return new UserResource(
-            User::find($id)
-        );
+        return new UserResource($user);
     }
 
     public function store(Request $request)
@@ -54,11 +49,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function edit(User $user)
     {
         return view('users.show', [
             'permissions' => Permission::all(),
-            'user' => User::find($id),
+            'user' => $user,
             'roles' => Role::all()
         ]);
     }
@@ -74,15 +69,13 @@ class UserController extends Controller
         return redirect('/users/show/' . $user->id);
     }
 
-    public function delete($id)
+    public function delete(User $user)
     {
-        $user = User::find($id);
-
         $user->delete();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Product type has been deleted'
+            'message' => 'User has been removed!'
         ]);
     }
 }

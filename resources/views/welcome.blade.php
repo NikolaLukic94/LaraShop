@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @include('partials.navbar')
+
 @section('content')
+
 <nav class="navbar navbar-light bg-light justify-content-between">
   <div class="container">
     <a class="navbar-item text-warning"><b>BOOKSTORE</b></a>

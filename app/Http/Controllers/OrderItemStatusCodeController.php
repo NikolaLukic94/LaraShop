@@ -52,10 +52,8 @@ class OrderItemStatusCodeController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete(OrderItemStatusCode $orderItemStatusCode)
     {
-        $orderItemStatusCode = OrderItemStatusCode::find($id);
-
         $orderItemStatusCode->delete();
 
         return response()->json([

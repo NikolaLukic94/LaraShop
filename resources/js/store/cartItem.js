@@ -46,40 +46,13 @@ const actions = {
                 console.log(error);
             })
     },
-    increaseQuantity({commit}, id) {
-        return axios.post('/cart-items/quantity/increase/' + id)
-            .then((response) => {
-                commit('increaseQuantity', id);
-                toast.fire({
-                    icon: "success",
-                    type: 'success',
-                    title: 'Quantity increased!'
-                })
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    },
-    decreaseQuantity({commit}, id) {
-        return axios.post('/cart-items/quantity/decrease/' + id)
-            .then((response) => {
-                commit('decreaseQuantity', id);
-                toast.fire({
-                    icon: response.data.status,
-                    type: response.data.status,
-                    title: response.data.message
-                })
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    },
-    changeQuantity({commit}, id, newQuantity) {
-        return axios.post('/cart-items/quantity/change/' + id, {
-                'quantity': newQuantity
+    changeQuantity({commit}, data) {
+        let theId = data.id
+        return axios.post('/cart-items/' + theId, {
+                value: data.value
             })
             .then((response) => {
-                commit('changeQuantity', id, newQuantity);
+                commit('changeQuantity', {id: theId, quantity: response.data.quantity});
                 toast.fire({
                     icon: response.data.status,
                     type: response.data.status,
@@ -91,8 +64,7 @@ const actions = {
             })
     },
     storeCartItem: ({commit}, productId) => {
-        console.log('qq', productId)
-        return axios.post('/cart-items/store', {
+        return axios.post('/cart-items', {
                 productId: productId,
             })
             .then((response) => {
@@ -116,23 +88,14 @@ const mutations = {
     deleteCartItem: (state, id) => {
         state.cartItems = state.cartItems.filter(c => c.id !== id);
     },
-    increaseQuantity: (state, cartId) => {
-        let item = state.cartItems.find(c => c.id === cartId);
-        item.quantity = item.quantity + 1;
-    },
-    decreaseQuantity: (state, cartId) => {
-        let item = state.cartItems.find(c => c.id === cartId);
-        item.quantity = item.quantity - 1;
-    },
-    changeQuantity: (state, cartId, newQuantity) => {
-        let item = state.cartItems.find(c => c.id === cartId);
-        item.quantity = newQuantity;
+    changeQuantity: (state, data) => {
+        let item = state.cartItems.find(c => c.id === data.id);
+        item.quantity = data.quantity;
     },
     storeCartItem: (state, cartItem) => {
         state.cartItems.push(cartItem);
     },
     setAllAreDigital: (state, cartItems) => {
-        console.log('aaa')
         let allAreDigital = cartItems.find(
             p => p.relationships.product.data.relationships.productType.data.name !== 'digital'
         );

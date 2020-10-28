@@ -51,10 +51,8 @@ class PaymentMethodController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete(PaymentMethod $paymentMethod)
     {
-        $paymentMethod = PaymentMethod::find($id);
-
         $paymentMethod->delete();
 
         return response()->json([

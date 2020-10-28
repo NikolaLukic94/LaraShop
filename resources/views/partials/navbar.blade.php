@@ -10,6 +10,9 @@
           <a class="nav-link text-light" href="/" disabled><i class="fa fa-home" aria-hidden="true"></i></a>
         </li>
         <li class="nav-item">
+          <a class="nav-link text-light" href="/" disabled><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link text-light" href="/products/search" disabled><i class="fa fa-search" aria-hidden="true"></i></a>
         </li>
         <li class="nav-item">
@@ -40,6 +43,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link text-light" href="/products/search" disabled><i class="fa fa-search" aria-hidden="true"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="/" disabled><i class="fa fa-map-marker" aria-hidden="true"></i></a>
         </li>
       </ul>
     </div>

@@ -18,10 +18,10 @@ class RoleController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show(Role $role)
     {
         return view('roles.show', [
-            'role' => Role::findOrFail($id),
+            'role' => $role,
             'permissions' => Permission::all()
         ]);
     }

@@ -56,10 +56,8 @@ class ShipmentController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete(Shipment $shipment)
     {
-        $shipment = Shipment::find($id);
-
         $shipment->delete();
 
         return response()->json([

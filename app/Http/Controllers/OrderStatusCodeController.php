@@ -51,11 +51,9 @@ class OrderStatusCodeController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete(OrderStatusCode $orderStatusCode)
     {
-        $codes = OrderStatusCode::find($id);
-
-        $codes->delete();
+        $orderStatusCode->delete();
 
         return response()->json([
             'status' => 'success',

@@ -66,10 +66,8 @@ class UserAddressController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete(UserAddress $userAddress)
     {
-        $userAddress = UserAddress::find($id);
-
         $userAddress->delete();
 
         return response()->json([
