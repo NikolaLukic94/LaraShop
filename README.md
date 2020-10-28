@@ -25,6 +25,7 @@
 
 <p>This project includes:</p>
 <ul>
+    <li>Login with Github/Twitch</li>
     <li>Vue chart feature</li>
     <li>Roles/permissions built with Spatie package</li>
     <li>Multiple formats report exports (csv, xls, pdf)</li>

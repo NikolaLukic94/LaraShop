@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6be8a581b7f593667ed17f58eab9031",
+    "content-hash": "fc1080177bbb691bcae9d630577ae884",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3009,6 +3009,107 @@
                 "stylesheet"
             ],
             "time": "2020-06-01T09:10:00+00:00"
+        },
+        {
+            "name": "socialiteproviders/manager",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Manager.git",
+                "reference": "ecd506bc798ca0e8823668ca17a30c7ef08f65fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Manager/zipball/ecd506bc798ca0e8823668ca17a30c7ef08f65fa",
+                "reference": "ecd506bc798ca0e8823668ca17a30c7ef08f65fa",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6.0|^7.0|^8.0",
+                "laravel/socialite": "~4.0|~5.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.2",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SocialiteProviders\\Manager\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Manager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andy Wendt",
+                    "email": "andy@awendt.com"
+                },
+                {
+                    "name": "Anton Komarev",
+                    "email": "a.komarev@cybercog.su"
+                },
+                {
+                    "name": "Miguel Piedrafita",
+                    "email": "soy@miguelpiedrafita.com"
+                },
+                {
+                    "name": "atymic",
+                    "email": "atymicq@gmail.com",
+                    "homepage": "https://atymic.dev"
+                }
+            ],
+            "description": "Easily add new or override built-in providers in Laravel Socialite.",
+            "homepage": "https://socialiteproviders.com/",
+            "time": "2020-10-20T22:15:02+00:00"
+        },
+        {
+            "name": "socialiteproviders/twitch",
+            "version": "5.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Twitch.git",
+                "reference": "0812e84b495e063ea08246304a4984a85d9dc92e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Twitch/zipball/0812e84b495e063ea08246304a4984a85d9dc92e",
+                "reference": "0812e84b495e063ea08246304a4984a85d9dc92e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.2",
+                "socialiteproviders/manager": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Twitch\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Faust",
+                    "email": "hello@brianfaust.de"
+                }
+            ],
+            "description": "Twitch OAuth2 Provider for Laravel Socialite",
+            "time": "2020-10-25T22:31:20+00:00"
         },
         {
             "name": "spatie/laravel-permission",

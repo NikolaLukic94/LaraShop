@@ -18,6 +18,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            // ... other providers
+            'SocialiteProviders\\Twitch\\TwitchExtendSocialite@handle',
+        ],
         'App\Events\NewOrderPlaced' => [
             'App\Listeners\DecreaseAvaliableItemsCounty',
             'App\Listeners\NewUserOrderNotification',
