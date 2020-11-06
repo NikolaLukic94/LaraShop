@@ -17,6 +17,8 @@ Auth::routes();
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
+Route::post('/products/filter', 'ProductController@filter');
+
 Route::group(['middleware' => 'verified'], function () {
 
     Route::get('/s', 'StoreController@indexA');
@@ -85,7 +87,8 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/index/all', 'ProductController@browse');// todo: redo to be users only
         Route::post('/create', 'ProductController@store');
         Route::get('/search', 'ProductController@search');
-        Route::post('/filter', 'ProductController@filter');
+        Route::get('/show/{product}', 'ProductController@show');
+
         Route::post('/delete/{id}', 'ProductController@destroy');
     });
 
@@ -96,7 +99,7 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/index/all', 'ShipmentController@browse');// todo: redo to be users only
     });
 
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadmin|admin']], function() {
+    Route::group(['prefix' => 'dashboard'], function() {
         Route::get('/', 'DashboardChartController@index');
         Route::get('/monthly-breakdown', 'DashboardChartController@getMonthlySalesBreakdown');
     });

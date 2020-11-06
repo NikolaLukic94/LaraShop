@@ -67,6 +67,7 @@ class LoginController extends Controller
             [
                 'email' => $socialiteUser->getEmail(),
                 'name' => $socialiteUser->getName(),
+                'email_verified_at' => \Carbon\Carbon::now()
             ]
         );
 

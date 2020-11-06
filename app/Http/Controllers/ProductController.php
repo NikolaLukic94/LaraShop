@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateProduct;
 use Illuminate\Http\Request;
 use App\Http\Resources\Product as ProductResource;
 use App\Http\Resources\ProductRelationshipsResource as ProductRelationshipsResource;
+use Illuminate\Support\Facades\Redis;
 
 class ProductController extends Controller
 {
@@ -104,7 +105,12 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $visits = Redis::zincrby('trending_products.', 1 , $product->id);
+
+        return view('products.show', [
+            'product' => $product,
+            'visits' => $visits
+        ]);
     }
 
     public function browse()
@@ -165,8 +171,12 @@ class ProductController extends Controller
 
     public function filter(Request $request)
     {
+        $popular = Redis::zrevrange('trending_products', 0, 5);
+
         if ($request->name == 'mostPopular') {
-            $products = Product::take(6)->get();
+            $products = Product::hydrate(
+                array_map('json_decode', $popular)
+            );
         } else if ($request->name == 'recommended') {
             $products = Product::take(6)->get();
         } else {

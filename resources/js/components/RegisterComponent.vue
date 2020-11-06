@@ -19,7 +19,6 @@
                             type="text"
                             name="name"
                             :error-messages="nameErrors"
-                            :counter="10"
                             label="Name"
                         ></v-text-field>
                         <v-text-field
@@ -49,7 +48,25 @@
                             class="pt-4"
                             autocomplete="new-password"
                         ></v-text-field>
-                        <v-btn @click="validate()" color="teal">Register In</v-btn>
+                        <v-row >
+                            <v-col cols="12" sm="6">
+                                <v-btn @click="validate()" color="teal" class="white--text" style="width: 100%">Register</v-btn>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                            <div class="text-right">
+                                <v-btn color="teal lighten-1" :href="'/login/twitch'">
+                                   <v-icon dark class="white--text">
+                                        mdi-twitch
+                                    </v-icon>
+                                </v-btn>
+                                <v-btn color="teal lighten-1" :href="'/login/github'">
+                                    <v-icon dark class="white--text">
+                                        mdi-github
+                                    </v-icon>
+                                </v-btn>
+                            </div>
+                            </v-col>
+                        </v-row>
                     </form>
                 </v-container>
             </v-card>

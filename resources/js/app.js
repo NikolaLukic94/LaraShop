@@ -85,14 +85,14 @@ Vue.component('search-page-component', require('./components/SearchPageComponent
 Vue.component('cart-component', require('./components/CartComponent').default);
 Vue.component('navbar-component', require('./components/Navbar').default);
 Vue.component('new-sidebar-component', require('./components/Sidebar').default);
-Vue.component('login-form-component', require('./components/LoginFormComponent').default)
-Vue.component('register-form-component', require('./components/RegisterComponent').default)
-Vue.component('footer-component', require('./components/FooterComponent').default)
-Vue.component('dashboard-chart-component', require('./components/DashboardChart').default)
-Vue.component('reports-component', require('./components/ReportsComponent').default)
-Vue.component('products-table-component', require('./components/ProductsDisplay').default)
-Vue.component('map-component', require('./components/MapComponent').default)
-
+Vue.component('login-form-component', require('./components/LoginFormComponent').default);
+Vue.component('register-form-component', require('./components/RegisterComponent').default);
+Vue.component('footer-component', require('./components/FooterComponent').default);
+Vue.component('dashboard-chart-component', require('./components/DashboardChart').default);
+Vue.component('reports-component', require('./components/ReportsComponent').default);
+Vue.component('products-table-component', require('./components/ProductsDisplay').default);
+Vue.component('map-component', require('./components/MapComponent').default);
+Vue.component('info-component', require('./components/InfoComponent').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

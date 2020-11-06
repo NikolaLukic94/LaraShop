@@ -30,6 +30,7 @@
     <li>Roles/permissions built with Spatie package</li>
     <li>Multiple formats report exports (csv, xls, pdf)</li>
     <li>Stripe Payment Integration</li>
+    <li>Caching with Redis</li>
 </ul>
 
 <p>...more coming soon!</p>

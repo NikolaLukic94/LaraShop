@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-container>
-            <v-card
+            <v-card 
                 class="mx-auto mt-16"
                 max-width="444"
                 outlined
@@ -18,7 +18,6 @@
                             name="email"
                             type="email"
                             v-validate="'required|max:255'"
-                            :counter="10"
                             label="Email"
                             required
                         >
@@ -38,12 +37,36 @@
                             label="Remember me"
                         >
                         </v-checkbox>
-                        <v-btn color="grey" type="submit">Password reset</v-btn>
-                        <v-btn @click="validate()" color="teal" type="submit">Log In</v-btn>
+                        <v-row >
+                            <v-col cols="12" sm="6">
+                                <v-btn color="light" type="submit" style="width: 100%">Password reset</v-btn>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-btn @click="validate()" color="teal" type="submit" class="white--text" style="width: 100%">Log In</v-btn>                   
+                            </v-col>
+                        </v-row>
                     </form>
+                </v-container>
+                <v-container>
+                    <hr>
+                    <v-toolbar color="teal" dark>
+                        <v-spacer></v-spacer>
+                        <v-spacer>
+                        <v-toolbar-title>
+                            <v-icon dark class="pr-3" :href="'/login/github'">
+                                mdi-github
+                            </v-icon>
+                            <v-icon dark class="pr-3" :href="'/login/twitch'">
+                                mdi-twitch
+                            </v-icon>
+                            </v-toolbar-title>
+                        </v-spacer>
+                    </v-toolbar>
+                    <br>
                 </v-container>
             </v-card>
         </v-container>
+        <footer-component></footer-component>
     </v-app>
 </template>
 
@@ -70,7 +93,7 @@
                 // this.$validator.validateAll().then((result) => {
                 //     if (result) {
                         //Manually submit form if not errors
-                        document.getElementById("login_form").submit()
+                    document.getElementById("login_form").submit()
                     // }
                 // })
             },

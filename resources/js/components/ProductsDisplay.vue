@@ -48,7 +48,12 @@
                             <button class="btn btn-primary" @click="callStoreCartItem(filteredProduct.id)">
                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
                             </button>
-                        </div>                          
+                            <a v-bind:href="'/products/show/'+ filteredProduct.id">
+                                <button class="btn btn-primary" @click="callStoreCartItem(filteredProduct.id)">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </button>
+                            </a>
+                        </div>       
                     </div>
                 </div>
             </div>

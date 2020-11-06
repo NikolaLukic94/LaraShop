@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<navbar-component></navbar-component>
+
 <div class="container">
-<new-sidebar-component></new-sidebar-component>
+<!-- <new-sidebar-component></new-sidebar-component> -->
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -14,7 +16,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    <dashboard-chart-component></dashboard-chart-component>   
                     You are logged in!
                 </div>
             </div>
