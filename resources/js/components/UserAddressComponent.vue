@@ -1,6 +1,6 @@
 <template>
     <v-app>
-            <span>
+            <span v-if="!this.allAreDigital">
                 <v-card
                     class="mx-auto mb-2"
                     max-width="570"
@@ -115,7 +115,7 @@
             </v-card>
             </span>
         <span>
-                <v-card
+            <v-card
                     class="mx-auto"
                     max-width="570"
                     outlined
@@ -144,13 +144,13 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
-    import {mapActions} from 'vuex';
+    import {mapGetters, mapState, mapActions} from 'vuex';
 
     export default {
         name: 'user-addresses',
         computed: {
             ...mapGetters('userAddress', ['getUserAddresses', 'getErrors']),
+            ...mapGetters('orderReview', ['getOrders']),
         },
         methods: {
             ...mapActions(
@@ -189,6 +189,7 @@
         },
         data: function () {
             return {
+                allAreDigital: '',
                 recipient: '',
                 addressLineOne: '',
                 addressLineTwo: '',
@@ -224,7 +225,6 @@
                 zipRules: [
                     v => !!v || 'ZIP is required',
                 ],
-                // make dropdown
                 countryRules: [
                     v => !!v || 'country is required',
                     v => v.length <= 10 || 'Name must be less than 10 characters',
@@ -233,6 +233,7 @@
         },
         created() {
             this.setUserAddresses();
+            this.allAreDigital = this.$store.state.cartItem.allAreDigital;
         },
     }
 </script>

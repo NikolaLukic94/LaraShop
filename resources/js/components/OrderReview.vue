@@ -22,6 +22,19 @@
                 </v-list-item-content>
             </v-list-item>
             <v-container class="grey lighten-5">
+                    <v-row 
+                        no-gutters 
+                        align="center" 
+                        justify="center"
+                    >
+                        <v-col></v-col>
+                        <v-col>
+                            <b>Name</b>
+                        </v-col>
+                        <v-col>
+                            <b>Sum</b>
+                        </v-col>
+                    </v-row>                
                 <v-row 
                     no-gutters 
                     v-for="cartItem in getOrders" 
@@ -42,34 +55,39 @@
                     </v-col>
                 </v-row>
             </v-container>
+            <v-container>
+                <v-card>
+                    <v-card-title>
+                        Total: {{ this.getTotalPremium }}
+                    </v-card-title>
+                </v-card>
+            </v-container>
         </v-card>
     </v-app>
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
-    import {mapActions} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
     import {VueGoodTable} from 'vue-good-table';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
         name: 'order-review',
+        data: function () {
+            return {
+                total: 11,
+                hasPaperback: false,
+            }
+        },
         computed: {
-            ...mapGetters(
-                'orderReview',
-                [
-                    'getOrders'
-                ])
+            ...mapGetters('orderReview', ['getOrders', 'getTotalPremium'])
         },
         methods: {
-            ...mapActions(
-                'orderReview',
-                [
-                    'setOrders',
-                ]),
+            ...mapActions('orderReview', ['setOrders', 'setTotalPremium']),
         },
         created() {
             this.setOrders();
+            this.setTotalPremium();
         },
     }
 </script>

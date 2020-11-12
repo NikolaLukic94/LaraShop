@@ -16,6 +16,7 @@ class RolesSeeder extends Seeder
         $roles = config('seeders.roles');
 
         foreach ($roles as $role) {
+            echo($role);
             Role::create([
                 'name' => $role,
                 'guard_name' => 'web'

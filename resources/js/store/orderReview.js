@@ -1,9 +1,11 @@
 const state = {
-    orders: [],
+    cartItems: [],
+    totalPremium: '',
 }
 
 const getters = {
-    getOrders: state => state.orders,
+    getOrders: state => state.cartItems,
+    getTotalPremium:  state => state.totalPremium
 };
 
 const actions = {
@@ -15,12 +17,24 @@ const actions = {
             .catch(function (error) {
         })
     },
+    setTotalPremium({commit}) {
+        commit('setTotalPremium');
+    },
 };
 
 const mutations = {
     setOrders: (state, orders) => {
-        state.orders = orders;
+        state.cartItems = orders;
     },
+    setTotalPremium: (state) => {
+        let total = 0;
+
+        state.cartItems.forEach(ci => {
+            total += ci.quantity * ci.relationships.product.data.price
+        })
+        
+        state.totalPremium = total;
+    }
 };
 
 export default {

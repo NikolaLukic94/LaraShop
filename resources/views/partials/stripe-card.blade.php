@@ -17,9 +17,9 @@
                     @endif
   
                     <form role="form" action="{{ route('stripe.payment') }}" method="post" class="validation"
-                                                     data-cc-on-file="false"
-                                                    data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
-                                                    id="payment-form">
+                        data-cc-on-file="false"
+                        data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
+                        id="payment-form">
                         @csrf
   
                         <div class='form-row row'>
@@ -66,7 +66,6 @@
                                 <button class="btn btn-danger btn-lg btn-block" type="submit">Pay Now (₹100)</button>
                             </div>
                         </div>
-                          
                     </form>
                 </div>
             </div>        
@@ -80,37 +79,15 @@
   
 <script type="text/javascript">
     $(function() {
-        // var $form = $(".validation");
-        //     $('form.validation').bind('submit', function(e) {
-        //     var $form = $(".validation"),
-        //         inputVal = ['input[type=email]', 'input[type=password]',
-        //                         'input[type=text]', 'input[type=file]',
-        //                         'textarea'].join(', '),
-        //         $inputs       = $form.find('.required').find(inputVal),
-        //         $errorStatus = $form.find('div.error'),
-        //         valid         = true;
-        //         $errorStatus.addClass('hide');
-        
-        //         $('.has-error').removeClass('has-error');
-
-        // $inputs.each(function(i, el) {
-        // var $input = $(el);
-        // if ($input.val() === '') {
-        //     $input.parent().addClass('has-error');
-        //     $errorStatus.removeClass('hide');
-        //     e.preventDefault();
-        // }
-        // });
-    
         if (!$form.data('cc-on-file')) {
-        e.preventDefault();
-        Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-        Stripe.createToken({
-            number: $('.card-num').val(),
-            cvc: $('.card-cvc').val(),
-            exp_month: $('.card-expiry-month').val(),
-            exp_year: $('.card-expiry-year').val()
-        }, stripeHandleResponse);
+            e.preventDefault();
+            Stripe.setPublishableKey($form.data('stripe-publishable-key'));
+            Stripe.createToken({
+                number: $('.card-num').val(),
+                cvc: $('.card-cvc').val(),
+                exp_month: $('.card-expiry-month').val(),
+                exp_year: $('.card-expiry-year').val()
+            }, stripeHandleResponse);
         }
     
     });

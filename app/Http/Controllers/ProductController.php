@@ -113,11 +113,6 @@ class ProductController extends Controller
         ]);
     }
 
-    public function browse()
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *

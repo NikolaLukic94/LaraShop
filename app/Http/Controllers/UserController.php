@@ -29,6 +29,13 @@ class UserController extends Controller
         return view('users.index');
     }
 
+    public function authUser()
+    {
+        $user = Auth::user();
+
+        return new UserResource($user);
+    }
+
     public function show(User $user)
     {
         return new UserResource($user);

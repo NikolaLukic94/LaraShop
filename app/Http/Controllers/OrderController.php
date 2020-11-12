@@ -117,6 +117,11 @@ class OrderController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return view('payments.create');
+    }
+
     public function update(UpdateOrder $request, $id)
     {
         $order = Order::find($id);

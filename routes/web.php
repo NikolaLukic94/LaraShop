@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 // todo: Apply midleware
-
+// todo: make reports work: maybe send get request with query params that will then do what's eneded - need to add real users in dropdown for users report
+// todo: fix total amount before payment has been made
+// make permissions/roles a component
 Route::get('/', 'HomeController@welcome');
 
 Auth::routes();
@@ -39,6 +41,8 @@ Route::group(['middleware' => 'verified'], function () {
         'create', 'show'
     ]);
 
+    Route::get('order/payment', 'OrderController@create');
+
     Route::resource('orders', 'OrderController')->except([
         'create', 'show'
     ]);
@@ -47,6 +51,7 @@ Route::group(['middleware' => 'verified'], function () {
         'index', 'update', 'delete'
     ]);
 
+    Route::get('/auth-role', 'UserController@authUser');
     Route::resource('users', 'UserController');
 
     Route::resource('roles', 'RoleController');

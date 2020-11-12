@@ -20,7 +20,7 @@ class Product extends JsonResource
             'genre' => $this->genre,
             'author' => $this->author,
             'desription' => $this->desription,
-            'price' => number_format($this->price, 2, ',', ''),
+            'price' => $this->price, //number_format($this->price, 2, ',', ''),
             'color' => $this->color,
             'quantity' => $this->quantity,
             'size' => $this->size,

@@ -1,36 +1,28 @@
 const state = {
     cartItems: [],
-    getTotalPremium: 0,
-    allAreDigital: false
+    totalPremium: 0,
+    allAreDigital: true
 }
 
 const getters = {
     getCartItems: state => state.cartItems,
-    getTotalPremium: (state) => {
-        let total = 0;
-
-        state.cartItems.forEach(ci => {
-            total += ci.quantity * ci.relationships.product.data.price
-        })
-
-        return total;
-    },
+    getTotalPremium:  state => state.totalPremium
 };
 
 const actions = {
     setCartItems({commit}) {
+        console.log('setting cart items');
         return axios.get('/api/cart-items')
             .then((response) => {
-                console.log(response)
-                commit('setAllAreDigital', response.data.data);
                 commit('setCartItems', response.data.data);
+                commit('setAllAreDigital', response.data.data);
             })
             .catch(function (error) {
                 console.log(error);
             })
     },
-    setAllAreDigital() {
-        commit('setAllAreDigital', cartItems);
+    setTotalPremium({commit}) {
+        commit('setTotalPremium');
     },
     deleteCartItem({commit}, id) {
         return axios.delete('/cart-items/' + id)
@@ -95,14 +87,22 @@ const mutations = {
     storeCartItem: (state, cartItem) => {
         state.cartItems.push(cartItem);
     },
-    setAllAreDigital: (state, cartItems) => {
-        let allAreDigital = cartItems.find(
-            p => p.relationships.product.data.relationships.productType.data.name !== 'digital'
-        );
+    setAllAreDigital: (state, data) => {
+        let nonDigital = Object.keys(data)
+            .filter( key => data[key].relationships.product.data.relationships.productType.data.name !== 'digital');
 
-        if (allAreDigital) {
-            state.allAreDigital = true;
+        if (nonDigital.length) {
+            state.allAreDigital = false;
         }
+    },
+    setTotalPremium: (state) => {
+        let total = 0;
+
+        state.cartItems.forEach(ci => {
+            total += ci.quantity * ci.relationships.product.data.price
+        })
+
+        state.totalPremium = total;
     }
 };
 

@@ -71,13 +71,13 @@
                     </v-row>
                 </v-container>
                 <v-container>
-                    <v-btn>
+                    <v-btn :href="'/products/search'">
                         <i class="fa fa-arrow-left" aria-hidden="true"></i>Add more items
                     </v-btn>
                     <v-btn text>
                         <b>Total: $ {{ this.getTotalPremium }}</b>
                     </v-btn>
-                    <v-btn>
+                    <v-btn :href="'/checkout'">
                         Checkout
                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
                     </v-btn>

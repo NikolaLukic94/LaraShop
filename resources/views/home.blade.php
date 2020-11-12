@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<navbar-component></navbar-component>
 
 <div class="container">
-<!-- <new-sidebar-component></new-sidebar-component> -->
     <div class="row justify-content-center">
+    <new-sidebar-component></new-sidebar-component>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Dashboard</div>
@@ -17,7 +16,6 @@
                         </div>
                     @endif
                     <dashboard-chart-component></dashboard-chart-component>   
-                    You are logged in!
                 </div>
             </div>
         </div>

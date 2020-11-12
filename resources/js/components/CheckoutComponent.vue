@@ -2,14 +2,12 @@
     <div class="container">
         <order-review></order-review>
         <user-addresses></user-addresses>
-        <user-payment-methods></user-payment-methods>
-        <button class="btn btn-info text-center" @click="placeNewOrder">Place order</button>
+        <stripe-checkout-component></stripe-checkout-component>   
     </div>
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
-    import {mapActions} from 'vuex';
+    import {mapGetters, mapActions, mapState} from 'vuex';
 
     export default {
         name: 'checkout-component',
@@ -19,19 +17,9 @@
         },
         methods: {
             ...mapActions('order', ['createOrder']),
+            ...mapState('orderReview', ['cartItems']),
             ...mapActions('userAddress', ['validateData']),
-            ...mapActions('paymentMethods', ['validatePaymentData']),
-            placeNewOrder() {
-                console.log('placing order')
-                // validate user addresses and card data
-                // this.validateData();
-                // this.validatePaymentData();
-                // create new order (along with other stuff) and redirect to successful order page
-                // if (this.getErrors.length === 0 && this.getPaymentErrors.length === 0) {
-                this.createOrder();
-                // }
-
-            }
-        },
+            ...mapActions('paymentMethods', ['validatePaymentData'])
+        }
     }
 </script>

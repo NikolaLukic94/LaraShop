@@ -72,7 +72,6 @@
             medium>
             Export
         </v-btn>
-        <a href="/reports/create">Get request</a>
     </v-container>
   </div>
 </template>
@@ -92,10 +91,15 @@
                 productsReport: false,
                 user: null,
                 month: null,
-                year: null
+                year: null,
+                productId: null
             }
         },
+        computed: {
+            ...mapGetters('users', ['getUsers']),
+        },
         methods: {
+            ...mapActions('users', ['setUsers']),
             changedLabel(event) {
                 this.selectedReport = event;
 
@@ -118,16 +122,34 @@
                 }
             },
             createReport() {
-                return axios.post('/reports/create', {
-                        'type' : 'User Report'
-                    })
-                    .then((response) => {
-                        console.log(response)
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    })
+                console.log('Exporting...')
+                console.log(this.selectedReport)
+                // todo: refactor
+                let url = '/reports/create?'
+
+                if (this.selectedReport === 'Products Report') {
+                    url += 'type=products'; 
+                    // url += '&id=' + this.user;
+                }
+
+                if (this.selectedReport === 'Monthly Report') {
+                    console.log('monthly');
+                    url += 'type=monthly'; 
+                    url += '&month=' + this.month;
+                    url += '&year=' + this.year;
+                }
+
+                if (this.selectedReport === 'User Report') {
+                    url += '&type=user'; 
+                    url += '&id=' + this.user;
+                }
+
+                location.href = url;               
             }
+        },
+        created() {
+            this.setUsers();
+            console.log(this.getUsers);
         }
     }
 </script>

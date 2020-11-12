@@ -93,6 +93,7 @@ Vue.component('reports-component', require('./components/ReportsComponent').defa
 Vue.component('products-table-component', require('./components/ProductsDisplay').default);
 Vue.component('map-component', require('./components/MapComponent').default);
 Vue.component('info-component', require('./components/InfoComponent').default);
+Vue.component('stripe-checkout-component', require('./components/StripeCheckoutComponent').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

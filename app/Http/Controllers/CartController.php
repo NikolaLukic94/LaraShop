@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CartItem as CartItemResource;
 use Illuminate\Http\Request;
 use App\Models\CartItem;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-
     public function all()
     {
-        $cartItem = CartItem::paginate(15);
+        $cart = Cart::where('user_id', 1)->with('cartItems')->first();
+        
+        $cartItems = $cart ? $cart->cartItems : [];
 
-        return CartItemResource::collection($cartItem);
+        // $cartItem = CartItem::paginate(15);
+        return CartItemResource::collection($cartItems);
     }
 
     public function index()

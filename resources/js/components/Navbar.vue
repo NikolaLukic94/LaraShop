@@ -14,7 +14,7 @@
                 <i class="fa fa-mobile" aria-hidden="true"></i>
                 +381 652 66 33
             </p>
-            <p class="p-1 ml-3 mb-0" style="display: inline-block;">
+            <p class="p-1 pt-2 ml-3 mb-0" style="display: inline-block;">
                 Sustainability
             </p>
             <p class="p-1 mr-3 mb-0" style="display: inline-block;float: right;">
@@ -26,9 +26,13 @@
             <p class="p-1 mr-3 mb-0" style="display: inline-block;float: right;">
                 <i class="fa fa-user" aria-hidden="true"></i>
             </p>
-            <p class="p-1 mr-3 mb-0" style="display: inline-block;float: right;">
+            <!-- <p class="p-1 mr-3 mb-0" style="display: inline-block;float: right;">
                 <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-            </p>
+            </p> -->
+            <div class="p-1 mr-3 mb-0" style="display: inline-block;float: right;">
+                <cart-component></cart-component>  
+            </div>
+            <!-- <cart-component></cart-component>   -->
           </div>
         </v-card>
         <v-card style="border-top: 3px solid #008080;">
@@ -55,7 +59,7 @@
                 append-icon="mdi-file-find"
               ></v-text-field>
             </p>
-
+            
           </div>
         </v-card>
   </div>

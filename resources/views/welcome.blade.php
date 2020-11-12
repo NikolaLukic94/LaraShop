@@ -46,7 +46,7 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-
+<!-- <search-page-component></search-page-component> -->
 <info-component></info-component>
 
 <div>

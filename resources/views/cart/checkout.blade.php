@@ -1,11 +1,11 @@
 @extends('layouts.app')
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src="https://js.stripe.com/v3/"></script>
 <meta name="stripe_key" content="{{ $stripeKey }}">
-
-@include('partials.navbar')
-
+<!-- <script src="https://js.stripe.com/v3/"></script> -->
 @section('content')
 
+<navbar-component></navbar-component>
 <checkout-component></checkout-component>
+
 
 @endsection

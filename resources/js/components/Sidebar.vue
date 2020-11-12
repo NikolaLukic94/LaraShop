@@ -15,26 +15,13 @@
             :permanent="sidebarMenu"
             color="grey darken-4"
         >
-            <v-list dense>
-                <v-list-item>
-                    <v-list-item-action>
-                        <v-icon @click.stop="sidebarMenu = !sidebarMenu">mdi-chevron-left</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title></v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
-            <v-list-item class="px-2" @click="toggleMini = !toggleMini">
+            <v-list-item class="mt-3 px-2" @click="toggleMini = !toggleMini">
                 <v-list-item-avatar>
                     <v-icon>mdi-account-outline</v-icon>
                 </v-list-item-avatar>
                 <v-list-item-content class="text-truncate">
-                    Carol Skelly
+                    {{ this.name }}
                 </v-list-item-content>
-                <v-btn icon small>
-                    <v-icon>mdi-chevron-left</v-icon>
-                </v-btn>
             </v-list-item>
             <v-divider></v-divider>
             <v-list v-if="this.isSuperadmin">
@@ -84,39 +71,41 @@
             return {
                 roles: [],
                 permissions: [],
+                name: '',
                 sidebarMenu: true,
                 toggleMini: false,
                 isSuperadmin: false,
                 isAdmin: false,
                 isCustomer: false,
+                isDelivery: false,
                 superAdminItems: [
                     {title: "Home", href: "/", icon: "mdi-home-outline"},
                     {title: "Dashboard", href: "/dashboard", icon: "mdi-file-document-multiple"},
-                    {title: "Users", href: "/users/index", icon: "mdi-shield-account"},
-                    // { title:"Payment Methods", href:"/payment-methods/index", icon:"mdi-crown-outline" },
+                    {title: "Users", href: "/users", icon: "mdi-shield-account"},
                     {title: "Reports", href: "/reports", icon: "mdi-alarm-light-outline"},
-                    {title: "Orders", href: "/orders/index", icon: "mdi-shield-account"},
-                    // { title:"Order Status Codes", href:"/order-status-codes/index", icon:"mdi-palette-swatch" },
-                    // { title:"Order Item Status Code", href:"/order-item-status-codes/index", icon:"mdi-account-search-outline" },
-                    {title: "Shipments", href: "/shipments/index", icon: "mdi-bus-clock"},
-                    {title: "Products", href: "/products/index", icon: "mdi-shape-square-rounded-plus"},
-                    // { title:"Product Types", href:"/product-types/index", icon:"mdi-settings-outline" },
-                    // { title:"Invoice Status Codes", href:"/invoice-status-codes/index", icon:"mdi-settings-outline" },
-                    {title: 'Roles & Permissions', href: "/roles/index", icon: "mdi-wrench"}
+                    {title: "Orders", href: "/orders", icon: "mdi-shield-account"},
+                    {title: "Shipments", href: "/shipments", icon: "mdi-bus-clock"},
+                    {title: "Products", href: "/products", icon: "mdi-shape-square-rounded-plus"},
+                    {title: 'Roles & Permissions', href: "/roles", icon: "mdi-wrench"}
                 ],
                 adminItems: [
                     {title: "Home", href: "/", icon: "mdi-home-outline"},
                     {title: "Dashboard", href: "/dashboard", icon: "mdi-file-document-multiple"},
-                    {title: "Orders", href: "/orders/index", icon: "mdi-shield-account"},
-                    {title: "Shipments", href: "/shipments/index", icon: "mdi-bus-clock"},
-                    {title: "Products", href: "/products/index", icon: "mdi-shape-square-rounded-plus"},
+                    {title: "Orders", href: "/orders", icon: "mdi-shield-account"},
+                    {title: "Shipments", href: "/shipments", icon: "mdi-bus-clock"},
+                    {title: "Products", href: "/products", icon: "mdi-shape-square-rounded-plus"},
+                ],
+                isDelivery: [
+                    {title: "Home", href: "/", icon: "mdi-home-outline"},
+                    {title: "Dashboard", href: "/dashboard", icon: "mdi-file-document-multiple"},
+                    {title: "Orders", href: "/orders", icon: "mdi-shield-account"},
+                    {title: "Shipments", href: "/shipments", icon: "mdi-bus-clock"},
                 ],
                 supportItems: [
                     {
                         id: 1,
                         name: 'Support :',
                         children: [
-                            // { id: 2, name: 'Orders : app'},
                             {id: 3, name: 'Order Status Codes'},
                             {id: 4, name: 'Order Item Status Code'},
                             {id: 3, name: 'Product Types'},
@@ -127,26 +116,37 @@
                 ],
                 customerItems: [
                     {title: "Home", href: "/", icon: "mdi-home-outline"},
-                    {title: "Profile", href: "/orders/index", icon: "mdi-shield-account"},
-                    {title: "My Orders", href: "/orders/index", icon: "mdi-shield-account"},
-                    {title: "Wishlist", href: "/orders/index", icon: "mdi-shield-account"},
-                    {title: "History", href: "/orders/index", icon: "mdi-shield-account"},
+                    {title: "Profile", href: "/orders", icon: "mdi-shield-account"},
+                    {title: "My Orders", href: "/orders", icon: "mdi-shield-account"},
+                    {title: "Wishlist", href: "/orders", icon: "mdi-shield-account"},
+                    {title: "History", href: "/orders", icon: "mdi-shield-account"},
                 ]
             }
         },
         methods: {
             getUserPermissions() {
-                return axios.get('/api/users/1')
+
+                return axios.get('/auth-role')
                     .then((response) => {
-                        let superadmin = response.data.data.roles.find(r => r.name === "Superadmin");
+
+                        this.name = response.data.data.firstName;
+
+                        let authUserRoles = response.data.data.roles;
+
+                        let superadmin = Object.keys(authUserRoles).filter( key => authUserRoles[key].name === 'superadmin');
                         if (superadmin) {
                             this.isSuperadmin = true;
                         }     
 
-                        let admin = response.data.data.roles.find(r => r.name === "Admin");
+                        let admin = Object.keys(authUserRoles).filter( key => authUserRoles[key].name === 'admin');
                         if (admin) {
                             this.isAdmin = true;
                         }    
+
+                        let delivery = Object.keys(authUserRoles).filter( key => authUserRoles[key].name === 'delivery');
+                        if (delivery) {
+                            this.isDelivery = true;
+                        }   
 
                         if (!admin && !superadmin) {
                             this.isCustomer = true;

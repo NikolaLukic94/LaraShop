@@ -1,32 +1,24 @@
 <template>
-  <div>
-      <a href="/cart/index" style="color: black;">
-        <button class="btn btn-warning primary float-right mr-3">
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        <p>{{ getCartItems.length }}</p>
-      </button>
-    </a>
+  <div style="border-radius: 35px; border: 2px solid #73AD21; width: 35px;">
+        <a href="/cart/index" style="color: black;" class="text-center">
+            {{ getCartItems.length }}<i class="fa fa-shopping-bag pl-1" aria-hidden="true"></i>
+        </a>
   </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { mapActions } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     import { VueGoodTable } from 'vue-good-table';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
         name: 'cart-component',
         computed: {
-            ...mapGetters(
-                'cartItem', ['getCartItems'])
+            ...mapGetters('cartItem', ['getCartItems'])
         },
         methods: {
             ...mapActions(
-                'cartItem',
-                [
-                    'setCartItems',
-                ]),
+                'cartItem', ['setCartItems']),
         },
         created() {
             this.setCartItems();
