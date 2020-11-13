@@ -53,12 +53,21 @@
                         <v-spacer></v-spacer>
                         <v-spacer>
                         <v-toolbar-title>
-                            <v-icon dark class="pr-3" :href="'/login/github'">
-                                mdi-github
-                            </v-icon>
-                            <v-icon dark class="pr-3" :href="'/login/twitch'">
-                                mdi-twitch
-                            </v-icon>
+                            <a href="/login/github">
+                                <v-icon dark class="pr-3">
+                                    mdi-github
+                                </v-icon>
+                            </a>
+                            <a href="/login/twitch">
+                                <v-icon dark class="pr-3">
+                                    mdi-twitch
+                                </v-icon>
+                            </a>
+                            <a href="/login/facebook">
+                                <v-icon dark class="pr-3">
+                                    mdi-facebook
+                                </v-icon>
+                            </a>
                             </v-toolbar-title>
                         </v-spacer>
                     </v-toolbar>

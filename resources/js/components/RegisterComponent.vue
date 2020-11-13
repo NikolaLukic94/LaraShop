@@ -64,6 +64,11 @@
                                         mdi-github
                                     </v-icon>
                                 </v-btn>
+                                <v-btn color="teal lighten-1" :href="'/login/facebook'">
+                                    <v-icon dark class="white--text">
+                                        mdi-facebook
+                                    </v-icon>
+                                </v-btn>
                             </div>
                             </v-col>
                         </v-row>

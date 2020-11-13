@@ -93,11 +93,9 @@
             },
         },
         created() {
-            console.log('stripe component');
             this.setCartItems();
             this.setTotalPremium();
             this.amount = this.getTotalPremium;
-            console.log('234234', this.$store.state.cartItem.totalPremium)
         }
 }
 </script> 

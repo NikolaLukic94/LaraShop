@@ -2,11 +2,12 @@
 
 <b>Technologies used:</b>
 
-- Laravel (mostly as an API)
-- Vue
+- Laravel
+- Vue/Vuex
 - Vuetify
+- MySQL DB
 
-<p align="center"><b>Setting up Larashop App:</b></p>
+<p align="center"><b>Setting up BlackCat Bookstore App:</b></p>
 
 <ul>
     <li>php artisan db:seed</li>
