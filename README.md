@@ -1,37 +1,50 @@
-<h1 align="center"><b>Larashop</b></h1>
+# Larashop
 
-<b>Technologies used:</b>
+## Introduction
+
+Shop App built with Laravel, VueJs and MySQL
+
+
+## Technologies
 
 - Laravel
 - Vue/Vuex
 - Vuetify
-- MySQL DB
+- MySQL
 
-<p align="center"><b>Setting up BlackCat Bookstore App:</b></p>
 
-<ul>
-    <li>php artisan db:seed</li>
-    <li>log in as admin@test.com or user@test.com (both passwords as 'password')</li>
-    <li>Normally you would have to verify email address - for testing purpose, this is already handled</li>
-    <li>Once logged in, head over to /dashboard to see <b>Chart</b> for sales breakdown per month, if logged in as Admin</li>
-    <li>In order to test Stripe Payment integration, go ahead and include STRIPE_KEY and STRIPE_SECRET in .env. The following are credit card test params:</li>
-        <ul>
-            <li>Number : 4242424242424242</li>
-            <li>Brand : Visa</li>
-            <li>CVC : Any 3 digits</li>
-            <li>Date : Any future date</li>
-        </ul>
-    
-</ul>
+Setting up:
 
-<p>This project includes:</p>
-<ul>
-    <li>Login with Github/Twitch</li>
-    <li>Vue chart feature</li>
-    <li>Roles/permissions built with Spatie package</li>
-    <li>Multiple formats report exports (csv, xls, pdf)</li>
-    <li>Stripe Payment Integration</li>
-    <li>Caching with Redis</li>
-</ul>
 
-<p>...more coming soon!</p>
+`php artisan db:seed`
+
+
+Log in as admin@test.com or user@test.com (both passwords as 'password')
+
+Normally you would have to verify email address - for testing purpose, this is already handled
+
+Once logged in, head over to /dashboard to see Chart for sales breakdown per month, if logged in as Admin
+
+In order to test Stripe Payment integration, go ahead and include STRIPE_KEY and STRIPE_SECRET in `.env`
+
+Test credit card:
+
+```bash
+Number : 4242424242424242
+Brand : Visa
+CVC : Any 3 digits
+Date : Any future date
+```
+        
+
+### Features
+
+- Login with Github/Twitch/Facebook
+- Vue chart feature
+- Roles/permissions built with Spatie package
+- Multiple formats report exports (csv, xls, pdf)
+- Stripe Payment Integration
+- Caching with Redis
+
+
+More coming soon!
