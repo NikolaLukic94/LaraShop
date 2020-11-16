@@ -1,6 +1,10 @@
 <template>
   <div>
     <div class="container">
+        <statuses-component 
+          v-bind:statusName="'orderItemsStatusCodes'"  
+          v-bind:methodName="'createOrderItemStatusCode'">
+        </statuses-component>
         <vue-good-table
             :pagination-options="{
               enabled: true
@@ -9,11 +13,6 @@
             styleClass="vgt-table striped"
             :columns="columns"
             :rows="getOrderItemStatusCodes">
-            <div slot="table-actions">
-              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-              </button>
-            </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
                 <div class="btn-group" role="group" aria-label="Basic example">

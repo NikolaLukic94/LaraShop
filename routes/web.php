@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-// todo: Apply midleware
-// todo: make reports work: maybe send get request with query params that will then do what's eneded - need to add real users in dropdown for users report
-// todo: fix total amount before payment has been made
-// make permissions/roles a component
 Route::get('/', 'HomeController@welcome');
 
 Auth::routes();
@@ -32,7 +28,7 @@ Route::group(['middleware' => 'verified'], function () {
     Route::resource('order-status-codes', 'OrderStatusCodeController')->except([
         'create', 'show'
     ]);
-
+    
     Route::resource('product-types', 'ProductTypeController')->except([
         'create', 'show'
     ]);
@@ -47,8 +43,8 @@ Route::group(['middleware' => 'verified'], function () {
         'create', 'show'
     ]);
 
-    Route::resource('order-item-status-codes', 'OrderItemStatusCodeController')->only([
-        'index', 'update', 'delete'
+    Route::resource('order-items-status-codes', 'OrderItemStatusCodeController')->except([
+        'create', 'show'
     ]);
 
     Route::get('/auth-role', 'UserController@authUser');
@@ -109,10 +105,10 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/monthly-breakdown', 'DashboardChartController@getMonthlySalesBreakdown');
     });
 
-    Route::group(['prefix' => 'product-images', 'middleware' => ['role:superadmin|admin']], function() {
-        Route::post('/create', 'ProductImage@store');
-        Route::post('/delete/{id}', 'ProductImage@delete');
-    });
+    // Route::group(['prefix' => 'product-images', 'middleware' => ['role:superadmin|admin']], function() {
+    //     Route::post('/create', 'ProductImage@store');
+    //     Route::post('/delete/{id}', 'ProductImage@delete');
+    // });
 });
 
 Route::get('stripe-payment', 'StripeController@handleGet'); //todo: remove

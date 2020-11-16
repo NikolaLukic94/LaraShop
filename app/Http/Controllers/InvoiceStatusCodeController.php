@@ -31,7 +31,7 @@ class InvoiceStatusCodeController extends Controller
         return response()->json([
             'createdInvoice' => $newInvoiceStatusCode,
             'status' => 'success',
-            'message' => 'New invoice status code has been added'
+            'message' => 'Invoice status code has been updated!'
         ]);
     }
 
@@ -46,17 +46,17 @@ class InvoiceStatusCodeController extends Controller
         return response()->json([
             'updatedInvoice' => $invoiceStatusCode,
             'status' => 'success',
-            'message' => 'New invoice status code has been added'
+            'message' => 'New invoice status code has been added!'
         ]);
     }
 
-    public function delete(InvoiceStatusCode $invoiceStatusCode)
+    public function destroy(InvoiceStatusCode $invoiceStatusCode)
     {
         $invoiceStatusCode->delete();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Invoice status code has been deleted'
+            'message' => 'Invoice status code has been deleted!'
         ]);
     }
 }

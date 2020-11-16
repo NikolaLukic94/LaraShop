@@ -94,6 +94,8 @@ Vue.component('products-table-component', require('./components/ProductsDisplay'
 Vue.component('map-component', require('./components/MapComponent').default);
 Vue.component('info-component', require('./components/InfoComponent').default);
 Vue.component('stripe-checkout-component', require('./components/StripeCheckoutComponent').default);
+Vue.component('roles-component', require('./components/RoleComponent').default);
+Vue.component('statuses-component', require('./components/StatusesComponent').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

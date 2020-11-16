@@ -6,9 +6,17 @@ use Spatie\Permission\Models\Role;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\Role as RoleResource;
 
 class RoleController extends Controller
 {
+    public function getAll()
+    {
+        $roles = Role::paginate(15);
+
+        return RoleResource::collection($roles);
+    }
+
     public function index()
     {
         return view('roles.index', [

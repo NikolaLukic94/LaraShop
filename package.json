@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.1",
+        "@ivanv/vue-collapse-transition": "^0.2.1",
         "chart.js": "^2.9.3",
         "element-ui": "^2.13.2",
         "form-data": "^3.0.0",

@@ -28,4 +28,5 @@ Route::get('/users', 'UserController@getAll');
 Route::get('/orders', 'OrderController@getAll');
 Route::get('/stores', 'StoreController@index');
 Route::get('/users/{user}', 'UserController@show');
+Route::get('/roles', 'RoleController@getAll');
 

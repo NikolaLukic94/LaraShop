@@ -38,7 +38,6 @@ class UserReport implements FromCollection, WithMapping, WithEvents, ShouldAutoS
      */
     public function registerEvents(): array
     {
-
         return [
             // Handle by a closure.
             BeforeExport::class => function(BeforeExport $event) {

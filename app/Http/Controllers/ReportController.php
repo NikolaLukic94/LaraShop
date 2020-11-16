@@ -17,7 +17,7 @@ class ReportController extends Controller
         return view('reports.index');
     }
 
-    // add service for each type of report
+    // todo: move to a dedicated class
     public function store(Request $request)
     {
         if ($request->type === 'user') {
@@ -29,7 +29,7 @@ class ReportController extends Controller
             }])
             ->where('id', 1)
             ->first();
-    
+
             ob_end_clean();
             ob_start();
     
@@ -38,9 +38,6 @@ class ReportController extends Controller
                 'invoices.xlsx', \Maatwebsite\Excel\Excel::XLSX
             );
 
-            // return ()->download();
-
-            // get all user data, including purchases, spending total, this year, last 12 months
         } elseif ($request->type === 'monthly') {
 
             $monthStart = Carbon::parse($request->month)->startOfMonth()->format('Y-m-d');
@@ -65,14 +62,7 @@ class ReportController extends Controller
         } elseif ($request->type === 'products') {
             // get number of sold products, most sold this month, most sold all time, etc
             // same as obove, but for all time
-            $monthStart = Carbon::parse($request->month)->startOfMonth()->format('Y-m-d');
-            $monthEnd = Carbon::parse($request->month)->endOfMonth()->format('Y-m-d');
-
-            $orders = Order::with('orderItems.invoice.payment.shipments.shipmentItems')
-                ->where([
-                    ['date_placed', '>=', $monthStart],
-                    ['date_placed', '<=', $monthEnd]
-                ])->get();
+            $products = Product::all();
 
             ob_end_clean();
             ob_start();

@@ -149,7 +149,6 @@
         },
         created() {
             this.setUsers();
-            console.log(this.getUsers);
         }
     }
 </script>

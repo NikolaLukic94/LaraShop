@@ -1,6 +1,10 @@
 <template>
   <div>
     <div class="container">
+        <statuses-component 
+          v-bind:statusName="'orderStatusCodes'"  
+          v-bind:methodName="'createOrderStatusCode'">
+        </statuses-component>
         <vue-good-table
             :pagination-options="{
               enabled: true
@@ -9,11 +13,6 @@
             styleClass="vgt-table striped"
             :columns="columns"
             :rows="getOrderStatusCodes">
-            <div slot="table-actions">
-              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-              </button>                
-            </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
                 <div class="btn-group" role="group" aria-label="Basic example">
@@ -123,13 +122,6 @@
                       confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
                         this.deleteOrderStatusCodes(rowId);
-                      if (result.value) {
-                        Swal.fire(
-                          'Deleted!',
-                          'Invoice status code has been deleted.',
-                          'success'
-                        )
-                      }
                     })
                 },
         },

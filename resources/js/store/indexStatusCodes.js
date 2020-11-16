@@ -31,7 +31,7 @@ const actions = {
     },
     deleteInvoiceStatusCode({commit}, id) {
         return axios.delete('/invoice-status-codes/' + id)
-            .then((reponse) => {
+            .then(function (response) {
                 commit('delete', id)
                 toast.fire({
                     icon: response.data.status,

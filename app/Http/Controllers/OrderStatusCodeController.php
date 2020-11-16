@@ -51,7 +51,7 @@ class OrderStatusCodeController extends Controller
         ]);
     }
 
-    public function delete(OrderStatusCode $orderStatusCode)
+    public function destroy(OrderStatusCode $orderStatusCode)
     {
         $orderStatusCode->delete();
 

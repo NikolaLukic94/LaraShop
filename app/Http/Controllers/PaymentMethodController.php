@@ -51,7 +51,7 @@ class PaymentMethodController extends Controller
         ]);
     }
 
-    public function delete(PaymentMethod $paymentMethod)
+    public function destroy(PaymentMethod $paymentMethod)
     {
         $paymentMethod->delete();
 

@@ -1,6 +1,10 @@
 <template>
     <div>
         <div class="container">
+            <statuses-component 
+                v-bind:statusName="'indexStatusCodes'"  
+                v-bind:methodName="'createInvoiceStatusCode'">
+            </statuses-component>
             <vue-good-table
                 :pagination-options="{
                     enabled: true
@@ -91,6 +95,10 @@
             ...mapGetters(
                 'indexStatusCodes', ['getInvoiceStatusCodes'])
         },
+        props: {
+            statusName: String,
+            methodName: String
+        },
         methods: {
             ...mapActions(
                 'indexStatusCodes',
@@ -112,18 +120,9 @@
                 }).then((result) => {
                     if (result.value) {
                         this.deleteInvoiceStatusCode(rowId);
-                        Swal.fire(
-                            'Deleted!',
-                            'Invoice status code has been deleted.',
-                            'success'
-                        )
                     }
                 })
             },
-            callSaveInvoiceStatusCode() {
-                this.createInvoiceStatusCode(this.name);
-                this.$refs.modalClose.click();
-            }
         },
         data: function () {
             return {

@@ -17,7 +17,7 @@ const actions = {
               })
         },
         createOrderItemStatusCode({commit}, name) {
-            return axios.post('/order-item-status-codes', {
+            return axios.post('/order-items-status-codes', {
                     name: name
                 })
                 .then(function (response) {
@@ -31,8 +31,8 @@ const actions = {
                 .catch(err => console.log(err))
         },
     deleteOrderItemStatusCodes({commit}, id) {
-        return axios.delete('/order-item-status-codes/' + id)
-            .then((reponse) => {
+        return axios.delete('/order-items-status-codes/' + id)
+            .then((response) => {
                 commit('deleteOrderItemStatusCodes', id)
                 toast.fire({
                     icon: response.data.status,
@@ -43,7 +43,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     updateOrderItemStatusCode({commit}, inputParams) {
-        return axios.put('/order-item-status-codes/' + inputParams.id, {
+        return axios.put('/order-items-status-codes/' + inputParams.id, {
             name: inputParams.name
         })
         .then((response) => {

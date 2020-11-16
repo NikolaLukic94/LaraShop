@@ -34,7 +34,6 @@
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
 </head>
 <body>
     <div id="app">
