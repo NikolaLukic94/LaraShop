@@ -65,14 +65,6 @@
                       confirmButtonText: 'Yes, delete it!'
                     }).then((rowId) => {
                         this.deleteInvoiceStatusCode(rowId);
-                      // if (result.value) {
-
-                      //   Swal.fire(
-                      //     'Deleted!',
-                      //     'Invoice status code has been deleted.',
-                      //     'success'
-                      //   )
-                      // }
                     })
                 },
         },

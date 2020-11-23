@@ -15,8 +15,6 @@ Vue.use(Vuex)
 import store from "./store/store"
 
 import VueGoodTablePlugin from 'vue-good-table';
-// import the styles
-// import 'vue-good-table/dist/vue-good-table.css'
 
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -26,10 +24,6 @@ import swal from 'sweetalert2'
 window.swal = swal;
 
 Vue.use(VueGoodTablePlugin);
-
-// const store = new Vuex.Store(
-//    store
-// )
 
 window.axios = require('axios')
 
@@ -56,7 +50,9 @@ Vue.use(VueGoogleMaps, {
     key: ''
   }
 })
+
 Vue.use(Vuetify);
+
 import _ from 'lodash'
 import 'vuetify/dist/vuetify.min.css'
 
@@ -96,12 +92,7 @@ Vue.component('info-component', require('./components/InfoComponent').default);
 Vue.component('stripe-checkout-component', require('./components/StripeCheckoutComponent').default);
 Vue.component('roles-component', require('./components/RoleComponent').default);
 Vue.component('statuses-component', require('./components/StatusesComponent').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component('single-product-component', require('./components/SingleProductComponent').default);
 
 const app = new Vue({
     el: '#app',

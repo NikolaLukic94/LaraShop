@@ -11,15 +11,5 @@
 
     export default {
         name: 'checkout-component',
-        computed: {
-            ...mapGetters('userAddress', ['getNewAddress', 'getErrors']),
-            ...mapGetters('paymentMethods', ['getNewPaymentMethod'])
-        },
-        methods: {
-            ...mapActions('order', ['createOrder']),
-            ...mapState('orderReview', ['cartItems']),
-            ...mapActions('userAddress', ['validateData']),
-            ...mapActions('paymentMethods', ['validatePaymentData'])
-        }
     }
 </script>

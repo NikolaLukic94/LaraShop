@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 use App\Models\Role;
+use App\Models\Permission;
 
 class RolesSeeder extends Seeder
 {
@@ -16,11 +17,16 @@ class RolesSeeder extends Seeder
         $roles = config('seeders.roles');
 
         foreach ($roles as $role) {
-            echo($role);
+            
             Role::create([
                 'name' => $role,
                 'guard_name' => 'web'
             ]);
         }
+
+        $permissions = Permission::first();
+
+        $role = Role::where('name', 'superadmin')->first();
+        $role->givePermissionTo($permissions->name);
     }
 }

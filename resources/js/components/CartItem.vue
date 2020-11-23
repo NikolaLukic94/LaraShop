@@ -111,8 +111,6 @@
                 ]
             ),
         },
-        // add there increase quantity, take current quantity, increase it or decrease it or set new, and 
-        // send that as post req and that's it, removes unncessary code
         data: function () {
             return {
                 quantity: ''

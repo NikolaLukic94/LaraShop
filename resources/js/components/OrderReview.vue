@@ -35,25 +35,26 @@
                             <b>Sum</b>
                         </v-col>
                     </v-row>                
-                <v-row 
-                    no-gutters 
-                    v-for="cartItem in getOrders" 
-                    :key="cartItem.id" 
-                    align="center" 
-                    justify="center"
-                    v-if="getOrders.length > 0"
-                >
-                    <v-col>
-                        <img src="/img/logo.jpg" width="130" height="110" class="pt-3 pb-3" alt="Image"/>
-                    </v-col>
-                    <v-col>
-                        {{ cartItem.quantity }} x
-                        {{ cartItem.relationships.product.data.name }}
-                    </v-col>
-                    <v-col>
-                        ${{ cartItem.quantity * cartItem.relationships.product.data.price }}
-                    </v-col>
-                </v-row>
+                <span v-if="getOrders.length > 0">
+                    <v-row 
+                        no-gutters 
+                        v-for="cartItem in getOrders"
+                        :key="cartItem.id" 
+                        align="center" 
+                        justify="center"
+                    >
+                        <v-col>
+                            <img src="/img/logo.jpg" width="130" height="110" class="pt-3 pb-3" alt="Image"/>
+                        </v-col>
+                        <v-col>
+                            {{ cartItem.quantity }} x
+                            {{ cartItem.relationships.product.data.name }}
+                        </v-col>
+                        <v-col>
+                            ${{ cartItem.quantity * cartItem.relationships.product.data.price }}
+                        </v-col>
+                    </v-row>
+                </span>    
             </v-container>
             <v-container>
                 <v-card>

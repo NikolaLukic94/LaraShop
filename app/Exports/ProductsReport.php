@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Events\BeforeExport;
 use Maatwebsite\Excel\Events\BeforeWriting;
 use Maatwebsite\Excel\Events\BeforeSheet;
@@ -14,18 +14,20 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class ProductsReport implements FromCollection, WithMapping, WithEvents, WithStyles, ShouldAutoSize
+class ProductsReport implements FromArray, WithMapping, WithEvents, WithStyles, ShouldAutoSize
 {
-    private $data;
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    protected $data;
+
+    public function __construct(array $data)
     {
-        return collect($this->data);
+        $this->data = $data;
     }
 
-    
+    public function array(): array
+    {
+        return $this->data;
+    }
+
     public function map($data): array
     {
         return [];
@@ -48,6 +50,8 @@ class ProductsReport implements FromCollection, WithMapping, WithEvents, WithSty
      */
     public function registerEvents(): array
     {
+        $products = $this->data;
+
         return [
             // Handle by a closure.
             BeforeExport::class => function(BeforeExport $event) {
@@ -55,7 +59,9 @@ class ProductsReport implements FromCollection, WithMapping, WithEvents, WithSty
 
             },
             
-            BeforeSheet::class => function (BeforeSheet $event)  {
+            BeforeSheet::class => function (BeforeSheet $event) use ($products) {
+
+                $orderItems = array_filter(array_column($products, 'order_items'));
 
                 $event->sheet->setCellValue('B2', 'Products Report');
                 $event->sheet->setCellValue('B4', 'Total # of products sold all time');
@@ -65,6 +71,14 @@ class ProductsReport implements FromCollection, WithMapping, WithEvents, WithSty
                 $event->sheet->setCellValue('B8', '# of Paperback books');
                 $event->sheet->setCellValue('B9', '# of Digital books sold all time');
                 $event->sheet->setCellValue('B10', '# of Paperback books sold all time');
+
+                $event->sheet->setCellValue('C4',  count($orderItems));
+                $event->sheet->setCellValue('C5', 'Total # of products sold current year');
+                $event->sheet->setCellValue('C6', '# of Products avaliable');
+                $event->sheet->setCellValue('C7', '# of Digital books');
+                $event->sheet->setCellValue('C8', '# of Paperback books');
+                $event->sheet->setCellValue('C9', '# of Digital books sold all time');
+                $event->sheet->setCellValue('C10', '# of Paperback books sold all time');
 
                 $event->sheet->setCellValue('B12', 'Bestsellers:');
                 // list top 10 products
