@@ -22,6 +22,6 @@ class UsersTableSeeder extends Seeder
 
         // $role = Role::where('name', 'superadmin')->first();
         // $admin->roles->sync($role->id);
-        $admin->assignRole('superadmin');
+        // $admin->assignRole('superadmin');
     }
 }

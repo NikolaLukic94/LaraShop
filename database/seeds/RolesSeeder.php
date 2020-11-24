@@ -24,9 +24,12 @@ class RolesSeeder extends Seeder
             ]);
         }
 
-        $permissions = Permission::first();
+        // $role = Role::first();
 
-        $role = Role::where('name', 'superadmin')->first();
-        $role->givePermissionTo($permissions->name);
+        // $permissions = Permission::get()->toArray();
+
+        // $permissions = array_column($permissions, 'id');
+
+        // $role->syncPermissions([$permissions]);
     }
 }

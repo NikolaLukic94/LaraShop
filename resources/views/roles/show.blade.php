@@ -1,7 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
-
+<x-layout>
     <div class="container-fluid">
         <br>
         <div class="row">
@@ -19,7 +16,7 @@
                     <div class="card-header">
                         Permissions
                     </div>
-                    <form action="/roles/edit/{{$role->id}}" method="POST">
+                    <form action="/roles/{{$role->id}}" method="POST">
                         {{ csrf_field() }}                    
                         <div class="card-body">
                             <div class="container">
@@ -44,5 +41,4 @@
             </main>
         </div>
     </div>
-
-@endsection
+</x-layout>

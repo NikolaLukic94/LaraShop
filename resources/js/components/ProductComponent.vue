@@ -9,12 +9,6 @@
             styleClass="vgt-table striped"
             :columns="columns"
             :rows="getProducts">
-            <div slot="table-actions">
-                <!-- <button class="btn btn-primary" @click="openAddModal">Add New Products</button> -->
-            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-            </button> -->
-            </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
                 <div class="btn-group" role="group" aria-label="Basic example">

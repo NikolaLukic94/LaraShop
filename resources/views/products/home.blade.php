@@ -1,11 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
-
-<div>
+<x-layout>
 	<landing-products-page></landing-products-page>
-</div>
-
-
-
-@endsection
+</x-layout>

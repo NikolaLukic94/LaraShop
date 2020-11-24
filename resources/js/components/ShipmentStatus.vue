@@ -94,13 +94,6 @@
                         this.createInvoiceStatusCode(name);
                       },
                       allowOutsideClick: () => !Swal.isLoading()
-                    }).then((result) => {
-                      if (result.value) {
-                        // Swal.fire({
-                        //   title: `${result.value.login}'s avatar`,
-                        //   imageUrl: result.value.avatar_url
-                        // })
-                      }
                     });
                 },
                 openEditModal(row) {
@@ -139,11 +132,6 @@
                     }).then((result) => {
                       if (result.value) {
                         this.deleteShipmentStatus(rowId);
-                        // Swal.fire(
-                        //   'Deleted!',
-                        //   'Invoice status code has been deleted.',
-                        //   'success'
-                        // )
                       }
                     })
                 },

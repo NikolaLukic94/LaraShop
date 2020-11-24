@@ -1,25 +1,35 @@
 <template>
     <div>
-        <div class="row" v-if="filter == 'recommended'">
-            <div class="col" v-for="products in this.getRecommended" :key="products.id">
-                <div class="card h-100"
+        <v-row v-if="filter == 'recommended'">
+            <v-col v-for="products in this.getRecommended" :key="products.id">
+                <v-card class="card h-100"
                     @mouseover="hover = true; hoverId = products.id"
-                    @mouseleave="hover = false; hoverId = null"                
-                >              
+                    @mouseleave="hover = false; hoverId = null"    
+                >
                     <img class="p-2 image" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
                     <p class="text-center">{{ products.name }}</p>
                     <p class="text-center" style="color: #e60000">{{ products.price }}</p>    
-                    <div class="text-center" v-if="hoverId === products.id">
-                        <button class="btn btn-primary" @click="callStoreCartItem(products.id)">
-                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                        </button>
-                    </div>                  
-                </div>
-            </div>
-        </div>
-        <div class="row" v-if="filter == 'mostPopular'">
-            <div class="col" v-for="products in this.getMostPopular" :key="products.id">
-                <div class="card h-100"
+                    <transition name="component-fade" mode="out-in">
+                        <v-toolbar style="background-color: #00897B"  v-if="hoverId === products.id">
+                            <v-spacer></v-spacer>
+                            <v-spacer>
+                            <v-toolbar-title>
+                                <v-icon dark class="pr-3" @click="callStoreCartItem(products.id)">
+                                    mdi-cart-plus
+                                </v-icon>
+                                <v-icon dark class="pr-3">
+                                    mdi-eye
+                                </v-icon>
+                                </v-toolbar-title>
+                            </v-spacer>
+                        </v-toolbar>    
+                    </transition>  
+                </v-card>
+            </v-col>
+        </v-row>
+        <v-row v-if="filter == 'mostPopular'">
+            <v-col v-for="products in this.getMostPopular" :key="products.id">
+                <v-card class="card h-100"
                     @mouseover="hover = true; hoverId = products.id"
                     @mouseleave="hover = false; hoverId = null"
                 >
@@ -30,18 +40,17 @@
                         <button class="btn btn-primary" @click="callStoreCartItem(products.id)">
                             <i class="fa fa-cart-plus" aria-hidden="true"></i>
                         </button>
-                    </div>                     
-                </div>
-            </div>
-        </div>
-        <div v-if="filter == 'none'">
-            <div class="row" v-for="filteredProducts in this.chunkedProducts" :key="filteredProducts.id">
-                <div class="col" v-for="filteredProduct in filteredProducts" :key="filteredProduct.id">
-                    <div class="card h-100 ml-2 mr-2"
-                        @mouseover="hover = true; hoverId = filteredProduct.id"
-                        @mouseleave="hover = false; hoverId = null"
-                    >
-                        <img class="p-2 image" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
+                    </div>                  
+                </v-card>
+            </v-col>
+        </v-row>
+        <div v-if="filter == 'none'" class="ml-1 mr-1">
+            <v-row v-for="filteredProducts in this.chunkedProducts" :key="filteredProducts.id">
+                <v-col v-for="filteredProduct in filteredProducts" :key="filteredProduct.id"
+                    @mouseover="hover = true; hoverId = filteredProduct.id"
+                    @mouseleave="hover = false; hoverId = null"
+                >
+                    <img class="p-2 image" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
                         <p class="text-center">{{ filteredProduct.name }}</p>
                         <p class="text-center" style="color: #e60000">{{ filteredProduct.price }}</p>   
                         <div class="text-center" v-if="hoverId === filteredProduct.id">
@@ -53,24 +62,10 @@
                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                 </button>
                             </a>
-                        </div>       
-                    </div>
-                </div>
-            </div>
+                        </div>  
+                </v-col>
+            </v-row>
         </div>
-        
-        <!-- <div class="row" v-if="filter == 'none'">
-            <div class="col" v-for="filteredProducts in this.chunkedProducts" :key="filteredProducts.id">
-                <div class="col-sm" v-for="filteredProduct in filteredProducts" :key="filteredProduct.id">
-                <div class="card"
-                >
-                    <img class="p-2 image" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
-                    <p class="text-center">{{ filteredProduct.name }}</p>
-                    <p class="text-center" style="color: #e60000">{{ filteredProduct.price }}</p>    
-                </div>
-                </div>
-            </div>
-        </div> -->
     </div>
 </template>
 
@@ -112,3 +107,12 @@
         },
     }
 </script>
+
+<style>
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .7s ease;
+}
+.component-fade-enter, .component-fade-leave-to {
+  opacity: 0;
+}
+</style>

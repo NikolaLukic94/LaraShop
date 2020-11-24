@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<x-layout>
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
-@section('content')
 
 <div class="container-fluid">
   <div class="row">
@@ -75,10 +73,11 @@
             @endforeach
           </div>
         </div>
-        <button type="submit" class="btn btn-info mt-3">Update</button>
+        <button type="submit" class="btn btn-info mt-3 text-white">Update</button>
       </form>
     </main>
   </div>
 </div>
 
-@endsection
+</x-layout>
+

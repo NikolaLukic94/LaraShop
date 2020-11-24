@@ -1,13 +1,5 @@
 <template>
     <div>
-        <v-app>
-            <v-app-bar app color="grey darken-4" dark>
-                <v-app-bar-nav-icon @click.stop="sidebarMenu = !sidebarMenu"></v-app-bar-nav-icon>
-                <v-toolbar-title>BookStore, 2020</v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-icon>mdi-account</v-icon>
-            </v-app-bar>
-        </v-app>
         <v-navigation-drawer dark
             v-model="sidebarMenu"
             app
@@ -57,7 +49,16 @@
             <v-treeview v-if="isSuperadmin"
                 hoverable
                 :items="supportItems"
-            ></v-treeview>
+            >
+
+            <template slot="label" slot-scope="props">
+                <v-list-item-icon class="mr-3">
+                    <v-icon color="primary">{{ props.item.icon }}</v-icon>
+                </v-list-item-icon>
+                <a :href="props.item.href" white>{{ props.item.name }}</a>
+            </template>
+
+            </v-treeview>
         </v-navigation-drawer>
     </div>
 </template>
@@ -106,11 +107,11 @@
                         id: 1,
                         name: 'Support :',
                         children: [
-                            {id: 3, name: 'Order Status Codes'},
-                            {id: 4, name: 'Order Item Status Code'},
-                            {id: 3, name: 'Product Types'},
-                            {id: 3, name: 'Payment Methods'},
-                            {id: 3, name: 'Invoice Status Codes'},
+                            {id: 3, name: 'Order Status Codes', href: "/order-status-codes", icon: "mdi-book-clock"},
+                            {id: 4, name: 'Order Item Status Code', href: "/order-items-status-codes", icon: "mdi-boombox"},
+                            {id: 3, name: 'Product Types', href: "/product-types", icon: "mdi-boomerang"},
+                            {id: 3, name: 'Payment Methods', href: "/payment-methods", icon: "mdi-buffer"},
+                            {id: 3, name: 'Invoice Status Codes', href: "/invoice-status-codes", icon: "mdi-cards-spade"},
                         ],
                     },
                 ],
@@ -124,42 +125,29 @@
             }
         },
         methods: {
-            getUserPermissions() {
+            getUserPermissions(roles) {
+                if (roles.includes('superadmin')) {
+                    this.isSuperadmin = true;
+                }     
 
-                return axios.get('/auth-role')
-                    .then((response) => {
+                if (roles.includes('admin')) {
+                    this.isAdmin = true;
+                }  
 
-                        this.name = response.data.data.firstName;
+                if (roles.includes('delivery')) {
+                    this.isDelivery = true;
+                }  
 
-                        let authUserRoles = response.data.data.roles;
-
-                        let superadmin = Object.keys(authUserRoles).filter( key => authUserRoles[key].name === 'superadmin');
-                        if (superadmin) {
-                            this.isSuperadmin = true;
-                        }     
-
-                        let admin = Object.keys(authUserRoles).filter( key => authUserRoles[key].name === 'admin');
-                        if (admin) {
-                            this.isAdmin = true;
-                        }    
-
-                        let delivery = Object.keys(authUserRoles).filter( key => authUserRoles[key].name === 'delivery');
-                        if (delivery) {
-                            this.isDelivery = true;
-                        }   
-
-                        if (!admin && !superadmin) {
-                            this.isCustomer = true;
-                        }                  
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    })
+                if (!roles.includes('admin') && !roles.includes('superadmin')) {
+                    this.isCustomer = true;
+                } 
             }
         },
         created() {
-            this.getUserPermissions();
-            
+            let permissions = document.querySelector('meta[name="permissions"]').content;
+            let roles = document.querySelector('meta[name="roles"]').content;
+
+            this.getUserPermissions(roles);
         }
     }
 </script>
@@ -216,4 +204,7 @@
         background: white;
     }
 
+    a, a:hover {
+        color:white;
+    }
 </style>

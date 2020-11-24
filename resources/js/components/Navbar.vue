@@ -26,13 +26,9 @@
             <p class="p-1 mr-3 mb-0" style="display: inline-block;float: right;">
                 <i class="fa fa-user" aria-hidden="true"></i>
             </p>
-            <!-- <p class="p-1 mr-3 mb-0" style="display: inline-block;float: right;">
-                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-            </p> -->
             <div class="p-1 mr-3 mb-0" style="display: inline-block;float: right;">
                 <cart-component></cart-component>  
             </div>
-            <!-- <cart-component></cart-component>   -->
           </div>
         </v-card>
         <v-card style="border-top: 3px solid #008080;">

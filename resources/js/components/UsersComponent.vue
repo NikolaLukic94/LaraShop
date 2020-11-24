@@ -82,32 +82,6 @@
               <span v-if="props.column.field == 'action'">
               <div class="btn-group" role="group" aria-label="Basic example">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <v-dialog
-                        v-model="dialog"
-                        width="500"
-                    >
-                        <v-card>
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                    <v-btn
-                                        color="green darken-1"
-                                        text
-                                        @click="editDialog = false"
-                                    >
-                                    Close
-                                  </v-btn>
-                                <v-btn
-                                    color="primary"
-                                    text
-                                    @click="
-                                        editDialog = false;
-                                        updateUser({id: props.row.id, name: name, email: email, password: password})"
-                                >
-                                    Update
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-dialog>
                     <v-btn-toggle
                         v-model="toggle_multiple"
                         dense
@@ -115,63 +89,17 @@
                         dark
                         multiple
                     >
-                    <v-btn>
-                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    <v-btn :href="'/user/{{ props.row.id }}'">
+                        <i class="fa fa-eye"  aria-hidden="true"></i>
                     </v-btn>
-
-                    <v-btn @click="editDialog = false">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </v-btn>
-
                     <v-btn @click="openDeleteModal(props.row.id)">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </v-btn>
                     </v-btn-toggle>
-
                     <v-dialog
                         v-model="dialog"
                         width="500"
                     >
-                    
-
-                        <v-card>
-                            <v-card-title class="headline grey lighten-2">
-                                Edit
-                            </v-card-title>
-
-                                <v-text-field
-                                    v-model="uName">
-                                </v-text-field>
-
-
-                                <v-text-field
-                                    v-model="uEmail">
-                                </v-text-field>
-
-                                <v-text-field
-                                    v-model="uPassword">
-                                </v-text-field>
-
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                    <v-btn
-                                        color="green darken-1"
-                                        text
-                                        @click="editDialog = false"
-                                    >
-                                    Close
-                                  </v-btn>
-                                <v-btn
-                                    color="primary"
-                                    text
-                                    @click="
-                                        editDialog = false;
-                                        updateUser({id: props.row.id, name: name, email: email, password: password})"
-                                >
-                                    Update
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
                     </v-dialog>
                 </div>
               </div>

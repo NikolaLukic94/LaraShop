@@ -12,9 +12,6 @@
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
                     <button class="btn btn-info" @click="redirectToShow(props.row.id)">
                       <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>

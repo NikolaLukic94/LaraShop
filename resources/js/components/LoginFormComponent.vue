@@ -99,12 +99,7 @@
         methods: {
             validate() {
                 console.log(this.$refs.form)
-                // this.$validator.validateAll().then((result) => {
-                //     if (result) {
-                        //Manually submit form if not errors
-                    document.getElementById("login_form").submit()
-                    // }
-                // })
+                document.getElementById("login_form").submit()
             },
         }
     }

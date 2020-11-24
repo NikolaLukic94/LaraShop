@@ -35,7 +35,6 @@ class PermissionsSeeder extends Seeder
                 'name' => 'delete ' . $class,
                 'guard_name' => 'web'
             ]);
-
         }
     }
 }

@@ -73,7 +73,7 @@ class UserController extends Controller
 
         $user->syncPermissions($request->permissions);
 
-        return redirect('/users/show/' . $user->id);
+        return redirect('/users/' . $user->id . '/edit');
     }
 
     public function delete(User $user)

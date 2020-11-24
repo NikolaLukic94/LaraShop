@@ -1,7 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
-
-<map-component></map-component>
-
-@endsection
+<x-layout>
+    <map-component></map-component>
+</x-layout>

@@ -9,13 +9,6 @@
             styleClass="vgt-table striped"
             :columns="columns"
             :rows="getOrders">
-            <div slot="table-actions">
-              <button class="btn btn-info">Issued</button>
-              <button class="btn btn-info">Paid</button>
-              <button class="btn btn-info">Todays</button>
-              <button class="btn btn-info">This week</button>
-              <button class="btn btn-info">This month</button>
-            </div>
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
                 <div class="btn-group" role="group" aria-label="Basic example">

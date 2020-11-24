@@ -1,15 +1,5 @@
-@extends('layouts.app')
+<x-layout>
+    <navbar-component></navbar-component>
+    <single-product-component></single-product-component>
+</x-layout>
 
-@section('content')
-
-<ul>
-    <li>
-        Visits: {{ $visits }}
-    </li>
-    <li>
-        Name: {{ $product->name }}
-    </li>
-</ul>
-
-
-@endsection

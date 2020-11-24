@@ -45,7 +45,7 @@ class RoleController extends Controller
 
         $role->syncPermissions($request->permissionsId);
 
-        return redirect('roles/index');
+        return redirect('roles');
     }
 
     public function store(Request $request)

@@ -1,5 +1,5 @@
 <?php 
 
 return [
-    'superadmin', 'admin', 'delviery', 'customer'
+    'superadmin', 'admin', 'delivery', 'customer'
 ];
