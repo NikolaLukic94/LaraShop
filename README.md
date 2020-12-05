@@ -25,6 +25,8 @@ Normally you would have to verify email address - for testing purpose, this is a
 
 Once logged in, head over to /dashboard to see Chart for sales breakdown per month, if logged in as Admin
 
+Check out some books and they will appear in your 'recommended' section - you can thank Redis.
+
 In order to test Stripe Payment integration, go ahead and include STRIPE_KEY and STRIPE_SECRET in `.env`
 
 Test credit card:
@@ -45,6 +47,6 @@ Date : Any future date
 - Multiple formats report exports (csv, xls, pdf)
 - Stripe Payment Integration
 - Caching with Redis
-
+- Nice autocomplete search
 
 More coming soon!

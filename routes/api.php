@@ -30,3 +30,5 @@ Route::get('/stores', 'StoreController@index');
 Route::get('/users/{user}', 'UserController@show');
 Route::get('/roles', 'RoleController@getAll');
 
+
+Route::get('/search', 'ProductController@apiSearch');

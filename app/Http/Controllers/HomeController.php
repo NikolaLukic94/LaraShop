@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class HomeController extends Controller
 {
@@ -34,12 +35,7 @@ class HomeController extends Controller
 
     public function welcome()
     {
-        $mostPopularProducts = Product::take(6)->get();
-        $recomendedProducts = Product::take(6)->get();
-
-        return view('welcome', [
-            'mostPopularProducts' => $mostPopularProducts,
-            'recomendedProducts' => $recomendedProducts
-        ]);
+        return view('welcome');
     }
+
 }

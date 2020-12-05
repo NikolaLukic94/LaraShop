@@ -49,11 +49,11 @@
 <!-- <search-page-component></search-page-component> -->
 <info-component></info-component>
 
-<div>
-  <p>Recomended for you</p>
+<div class="m-1">
+  <p style="font-size:18px; font-weight: 100; padding: 20px 0; margin: 20px;">Recomended for you</p>
     <products-table-component :filter="'recommended'"></products-table-component> 
 
-  <p>Bestsellers</p>
+    <p style="font-size:18px; font-weight: 100; padding: 20px 0; margin: 20px;">Bestsellers</p>
     <products-table-component :filter="'mostPopular'"></products-table-component>
 </div>
 @endsection

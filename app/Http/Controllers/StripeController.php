@@ -20,24 +20,19 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Order as OrderResource;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class StripeController extends Controller
 {
-    /**
-     * payment view
-     */
-    public function handleGet()
+    public function index()
     {
-        return view('stripe.home');
+        return view('cart.checkout', [
+            'stripeKey' => env('STRIPE_PUBLISHEABLE_KEY')
+        ]);
     }
-  
-    /**
-     * handling payment with POST
-     */
+
     public function store(Request $request)
     {
-        // todo: delete cart items
-
         // try {
             // Handle Stripe transaction
 
@@ -55,6 +50,9 @@ class StripeController extends Controller
         
             // Create order item out of each cart item
             foreach ($cartItems as $cartItem) {
+
+                Redis::zincrby('bestsellers.', 1 , $cartItem);
+
                 // todo: maybe use hydrate here
                 OrderItem::create([
                     'user_id' => Auth::id(),

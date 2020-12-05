@@ -105,7 +105,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $visits = Redis::zincrby('trending_products.', 1 , $product->id);
+        $visits = Redis::zincrby('trending_products.', 1 , $product);
 
         return view('products.show', [
             'product' => $product,
@@ -154,6 +154,18 @@ class ProductController extends Controller
         ]);
     }
 
+    public function apiSearch(Request $request)
+    {
+        $query = (string)$request->searchBy;
+
+        $products = Product::where('name', 'like', '%' . $query . '%')
+            ->orWhere('author', 'like', '%' . $query . '%')
+            ->orWhere('publisher', 'like', '%' . $query . '%')
+            ->get();
+
+        return ProductResource::collection($products);
+    }
+
     public function search()
     {
         // get recommended books - the ones sold the most
@@ -166,18 +178,14 @@ class ProductController extends Controller
 
     public function filter(Request $request)
     {
-        $popular = Redis::zrevrange('trending_products', 0, 5);
-
         if ($request->name == 'mostPopular') {
-            $products = Product::hydrate(
-                array_map('json_decode', $popular)
-            );
+            $trending = Redis::zrevrange('trending_products.', 0, 2); //returns an Array
+            $products = \App\Models\Product::hydrate(array_map('json_decode', $trending));
         } else if ($request->name == 'recommended') {
-            $products = Product::take(6)->get();
+            $bestsellers = Redis::zrevrange('bestsellers.', 0, 2); //returns an Array
+            $products = \App\Models\Product::hydrate(array_map('json_decode', $bestsellers));
         } else {
-            $products = Product::where('name', 'like', '%' . $request->name . '%')
-            // ->orWhere('name', 'like', '%' . $request->name . '%')
-            ->get();
+            $products = Product::where('name', 'like', '%' . $request->name . '%')->get();
         }
 
         return ProductResource::collection($products);

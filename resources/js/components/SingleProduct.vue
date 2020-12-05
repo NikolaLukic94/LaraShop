@@ -15,21 +15,10 @@
     export default {
         name: 'product-types-component',
         computed: {
-            ...mapGetters(
-                'productTypes',
-                [
-                    'getProductTypes'
-                ])
+            ...mapGetters('products', ['getFilteredProducts'])
         },
         methods: {
-            ...mapActions(
-                'productTypes',
-                [
-                    'setProductTypes',
-                    'createProductType',
-                    'deleteProductType',
-                    'updateProductType'
-                ]),
+             ...mapActions('products', ['setFilteredProducts', 'filterForProduct']),
         },
         data: function () {
             return {
@@ -37,7 +26,7 @@
             }
         },
         created() {
-            this.setProductTypes();
-        },             
+                this.filterForProduct({type: this.filter});
+        },         
     }
 </script>

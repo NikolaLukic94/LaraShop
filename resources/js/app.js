@@ -45,6 +45,13 @@ import Element from 'element-ui'
 import Vuetify from 'vuetify';
 import * as VueGoogleMaps from 'vue2-google-maps';
 
+import Overdrive from 'vue-overdrive'
+Vue.use(Overdrive)
+
+import VueAnimate from 'vue-animate-scroll'
+
+Vue.use(VueAnimate)
+
 Vue.use(VueGoogleMaps, {
   load: {
     key: ''
@@ -91,8 +98,12 @@ Vue.component('roles-component', require('./components/RoleComponent').default);
 Vue.component('statuses-component', require('./components/StatusesComponent').default);
 Vue.component('single-product-component', require('./components/SingleProduct').default);
 
+Vue.component('general-component', require('./components/GeneralComponent').default);
+
 Vue.component('scroll-link', require('./components/ScrollLink').default);
 Vue.component('conditional-visibility', require('./components/ConditionalVisibility').default);
+
+Vue.component('autocomplete', require('./components/Autocomplete').default);
 
 const app = new Vue({
     el: '#app',

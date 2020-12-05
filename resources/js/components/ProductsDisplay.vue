@@ -2,67 +2,85 @@
     <div>
         <v-row v-if="filter == 'recommended'">
             <v-col v-for="products in this.getRecommended" :key="products.id">
-                <v-card class="card h-100"
+                <v-card class="card" style="height:350px;"
                     @mouseover="hover = true; hoverId = products.id"
                     @mouseleave="hover = false; hoverId = null"    
                 >
                     <img class="p-2 image" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
                     <p class="text-center">{{ products.name }}</p>
                     <p class="text-center" style="color: #e60000">{{ products.price }}</p>    
-                    <transition name="component-fade" mode="out-in">
-                        <v-toolbar style="background-color: #00897B"  v-if="hoverId === products.id">
-                            <v-spacer></v-spacer>
-                            <v-spacer>
-                            <v-toolbar-title>
-                                <v-icon dark class="pr-3" @click="callStoreCartItem(products.id)">
-                                    mdi-cart-plus
-                                </v-icon>
-                                <v-icon dark class="pr-3">
-                                    mdi-eye
-                                </v-icon>
-                                </v-toolbar-title>
-                            </v-spacer>
-                        </v-toolbar>    
-                    </transition>  
+                    <transition name="fade">
+                            <v-toolbar style="background-color: #00897B;"  v-show="hoverId === products.id">
+                                <v-spacer></v-spacer>
+                                <v-spacer>
+                                <v-toolbar-title>
+                                    <v-icon dark class="pr-3" @click="callStoreCartItem(products.id)">
+                                        mdi-cart-plus
+                                    </v-icon>
+                                    <v-icon dark class="pr-3" @click="openSingleComponent(product.id)">
+                                        mdi-eye
+                                    </v-icon>
+                                    </v-toolbar-title>
+                                </v-spacer>
+                            </v-toolbar>    
+                    </transition>
                 </v-card>
             </v-col>
         </v-row>
         <v-row v-if="filter == 'mostPopular'">
             <v-col v-for="products in this.getMostPopular" :key="products.id">
-                <v-card class="card h-100"
+                <v-card class="card" style="height:350px;"
                     @mouseover="hover = true; hoverId = products.id"
                     @mouseleave="hover = false; hoverId = null"
                 >
                     <img class="p-2 image" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
                     <p class="text-center">{{ products.name }}</p>
                     <p class="text-center" style="color: #e60000">{{ products.price }}</p>    
-                    <div class="text-center" v-if="hoverId === products.id">
-                        <button class="btn btn-primary" @click="callStoreCartItem(products.id)">
-                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                        </button>
-                    </div>                  
+                        <transition name="fade">
+                            <v-toolbar style="background-color: #00897B;"  v-show="hoverId === products.id">
+                                <v-spacer></v-spacer>
+                                <v-spacer>
+                                <v-toolbar-title>
+                                    <v-icon dark class="pr-3" @click="callStoreCartItem(products.id)">
+                                        mdi-cart-plus
+                                    </v-icon>
+                                    <v-icon dark class="pr-3"  @click="openSingleComponent(product.id)">>
+                                        mdi-eye
+                                    </v-icon>
+                                    </v-toolbar-title>
+                                </v-spacer>
+                            </v-toolbar>    
+                    </transition>
                 </v-card>
             </v-col>
         </v-row>
         <div v-if="filter == 'none'" class="ml-1 mr-1">
             <v-row v-for="filteredProducts in this.chunkedProducts" :key="filteredProducts.id">
-                <v-col v-for="filteredProduct in filteredProducts" :key="filteredProduct.id"
+                <v-col v-for="filteredProduct in filteredProducts" :key="filteredProduct.id">
+                <v-card 
                     @mouseover="hover = true; hoverId = filteredProduct.id"
                     @mouseleave="hover = false; hoverId = null"
+                    class="card" style="height:350px;"
                 >
-                    <img class="p-2 image" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
+                        <img class="p-2 image" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
                         <p class="text-center">{{ filteredProduct.name }}</p>
                         <p class="text-center" style="color: #e60000">{{ filteredProduct.price }}</p>   
-                        <div class="text-center" v-if="hoverId === filteredProduct.id">
-                            <button class="btn btn-primary" @click="callStoreCartItem(filteredProduct.id)">
-                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                            </button>
-                            <a v-bind:href="'/products/show/'+ filteredProduct.id">
-                                <button class="btn btn-primary" :href="'/products/show/{{ filteredProduct.id }}'">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </button>
-                            </a>
-                        </div>  
+                        <transition name="fade">
+                            <v-toolbar style="background-color: #00897B;"  v-show="hoverId === filteredProduct.id">
+                                <v-spacer></v-spacer>
+                                <v-spacer>
+                                <v-toolbar-title>
+                                    <v-icon dark class="pr-3" @click="callStoreCartItem(filteredProduct.id)">
+                                        mdi-cart-plus
+                                    </v-icon>
+                                    <v-icon dark class="pr-3"  @click="openSingleComponent(filteredProduct.id)">
+                                        mdi-eye
+                                    </v-icon>
+                                    </v-toolbar-title>
+                                </v-spacer>
+                            </v-toolbar>    
+                    </transition>  
+                </v-card> 
                 </v-col>
             </v-row>
         </div>
@@ -98,7 +116,7 @@
             },
             callStoreCartItem(productId) {
                 this.storeCartItem(productId);
-            }
+            },
         },
         created() {
             this.filter == 'none' 
@@ -109,10 +127,12 @@
 </script>
 
 <style>
-.component-fade-enter-active, .component-fade-leave-active {
-  transition: opacity .7s ease;
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
 }
-.component-fade-enter, .component-fade-leave-to {
-  opacity: 0;
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
 }
+
 </style>

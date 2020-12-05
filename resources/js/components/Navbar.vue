@@ -49,13 +49,8 @@
               BESTSELLERS
             </p>
             <p class="p-1 ml-3 mb-0" style="display: inline-block; float:right; margin-top: 20px; margin-right:30px; font-weight: 500;">
-              <v-text-field
-                outlined
-                label="Search"
-                append-icon="mdi-file-find"
-              ></v-text-field>
+              <autocomplete></autocomplete>
             </p>
-            
           </div>
         </v-card>
   </div>

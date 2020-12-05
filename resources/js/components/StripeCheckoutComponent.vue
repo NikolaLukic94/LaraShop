@@ -52,7 +52,7 @@
         data: () => ({
             loading: false,
             amount: 0,
-            publishableKey: 'enter-publishable-key-here',
+            publishableKey: null,
             token: null,
             charge: null
         }),
@@ -96,6 +96,8 @@
             this.setCartItems();
             this.setTotalPremium();
             this.amount = this.getTotalPremium;
+
+            this.publishableKey = document.querySelector('meta[name="stripe_key"]').content;
         }
 }
 </script> 

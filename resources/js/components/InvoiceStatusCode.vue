@@ -1,6 +1,9 @@
 <template>
     <div>
+
         <div class="container">
+
+
             <statuses-component 
                 v-bind:statusName="'indexStatusCodes'"  
                 v-bind:methodName="'createInvoiceStatusCode'">
@@ -78,7 +81,6 @@
                 </template>
             </vue-good-table>
         </div>
-
     </div>
 
 </template>

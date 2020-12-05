@@ -48,13 +48,14 @@ Route::group(['middleware' => 'verified'], function () {
     ]);
 
     Route::get('/auth-role', 'UserController@authUser');
-    Route::resource('users', 'UserController');
+    
+    Route::resource('users', 'UserController')->except(['update']);
+    Route::post('/users/update/{user}', 'UserController@update');
 
-    Route::resource('roles', 'RoleController');
+    Route::resource('roles', 'RoleController')->except(['update']);
+    Route::post('roles/{role}', 'RoleController@update');
 
     Route::resource('cupons', 'CuponsController');
-
-    Route::get('/checkout', 'CheckoutController@index');
 
     Route::group(['prefix' => 'reports'], function() {
         Route::get('/', 'ReportController@index');
@@ -77,15 +78,13 @@ Route::group(['middleware' => 'verified'], function () {
     });
 
     Route::get('/cart/index', 'CartController@index');
-    Route::post('/cart/create/{id}', 'CartController@store'); // create users cart
-    // Route::post('/cart-items', 'CartItemController@store'); // create users cart
-    // tehnically, this is just an update
+    Route::post('/cart/create/{id}', 'CartController@store'); 
     
     Route::group(['prefix' => 'products'], function() {
         Route::get('/home', 'ProductController@home');
         Route::get('/', 'ProductController@getAll');
-        Route::get('/index', 'ProductController@index');// todo: redo to be admin only
-        Route::get('/index/all', 'ProductController@browse');// todo: redo to be users only
+        Route::get('/index', 'ProductController@index');
+        Route::get('/index/all', 'ProductController@browse');
         Route::post('/create', 'ProductController@store');
         Route::get('/search', 'ProductController@search');
         Route::get('/show/{product}', 'ProductController@show');
@@ -96,8 +95,8 @@ Route::group(['middleware' => 'verified'], function () {
     Route::group(['prefix' => 'shipments', 'middleware' => ['role:superadmin|admin']], function() {
         Route::get('/home', 'ShipmentController@home');
         Route::get('/', 'ShipmentController@getAll');
-        Route::get('/index', 'ShipmentController@index');// todo: redo to be admin only
-        Route::get('/index/all', 'ShipmentController@browse');// todo: redo to be users only
+        Route::get('/index', 'ShipmentController@index');
+        Route::get('/index/all', 'ShipmentController@browse');
     });
 
     Route::group(['prefix' => 'dashboard'], function() {
@@ -111,8 +110,9 @@ Route::group(['middleware' => 'verified'], function () {
     // });
 });
 
-Route::get('stripe-payment', 'StripeController@handleGet'); //todo: remove
 Route::post('stripe-payment', 'StripeController@store')->name('stripe.payment');
+Route::get('checkout', 'StripeController@index');
+
 
 
 
