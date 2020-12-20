@@ -1,9 +1,11 @@
 <template>
-  <div style="border-radius: 35px; border: 2px solid #73AD21; width: 35px;">
-        <a href="/cart/index" style="color: black;" class="text-center">
+    <div id="cart-component">
+        <p class="p-1 mb-0" id="elements">
+        <a href="/cart/index" class="text-center">
             {{ getCartItems.length }}<i class="fa fa-shopping-bag pl-1" aria-hidden="true"></i>
         </a>
-  </div>
+        </p>
+    </div>
 </template>
 
 <script>
@@ -25,3 +27,33 @@
         },
     }
 </script>
+
+<style>
+
+    #cart-component:hover {
+        background-color: #008080;
+    }
+
+    #cart-component:hover * {
+        color: white;
+        text-decoration: none;
+        
+    }
+
+    #cart-component * {
+        color: black;
+        text-decoration: none;
+    }
+
+
+    #cart-component {
+      display: inline-block; 
+      float: right; 
+      border: 2px solid #73AD21;
+      width: 55px; 
+      text-align: center; 
+      border-radius: 35px;
+      margin-right: 20px;
+    }
+
+</style>

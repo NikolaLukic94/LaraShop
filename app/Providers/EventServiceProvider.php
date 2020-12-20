@@ -23,13 +23,7 @@ class EventServiceProvider extends ServiceProvider
             'SocialiteProviders\\Twitch\\TwitchExtendSocialite@handle',
         ],
         'App\Events\NewOrderPlaced' => [
-            'App\Listeners\DecreaseAvaliableItemsCounty',
-            'App\Listeners\NewUserOrderNotification',
-            'App\Listeners\RemoveWishlistItemIfBought',
-            'App\Listeners\CreateShipment',
-        ],
-        'App\Events\ShipmentUpdate' => [
-            'App\Listeners\NotifyUserOfShipmentChanges',
+            'App\Listeners\SendPurchasingConfirmationEmail',
         ],
     ];
 

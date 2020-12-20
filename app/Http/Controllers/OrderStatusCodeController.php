@@ -10,14 +10,6 @@ use App\Models\OrderStatusCode;
 
 class OrderStatusCodeController extends Controller
 {
-    public function getAll()
-    {
-        //return collection of articles as a resource
-        return OrderStatusCodeResource::collection(
-            OrderStatusCode::paginate(15)
-        );
-    }
-
     public function index()
     {
         return view('orderStatusCodes.index');

@@ -11,18 +11,15 @@ const getters = {
 
 const actions = {
     setCartItems({commit}) {
-        console.log('setting cart items');
         return axios.get('/api/cart-items')
             .then((response) => {
                 commit('setCartItems', response.data.data);
                 commit('setAllAreDigital', response.data.data);
+                commit('setTotalPremium')
             })
             .catch(function (error) {
                 console.log(error);
             })
-    },
-    setTotalPremium({commit}) {
-        commit('setTotalPremium');
     },
     deleteCartItem({commit}, id) {
         return axios.delete('/cart-items/' + id)
@@ -40,7 +37,7 @@ const actions = {
     },
     changeQuantity({commit}, data) {
         let theId = data.id
-        return axios.post('/cart-items/' + theId, {
+        return axios.post('/cart-items/' + theId + '/edit', {
                 value: data.value
             })
             .then((response) => {

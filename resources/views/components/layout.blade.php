@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="permissions" content="{{ \Auth::user()->permissions->pluck('name') }}">
     <meta name="roles" content="{{ \Auth::user()->roles->pluck('name') }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Black Cat Bookstore') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

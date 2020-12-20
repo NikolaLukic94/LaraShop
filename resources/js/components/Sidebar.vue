@@ -94,7 +94,7 @@
                     {title: "Dashboard", href: "/dashboard", icon: "mdi-file-document-multiple"},
                     {title: "Orders", href: "/orders", icon: "mdi-shield-account"},
                     {title: "Shipments", href: "/shipments", icon: "mdi-bus-clock"},
-                    {title: "Products", href: "/products", icon: "mdi-shape-square-rounded-plus"},
+                    {title: "Products", href: "/products/index", icon: "mdi-shape-square-rounded-plus"},
                 ],
                 isDelivery: [
                     {title: "Home", href: "/", icon: "mdi-home-outline"},

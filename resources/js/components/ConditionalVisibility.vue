@@ -12,13 +12,11 @@
 
     export default {
         props: ['whenHidden'],
-
         data() {
             return {
                 shouldDisplay: false
             }
         },
-
         mounted() {
             window.addEventListener('scroll', () => {
                 this.shouldDisplay = ! inViewport(

@@ -74,7 +74,6 @@ Vue.component('users-component', require('./components/UsersComponent.vue').defa
 Vue.component('products-component', require('./components/ProductComponent.vue').default);
 Vue.component('invoices-component', require('./components/Invoice.vue').default);
 Vue.component('cart-items', require('./components/CartItem').default);
-Vue.component('user-addresses', require('./components/UserAddressComponent').default);
 Vue.component('user-payment-methods', require('./components/PaymentMethod').default);
 Vue.component('order-review', require('./components/OrderReview').default);
 Vue.component('payment-methods-component', require('./components/PaymentMethodComponent.vue').default);
@@ -97,13 +96,14 @@ Vue.component('stripe-checkout-component', require('./components/StripeCheckoutC
 Vue.component('roles-component', require('./components/RoleComponent').default);
 Vue.component('statuses-component', require('./components/StatusesComponent').default);
 Vue.component('single-product-component', require('./components/SingleProduct').default);
+Vue.component('autocomplete', require('./components/Autocomplete').default);
+Vue.component('vue-loader', require('./components/LoaderComponent').default);
 
 Vue.component('general-component', require('./components/GeneralComponent').default);
 
 Vue.component('scroll-link', require('./components/ScrollLink').default);
 Vue.component('conditional-visibility', require('./components/ConditionalVisibility').default);
 
-Vue.component('autocomplete', require('./components/Autocomplete').default);
 
 const app = new Vue({
     el: '#app',

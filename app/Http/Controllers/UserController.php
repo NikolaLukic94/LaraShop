@@ -6,41 +6,14 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\UserResource as UserResource;
-use App\Http\Resources\UserRelationshipsResource as UserRelationshipsResource;
 
 class UserController extends Controller
 {
-    /**
-     * Return a resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getAll()
-    {
-        return UserResource::collection(
-            User::paginate(15)
-        );
-    }
-
     public function index()
     {
         return view('users.index');
     }
-
-    public function authUser()
-    {
-        $user = Auth::user();
-
-        return new UserResource($user);
-    }
-
-    public function show(User $user)
-    {
-        return new UserResource($user);
-    }
-
+    
     public function store(Request $request)
     {
         $user = User::create([

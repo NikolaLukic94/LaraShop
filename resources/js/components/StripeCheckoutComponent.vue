@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div style="padding-top: 0; margin-top: 0;">
+      <div v-if="this.loading === true">
+          <vue-loader ></vue-loader>    
+      </div>
         <v-card
             class="mx-auto mb-2"
             outlined
@@ -30,7 +33,7 @@
                 @loading="loading = $event"
             >
             </stripe-elements>
-            <button class="btn btn-info mt-1" @click="submit">Make a purchase / Pay ${{amount / 100}}</button>
+            <button class="btn btn-info mt-1" @click="submit">Make a purchase / Pay ${{this.getTotalPremium}}</button>
         </v-container>
         </v-card>
   </div>
@@ -41,13 +44,12 @@
     import { StripeElements } from 'vue-stripe-checkout';
 
     export default {
-
         components: {
             StripeElements
         },
         computed: {
             ...mapGetters('orderReview', ['getOrders']),
-            ...mapGetters('cartItem', ['getCartItems', 'getTotalPremium']),
+            ...mapGetters('cartItem', ['getTotalPremium']),
         },
         data: () => ({
             loading: false,
@@ -59,6 +61,7 @@
         methods: {
             ...mapActions('cartItem', ['setCartItems', 'setTotalPremium']),
             submit () {
+                this.loading = true;
                 this.$refs.elementsRef.submit();
             },
             tokenCreated (token) {
@@ -72,12 +75,17 @@
                 this.sendTokenToServer(this.charge);
             },
             sendTokenToServer (charge) {
+                this.loading = true;
+
                 return axios.post('/stripe-payment', {
                     amount: charge.amount,
                     stripeToken: charge.source,
                     description: charge.description
                 })
                     .then((response) => {
+
+                        this.loading = true;
+
                         toast.fire({
                             icon: 'success',
                             type: 'success',
@@ -94,8 +102,6 @@
         },
         created() {
             this.setCartItems();
-            this.setTotalPremium();
-            this.amount = this.getTotalPremium;
 
             this.publishableKey = document.querySelector('meta[name="stripe_key"]').content;
         }

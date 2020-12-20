@@ -14,18 +14,11 @@ use App\Models\ShipmentItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\Order as OrderResource;
+
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    public function getAll()
-    {
-        $orders = Order::paginate(15);
-
-        return OrderResource::collection($orders);
-    }
-
     public function index()
     {
         return view('orders.index');
@@ -37,11 +30,11 @@ class OrderController extends Controller
         // need to create order items and order
 //        DB::beginTransaction();
 //
-//        try {
 
+//        try {
             $order = Order::create([
                 'date_placed' => date('Y-m-d'),
-                'order_details' => "request->orderDetails",
+                'order_details' => $request->orderDetails,
                 'user_id' => Auth::id(),
                 'order_status_codes_id' => 1,
             ]);

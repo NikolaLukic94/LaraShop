@@ -89,7 +89,7 @@
                         dark
                         multiple
                     >
-                    <v-btn :href="'/user/{{ props.row.id }}'">
+                    <v-btn :href="`/users/${props.row.id}`">
                         <i class="fa fa-eye"  aria-hidden="true"></i>
                     </v-btn>
                     <v-btn @click="openDeleteModal(props.row.id)">

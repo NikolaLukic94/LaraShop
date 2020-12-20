@@ -6,7 +6,7 @@
                     @mouseover="hover = true; hoverId = products.id"
                     @mouseleave="hover = false; hoverId = null"    
                 >
-                    <img class="p-2 image" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
+                    <img class="p-2 image" style="margin: 0 auto;" v-bind:src="products.relationships.images.data[0].imagePath" width="170" height="200" alt="">
                     <p class="text-center">{{ products.name }}</p>
                     <p class="text-center" style="color: #e60000">{{ products.price }}</p>    
                     <transition name="fade">
@@ -17,7 +17,7 @@
                                     <v-icon dark class="pr-3" @click="callStoreCartItem(products.id)">
                                         mdi-cart-plus
                                     </v-icon>
-                                    <v-icon dark class="pr-3" @click="openSingleComponent(product.id)">
+                                    <v-icon dark class="pr-3" :href="`/products/show/${products.id}`">
                                         mdi-eye
                                     </v-icon>
                                     </v-toolbar-title>
@@ -33,18 +33,18 @@
                     @mouseover="hover = true; hoverId = products.id"
                     @mouseleave="hover = false; hoverId = null"
                 >
-                    <img class="p-2 image" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
+                    <img class="p-2 image" style="margin: 0 auto;" v-bind:src="products.relationships.images.data[0].imagePath" width="170" height="200" alt="">
                     <p class="text-center">{{ products.name }}</p>
                     <p class="text-center" style="color: #e60000">{{ products.price }}</p>    
                         <transition name="fade">
-                            <v-toolbar style="background-color: #00897B;"  v-show="hoverId === products.id">
+                            <v-toolbar style="background-color: #00897B;" v-show="hoverId === products.id">
                                 <v-spacer></v-spacer>
                                 <v-spacer>
                                 <v-toolbar-title>
                                     <v-icon dark class="pr-3" @click="callStoreCartItem(products.id)">
                                         mdi-cart-plus
                                     </v-icon>
-                                    <v-icon dark class="pr-3"  @click="openSingleComponent(product.id)">>
+                                    <v-icon dark class="pr-3" :href="`/products/show/${products.id}`">
                                         mdi-eye
                                     </v-icon>
                                     </v-toolbar-title>
@@ -62,7 +62,9 @@
                     @mouseleave="hover = false; hoverId = null"
                     class="card" style="height:350px;"
                 >
-                        <img class="p-2 image" style="margin: 0 auto;" src="/img/cover.jpg" width="170" height="200" alt="">
+                        <div v-if="filteredProduct.relationships.images.data.length">
+                            <img class="p-2 image" style="margin: 0 auto;" v-bind:src="filteredProduct.relationships.images.data[0].imagePath" width="170" height="200" alt="">
+                        </div>
                         <p class="text-center">{{ filteredProduct.name }}</p>
                         <p class="text-center" style="color: #e60000">{{ filteredProduct.price }}</p>   
                         <transition name="fade">
@@ -73,7 +75,7 @@
                                     <v-icon dark class="pr-3" @click="callStoreCartItem(filteredProduct.id)">
                                         mdi-cart-plus
                                     </v-icon>
-                                    <v-icon dark class="pr-3"  @click="openSingleComponent(filteredProduct.id)">
+                                    <v-icon dark class="pr-3" :href="`/products/show/${filteredProduct.id}`">
                                         mdi-eye
                                     </v-icon>
                                     </v-toolbar-title>

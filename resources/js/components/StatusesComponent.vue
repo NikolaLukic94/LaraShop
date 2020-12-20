@@ -59,12 +59,9 @@
             sendCreateRequest() {
                 console.log(this.statusName)
                 this.$store.dispatch(
-                    this.statusName + '/' + this.methodName
-                    , this.newName);
-
-
-                },
-
+                    this.statusName + '/' + this.methodName, this.newName
+                );
             },
+        },
     }
 </script>

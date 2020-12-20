@@ -39,7 +39,7 @@ class ImportBooks extends Command
      */
     public function handle(Faker $faker)
     {
-        $filename = public_path() . '/books.csv';
+        $filename = public_path() . '/newbooks.csv';
 
         if (!file_exists($filename) || !is_readable($filename)) {
             return false;
@@ -62,7 +62,7 @@ class ImportBooks extends Command
 
         foreach ($data as $bookData) 
         {
-            Product::create([
+            $product = Product::create([
                 'name' => $bookData['Title'],
                 'author' => $bookData['Author'],
                 'publisher' => $bookData['Publisher'],
@@ -71,10 +71,17 @@ class ImportBooks extends Command
                 'price' => $faker->numberBetween(1,199),
                 'color' => $faker->hexcolor,
                 'size' => $faker->numberBetween(1,199),
-                'quantity' => $faker->numberBetween(1,199),
+                'quantity' => $faker->numberBetween(0,199),
                 'other_product_details' => $faker->paragraph,
                 'product_type_id' => $faker->numberBetween(1,2),
             ]);
+
+            if ($bookData['image_url']) {
+                \App\Models\ProductImage::create([
+                    'image_path' => $bookData['image_url'],
+                    'product_id' => $product->id
+                ]);
+            }
         }
     }
 }

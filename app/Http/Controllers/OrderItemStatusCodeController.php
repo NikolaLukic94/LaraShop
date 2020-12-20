@@ -11,14 +11,6 @@ use App\Http\Resources\OrderItemStatusCode as OrderItemStatusCodeResource;
 
 class OrderItemStatusCodeController extends Controller
 {
-    public function getAll()
-    {
-        //return collection of articles as a resource
-        return OrderItemStatusCodeResource::collection(
-            OrderItemStatusCode::paginate(15)
-        );
-    }
-
     public function index()
     {
         return view('orderItemStatusCodes.index');

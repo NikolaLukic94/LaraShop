@@ -10,13 +10,6 @@ use App\Http\Resources\InvoiceStatusCodeResource as InvoiceResource;
 
 class InvoiceStatusCodeController extends Controller
 {
-    public function getAll()
-    {
-        return InvoiceResource::collection(
-            InvoiceStatusCode::paginate(15)
-        );
-    }
-
     public function index()
     {
         return view('invoiceStatusCodes.index');

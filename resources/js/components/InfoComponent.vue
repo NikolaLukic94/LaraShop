@@ -1,7 +1,7 @@
 <template>
     <div>
-        <v-app> 
-            <v-container>
+        <v-app style="height: 110px; display: 0;">
+             <v-container>
                 <v-row justify="center">
                     <v-col cols="12" sm="4">
                         <v-card
@@ -29,7 +29,7 @@
                                 </div>
                             </template>
                             <v-card>
-                                <v-toolbar dark color="primary">
+                                <v-toolbar dark color="tile">
                                     <v-btn
                                         icon
                                         dark
@@ -102,7 +102,7 @@
                             </v-btn>
                         </template>
                         <v-card>
-                            <v-toolbar dark color="primary">
+                            <v-toolbar dark color="tile">
                                 <v-btn
                                     icon
                                     dark
@@ -185,10 +185,7 @@
                             </v-btn>
                         </template>
                         <v-card>
-                            <v-toolbar
-                            dark
-                            color="primary"
-                            >
+                            <v-toolbar dark>
                             <v-btn
                                 icon
                                 dark
@@ -246,8 +243,10 @@
                         </v-card>
                     </v-col>
                 </v-row>
-            </v-container>  
-        </v-app>
+            </v-container> 
+        </v-app>   
+    
+            
     </div>
 </template>
 
@@ -276,4 +275,5 @@
         position: absolute;
         bottom: 0;
     }
+
 </style>

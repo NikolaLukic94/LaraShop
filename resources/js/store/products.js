@@ -1,3 +1,5 @@
+import { create } from "lodash";
+
 const state = {
     products: [],
     filteredProducts: [],
@@ -14,7 +16,7 @@ const getters = {
 
 const actions = {
     setProducts({commit}) {
-        return axios.get('/products')
+        return axios.get('/api/products')
             .then((response) => {
                 commit('setProducts', response.data.data); 
             })
@@ -23,7 +25,7 @@ const actions = {
             })
     },
     setFilteredProducts({commit}) {
-        return axios.get('/products')
+        return axios.get('/api/products')
             .then((response) => {
                 commit('setFilteredProducts', response.data.data); 
             })
@@ -34,7 +36,7 @@ const actions = {
     filterForProduct({commit}, name) {
         let param = typeof name == "object" ? name.type : name;
 
-        return axios.post('/products/filter', {
+        return axios.post('/api/products/filter', {
                 name: param
             })
             .then(function (response) {
@@ -51,17 +53,47 @@ const actions = {
     createProduct({commit}, request) {
 
         return axios.post('/products/create', {
+            id: request.id,
             productTypeId: 1,
             name: request.name,
+            author: request.author,
+            publisher: request.publisher,
             description: request.description,
             price: request.price,
             quantity: request.quantity,
             color: request.color,
             size: request.size,
             other: request.other,
+            genre: request.genre
         })
             .then(function (response) {
                 commit('createProduct', response.data.createdProduct)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
+            })
+            .catch(err => console.log(err)) 
+    },
+    updateProduct({commit}, request) {
+
+        return axios.post('/products/create', {
+            id: request.id,
+            productTypeId: 1,
+            name: request.name,
+            author: request.author,
+            publisher: request.publisher,
+            description: request.description,
+            price: request.price,
+            quantity: request.quantity,
+            color: request.color,
+            size: request.size,
+            other: request.other,
+            genre: request.genre
+        })
+            .then(function (response) {
+                commit('updateProduct', response.data.createdProduct)
                 toast.fire({
                     icon: response.data.status,
                     type: response.data.status,
@@ -95,7 +127,19 @@ const mutations = {
         state.filteredProducts = filteredProducts;
     },
     createProduct: (state, createdProduct) => {
-        state.products.push(createdProduct);
+        state.products.unshift(createdProduct);
+    },
+    updateProduct: (state, createdProduct) => {
+        let updatedProduct = state.products.find(p => p.id === createdProduct.id);
+        
+        updatedProduct.name = createdProduct.name;
+        updatedProduct.author = createdProduct.author;
+        updatedProduct.description = createdProduct.description;
+        updatedProduct.other_product_details = createdProduct.other_product_details;
+        updatedProduct.price = createdProduct.price;
+        updatedProduct.publisher = createdProduct.publisher;
+        updatedProduct.quantity = createdProduct.quantity;
+        updatedProduct.size = createdProduct.size;
     },
     deleteProduct: (state, id) => {
         state.products = state.products.filter(p => p.id !== id);

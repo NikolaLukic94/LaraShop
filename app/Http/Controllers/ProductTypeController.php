@@ -7,23 +7,10 @@ use App\Http\Requests\UpdateProductType;
 use App\Models\ProductType;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Http\Resources\ProductType as ProductTypeResource;
+
 
 class ProductTypeController extends Controller
 {
-    /**
-     * Return a resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getAll()
-    {
-        //return collection of articles as a resource
-        return ProductTypeResource::collection(
-            ProductType::paginate(15)
-        );
-    }
-
     public function index()
     {
         return view('productTypes.index');

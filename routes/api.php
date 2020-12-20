@@ -3,32 +3,38 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/order-status-codes', 'OrderStatusCodeController@getAll');
-Route::get('/invoice-status-codes', 'InvoiceStatusCodeController@getAll');
-Route::get('/order-item-status-codes', 'OrderItemStatusCodeController@getAll');
-Route::get('/product-types', 'ProductTypeController@getAll');
+Route::get('/order-status-codes', 'API\OrderStatusCodeController');
+
+Route::get('/invoice-status-codes', 'API\InvoiceStatusCodeController');
+
+Route::get('/order-item-status-codes', 'API\OrderItemStatusCodeController');
+
+Route::get('/product-types', 'API\ProductTypeController');
+
+Route::get('/roles', 'API\RoleController');
+
 Route::get('/payment-methods', 'PaymentMethodController@getAll');
-Route::get('/cart-items', 'CartController@all');
-Route::get('/users', 'UserController@getAll');
-Route::get('/orders', 'OrderController@getAll');
-Route::get('/stores', 'StoreController@index');
+
+Route::get('/users', 'API\UserController@index');
+
+Route::get('/orders', 'API\OrderController@getAll');
+
 Route::get('/users/{user}', 'UserController@show');
-Route::get('/roles', 'RoleController@getAll');
 
+Route::get('/search', 'API\ProductController@search');
 
-Route::get('/search', 'ProductController@apiSearch');
+Route::get('/cart-items', 'API\CartItemsController@index');
+
+Route::post('/products/filter', 'API\ProductController@filter');
+
+Route::get('/auth-role', 'API\UserController@authUser');
+
+Route::post('/shipments', 'API\ShipmentController@index');
+
+Route::get('/products/{id}', 'API\ProductController@show');
+
+Route::get('/products/', 'API\ProductController@index');

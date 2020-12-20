@@ -36,12 +36,13 @@
                                 </v-list-item-content>
 
                                 <v-list-item-action>
-                                    <v-btn title="Open in new window"  
+                                    <v-btn title="Add to cart"  
                                         @click="callStoreCartItem(item.id)"
                                         depressed
                                         small
                                         color="teal lighten-2"
                                         class="mb-1"
+                                        style="background-color: #009688; color: #fff; text-decoration: none;"
                                     >
                                         <v-icon
                                             color="orange darken-4"
@@ -51,11 +52,11 @@
                                         mdi-cart-plus
                                         </v-icon>
                                     </v-btn>
-                                    <v-btn title="Open in new window"  :href="`/products/show/${item.id}`"
+                                    <v-btn title="Open in new window" :href="`/products/show/${item.id}`"
                                         @click="openSingleComponent(filteredProduct.id)"
                                         depressed
                                         small
-                                        style="text-decoration: none;"
+                                        style="background-color: #009688; color: #fff; text-decoration: none;"
                                         >
                                         <v-icon 
                                             color="orange darken-4"

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-app>
+        <v-container>
             <v-card
                 class="mx-auto mt-3"
                 max-width="600"
@@ -16,7 +16,7 @@
                             <v-row>
                                 <v-col cols="4">
                                     <v-img src="https://picsum.photos/510/300?random" class="ml-3" aspect-ratio="1.7"
-                                           height="230px"></v-img>
+                                        height="230px"></v-img>
                                 </v-col>
                                 <v-col cols="8">
                                     <v-card-title class="headline">
@@ -45,24 +45,24 @@
                                     <v-card-actions class="card-actions">
                                         <v-btn text>
                                             <i class="fa fa-plus-circle pr-3" aria-hidden="true"
-                                               @click="changeQuantity({id:cartItem.id, value: 'increase'})">
+                                            @click="changeQuantity({id:cartItem.id, value: 'increase'})">
                                             </i>
                                         </v-btn>
 
                                         <input type="text" :value="cartItem.quantity"
-                                               style="width:25px; color: white"
-                                               @input="changeQuantity({id:cartItem.id, value: this.quantity})">
+                                            style="width:25px; color: white"
+                                            @input="changeQuantity({id:cartItem.id, value: this.quantity})">
 
                                         <v-btn text>
                                             <i class="fa fa-minus-circle pr-3" aria-hidden="true"
-                                               @click="changeQuantity({id: cartItem.id, value: 'decrease'})">
+                                            @click="changeQuantity({id: cartItem.id, value: 'decrease'})">
                                             </i>
                                         </v-btn>
 
                                         ${{ cartItem.quantity * cartItem.relationships.product.data.price }}
 
                                         <v-btn text><i class="fa fa-remove"
-                                                       @click="deleteCartItem(cartItem.id)"></i>
+                                                    @click="deleteCartItem(cartItem.id)"></i>
                                         </v-btn>
                                     </v-card-actions>
                                 </v-col>
@@ -71,19 +71,25 @@
                     </v-row>
                 </v-container>
                 <v-container>
-                    <v-btn :href="'/products/search'">
-                        <i class="fa fa-arrow-left" aria-hidden="true"></i>Add more items
-                    </v-btn>
-                    <v-btn text>
-                        <b>Total: $ {{ this.getTotalPremium }}</b>
-                    </v-btn>
-                    <v-btn :href="'/checkout'">
-                        Checkout
-                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                    </v-btn>
+                    <v-row no-gutters>
+                        <v-col>
+                            <v-btn :href="'/products/search'" style="width: 100%">
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i>Add more items
+                            </v-btn>
+                        </v-col>
+                        <v-col align="center">
+                            <b>Total: $ {{ this.getTotalPremium }}</b>
+                        </v-col>
+                        <v-col>
+                            <v-btn :href="'/checkout'" class="pull-right" style="width: 100%">
+                                Checkout
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            </v-btn>
+                        </v-col>
+                    </v-row>
                 </v-container>
             </v-card>
-        </v-app>
+        </v-container>
     </div>
 </template>
 
@@ -94,10 +100,13 @@
     export default {
         name: 'cart-items',
         computed: {
-            ...mapGetters('cartItem', [
-                'getCartItems',
-                'getTotalPremium'
-            ])
+            ...mapGetters(
+                'cartItem', 
+                [
+                    'getCartItems',
+                    'getTotalPremium'
+                ]
+            )
         },
         methods: {
             ...mapActions(
@@ -107,7 +116,7 @@
                     'increaseQuantity',
                     'decreaseQuantity',
                     'changeQuantity',
-                    'deleteCartItem'
+                    'deleteCartItem',
                 ]
             ),
         },
@@ -118,6 +127,7 @@
         },
         created() {
             this.setCartItems();
+            this.getTotalPremium;
         },
     }
 </script>

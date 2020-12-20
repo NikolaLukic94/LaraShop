@@ -12,7 +12,6 @@ class PaymentMethodController extends Controller
 {
     public function getAll()
     {
-        //return collection of articles as a resource
         return PaymentMethodResource::collection(
             PaymentMethod::paginate(15)
         );

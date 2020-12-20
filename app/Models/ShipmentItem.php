@@ -9,4 +9,9 @@ class ShipmentItem extends Model
     protected $fillable = [
         'shipment_id', 'order_item_id', 'user_address_id'
     ];
+
+    public function orderItem()
+    {
+        return $this->belongsTo(OrderItem::class);
+    }
 }

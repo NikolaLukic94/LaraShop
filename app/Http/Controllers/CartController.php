@@ -10,16 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function all()
-    {
-        $cart = Cart::where('user_id', 1)->with('cartItems')->first();
-        
-        $cartItems = $cart ? $cart->cartItems : [];
-
-        // $cartItem = CartItem::paginate(15);
-        return CartItemResource::collection($cartItems);
-    }
-
     public function index()
     {
         return view('cart.index');

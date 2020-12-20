@@ -10,13 +10,6 @@ use App\Http\Resources\Shipment as ShipmentResource;
 
 class ShipmentController extends Controller
 {
-    public function getAll()
-    {
-        return ShipmentResource::collection(
-            Shipment::paginate(15)
-        );
-    }
-
     public function index()
     {
         return view('shipments.index');

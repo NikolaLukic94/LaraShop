@@ -8,35 +8,13 @@ use Storage;
 use App\Http\Requests\StoreProduct;
 use App\Http\Requests\UpdateProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
+// use App\Http\Controllers\Controller;
 use App\Http\Resources\Product as ProductResource;
 use App\Http\Resources\ProductRelationshipsResource as ProductRelationshipsResource;
-use Illuminate\Support\Facades\Redis;
 
 class ProductController extends Controller
 {
-    /**
-     * Return a resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getAll()
-    {
-        //return collection of articles as a resource
-        return ProductResource::collection(
-            Product::paginate(15)
-        );
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function home()
-    {
-        return view('products.home');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -66,16 +44,27 @@ class ProductController extends Controller
     // StoreProduct
     public function store(Request $request)
     {
-        $product = Product::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'color' => $request->color,
-            'size' => $request->size,
-            // 'other' => $request->other,
-            'quantity' => $request->quantity,
-            'product_type_id' => $request->productTypeId
-        ]);
+        if ($product = Product::find($request['id'])) {
+
+            $product->name = $request['name'];
+            $product->description = $request['description'];
+            $product->price = $request['price'];
+            $product->color = $request['color'];
+            $product->quantity = $request['quantity'];
+
+            $product->save();
+        } else {
+            $product = Product::create([
+                'name' => $request['name'],
+                'description' => $request['description'],
+                'price' => $request['price'],
+                'color' => $request['color'],
+                // 'size' => $request['size'],
+                // 'other' => $request->other,
+                'quantity' => $request['quantity'],
+                'product_type_id' => $request['productTypeId']
+            ]);
+        }
 
         // $images = $request->images;
 
@@ -103,12 +92,14 @@ class ProductController extends Controller
      * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
+        $product = Product::find($id);
+
         $visits = Redis::zincrby('trending_products.', 1 , $product);
 
         return view('products.show', [
-            'product' => $product,
+            'product' => $id, 
             'visits' => $visits
         ]);
     }
@@ -154,18 +145,6 @@ class ProductController extends Controller
         ]);
     }
 
-    public function apiSearch(Request $request)
-    {
-        $query = (string)$request->searchBy;
-
-        $products = Product::where('name', 'like', '%' . $query . '%')
-            ->orWhere('author', 'like', '%' . $query . '%')
-            ->orWhere('publisher', 'like', '%' . $query . '%')
-            ->get();
-
-        return ProductResource::collection($products);
-    }
-
     public function search()
     {
         // get recommended books - the ones sold the most
@@ -176,18 +155,4 @@ class ProductController extends Controller
         return view('products.search');
     }
 
-    public function filter(Request $request)
-    {
-        if ($request->name == 'mostPopular') {
-            $trending = Redis::zrevrange('trending_products.', 0, 2); //returns an Array
-            $products = \App\Models\Product::hydrate(array_map('json_decode', $trending));
-        } else if ($request->name == 'recommended') {
-            $bestsellers = Redis::zrevrange('bestsellers.', 0, 2); //returns an Array
-            $products = \App\Models\Product::hydrate(array_map('json_decode', $bestsellers));
-        } else {
-            $products = Product::where('name', 'like', '%' . $request->name . '%')->get();
-        }
-
-        return ProductResource::collection($products);
-    }
 }
