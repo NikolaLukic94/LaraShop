@@ -9,23 +9,23 @@ const getters = {
 const actions = {
     setOrderStatusCodes({commit}) {
         return axios.get('/api/order-status-codes')
-              .then((response) => {
-                commit('setOrderStatusCodes', response.data.data); 
+            .then((response) => {
+                commit('setOrderStatusCodes', response.data.data);
                 console.log(response)
                 toast.fire({
                     icon: 'success',
                     type: 'success',
                     title: 'Order status codes fetched!'
                 })
-              })
-              .catch(function (error) {
+            })
+            .catch(function (error) {
                 console.log(error);
-              })
+            })
     },
     createOrderStatusCode({commit}, name) {
         return axios.post('/order-status-codes', {
-                name: name
-            })
+            name: name
+        })
             .then(function (response) {
                 commit('createOrderStatusCode', response.data.createdOrderStatusCode)
                 toast.fire({
@@ -52,15 +52,15 @@ const actions = {
         return axios.put('/order-status-codes/' + inputParams.id, {
             name: inputParams.name
         })
-        .then((response) => {
-            commit('updateOrderStatusCode', inputParams)
-            toast.fire({
-                icon: response.data.status,
-                type: response.data.status,
-                title: response.data.message
+            .then((response) => {
+                commit('updateOrderStatusCode', inputParams)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
+                    .catch(err => console.log(err))
             })
-            .catch(err => console.log(err))
-        })
     }
 };
 
@@ -82,7 +82,7 @@ const mutations = {
 
 export default {
     namespaced: true,
-    state, 
+    state,
     getters,
     actions,
     mutations,

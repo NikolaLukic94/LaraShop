@@ -25,25 +25,25 @@ import role from './role';
 const debug = process.env.NODE_ENV !== 'production';
 
 export default new Vuex.Store({
-  modules: {
-    indexStatusCodes,
-    orderItemsStatusCodes,
-    orderStatusCodes,
-    productTypes,
-    paymentMethods,
-    users,
-    products,
-    invoices,
-    cartItem,
-    userAddress,
-    orderReview,
-    order,
-    shipmentStatus,
-    shipment,
-    payment,
-    aStore,
-    role
-  },
-  strict:debug
+    modules: {
+        indexStatusCodes,
+        orderItemsStatusCodes,
+        orderStatusCodes,
+        productTypes,
+        paymentMethods,
+        users,
+        products,
+        invoices,
+        cartItem,
+        userAddress,
+        orderReview,
+        order,
+        shipmentStatus,
+        shipment,
+        payment,
+        aStore,
+        role
+    },
+    strict: debug
 
 });

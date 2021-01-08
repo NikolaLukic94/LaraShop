@@ -10,12 +10,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'HomeController@welcome');
 
-Auth::routes();
-
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::group(['middleware' => 'verified'], function () {
+
+    // create own api permissions controller
+    Route::get('permissions', 'API\UserController@permissions');
 
     Route::get('order/payment', 'OrderController@create');
 
@@ -70,6 +71,7 @@ Route::group(['middleware' => 'verified'], function () {
 
     Route::group(['prefix' => '/users'], function() {
         Route::get('/', 'UserController@index');
+        Route::get('/{user}', 'UserController@edit');
         Route::post('/', 'UserController@store');
         Route::get('/{user}/edit', 'UserController@edit');
         Route::post('/users/update/{user}', 'UserController@update'); // todo: unify
@@ -78,6 +80,7 @@ Route::group(['middleware' => 'verified'], function () {
 
     Route::group(['prefix' => '/roles'], function() {
         Route::get('/', 'RoleController@index');
+        Route::get('/{role}', 'RoleController@show');
         Route::post('/', 'RoleController@store');
         Route::get('/{roles}/edit', 'RoleController@edit');
         Route::post('roles/{role}', 'RoleController@update'); // todo
@@ -94,15 +97,10 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/index', 'InvoiceController@index');
     });
 
-    Route::group(['prefix' => 'cart-items', 'middleware' ], function() {
-        Route::post('/', 'CartItemController@store');
-        Route::post('/{id}/edit', 'CartItemController@update');
-        Route::delete('/{cartItem}', 'CartItemController@destroy');
-    });
+    Route::get('/cart/index', 'CartItemController');
 
-    Route::get('/cart/index', 'CartController@index');
-    Route::post('/cart/create/{id}', 'CartController@store'); 
-    
+    Route::post('/cart/create/{id}', 'CartController@store');
+
     Route::group(['prefix' => 'products'], function() {
         Route::get('/', 'ProductController@index');
         Route::post('/create', 'ProductController@store');
@@ -122,7 +120,13 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/', 'DashboardChartController@index');
         Route::get('/monthly-breakdown', 'DashboardChartController@getMonthlySalesBreakdown');
     });
-    
+
+    Route::group(['prefix' => '/api/cart-items' ], function() {
+        Route::get('/', 'API\CartItemsController@index');
+        Route::post('/', 'API\CartItemsController@store');
+        Route::post('/{id}/edit', 'API\CartItemsController@update');
+        Route::delete('/{cartItem}', 'API\CartItemsController@destroy');
+    });
 });
 
 Route::post('stripe-payment', 'StripeController@store')->name('stripe.payment');

@@ -9,18 +9,18 @@ const getters = {
 const actions = {
     setRoles({commit}) {
         return axios.get('/api/roles')
-              .then((response) => {
-                commit('setRoles', response.data.data); 
+            .then((response) => {
+                commit('setRoles', response.data.data);
 
                 toast.fire({
                     icon: 'success',
                     type: 'success',
                     title: 'Roles fetched!'
                 })
-              })
-              .catch(function (error) {
+            })
+            .catch(function (error) {
                 console.log(error);
-              })
+            })
     },
 };
 
@@ -32,7 +32,7 @@ const mutations = {
 
 export default {
     namespaced: true,
-    state, 
+    state,
     getters,
     actions,
     mutations,

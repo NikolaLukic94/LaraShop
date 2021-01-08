@@ -6,7 +6,6 @@ use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\Product as ProductResource;
-use App\Http\Resources\ProductRelationshipsResource as ProductRelationshipsResource;
 use Illuminate\Support\Facades\Redis;
 
 class ProductController extends Controller
@@ -27,12 +26,25 @@ class ProductController extends Controller
     {
         if ($request->name == 'mostPopular') {
             $trending = Redis::zrevrange('trending_products.', 0, 2); //returns an Array
-            $products = \App\Models\Product::hydrate(array_map('json_decode', $trending));
+            $products = Product::hydrate(array_map('json_decode', $trending));
         } else if ($request->name == 'recommended') {
             $bestsellers = Redis::zrevrange('bestsellers.', 0, 2); //returns an Array
-            $products = \App\Models\Product::hydrate(array_map('json_decode', $bestsellers));
+            $products = Product::hydrate(array_map('json_decode', $bestsellers));
         } else {
             $products = Product::where('name', 'like', '%' . $request->name . '%')->get();
+        }
+
+        $number = 0;
+
+        if (count($products) < 5) {
+            $number = count($products) - 5;
+        } elseif ((count($products) % 5) !== 0) {
+            $number = 5 - count($products) % 5;
+        }
+
+        if ($number !== 0) {
+            $remainingProducts = Product::get()->take($number);
+            $products = $products->merge($remainingProducts);
         }
 
         return ProductResource::collection($products);

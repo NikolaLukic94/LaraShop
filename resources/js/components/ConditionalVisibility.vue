@@ -19,10 +19,10 @@
         },
         mounted() {
             window.addEventListener('scroll', () => {
-                this.shouldDisplay = ! inViewport(
+                this.shouldDisplay = !inViewport(
                     document.querySelector(this.whenHidden)
                 );
-            }, { passive: true });
+            }, {passive: true});
         }
     }
 </script>

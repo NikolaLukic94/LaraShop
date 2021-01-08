@@ -13,11 +13,6 @@ class CartItem extends Model
         return $this->belongsTo(Cart::class);
     }
 
-    // public function user()
-    // {
-    //     return $this->belongsTo('App\User');
-    // }
-
     public function product()
     {
         return $this->belongsTo(Product::class);

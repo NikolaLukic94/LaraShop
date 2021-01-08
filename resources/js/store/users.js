@@ -10,7 +10,7 @@ const actions = {
     setUsers({commit}) {
         return axios.get('/api/users')
             .then((response) => {
-                commit('setUsers', response.data.data); 
+                commit('setUsers', response.data.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -30,12 +30,12 @@ const actions = {
     },
     storeUser({commit}, userParams) {
         return axios.post('/users', {
-                name: userParams.name,
-                password: userParams.password,
-                email: userParams.email
-            })
+            name: userParams.name,
+            password: userParams.password,
+            email: userParams.email
+        })
             .then((response) => {
-                commit('setUser', response.data.user); 
+                commit('setUser', response.data.user);
                 toast.fire({
                     icon: response.data.status,
                     type: response.data.status,
@@ -43,7 +43,7 @@ const actions = {
                 })
             })
             .catch(function (error) {
-        })
+            })
     },
 };
 
@@ -61,7 +61,7 @@ const mutations = {
 
 export default {
     namespaced: true,
-    state, 
+    state,
     getters,
     actions,
     mutations,

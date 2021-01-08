@@ -1,9 +1,10 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\Permission;
+use Illuminate\Support\Facades\DB;
 
 class RolesSeeder extends Seeder
 {
@@ -17,19 +18,23 @@ class RolesSeeder extends Seeder
         $roles = config('seeders.roles');
 
         foreach ($roles as $role) {
-            
+
             Role::create([
                 'name' => $role,
                 'guard_name' => 'web'
             ]);
         }
 
-        // $role = Role::first();
+         $role = Role::first();
 
-        // $permissions = Permission::get()->toArray();
+         $permissions = Permission::get();
 
-        // $permissions = array_column($permissions, 'id');
-
-        // $role->syncPermissions([$permissions]);
+         foreach ($permissions as $permission)
+         {
+             DB::table('role_has_permissions')->insert([
+                 'role_id' => $role->id,
+                 'permission_id' => $permission->id
+             ]);
+         }
     }
 }

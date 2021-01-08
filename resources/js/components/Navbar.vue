@@ -1,69 +1,48 @@
 <template>
-    <div id="app">
-      <v-card>
-        <div id="navbar">
-            <p class="p-1 pt-2 ml-3 mb-0" style="display: inline-block;">
-                <i class="fa fa-flag" aria-hidden="true"></i>
-                Ship to: everywhere
-            </p>
-            <p class="p-1 ml-3 mb-0" style="display: inline-block;">
-                <i class="fa fa-question-circle" aria-hidden="true"></i>
-                Can we help you?
-            </p>
-            <p class="p-1 ml-3 mb-0" style="display: inline-block;">
-                <i class="fa fa-mobile" aria-hidden="true"></i>
-                +381 652 66 33
-            </p>
-            <p class="p-1 pt-2 ml-3 mb-0" style="display: inline-block;">
-                Sustainability
-            </p>
-            <p class="p-1 pt-2 ml-3 mb-0" style="display: inline-block;">
-              Shops
-            </p>
-            <p class="p-1 mr-3 mb-0" style="display: inline-block;float: right;">
-                <div class="dropdown dropleft" style="display: inline-block;float: right;">
-                  <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/login">
-                        Login
-                    </a>
-                    <a class="dropdown-item" href="/profile">
-                        Profile
-                    </a>
-                    <a class="dropdown-item" href="/register">Sign In</a>
-                    <a class="dropdown-item" @click="sendLogOutRequest()">Logout</a>
-                  </div>
-                </div>
-            <cart-component></cart-component>
-          </div>
-        </v-card>
-        <v-card style="border-top: 3px solid #008080;">
-          <div style="display: inline;">
-            <div style="display: inline-block;">
-              <a href="/">
-                <img src="/img/logo.png" height="110px;">
-              </a>
-            </div>|
-            <p class="p-1 ml-3 mb-0 navbar-p">
-              NEW
-            </p>|
-            <p class="p-1 ml-3 mb-0 navbar-p">
-              POPULAR
-            </p>|
-            <p class="p-1 ml-3 mb-0 navbar-p">
-              DISCOUNTS
-            </p>|
-            <p class="p-1 ml-3 mb-0 navbar-p">
-              BESTSELLERS
-            </p>
-            <p class="p-1 ml-3 mb-0" style="display: inline-block; float:right; margin-top: 20px; margin-right:30px; font-weight: 500;">
-              <autocomplete></autocomplete>
-            </p>
-          </div>
-        </v-card>
-  </div>
+    <v-app style="height: 110px;">
+        <v-row>
+            <v-col cols=2 class="text-center">
+                <a href="/">
+                    <img src="/img/logo.png" height="110px;">
+                </a>
+            </v-col>
+            <v-col cols=10 class="mt-5">
+                <v-tabs color="teal" center-active class="v-tab-main">
+                    <v-tab @click="home = !home">Home</v-tab>
+                    <v-tab @click="product = !product">Browse</v-tab>
+                    <v-tab>Workshops</v-tab>
+                    <v-tab @click="about = !about">About</v-tab>
+                    <v-tab @click="gMap = !gMap">
+                        <v-icon color="teal" style="text-decoration:none" :href="'/maps'">
+                            mdi-google-maps
+                        </v-icon>
+                    </v-tab>
+                    <v-tab @click="showSearch = !showSearch">
+                        <autocomplete></autocomplete>
+                    </v-tab>
+                    <v-spacer></v-spacer>
+                    <v-tab class="mr-3"
+                           @click="login = !login"
+                           v-if="!this.authUser"
+                    >
+                        <v-icon class="pr-2" color="teal">mdi-nature-people</v-icon>
+                        Log In
+                    </v-tab>
+                    <v-tab
+                        class="mr-12"
+                        style="background-color: #008080; color: #fff;"
+                        v-if="!this.authUser"
+                        @click="register = !register"
+                    >
+                        Join
+                    </v-tab>
+                    <v-tab @click="checkout = !checkout" class="mr-12">
+                        <cart-component></cart-component>
+                    </v-tab>
+                </v-tabs>
+            </v-col>
+        </v-row>
+    </v-app>
 </template>
 
 <script>
@@ -71,6 +50,16 @@
         name: 'navbar-component',
         data() {
             return {
+                authUser: false,
+                home: false,
+                searchPage: false,
+                showSearch: false,
+                login: false,
+                register: false,
+                product: false,
+                checkout: false,
+                gMap: false,
+                about: false,
                 menu: [
                     {icon: 'home', title: 'home', href: '/'},
                     {icon: 'about us', title: 'about us', href: 'about-us'},
@@ -81,25 +70,77 @@
             }
         },
         methods: {
-           sendLogOutRequest() {
-                 axios.post('/logout')
-                  .then(() => location.href = '/home')
-           }            
+            sendLogOutRequest() {
+                axios.post('/logout')
+                    .then(() => location.href = '/home')
+            },
+            onClickButton(event) {
+                this.$emit('clicked', 'someValue')
+            },
+            getAuthStatus() {
+                axios.get('/api/user')
+                    .then(response => {
+                        this.authUser = response.data === 1;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        },
+        created() {
+            this.getAuthStatus();
+        },
+        updated() {
+            this.getAuthStatus();
+        },
+        watch: {
+            // change to watch all at once and apss newVal as second param to this.$emit
+            login: function (newVal) {
+                this.$emit('clicked', 'login')
+            },
+            register: function (newVal) {
+                this.$emit('clicked', 'register')
+            },
+            home: function (newVal) {
+                this.$emit('clicked', 'home')
+            },
+            product: function (newVal) {
+                this.$emit('clicked', 'product')
+            },
+            gMap: function (newVal) {
+                this.$emit('clicked', 'gMap')
+            },
+            checkout: function (newVal) {
+                this.$emit('clicked', 'checkout')
+            },
+            about: function (newVal) {
+                this.$emit('clicked', 'about')
+            },
         },
     }
 </script>
 
 <style scoped>
-  .navbar-p {
-    display: inline-block; 
-    font-weight: 500; 
-    margin-right: 20px;
-  }
+    .navbar-p {
+        display: inline-block;
+        font-weight: 500;
+        margin-right: 20px;
+    }
 
-  #navbar {
-    display: inline; 
-    font-family:Century Gothic; 
-    font-size: 13px; 
-    padding-left: 175px;
-  }
+    #navbar {
+        display: inline;
+        font-family: Century Gothic;
+        font-size: 13px;
+        padding-left: 175px;
+    }
+
+    .v-tab-main {
+        font-family: OpenSans, sans-serif, arial;
+        text-transform: uppercase;
+        letter-spacing: .075em;
+        max-height: 3.7em;
+        cursor: pointer;
+        font-weight: 400;
+        height: 150px;
+    }
 </style>

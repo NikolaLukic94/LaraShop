@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <v-card
-        class="mb-3"
-        elevation="2"
-    >
-        <div>
-            <v-container>
+    <div>
+        <v-card
+            class="mb-3"
+            elevation="2"
+        >
+            <div>
+                <v-container>
                 <span v-if="!this.expand" @click="expand=!expand">
                     <v-toolbar-title>Add new</v-toolbar-title>
                 </span>
-                <span v-if="this.expand">
+                    <span v-if="this.expand">
                     <v-row>
                         <v-col>
                             <v-text-field
@@ -26,16 +26,13 @@
                         <v-icon color="green darken-2">mdi-arrow-collapse-vertical</v-icon>
                     </v-btn>
                 </span>
-            </v-container>
-        </div>
-    </v-card>
-  </div>
+                </v-container>
+            </div>
+        </v-card>
+    </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { mapActions } from 'vuex';
-    import { VueGoodTable } from 'vue-good-table';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
@@ -57,7 +54,6 @@
         },
         methods: {
             sendCreateRequest() {
-                console.log(this.statusName)
                 this.$store.dispatch(
                     this.statusName + '/' + this.methodName, this.newName
                 );

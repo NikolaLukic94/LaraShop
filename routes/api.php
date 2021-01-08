@@ -23,11 +23,9 @@ Route::get('/users', 'API\UserController@index');
 
 Route::get('/orders', 'API\OrderController@getAll');
 
-Route::get('/users/{user}', 'UserController@show');
+Route::get('/user', 'API\UserController@authUser');
 
 Route::get('/search', 'API\ProductController@search');
-
-Route::get('/cart-items', 'API\CartItemsController@index');
 
 Route::post('/products/filter', 'API\ProductController@filter');
 

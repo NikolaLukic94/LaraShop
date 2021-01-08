@@ -1,24 +1,22 @@
 <template>
-  <div>
-    <div class="container">
+    <div>
+        <div class="container">
         <span v-if="this.product.relationships.images.data">
             <div v-for="image in this.product.relationships.images.data">
                 <img v-bind:src="image.imagePath" alt="">
             </div>
         </span>
-        <p>{{ this.product.id }}</p>
-        <p>{{ this.product.name }}</p>
-        <p>{{ this.product.author }}</p>
-        <p>{{ this.product.publisher }}</p>
-        <button class="btn btn-info" @click="callStoreCartItem()">Add to cart</button>
+            <p>{{ this.product.id }}</p>
+            <p>{{ this.product.name }}</p>
+            <p>{{ this.product.author }}</p>
+            <p>{{ this.product.publisher }}</p>
+            <button class="btn btn-info" @click="callStoreCartItem()">Add to cart</button>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { mapActions } from 'vuex';
-    import { VueGoodTable } from 'vue-good-table';
+    import {mapActions} from 'vuex';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {

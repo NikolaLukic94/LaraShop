@@ -23,19 +23,19 @@
             </v-list-item>
             <v-container class="grey lighten-5">
                 <div>
-                    <v-text-field 
+                    <v-text-field
                         v-model="owner"
-                        label="Name on Card" 
-                        :rules="ownerRules" 
-                        hide-details="auto" 
+                        label="Name on Card"
+                        :rules="ownerRules"
+                        hide-details="auto"
                         class="mb-3">
                     </v-text-field>
                 </div>
                 <div>
                     <v-text-field
                         v-model="cardNumber"
-                        label="Card Number" 
-                        :rules="cardNumberRules" 
+                        label="Card Number"
+                        :rules="cardNumberRules"
                         hide-details="auto"
                         class="mb-3">
                     </v-text-field>
@@ -45,21 +45,10 @@
                         cols="12"
                         sm="4"
                     >
-                        <v-text-field 
+                        <v-text-field
                             v-model="ccv"
-                            label="CCV" 
-                            :rules="ccvRules" 
-                            hide-details="auto" 
-                            class="mb-3 mr-2">
-                        </v-text-field>
-                    </v-col>
-                    <v-col
-                        cols="12"
-                        sm="4"
-                    >
-                        <v-text-field 
-                            label="Expiration month" 
-                            :rules="expirationDateRules" 
+                            label="CCV"
+                            :rules="ccvRules"
                             hide-details="auto"
                             class="mb-3 mr-2">
                         </v-text-field>
@@ -68,10 +57,21 @@
                         cols="12"
                         sm="4"
                     >
-                        <v-text-field 
-                            label="Expiration Year" 
-                            :rules="yearRules" 
-                            hide-details="auto" 
+                        <v-text-field
+                            label="Expiration month"
+                            :rules="expirationDateRules"
+                            hide-details="auto"
+                            class="mb-3 mr-2">
+                        </v-text-field>
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        sm="4"
+                    >
+                        <v-text-field
+                            label="Expiration Year"
+                            :rules="yearRules"
+                            hide-details="auto"
                             class="mb-3">
                         </v-text-field>
                     </v-col>
@@ -117,9 +117,9 @@
                 payload.owner = this.owner;
                 payload.ccv = this.ccv;
                 payload.cardNumber = this.cardNumber,
-                payload.expiration = this.expiration,
-                payload.year = this.year,
-                payload.cardType = this.cardType
+                    payload.expiration = this.expiration,
+                    payload.year = this.year,
+                    payload.cardType = this.cardType
 
                 this.createPayment(payload);
             },

@@ -16,17 +16,17 @@ const actions = {
             .catch(function (error) {
                 console.log(error);
             })
-        },
-        createPayment({commit}, request) {
-            return axios.post('/user-payments/create', {
-                owner:request.owner,
-                ccv:request.ccv,
-                cardNumber:request.cardNumber,
-                expiration:request.expiration,
-                year:request.year,
-                cardType:request.cardType,
-                paymentMethodId: 1
-            })
+    },
+    createPayment({commit}, request) {
+        return axios.post('/user-payments/create', {
+            owner: request.owner,
+            ccv: request.ccv,
+            cardNumber: request.cardNumber,
+            expiration: request.expiration,
+            year: request.year,
+            cardType: request.cardType,
+            paymentMethodId: 1
+        })
             .then((response) => {
                 commit('createPayment', response.data.createdPaymentMethod)
                 toast.fire({
@@ -53,15 +53,15 @@ const actions = {
         return axios.post('/payments/edit/' + id, {
             name: name
         })
-        .then((response) => {
-            commit('updatePayment', {id, name})
-            toast.fire({
-                icon: response.data.status,
-                type: response.data.status,
-                title: response.data.message
+            .then((response) => {
+                commit('updatePayment', {id, name})
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
-        })
-        .catch(err => console.log(err))
+            .catch(err => console.log(err))
     }
 };
 

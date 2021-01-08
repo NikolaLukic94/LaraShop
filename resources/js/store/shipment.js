@@ -11,7 +11,7 @@ const actions = {
         return axios.get('/shipment/index')
             .then((response) => {
                 console.log('asasd', response.data.data)
-                commit('setShipments', response); 
+                commit('setShipments', response);
             })
             .catch(function (error) {
             })
@@ -26,7 +26,7 @@ const mutations = {
 
 export default {
     namespaced: true,
-    state, 
+    state,
     getters,
     actions,
     mutations,

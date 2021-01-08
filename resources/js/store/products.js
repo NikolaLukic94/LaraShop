@@ -1,4 +1,4 @@
-import { create } from "lodash";
+import {create} from "lodash";
 
 const state = {
     products: [],
@@ -18,7 +18,7 @@ const actions = {
     setProducts({commit}) {
         return axios.get('/api/products')
             .then((response) => {
-                commit('setProducts', response.data.data); 
+                commit('setProducts', response.data.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -27,7 +27,7 @@ const actions = {
     setFilteredProducts({commit}) {
         return axios.get('/api/products')
             .then((response) => {
-                commit('setFilteredProducts', response.data.data); 
+                commit('setFilteredProducts', response.data.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -37,8 +37,8 @@ const actions = {
         let param = typeof name == "object" ? name.type : name;
 
         return axios.post('/api/products/filter', {
-                name: param
-            })
+            name: param
+        })
             .then(function (response) {
                 if (param == 'recommended') {
                     commit('setRecomended', response.data.data)
@@ -74,7 +74,7 @@ const actions = {
                     title: response.data.message
                 })
             })
-            .catch(err => console.log(err)) 
+            .catch(err => console.log(err))
     },
     updateProduct({commit}, request) {
 
@@ -100,19 +100,19 @@ const actions = {
                     title: response.data.message
                 })
             })
-            .catch(err => console.log(err)) 
+            .catch(err => console.log(err))
     },
     deleteProduct({commit}, id) {
         return axios.post('/products/delete/' + id
-            ).then(function (response) {
-                commit('deleteProduct', id)
-                toast.fire({
-                    icon: response.data.status,
-                    type: response.data.status,
-                    title: response.data.message
-                })
+        ).then(function (response) {
+            commit('deleteProduct', id)
+            toast.fire({
+                icon: response.data.status,
+                type: response.data.status,
+                title: response.data.message
             })
-            .catch(err => console.log(err)) 
+        })
+            .catch(err => console.log(err))
     }
 };
 
@@ -131,7 +131,7 @@ const mutations = {
     },
     updateProduct: (state, createdProduct) => {
         let updatedProduct = state.products.find(p => p.id === createdProduct.id);
-        
+
         updatedProduct.name = createdProduct.name;
         updatedProduct.author = createdProduct.author;
         updatedProduct.description = createdProduct.description;
@@ -154,7 +154,7 @@ const mutations = {
 
 export default {
     namespaced: true,
-    state, 
+    state,
     getters,
     actions,
     mutations,

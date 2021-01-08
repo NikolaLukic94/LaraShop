@@ -12,7 +12,7 @@
         methods: {
             scroll() {
                 document.querySelector(this.href)
-                    .scrollIntoView({ behavior: 'smooth' })
+                    .scrollIntoView({behavior: 'smooth'})
             }
         }
     }

@@ -15,54 +15,42 @@
                         >
                             <v-row>
                                 <v-col cols="4">
-                                    <v-img src="https://picsum.photos/510/300?random" class="ml-3" aspect-ratio="1.7"
-                                        height="230px"></v-img>
+                                    <v-img
+                                        class="ml-2"
+                                        height="230"
+                                        v-bind:src="cartItem.relationships.product.data.relationships.images.data[0].imagePath"
+                                    ></v-img>
                                 </v-col>
                                 <v-col cols="8">
                                     <v-card-title class="headline">
                                         {{ cartItem.relationships.product.data.name }}
                                     </v-card-title>
 
-                                    <v-card-subtitle>Listen to your favorite artists and albums whenever and wherever,
-                                        online and offline.
-                                    </v-card-subtitle>
-
                                     <v-card-subtitle>
-                                        <v-row>
-                                            Cover color:
-                                            {{ cartItem.relationships.product.data.color }}
-                                        </v-row>
-                                        <v-row>
-                                            Dimensions:
-                                            {{ cartItem.relationships.product.data.size }}
-                                        </v-row>
-                                        <v-row>
-                                            Paperback/digital:
-                                            {{ cartItem.relationships.product.data.relationships.productType.data.name}}
-                                        </v-row>
+                                        {{ cartItem.relationships.product.data.otherProductDetails.substring(0, 200)+".." }}
                                     </v-card-subtitle>
 
-                                    <v-card-actions class="card-actions">
+                                    <v-card-actions class="card-actions mt-3">
                                         <v-btn text>
                                             <i class="fa fa-plus-circle pr-3" aria-hidden="true"
-                                            @click="changeQuantity({id:cartItem.id, value: 'increase'})">
+                                               @click="changeQuantity({id:cartItem.id, value: 'increase'})">
                                             </i>
                                         </v-btn>
 
                                         <input type="text" :value="cartItem.quantity"
-                                            style="width:25px; color: white"
-                                            @input="changeQuantity({id:cartItem.id, value: this.quantity})">
+                                               style="width:25px; color: white"
+                                               @input="changeQuantity({id:cartItem.id, value: this.quantity})">
 
                                         <v-btn text>
                                             <i class="fa fa-minus-circle pr-3" aria-hidden="true"
-                                            @click="changeQuantity({id: cartItem.id, value: 'decrease'})">
+                                               @click="changeQuantity({id: cartItem.id, value: 'decrease'})">
                                             </i>
                                         </v-btn>
 
                                         ${{ cartItem.quantity * cartItem.relationships.product.data.price }}
 
                                         <v-btn text><i class="fa fa-remove"
-                                                    @click="deleteCartItem(cartItem.id)"></i>
+                                                       @click="deleteCartItem(cartItem.id)"></i>
                                         </v-btn>
                                     </v-card-actions>
                                 </v-col>
@@ -101,7 +89,7 @@
         name: 'cart-items',
         computed: {
             ...mapGetters(
-                'cartItem', 
+                'cartItem',
                 [
                     'getCartItems',
                     'getTotalPremium'

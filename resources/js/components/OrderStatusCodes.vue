@@ -1,19 +1,19 @@
 <template>
-  <div>
-    <div class="container">
-        <statuses-component 
-          v-bind:statusName="'orderStatusCodes'"  
-          v-bind:methodName="'createOrderStatusCode'">
-        </statuses-component>
-        <vue-good-table
-            :pagination-options="{
+    <div>
+        <div class="container">
+            <statuses-component
+                v-bind:statusName="'orderStatusCodes'"
+                v-bind:methodName="'createOrderStatusCode'">
+            </statuses-component>
+            <vue-good-table
+                :pagination-options="{
               enabled: true
-            }"        
-            theme="black-rhino"
-            styleClass="vgt-table striped"
-            :columns="columns"
-            :rows="getOrderStatusCodes">
-            <template slot="table-row" slot-scope="props">
+            }"
+                theme="black-rhino"
+                styleClass="vgt-table striped"
+                :columns="columns"
+                :rows="getOrderStatusCodes">
+                <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
@@ -71,31 +71,26 @@
                       </v-dialog>
                   </div>
                 </div>
-              </span> 
-              <span v-else>
+              </span>
+                    <span v-else>
                 {{props.formattedRow[props.column.field]}}
               </span>
-            </template>
+                </template>
 
-        </vue-good-table>
+            </vue-good-table>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { mapActions } from 'vuex';
-    import { VueGoodTable } from 'vue-good-table';
+    import {mapGetters} from 'vuex';
+    import {mapActions} from 'vuex';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
         name: 'order-item-status-codes-component',
         computed: {
-            ...mapGetters(
-                'orderStatusCodes',
-                [
-                    'getOrderStatusCodes'
-                ])
+            ...mapGetters('orderStatusCodes', ['getOrderStatusCodes'])
         },
         methods: {
             ...mapActions(
@@ -106,24 +101,24 @@
                     'deleteOrderStatusCodes',
                     'updateOrderStatusCode'
                 ]),
-                handleCreateOrderStatusCode() {
-                  this.createOrderStatusCode(this.name);
-                  this.$refs.modalClose.click();
-                  this.name = '';
-                },
-                openDeleteModal(rowId) {
-                  this.$swal.fire({
-                      title: 'Are you sure?',
-                      text: "This will delete it permanently!",
-                      icon: 'warning',
-                      showCancelButton: true,
-                      confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        this.deleteOrderStatusCodes(rowId);
-                    })
-                },
+            handleCreateOrderStatusCode() {
+                this.createOrderStatusCode(this.name);
+                this.$refs.modalClose.click();
+                this.name = '';
+            },
+            openDeleteModal(rowId) {
+                this.$swal.fire({
+                    title: 'Are you sure?',
+                    text: "This will delete it permanently!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    this.deleteOrderStatusCodes(rowId);
+                })
+            },
         },
         data: function () {
             return {
@@ -132,22 +127,22 @@
                 newOrderItemStatusColumnName: '',
                 columns: [
                     {
-                      label: 'Name',
-                      field: 'name',
+                        label: 'Name',
+                        field: 'name',
                     },
                     {
-                      label: 'Created',
-                      field: 'createdAt',
+                        label: 'Created',
+                        field: 'createdAt',
                     },
                     {
-                      label: 'Action',
-                      field: 'action',
-                    },                    
+                        label: 'Action',
+                        field: 'action',
+                    },
                 ]
             }
         },
         created() {
             this.setOrderStatusCodes();
-        },             
+        },
     }
 </script>

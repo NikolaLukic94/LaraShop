@@ -13,7 +13,18 @@ class PermissionsSeeder extends Seeder
      */
     public function run()
     {
-        $classes = ['product', 'order', 'payment', 'dashboard', 'shipment', 'user', 'roles', 'permissions'];
+        $classes = [
+            'product',
+            'order',
+            'payment',
+            'dashboard',
+            'shipment',
+            'user',
+            'roles',
+            'permissions',
+            'report',
+            'role and permission'
+        ];
 
         foreach ($classes as $class) {
             Permission::create([

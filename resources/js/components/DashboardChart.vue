@@ -6,6 +6,7 @@
 
 <script>
     import {Chart} from 'Chart.js';
+
     export default {
         data: function () {
             return {
@@ -44,10 +45,10 @@
                 return axios.get('/dashboard/monthly-breakdown')
                     .then((response) => {
                         this.values = response.data.values;
-                        this.months =  response.data.names;
+                        this.months = response.data.names;
                         this.loaded = true;
                     })
-                        .catch(function (error) {
+                    .catch(function (error) {
                     })
             }
         },
@@ -55,8 +56,8 @@
             this.getSalesBreakdown();
             this.renderChart();
         },
-          watch: {
-                loaded: function () {
+        watch: {
+            loaded: function () {
                 this.renderChart();
             }
         },

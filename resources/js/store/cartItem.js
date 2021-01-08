@@ -6,7 +6,7 @@ const state = {
 
 const getters = {
     getCartItems: state => state.cartItems,
-    getTotalPremium:  state => state.totalPremium
+    getTotalPremium: state => state.totalPremium
 };
 
 const actions = {
@@ -22,7 +22,7 @@ const actions = {
             })
     },
     deleteCartItem({commit}, id) {
-        return axios.delete('/cart-items/' + id)
+        return axios.delete('/api/cart-items/' + id)
             .then((response) => {
                 commit('deleteCartItem', id);
                 toast.fire({
@@ -37,9 +37,9 @@ const actions = {
     },
     changeQuantity({commit}, data) {
         let theId = data.id
-        return axios.post('/cart-items/' + theId + '/edit', {
-                value: data.value
-            })
+        return axios.post('/api/cart-items/' + theId + '/edit', {
+            value: data.value
+        })
             .then((response) => {
                 commit('changeQuantity', {id: theId, quantity: response.data.quantity});
                 toast.fire({
@@ -53,9 +53,9 @@ const actions = {
             })
     },
     storeCartItem: ({commit}, productId) => {
-        return axios.post('/cart-items', {
-                productId: productId,
-            })
+        return axios.post('/api/cart-items', {
+            productId: productId,
+        })
             .then((response) => {
                 commit('storeCartItem', response.data.data);
                 toast.fire({
@@ -86,7 +86,7 @@ const mutations = {
     },
     setAllAreDigital: (state, data) => {
         let nonDigital = Object.keys(data)
-            .filter( key => data[key].relationships.product.data.relationships.productType.data.name !== 'digital');
+            .filter(key => data[key].relationships.product.data.relationships.productType.data.name !== 'digital');
 
         if (nonDigital.length) {
             state.allAreDigital = false;

@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use App\Models\Role;
 use App\Models\User;
@@ -17,11 +18,9 @@ class UsersTableSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@test.com',
             'password' => bcrypt('password'),
-            'email_verified_at' => \Carbon\Carbon::now()
+            'email_verified_at' => Carbon::now()
         ]);
 
-        // $role = Role::where('name', 'superadmin')->first();
-        // $admin->roles->sync($role->id);
-        // $admin->assignRole('superadmin');
+        $admin->assignRole('superadmin');
     }
 }

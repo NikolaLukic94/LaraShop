@@ -9,24 +9,25 @@ const getters = {
 const actions = {
     setShipmentStatuses({commit}) {
         return axios.get('/shupment-statuses')
-        .then((response) => {
-            commit('setShipmentStatuses', response.data.data); 
-        })
-        .catch(function (error) {})
+            .then((response) => {
+                commit('setShipmentStatuses', response.data.data);
+            })
+            .catch(function (error) {
+            })
     },
     createShipmentStatus({commit}, name) {
         return axios.post('/shupment-statuses/create', {
             name: name
         })
-        .then(function (response) {
-            commit('createShipmentStatus', response.data.createdShipmentStatus)
-            toast.fire({
-                icon: response.data.status,
-                type: response.data.status,
-                title: response.data.message
+            .then(function (response) {
+                commit('createShipmentStatus', response.data.createdShipmentStatus)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
-        })
-        .catch(err => console.log(err))
+            .catch(err => console.log(err))
     },
     deleteShipmentStatus({commit}, id) {
         return axios.post('/shupment-statuses/delete/' + id)
@@ -44,15 +45,15 @@ const actions = {
         return axios.post('/shupment-statuses/edit/' + id, {
             name: name
         })
-        .then((response) => {
-            commit('updateInvoiceStatusCode', {id, name})
-            toast.fire({
-                icon: response.data.status,
-                type: response.data.status,
-                title: response.data.message
+            .then((response) => {
+                commit('updateInvoiceStatusCode', {id, name})
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
-        })
-        .catch(err => console.log(err))
+            .catch(err => console.log(err))
     }
 };
 
@@ -74,7 +75,7 @@ const mutations = {
 
 export default {
     namespaced: true,
-    state, 
+    state,
     getters,
     actions,
     mutations,

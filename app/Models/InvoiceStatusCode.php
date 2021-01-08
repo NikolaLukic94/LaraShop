@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InvoiceStatusCode extends Model
 {
-	protected $fillable = ['name'];
+    protected $fillable = ['name'];
 
     public function invoices()
     {

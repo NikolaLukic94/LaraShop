@@ -1,86 +1,111 @@
 <template>
     <div>
-        <v-text-field
-            @input="autoComplete()"
-            v-model="input"
-            outlined
-            label="Search"
-            append-icon="mdi-file-find"
-        ></v-text-field>
-            <span v-if="this.isOpen && this.results.length">
-                <div class="autocomplete-card">
-                    <v-virtual-scroll style="background-color: 	 #fff; border-radius: 5px; border: 1px solid #008080;" 
-                        :items="this.results"
-                        :item-height="100"
-                        height="300"
-                        >
-                        <template v-slot="{ item }" >
-                            <v-list-item>
-                                <v-list-item-avatar class="mr-4" tile>
-                                    <v-avatar
-                                    size="120"
-                                    
-                                    >
-                                        <v-img :src="'/img/cover.jpg'"></v-img>
-                                    </v-avatar>
-                                </v-list-item-avatar>
+        <template>
+            <v-row justify="center">
+                <v-dialog
+                    v-model="dialog"
+                    persistent
+                    max-width="630px"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-icon color="teal" v-bind="attrs" v-on="on">
+                            mdi-search-web
+                        </v-icon>
+                    </template>
+                    <v-card style="height: 500px;">
+                        <v-card-text>
+                            <br>
+                            <br>
+                            <v-responsive
+                                max-width="400"
+                                class="mx-auto"
+                            >
+                                <v-text-field
+                                    v-if="!this.input.length"
+                                    label="Search..."
+                                    hide-details="auto"
+                                    @input="autoComplete()"
+                                    v-model="input"
+                                    color="success"
+                                ></v-text-field>
+                                <v-text-field
+                                    v-else
+                                    label="Search..."
+                                    hide-details="auto"
+                                    @input="autoComplete()"
+                                    v-model="input"
+                                    color="success"
+                                    loading
+                                ></v-text-field>
+                                <br>
+                            </v-responsive>
+                            <div
+                                elevation="16"
+                                max-width="400"
+                                class="mx-auto"
+                            >
+                                <v-virtual-scroll
+                                    v-show="this.dialog && this.results.length"
+                                    :bench="benched"
+                                    :items="results"
+                                    height="300"
+                                    item-height="64"
+                                >
+                                    <template v-slot:default="{ item }">
+                                        <v-list-item :key="item.id">
 
-                                <v-list-item-content class="align-self-start">
-                                    <v-list-item-title>{{ item.name }}</v-list-item-title>
-                                    <v-list-item-subtitle>
-                                        {{ item.author }}
-                                    </v-list-item-subtitle>
-                                    <v-list-item-subtitle>
-                                        {{ item.genre }}
-                                    </v-list-item-subtitle>
-                                </v-list-item-content>
+                                            <v-list-item-content>
+                                                <v-list-item-title>
+                                                    {{ item.name }}
+                                                </v-list-item-title>
+                                            </v-list-item-content>
 
-                                <v-list-item-action>
-                                    <v-btn title="Add to cart"  
-                                        @click="callStoreCartItem(item.id)"
-                                        depressed
-                                        small
-                                        color="teal lighten-2"
-                                        class="mb-1"
-                                        style="background-color: #009688; color: #fff; text-decoration: none;"
-                                    >
-                                        <v-icon
-                                            color="orange darken-4"
-                                            right
-                                            class="text-center p-1 m-1"
+                                            <v-list-item-action>
+                                                <v-btn title="Add to cart"
+                                                       @click="callStoreCartItem(item.id)"
+                                                       depressed
+                                                       small
+                                                       color="teal"
+                                                       class="mb-1"
+                                                       style="background-color: #009688; color: #fff; text-decoration:
+                                                    none;"
+                                                >
+                                                    <v-icon
+                                                        color="white"
+                                                        right
+                                                        class="text-center p-1 m-1"
+                                                    >
+                                                        mdi-cart-plus
+                                                    </v-icon>
+                                                </v-btn>
+
+                                            </v-list-item-action>
+                                        </v-list-item>
+                                    </template>
+                                </v-virtual-scroll>
+                                <v-card-actions class="center text-center">
+                                    <v-col>
+                                        <v-btn
+                                            color="blue darken-1"
+                                            text
+                                            @click="dialog = false"
                                         >
-                                        mdi-cart-plus
-                                        </v-icon>
-                                    </v-btn>
-                                    <v-btn title="Open in new window" :href="`/products/show/${item.id}`"
-                                        @click="openSingleComponent(filteredProduct.id)"
-                                        depressed
-                                        small
-                                        style="background-color: #009688; color: #fff; text-decoration: none;"
-                                        >
-                                        <v-icon 
-                                            color="orange darken-4"
-                                            right
-                                            class="text-center p-1 m-1"
-                                            
-                                        >
-                                        mdi-open-in-new
-                                        </v-icon>
-                                    </v-btn>
-                                </v-list-item-action>
-                            </v-list-item>
-                            <hr>
-                        </template>
-                    </v-virtual-scroll>
-                </div>
-            </span>
+                                            Close
+                                        </v-btn>
+                                    </v-col>
+                                </v-card-actions>
+                            </div>
+                        </v-card-text>
+                    </v-card>
+                </v-dialog>
+            </v-row>
+        </template>
     </div>
 </template>
 
 <script>
 
-    import { mapGetters, mapActions } from 'vuex';
-    import { VueGoodTable } from 'vue-good-table';
+    import {mapActions} from 'vuex';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
@@ -89,57 +114,40 @@
             return {
                 input: '',
                 isOpen: false,
-                results: []
+                results: [],
+                dialog: false,
+                benched: 0,
             }
         },
         methods: {
             ...mapActions('cartItem', ['storeCartItem']),
-            autoComplete(){
-                this.results = [];
-                    if(this.input.length > 2){
+            autoComplete() {
+                this.timer = setTimeout(() => {
+                    this.results = [];
+                    if (this.input.length > 2) {
                         axios.get('/api/search',
                             {params: {searchBy: this.input}}).then(response => {
-                            this.results = response.data.data;
 
-                            if (this.results.length) {
-                                this.isOpen = true;
-                            } else {
-                                this.isOpen = false;
-                            }
+                            this.isOpen = response.data.data.length ? true : false;
                         });
                     }
+                }, 800);
+
             },
             callStoreCartItem(productId) {
                 this.storeCartItem(productId);
             },
         },
-        created() {
-            let self = this;
-
-            window.addEventListener('click', function(e){
-                if (!self.$el.contains(e.target)){
-                    self.isOpen = false
-                } 
-            })
-        },
     }
 </script>
 
 <style scoped>
-    .autocomplete-card {
-        position: absolute;
-        z-index: 999;
-        margin: 0 auto;
-        left: 0;
-        right: 0;   
-        margin-right: 35px;     
-        text-align: left;
-        align-items:center;
-        justify-content:center;
-        top: 80%; /* Adjust this value to move the positioned div up and down */
-        font-family: Arial,sans-serif;
-        width: 30%; /* Set the width of the positioned div */
-        height: 10%;
-        max-height: 100px;
+    .center {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
     }
 </style>
+
+
+

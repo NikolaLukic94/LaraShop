@@ -1,5 +1,5 @@
 <template>
-    <v-app style="height: 580px; display: 0;">
+    <v-app style="display: 0;">
         <v-card
             class="mx-auto ma-0"
             outlined
@@ -22,25 +22,25 @@
                 </v-list-item-content>
             </v-list-item>
             <v-container class="grey lighten-5">
-                    <v-row 
-                        no-gutters 
-                        align="center" 
-                        justify="center"
-                    >
-                        <v-col></v-col>
-                        <v-col>
-                            <b>Name</b>
-                        </v-col>
-                        <v-col>
-                            <b>Sum</b>
-                        </v-col>
-                    </v-row>                
+                <v-row
+                    no-gutters
+                    align="center"
+                    justify="center"
+                >
+                    <v-col></v-col>
+                    <v-col>
+                        <b>Name</b>
+                    </v-col>
+                    <v-col>
+                        <b>Sum</b>
+                    </v-col>
+                </v-row>
                 <span v-if="getCartItems.length > 0">
-                    <v-row 
-                        no-gutters 
+                    <v-row
+                        no-gutters
                         v-for="cartItem in getCartItems"
-                        :key="cartItem.id" 
-                        align="center" 
+                        :key="cartItem.id"
+                        align="center"
                         justify="center"
                     >
                         <v-col>
@@ -54,7 +54,7 @@
                             ${{ cartItem.quantity * cartItem.relationships.product.data.price }}
                         </v-col>
                     </v-row>
-                </span>    
+                </span>
             </v-container>
             <v-container>
                 <v-card>
@@ -69,7 +69,6 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
-    import {VueGoodTable} from 'vue-good-table';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {

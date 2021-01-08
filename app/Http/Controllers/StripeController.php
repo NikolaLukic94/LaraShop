@@ -2,25 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendSuccessfulPurchaseEmail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Stripe;
 use Session;
 
-use App\Models\User;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Invoice;
 use App\Models\Order;
-use App\Http\Requests\StoreOrder;
-use App\Http\Requests\UpdateOrder;
 use App\Models\OrderItem;
-use App\Models\Payment;
 use App\Models\Shipment;
 use App\Models\ShipmentItem;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\Order as OrderResource;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
 class StripeController extends Controller
@@ -34,7 +30,7 @@ class StripeController extends Controller
 
     public function store(Request $request)
     {
-        // try {
+        try {
             // Handle Stripe transaction
 
             // Create an order
@@ -42,23 +38,24 @@ class StripeController extends Controller
                 'date_placed' => date('Y-m-d'),
                 'order_details' => "request->orderDetails",
                 'user_id' => Auth::id(),
-                'order_status_codes_id' => 2, // Completed
+                'order_status_codes_id' => 2,
             ]);
 
-            $cart =  Cart::where('user_id', Auth::id())->first();
-            $cartItems = $cart->cartItems;
+            $cart = Cart::where('user_id', Auth::id())->first();
 
+            $cartItems = $cart->cartItems;
+            $cartItemForCalc = $cartItems;
             // Create order item out of each cart item
             foreach ($cartItems as $cartItem) {
 
-                Redis::zincrby('bestsellers.', 1 , $cartItem);
+                Redis::zincrby('bestsellers.', 1, $cartItem);
 
                 OrderItem::create([
                     'user_id' => Auth::id(),
                     'order_id' => $order->id,
-                    'order_item_status_code_id' => 1, 
+                    'order_item_status_code_id' => 1,
                     'product_id' => $cartItem->product_id,
-                    'price' => 12, //$cartItem->price,
+                    'price' => $cartItem->product->price,
                     'quantity' => $cartItem->quantity,
                 ]);
 
@@ -75,7 +72,7 @@ class StripeController extends Controller
                 'order_id' => $order->id,
                 'invoice_id' => $invoice->id,
                 'tracking_number' => rand(1, 9999999),
-                'date' =>  Carbon::now()->format('Y-m-d'),
+                'date' => Carbon::now()->format('Y-m-d'),
             ]);
 
             foreach ($order->orderItems as $orderItem) {
@@ -94,20 +91,25 @@ class StripeController extends Controller
                 $cc->delete();
             }
 
-            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-            
-            $stripeObject = Stripe\Charge::create ([
-                    "amount" => 100, // redo
-                    "currency" => "usd",
-                    "source" => $request->stripeToken,
-                    "description" => $request->description ?: 'Test',
+            Stripe\Stripe::setApiKey(config('stripe.stripeSecret'));
+
+            $totalSum = 0;
+            foreach ($cartItemForCalc as $ct) {
+                $totalSum += $ct->product->price * $ct->quantity;
+            }
+
+            $stripeObject = Stripe\Charge::create([
+                "amount" => $totalSum,
+                "currency" => "usd",
+                "source" => $request->stripeToken,
+                "description" => $request->description ?: 'Test',
             ]);
 
             $stripeObject->order = $order;
             $stripeObject->invoice = $invoice;
             $stripeObject->shipmentItems = $shipment->shipmentItems;
 
-            dispatch(new \App\Jobs\SendSuccessfulPurchaseEmail($stripeObject));
+            dispatch(new SendSuccessfulPurchaseEmail($stripeObject));
 
             return response()->json([
                 'status' => 'success',
@@ -115,9 +117,13 @@ class StripeController extends Controller
                 'message' => 'Successful purchase! Please check your inbox!',
             ]);
 
-        // } catch (\Exception $e) {
-        
-        //     return $e->getMessage();
-        // }
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'status' => 'success',
+                'type' => 'error',
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 }

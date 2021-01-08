@@ -5,13 +5,10 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
-    import {mapActions} from 'vuex';
-
     export default {
         name: 'cart-items',
         methods: {
-            onClickChild (value) {
+            onClickChild(value) {
                 console.log(value)
             }
         },

@@ -1,15 +1,15 @@
 const state = {
     userAddresses: [],
     nn: [
-            ['firstName', '']
-            ['lastName', ''],
-            ['addressLineOne', ''],
-            ['addressLineTwo', ''],
-            ['phoneNumber', ''],
-            ['city', ''],
-            ['county', ''],
-            ['zip', ''],
-            ['country', ''],
+        ['firstName', ''],
+        ['lastName', ''],
+        ['addressLineOne', ''],
+        ['addressLineTwo', ''],
+        ['phoneNumber', ''],
+        ['city', ''],
+        ['county', ''],
+        ['zip', ''],
+        ['country', ''],
     ],
     errors: []
 }
@@ -49,15 +49,15 @@ const actions = {
         }
     },
     validateData({commit}) {
-        commit('validateData', {errorName:'firstNameError', errorMessage: '* First Name is required'});
-        commit('validateData', {errorName:'lastNameError', errorMessage: '* Last Name is required'});
-        commit('validateData', {errorName:'phoneNumberError', errorMessage: '* Phone Number is required'});
-        commit('validateData', {errorName:'addressLineOneError', errorMessage: '* Address Line 1 is required'});
-        commit('validateData', {errorName:'addressLineTwoError', errorMessage: '* Address Line 2 is required'});
-        commit('validateData', {errorName:'cityError', errorMessage: '* City is required'});
-        commit('validateData', {errorName:'countyError', errorMessage: '* County is required'});
-        commit('validateData', {errorName:'zipError', errorMessage: '* ZIP is required'});
-        commit('validateData', {errorName:'countryError', errorMessage: '* Country is required'});
+        commit('validateData', {errorName: 'firstNameError', errorMessage: '* First Name is required'});
+        commit('validateData', {errorName: 'lastNameError', errorMessage: '* Last Name is required'});
+        commit('validateData', {errorName: 'phoneNumberError', errorMessage: '* Phone Number is required'});
+        commit('validateData', {errorName: 'addressLineOneError', errorMessage: '* Address Line 1 is required'});
+        commit('validateData', {errorName: 'addressLineTwoError', errorMessage: '* Address Line 2 is required'});
+        commit('validateData', {errorName: 'cityError', errorMessage: '* City is required'});
+        commit('validateData', {errorName: 'countyError', errorMessage: '* County is required'});
+        commit('validateData', {errorName: 'zipError', errorMessage: '* ZIP is required'});
+        commit('validateData', {errorName: 'countryError', errorMessage: '* Country is required'});
     },
 };
 

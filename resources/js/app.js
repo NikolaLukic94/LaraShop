@@ -80,7 +80,6 @@ Vue.component('payment-methods-component', require('./components/PaymentMethodCo
 Vue.component('shipment-status-component', require('./components/ShipmentStatus').default);
 Vue.component('order-component', require('./components/OrderComponent').default);
 Vue.component('shipment-component', require('./components/ShipmentComponent').default);
-Vue.component('search-page-component', require('./components/SearchPageComponent').default);
 Vue.component('cart-component', require('./components/CartComponent').default);
 Vue.component('navbar-component', require('./components/Navbar').default);
 Vue.component('new-sidebar-component', require('./components/Sidebar').default);
@@ -98,12 +97,13 @@ Vue.component('statuses-component', require('./components/StatusesComponent').de
 Vue.component('single-product-component', require('./components/SingleProduct').default);
 Vue.component('autocomplete', require('./components/Autocomplete').default);
 Vue.component('vue-loader', require('./components/LoaderComponent').default);
-
 Vue.component('general-component', require('./components/GeneralComponent').default);
-
 Vue.component('scroll-link', require('./components/ScrollLink').default);
 Vue.component('conditional-visibility', require('./components/ConditionalVisibility').default);
-
+Vue.component('landing-page', require('./components/Carousel').default);
+Vue.component('home-page', require('./components/HomePage').default);
+Vue.component('about', require('./components/About').default);
+Vue.component('product-modal', require('./components/ProductModal').default);
 
 const app = new Vue({
     el: '#app',

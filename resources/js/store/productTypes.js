@@ -9,17 +9,17 @@ const getters = {
 const actions = {
     setProductTypes({commit}) {
         return axios.get('/api/product-types')
-              .then((response) => {
-                commit('setProductTypes', response.data.data); 
-              })
-              .catch(function (error) {
+            .then((response) => {
+                commit('setProductTypes', response.data.data);
+            })
+            .catch(function (error) {
                 console.log(error);
-              })
+            })
     },
     createProductType({commit}, name) {
         return axios.post('/product-types', {
-                name: name
-            })
+            name: name
+        })
             .then((response) => {
                 commit('createProductType', response.data.createdProductType)
                 toast.fire({
@@ -46,15 +46,15 @@ const actions = {
         return axios.put('/product-types/' + inputParams.id, {
             name: inputParams.name
         })
-        .then((response) => {
-            commit('updateProductType', inputParams)
-            toast.fire({
-                icon: response.data.status,
-                type: response.data.status,
-                title: response.data.message
+            .then((response) => {
+                commit('updateProductType', inputParams)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
             })
-        })
-        .catch(err => console.log(err))
+            .catch(err => console.log(err))
     }
 };
 
@@ -76,7 +76,7 @@ const mutations = {
 
 export default {
     namespaced: true,
-    state, 
+    state,
     getters,
     actions,
     mutations,

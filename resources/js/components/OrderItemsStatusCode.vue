@@ -1,19 +1,19 @@
 <template>
-  <div>
-    <div class="container">
-        <statuses-component 
-          v-bind:statusName="'orderItemsStatusCodes'"  
-          v-bind:methodName="'createOrderItemStatusCode'">
-        </statuses-component>
-        <vue-good-table
-            :pagination-options="{
+    <div>
+        <div class="container">
+            <statuses-component
+                v-bind:statusName="'orderItemsStatusCodes'"
+                v-bind:methodName="'createOrderItemStatusCode'">
+            </statuses-component>
+            <vue-good-table
+                :pagination-options="{
               enabled: true
-            }"        
-            theme="black-rhino"
-            styleClass="vgt-table striped"
-            :columns="columns"
-            :rows="getOrderItemStatusCodes">
-            <template slot="table-row" slot-scope="props">
+            }"
+                theme="black-rhino"
+                styleClass="vgt-table striped"
+                :columns="columns"
+                :rows="getOrderItemStatusCodes">
+                <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
@@ -71,57 +71,54 @@
                       </v-dialog>
                   </div>
                 </div>
-              </span> 
-              <span v-else>
+              </span>
+                    <span v-else>
                 {{props.formattedRow[props.column.field]}}
               </span>
-            </template>
+                </template>
 
-        </vue-good-table>
-    </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add New Order Item Status Code</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <input type="text" style="width:100%" v-model="name">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" ref="modalClose">Close</button>
-            <button 
-              type="button" 
-              class="btn btn-primary" 
-              @click="handleCreateItemStatusCode()">
-              Save
-            </button>
-          </div>
+            </vue-good-table>
         </div>
-      </div>
-    </div>
 
-  </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Order Item Status Code</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" style="width:100%" v-model="name">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" ref="modalClose">Close
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            @click="handleCreateItemStatusCode()">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { mapActions } from 'vuex';
-    import { VueGoodTable } from 'vue-good-table';
+    import {mapGetters} from 'vuex';
+    import {mapActions} from 'vuex';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
         name: 'order-item-status-codes-component',
         computed: {
-            ...mapGetters(
-                'orderItemsStatusCodes',
-                [
-                    'getOrderItemStatusCodes'
-                ])
+            ...mapGetters('orderItemsStatusCodes', ['getOrderItemStatusCodes'])
         },
         methods: {
             ...mapActions(
@@ -132,31 +129,31 @@
                     'deleteOrderItemStatusCodes',
                     'updateOrderItemStatusCode'
                 ]),
-                handleCreateItemStatusCode() {
-                  this.createOrderItemStatusCode(this.name);
-                  this.$refs.modalClose.click();
-                  this.name = '';
-                },
-                openDeleteModal(rowId) {
-                  this.$swal.fire({
-                      title: 'Are you sure?',
-                      text: "This will delete it permanently!",
-                      icon: 'warning',
-                      showCancelButton: true,
-                      confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        this.deleteOrderItemStatusCodes(rowId);
-                      if (result.value) {
+            handleCreateItemStatusCode() {
+                this.createOrderItemStatusCode(this.name);
+                this.$refs.modalClose.click();
+                this.name = '';
+            },
+            openDeleteModal(rowId) {
+                this.$swal.fire({
+                    title: 'Are you sure?',
+                    text: "This will delete it permanently!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    this.deleteOrderItemStatusCodes(rowId);
+                    if (result.value) {
                         Swal.fire(
-                          'Deleted!',
-                          'Invoice status code has been deleted.',
-                          'success'
+                            'Deleted!',
+                            'Invoice status code has been deleted.',
+                            'success'
                         )
-                      }
-                    })
-                },                
+                    }
+                })
+            },
         },
         data: function () {
             return {
@@ -165,22 +162,22 @@
                 newOrderItemStatusColumnName: '',
                 columns: [
                     {
-                      label: 'Name',
-                      field: 'name',
+                        label: 'Name',
+                        field: 'name',
                     },
                     {
-                      label: 'Created',
-                      field: 'createdAt',
+                        label: 'Created',
+                        field: 'createdAt',
                     },
                     {
-                      label: 'Action',
-                      field: 'action',
-                    },                    
+                        label: 'Action',
+                        field: 'action',
+                    },
                 ]
             }
         },
         created() {
             this.setOrderItemStatusCodes();
-        },             
+        },
     }
 </script>

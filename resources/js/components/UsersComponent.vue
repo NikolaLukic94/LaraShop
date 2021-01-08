@@ -90,7 +90,7 @@
                         multiple
                     >
                     <v-btn :href="`/users/${props.row.id}`">
-                        <i class="fa fa-eye"  aria-hidden="true"></i>
+                        <i class="fa fa-eye" aria-hidden="true"></i>
                     </v-btn>
                     <v-btn @click="openDeleteModal(props.row.id)">
                         <i class="fa fa-trash" aria-hidden="true"></i>
@@ -117,14 +117,12 @@
 <script>
     import {mapGetters} from 'vuex';
     import {mapActions} from 'vuex';
-    import {VueGoodTable} from 'vue-good-table';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
         name: 'users-component',
         computed: {
-            ...mapGetters(
-                'users', ['getUsers'])
+            ...mapGetters('users', ['getUsers'])
         },
         methods: {
             ...mapActions(

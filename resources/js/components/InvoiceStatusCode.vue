@@ -1,11 +1,8 @@
 <template>
     <div>
-
         <div class="container">
-
-
-            <statuses-component 
-                v-bind:statusName="'indexStatusCodes'"  
+            <statuses-component
+                v-bind:statusName="'indexStatusCodes'"
                 v-bind:methodName="'createInvoiceStatusCode'">
             </statuses-component>
             <vue-good-table
@@ -94,8 +91,7 @@
     export default {
         name: 'invoice-status-code-component',
         computed: {
-            ...mapGetters(
-                'indexStatusCodes', ['getInvoiceStatusCodes'])
+            ...mapGetters('indexStatusCodes', ['getInvoiceStatusCodes'])
         },
         props: {
             statusName: String,

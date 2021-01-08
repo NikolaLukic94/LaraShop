@@ -10,7 +10,7 @@ const actions = {
     setInvoices({commit}) {
         return axios.get('/invoices')
             .then((response) => {
-                commit('setInvoices', response.data.data); 
+                commit('setInvoices', response.data.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -26,7 +26,7 @@ const mutations = {
 
 export default {
     namespaced: true,
-    state, 
+    state,
     getters,
     actions,
     mutations,

@@ -3,12 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
-use App\Models\Role;
-use App\Models\Permission;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Resources\UserResource as UserResource;
-use App\Http\Resources\UserRelationshipsResource as UserRelationshipsResource;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -27,8 +23,11 @@ class UserController extends Controller
 
     public function authUser()
     {
-        $user = Auth::user();
+        return true;
+    }
 
-        return new UserResource($user);
+    public function permissions()
+    {
+        return Auth::user()->getAllPermissions()->pluck('name')->flatten();
     }
 }

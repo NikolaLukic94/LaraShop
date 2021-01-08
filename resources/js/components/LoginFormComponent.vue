@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-container>
-            <v-card 
+            <v-card
                 class="mx-auto mt-16"
                 max-width="444"
                 outlined
@@ -17,7 +17,6 @@
                             v-model="email"
                             name="email"
                             type="email"
-                            v-validate="'required|max:255'"
                             label="Email"
                             required
                         >
@@ -26,23 +25,18 @@
                             v-model="password"
                             name="password"
                             type="password"
-                            v-validate="'required|min:8'"
                             label="Password"
                             required
                         >
                         </v-text-field>
-                        <v-checkbox
-                            v-model="checkbox"
-                            :error-messages="checkboxErrors"
-                            label="Remember me"
-                        >
-                        </v-checkbox>
-                        <v-row >
+                        <v-row>
                             <v-col cols="12" sm="6">
                                 <v-btn color="light" type="submit" style="width: 100%">Password reset</v-btn>
                             </v-col>
                             <v-col cols="12" sm="6">
-                                <v-btn @click="validate()" color="teal" type="submit" class="white--text" style="width: 100%">Log In</v-btn>                   
+                                <v-btn @click="validate()" color="teal" type="submit" class="white--text"
+                                       style="width: 100%">Log In
+                                </v-btn>
                             </v-col>
                         </v-row>
                     </form>
@@ -52,22 +46,22 @@
                     <v-toolbar color="teal" dark>
                         <v-spacer></v-spacer>
                         <v-spacer>
-                        <v-toolbar-title>
-                            <a href="/login/github">
-                                <v-icon dark class="pr-3">
-                                    mdi-github
-                                </v-icon>
-                            </a>
-                            <a href="/login/twitch">
-                                <v-icon dark class="pr-3">
-                                    mdi-twitch
-                                </v-icon>
-                            </a>
-                            <a href="/login/facebook">
-                                <v-icon dark class="pr-3">
-                                    mdi-facebook
-                                </v-icon>
-                            </a>
+                            <v-toolbar-title>
+                                <a href="/login/github">
+                                    <v-icon dark class="pr-3">
+                                        mdi-github
+                                    </v-icon>
+                                </a>
+                                <a href="/login/twitch">
+                                    <v-icon dark class="pr-3">
+                                        mdi-twitch
+                                    </v-icon>
+                                </a>
+                                <a href="/login/facebook">
+                                    <v-icon dark class="pr-3">
+                                        mdi-facebook
+                                    </v-icon>
+                                </a>
                             </v-toolbar-title>
                         </v-spacer>
                     </v-toolbar>
@@ -82,7 +76,6 @@
 
 <script>
     export default {
-        inject: ['$validator'],
         name: 'login-form-component',
         computed: {
             csrf_token() {
@@ -98,7 +91,7 @@
         },
         methods: {
             validate() {
-                console.log(this.$refs.form)
+                // console.log(this.$refs.form)
                 document.getElementById("login_form").submit()
             },
         }

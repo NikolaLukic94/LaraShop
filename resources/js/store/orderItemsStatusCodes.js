@@ -9,27 +9,27 @@ const getters = {
 const actions = {
     setOrderItemStatusCodes({commit}) {
         return axios.get('/api/order-item-status-codes')
-              .then((response) => {
-                commit('setOrderItemStatusCodes', response.data.data); 
-              })
-              .catch(function (error) {
+            .then((response) => {
+                commit('setOrderItemStatusCodes', response.data.data);
+            })
+            .catch(function (error) {
                 console.log(error);
-              })
-        },
-        createOrderItemStatusCode({commit}, name) {
-            return axios.post('/order-items-status-codes', {
-                    name: name
+            })
+    },
+    createOrderItemStatusCode({commit}, name) {
+        return axios.post('/order-items-status-codes', {
+            name: name
+        })
+            .then(function (response) {
+                commit('createOrderItemStatusCode', response.data.createdOrderItemStatusCode)
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
                 })
-                .then(function (response) {
-                    commit('createOrderItemStatusCode', response.data.createdOrderItemStatusCode)
-                    toast.fire({
-                        icon: response.data.status,
-                        type: response.data.status,
-                        title: response.data.message
-                    })
-                })
-                .catch(err => console.log(err))
-        },
+            })
+            .catch(err => console.log(err))
+    },
     deleteOrderItemStatusCodes({commit}, id) {
         return axios.delete('/order-items-status-codes/' + id)
             .then((response) => {
@@ -46,15 +46,15 @@ const actions = {
         return axios.put('/order-items-status-codes/' + inputParams.id, {
             name: inputParams.name
         })
-        .then((response) => {
-            commit('updateOrderItemStatusCode', {inputParams})
-            toast.fire({
-                icon: response.data.status,
-                type: response.data.status,
-                title: response.data.message
+            .then((response) => {
+                commit('updateOrderItemStatusCode', {inputParams})
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
+                    .catch(err => console.log(err))
             })
-            .catch(err => console.log(err))
-        })
     }
 };
 
@@ -76,7 +76,7 @@ const mutations = {
 
 export default {
     namespaced: true,
-    state, 
+    state,
     getters,
     actions,
     mutations,
