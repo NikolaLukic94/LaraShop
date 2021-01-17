@@ -6,7 +6,6 @@ use App\Models\Shipment;
 use App\Http\Requests\StoreShipment;
 use App\Http\Requests\UpdateShipment;
 use Illuminate\Http\Request;
-use App\Http\Resources\Shipment as ShipmentResource;
 
 class ShipmentController extends Controller
 {

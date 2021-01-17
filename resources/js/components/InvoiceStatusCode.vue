@@ -16,9 +16,12 @@
                 <template slot="table-row" slot-scope="props">
                     <span v-if="props.column.field == 'action'">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
+<!--                            <button class="btn btn-info" @click="openDeleteModal(props.row.id)">-->
+                            <!--                                <i class="fa fa-trash" aria-hidden="true"></i>-->
+                            <!--                            </button>-->
+                            <v-btn @click="openDeleteModal(props.row.id)" dark>
                                 <i class="fa fa-trash" aria-hidden="true"></i>
-                            </button>
+                            </v-btn>
                             <div class="text-center">
                                 <v-dialog
                                     v-model="dialog"
@@ -26,7 +29,6 @@
                                 >
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-btn
-                                            color="red lighten-2"
                                             dark
                                             v-bind="attrs"
                                             v-on="on"
@@ -85,7 +87,6 @@
 <script>
     import {mapGetters} from 'vuex';
     import {mapActions} from 'vuex';
-    import {VueGoodTable} from 'vue-good-table';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {

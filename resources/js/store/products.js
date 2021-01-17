@@ -4,14 +4,17 @@ const state = {
     products: [],
     filteredProducts: [],
     recomended: [],
-    mostPopular: []
+    mostPopular: [],
+    searchResults: [],
+
 }
 
 const getters = {
     getProducts: state => state.products,
     getFilteredProducts: state => state.filteredProducts,
     getRecommended: state => state.recomended,
-    getMostPopular: state => state.mostPopular
+    getMostPopular: state => state.mostPopular,
+    getSearchResults: state => state.searchResults,
 };
 
 const actions = {
@@ -113,6 +116,12 @@ const actions = {
             })
         })
             .catch(err => console.log(err))
+    },
+    searchProduct({commit}, stringParam) {
+        axios.get('/api/search',
+            {params: {searchBy: this.input}}).then(response => {
+            commit('setSearchResults', response.data.data);
+        });
     }
 };
 
@@ -149,7 +158,10 @@ const mutations = {
     },
     setMostPopular: (state, products) => {
         state.mostPopular = products;
-    }
+    },
+    setSearchResults: (state, theProducts) => {
+        state.searchResults = theProducts;
+    },
 };
 
 export default {

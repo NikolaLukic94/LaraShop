@@ -45,9 +45,9 @@
                                 class="mx-auto"
                             >
                                 <v-virtual-scroll
-                                    v-show="this.dialog && this.results.length"
+                                    v-show="this.dialog && getSearchResults"
                                     :bench="benched"
-                                    :items="results"
+                                    :items="getSearchResults"
                                     height="300"
                                     item-height="64"
                                 >
@@ -105,7 +105,7 @@
 
 <script>
 
-    import {mapActions} from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
@@ -113,26 +113,20 @@
         data() {
             return {
                 input: '',
-                isOpen: false,
-                results: [],
                 dialog: false,
                 benched: 0,
             }
         },
+        computed: {
+            ...mapGetters('products', ['getSearchResults'])
+        },
         methods: {
             ...mapActions('cartItem', ['storeCartItem']),
+            ...mapActions('products', ['searchProduct']),
             autoComplete() {
-                this.timer = setTimeout(() => {
-                    this.results = [];
-                    if (this.input.length > 2) {
-                        axios.get('/api/search',
-                            {params: {searchBy: this.input}}).then(response => {
-
-                            this.isOpen = response.data.data.length ? true : false;
-                        });
-                    }
-                }, 800);
-
+                if (this.input.length > 2) {
+                    this.searchProduct(this.input);
+                }
             },
             callStoreCartItem(productId) {
                 this.storeCartItem(productId);

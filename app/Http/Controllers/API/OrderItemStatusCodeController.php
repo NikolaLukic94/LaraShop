@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\OrderItemStatusCode;
 use App\Http\Resources\OrderItemStatusCode as OrderItemStatusCodeResource;
 
 class OrderItemStatusCodeController extends Controller

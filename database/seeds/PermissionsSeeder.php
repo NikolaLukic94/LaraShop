@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
 use App\Models\Permission;
 
 class PermissionsSeeder extends Seeder
@@ -16,14 +15,18 @@ class PermissionsSeeder extends Seeder
         $classes = [
             'product',
             'order',
-            'payment',
             'dashboard',
             'shipment',
             'user',
-            'roles',
-            'permissions',
+            'role',
+            'permission',
             'report',
-            'role and permission'
+            'invoice status code',
+            'order status code',
+            'product type',
+            'payment method',
+            'order items status code',
+            'invoices'
         ];
 
         foreach ($classes as $class) {

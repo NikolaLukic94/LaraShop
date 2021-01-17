@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderStatusCode;
 use App\Http\Requests\UpdateOrderStatusCode;
-use App\Http\Resources\OrderStatusCode as OrderStatusCodeResource;
 use Illuminate\Http\Request;
 use App\Models\OrderStatusCode;
 

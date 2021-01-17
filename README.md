@@ -48,5 +48,6 @@ Date : Any future date
 - Stripe Payment Integration
 - Caching with Redis
 - Nice autocomplete search
+- Dynamic home page for (customer) users
 
 More coming soon!

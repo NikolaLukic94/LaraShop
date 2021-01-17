@@ -21,7 +21,7 @@ Route::get('/payment-methods', 'PaymentMethodController@getAll');
 
 Route::get('/users', 'API\UserController@index');
 
-Route::get('/orders', 'API\OrderController@getAll');
+Route::get('/orders', 'API\OrderController@index');
 
 Route::get('/user', 'API\UserController@authUser');
 

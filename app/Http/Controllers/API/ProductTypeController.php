@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\ProductType;
 use App\Http\Resources\ProductType as ProductTypeResource;
 
 class ProductTypeController extends Controller

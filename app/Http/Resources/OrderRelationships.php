@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\UserResource as UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderRelationships extends JsonResource
@@ -16,14 +17,15 @@ class OrderRelationships extends JsonResource
     {
         return [
             'user'   => [
-                'data'  => new User($this->user),
+                'data'  => new UserResource($this->user)
             ],
             'orderItems' => [
                 'data' => OrderItem::collection($this->orderItems)
             ],
             'invoice' => [
-                'data' => new Invoice($this->invoice)
-            ]
+                'data' => $this->invoice
+            ],
+//            'orderStatus' => $this->orderStatusCode
         ];
     }
 }

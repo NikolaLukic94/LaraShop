@@ -7,7 +7,6 @@
             >
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
-                        color="red lighten-2"
                         dark
                         v-bind="attrs"
                         v-on="on"
@@ -80,8 +79,8 @@
                 :rows="getUsers">
                 <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <div class="btn-group" role="group" aria-label="Basic example">
+              <div class="btn-group" role="group">
+                <div class="btn-group" role="group">
                     <v-btn-toggle
                         v-model="toggle_multiple"
                         dense

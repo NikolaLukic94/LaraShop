@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         return view('users.index');
     }
-    
+
     public function store(Request $request)
     {
         $user = User::create([
@@ -49,7 +49,7 @@ class UserController extends Controller
         return redirect('/users/' . $user->id . '/edit');
     }
 
-    public function delete(User $user)
+    public function destroy(User $user)
     {
         $user->delete();
 

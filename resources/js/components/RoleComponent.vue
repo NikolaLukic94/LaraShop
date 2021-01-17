@@ -11,11 +11,22 @@
                 :rows="getRoles">
                 <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <button class="btn btn-info" @click="redirectToShow(props.row.id)">
-                      <i class="fa fa-eye" aria-hidden="true"></i>
-                    </button>
-                </div>
+                    <v-btn-toggle
+                        v-model="toggle_multiple"
+                        dense
+                        background-color="primary"
+                        dark
+                        multiple
+                    >
+                    <v-btn @click="redirectToShow(props.row.id)">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </v-btn>
+                    </v-btn-toggle>
+                    <v-dialog
+                        v-model="dialog"
+                        width="500"
+                    >
+                    </v-dialog>
               </span>
                     <span v-else>
                 {{props.formattedRow[props.column.field]}}

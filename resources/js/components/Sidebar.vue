@@ -7,16 +7,7 @@
                              :permanent="sidebarMenu"
                              color="grey darken-4"
         >
-            <v-list-item class="mt-3 px-2" @click="toggleMini = !toggleMini">
-                <v-list-item-avatar>
-                    <v-icon>mdi-account-outline</v-icon>
-                </v-list-item-avatar>
-                <v-list-item-content class="text-truncate">
-                    {{ this.name }}
-                </v-list-item-content>
-            </v-list-item>
-            <v-divider></v-divider>
-            <v-list>
+            <v-list class="mt-3">
                 <v-list-item v-for="item in navbarItems" :key="item.title" :href="item.href">
                     <v-list-item-icon class="mr-3">
                         <v-icon color="primary">{{ item.icon }}</v-icon>
@@ -30,8 +21,8 @@
     </div>
 </template>
 
-
 <script>
+    import {getNavbarItems} from '../helpers/sidebar.js'
 
     export default {
         name: 'new-sidebar-component',
@@ -46,35 +37,18 @@
         },
         methods: {
             buildSidebarObject() {
-                this.permissions.push({title: "Home", href: "/", icon: "mdi-home-outline"});
+                let navbarArray = getNavbarItems();
+                let viewPermissions = this.permissions.filter(permission => permission.includes('view'));
 
-                if (this.permissions.includes('view dashboard')) {
-                    this.navbarItems.push({title: "Dashboard", href: "/dashboard", icon: "mdi-file-document-multiple"});
-                }
+                this.navbarItems.push({title: "Home", href: "/", icon: "mdi-home-outline"});
 
-                if (this.permissions.includes('view user')) {
-                    this.navbarItems.push({title: "Users", href: "/users", icon: "mdi-shield-account"});
-                }
-
-                if (this.permissions.includes('view product')) {
-                    this.navbarItems.push({title: "Products", href: "/products", icon: "mdi-shape-square-rounded-plus"});
-                }
-
-                if (this.permissions.includes('view shipment')) {
-                    this.navbarItems.push({title: "Shipments", href: "/shipments", icon: "mdi-bus-clock"});
-                }
-
-                if (this.permissions.includes('view order')) {
-                    this.navbarItems.push({title: "Orders", href: "/orders", icon: "mdi-shield-account"});
-                }
-
-                if (this.permissions.includes('view report')) {
-                    this.navbarItems.push({title: "Reports", href: "/reports", icon: "mdi-alarm-light-outline"});
-                }
-
-                if (this.permissions.includes('view role and permission')) {
-                    this.navbarItems.push({title: 'Roles & Permissions', href: "/roles", icon: "mdi-wrench"});
-                }
+                viewPermissions.forEach(permission => {
+                    this.navbarItems.push({
+                        title: navbarArray[permission]['title'],
+                        href: navbarArray[permission]['href'],
+                        icon: navbarArray[permission]['icon']
+                    });
+                })
             },
         },
         created() {
@@ -145,4 +119,5 @@
     a, a:hover {
         color: white;
     }
+
 </style>

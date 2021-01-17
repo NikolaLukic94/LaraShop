@@ -11,14 +11,25 @@
                 :rows="getOrders">
                 <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <button class="btn btn-info" @click="openEditModal(props.row)">
-                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </div>
+                  <v-btn-toggle
+                      v-model="toggle_multiple"
+                      dense
+                      background-color="primary"
+                      dark
+                      multiple
+                  >
+                    <v-btn @click="openEditModal(props.row)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </v-btn>
+                    <v-btn @click="openDeleteModal(props.row.id)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </v-btn>
+                    </v-btn-toggle>
+                    <v-dialog
+                        v-model="dialog"
+                        width="500"
+                    >
+                    </v-dialog>
               </span>
                     <span v-else>
                 {{props.formattedRow[props.column.field]}}
@@ -33,11 +44,10 @@
 <script>
     import {mapGetters} from 'vuex';
     import {mapActions} from 'vuex';
-    import {VueGoodTable} from 'vue-good-table';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
-        name: 'order-item-status-codes-component',
+        name: 'order-component',
         computed: {
             ...mapGetters('order', ['getOrders'])
         },
@@ -48,20 +58,20 @@
             return {
                 columns: [
                     {
-                        label: 'date_placed',
-                        field: 'date_placed',
+                        label: 'Date Placed',
+                        field: 'datePlaced',
                     },
                     {
-                        label: 'order_details',
-                        field: 'order_details',
+                        label: 'Order Details',
+                        field: 'orderDetails:',
                     },
+                    // {
+                    //     label: 'Name',
+                    //     field: 'name',
+                    // },
                     {
-                        label: 'Name',
-                        field: 'name',
-                    },
-                    {
-                        label: 'order_status_codes_id',
-                        field: 'order_status_codes_id',
+                        label: 'Order Status',
+                        field: 'orderStatusCode',
                     },
                     {
                         label: 'Action',

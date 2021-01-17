@@ -11,7 +11,6 @@ const actions = {
         return axios.get('/api/order-status-codes')
             .then((response) => {
                 commit('setOrderStatusCodes', response.data.data);
-                console.log(response)
                 toast.fire({
                     icon: 'success',
                     type: 'success',

@@ -9,7 +9,6 @@
                 >
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
-                            color="primary"
                             dark
                             v-bind="attrs"
                             v-on="on"
@@ -135,7 +134,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
-                                color="blue darken-1"
+                                color="teal"
                                 text
                                 @click="dialog = false"
                             >
@@ -143,7 +142,7 @@
                             </v-btn>
                             <span v-if="this.editId">
                 <v-btn
-                    color="blue darken-1"
+                    color="teal"
                     text
                     @click="dialog = false; sendUpdateProductRequest()"
                 >
@@ -152,7 +151,7 @@
               </span>
                             <span v-else>
                 <v-btn
-                    color="blue darken-1"
+                    color="teal"
                     text
                     @click="dialog = false; sendCreateProductRequest()"
                 >
@@ -176,13 +175,26 @@
                 :rows="getProducts">
                 <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <button class="btn btn-info" @click="openEditModal(props.row)">
-                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
+                <div class="btn-group" role="group">
+                    <v-btn-toggle
+                        v-model="toggle_multiple"
+                        dense
+                        background-color="primary"
+                        dark
+                        multiple
+                    >
+                    <v-btn @click="openEditModal(props.row)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </v-btn>
+                    <v-btn @click="openDeleteModal(props.row.id)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </v-btn>
+                    </v-btn-toggle>
+                    <v-dialog
+                        v-model="dialog"
+                        width="500"
+                    >
+                    </v-dialog>
                 </div>
               </span>
                     <span v-else>

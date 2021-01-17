@@ -19,7 +19,7 @@
                         style="margin-right: 25%;"
                         v-bind:src="products.relationships.images.data[0].imagePath"
                     ></v-img>
-                    <v-card-title :title="products.name">{{ products.name.substring(0,20)+".." }}</v-card-title>
+                    <v-card-title v-if="products.name" :title="products.name">{{ products.name.substring(0,20)+".." }}</v-card-title>
 
                     <v-card-text>
                         <v-row
@@ -45,7 +45,7 @@
                             $ • {{ products.price }}
                         </div>
 
-                        <i :title="products.author">
+                        <i v-if="products.author" :title="products.author">
                             {{ products.author.substring(0,20)+".." }}
                         </i>
 
@@ -92,7 +92,7 @@
                         style="margin-right: 25%;"
                         v-bind:src="products.relationships.images.data[0].imagePath"
                     ></v-img>
-                    <v-card-title :title="products.name">{{ products.name.substring(0,20)+".." }}</v-card-title>
+                    <v-card-title v-if="products.name" :title="products.name">{{ products.name.substring(0,20)+".." }}</v-card-title>
 
                     <v-card-text>
                         <v-row
@@ -118,7 +118,7 @@
                             $ • {{ products.price }}
                         </div>
 
-                        <i :title="products.author">
+                        <i v-if="products.author" :title="products.author">
                             {{ products.author.substring(0,20)+".." }}
                         </i>
 
