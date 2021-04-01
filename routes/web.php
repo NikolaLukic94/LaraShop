@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
@@ -13,8 +14,9 @@ Route::get('/', 'HomeController@welcome');
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::group(['middleware' => 'verified'], function () {
+Route::get('statuses', 'StatusController@index');
 
+Route::group(['middleware' => 'verified'], function () {
     // create own api permissions controller
     Route::get('permissions', 'API\UserController@permissions');
 

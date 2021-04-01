@@ -9,7 +9,7 @@ class UserResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -18,14 +18,15 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'firstName' => $this->name,
             'lastName' => $this->email,
-            'relationships' => new UserRelationshipsResource($this),     
-            'permissions' => $this->permissions,  
-            'roles' => $this->roles,  
-            // 'createdAt' => $this->created_at->diffForHumans()  
+            'relationships' => new UserRelationshipsResource($this),
+            'permissions' => $this->permissions,
+            'roles' => $this->roles,
+            // 'createdAt' => $this->created_at->diffForHumans()
         ];
     }
 
-    public function with($request) {
+    public function with($request)
+    {
         return [
             'version' => '1.0.0',
             'author_url' => url('https://github.com/NikolaLukic94')

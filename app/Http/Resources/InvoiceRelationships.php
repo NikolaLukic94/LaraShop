@@ -9,14 +9,14 @@ class InvoiceRelationships extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
     {
         return [
-            'invoiceStatusCode'   => [
-                'data'  => new InvoiceStatusCode($this->invoiceStatusCode),
+            'invoiceStatusCode' => [
+                'data' => new InvoiceStatusCode($this->invoiceStatusCode),
             ],
             'payments' => [
                 'data' => Payment::collection($this->payments)

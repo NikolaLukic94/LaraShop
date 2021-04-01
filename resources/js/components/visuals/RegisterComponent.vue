@@ -34,7 +34,7 @@
                         ></v-text-field>
                         <v-text-field
                             name="password_confirmation"
-                            v-model="email"
+                            v-model="password"
                             type="password"
                             label="Confirm password"
                             required
@@ -42,29 +42,34 @@
                             autocomplete="new-password"
                         ></v-text-field>
                         <v-row>
-                            <v-col cols="12" sm="6">
+                            <v-col>
                                 <v-btn @click="validate()" color="teal" class="white--text" style="width: 100%">
                                     Register
                                 </v-btn>
                             </v-col>
-                            <v-col cols="12" sm="6">
-                                <div class="text-right">
-                                    <v-btn color="teal lighten-1" :href="'/login/twitch'">
-                                        <v-icon dark class="white--text">
-                                            mdi-twitch
-                                        </v-icon>
-                                    </v-btn>
-                                    <v-btn color="teal lighten-1" :href="'/login/github'">
-                                        <v-icon dark class="white--text">
-                                            mdi-github
-                                        </v-icon>
-                                    </v-btn>
-                                    <v-btn color="teal lighten-1" :href="'/login/facebook'">
-                                        <v-icon dark class="white--text">
-                                            mdi-facebook
-                                        </v-icon>
-                                    </v-btn>
-                                </div>
+                        </v-row>
+                        <v-row class="pb-0 mb-0">
+                            <v-card-text>
+                                <p class="text-md-center text--secondary"><i>Or Join With</i></p>
+                            </v-card-text>
+                        </v-row>
+                        <v-row>
+                            <v-col class="text-center">
+                                <v-btn color="teal lighten-1" @click="redirectToThirdPartyLogin('twitch')">
+                                    <v-icon dark class="white--text">
+                                        mdi-twitch
+                                    </v-icon>
+                                </v-btn>
+                                <v-btn color="teal lighten-1" @click="redirectToThirdPartyLogin('github')">
+                                    <v-icon dark class="white--text">
+                                        mdi-github
+                                    </v-icon>
+                                </v-btn>
+                                <v-btn color="teal lighten-1" @click="redirectToThirdPartyLogin('facebook')">
+                                    <v-icon dark class="white--text">
+                                        mdi-facebook
+                                    </v-icon>
+                                </v-btn>
                             </v-col>
                         </v-row>
                     </form>
@@ -83,24 +88,61 @@
                 name: '',
                 email: '',
                 password: '',
+
+                max: 40,
+                min:8
             }
         },
         computed: {
             csrf_token() {
                 let token = document.head.querySelector('meta[name="csrf-token"]')
                 return token.content
-            }
+            },
+            rules() {
+                const rules = []
+
+                if (this.name) {
+                    const rule =
+                        v => (v || '').length <= this.max ||
+                            `A maximum of ${this.max} characters is allowed`
+
+                    rules.push(rule)
+                }
+
+                if (this.email) {
+                    const rule =
+                        v => (v || '').length <= this.max ||
+                            `A maximum of ${this.max} characters is allowed`
+
+                    rules.push(rule)
+                }
+
+                if (this.password) {
+                    const rule =
+                        v => (v || '').length <= this.max ||
+                            `A maximum of ${this.max} characters is allowed`
+
+                    rules.push(rule)
+                }
+
+                return rules
+            },
+        },
+        watch: {
+            match: 'validateField',
+            max: 'validateField',
+            model: 'validateField',
         },
         methods: {
-            validate() {
-                // console.log(this.$refs.form)
-                // this.$validator.validateAll().then((result) => {
-                //     if (result) {
-                //Manually submit form if not errors
-                document.getElementById("register_form").submit()
-                // }
-                // })
+            validateField() {
+                this.$refs.form.validate()
             },
+            validate() {
+                document.getElementById("register_form").submit()
+            },
+            redirectToThirdPartyLogin(providerName) {
+                window.location.href = '/login/' + providerName;
+            }
         },
     }
 </script>

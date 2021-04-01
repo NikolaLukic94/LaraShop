@@ -4,9 +4,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 Vue.config.debug = true;
 
-import indexStatusCodes from './indexStatusCodes';
-import orderItemsStatusCodes from './orderItemsStatusCodes';
-import orderStatusCodes from './orderStatusCodes';
+import statuses from './statuses'
 import productTypes from './productTypes';
 import paymentMethods from './paymentMethods';
 import users from './users';
@@ -16,7 +14,6 @@ import cartItem from './CartItem';
 import userAddress from './userAddress';
 import orderReview from './orderReview';
 import order from './order';
-import shipmentStatus from './shipmentStatus';
 import shipment from './shipment';
 import payment from './payment';
 import aStore from './aStore';
@@ -26,9 +23,6 @@ const debug = process.env.NODE_ENV !== 'production';
 
 export default new Vuex.Store({
     modules: {
-        indexStatusCodes,
-        orderItemsStatusCodes,
-        orderStatusCodes,
         productTypes,
         paymentMethods,
         users,
@@ -38,11 +32,11 @@ export default new Vuex.Store({
         userAddress,
         orderReview,
         order,
-        shipmentStatus,
         shipment,
         payment,
         aStore,
-        role
+        role,
+        statuses
     },
     strict: debug
 

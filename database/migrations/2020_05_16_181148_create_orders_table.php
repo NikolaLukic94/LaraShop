@@ -22,8 +22,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->unsignedBigInteger('order_status_codes_id');
-            $table->foreign('order_status_codes_id')->references('id')->on('order_status_codes');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('statuses');
 
 
             $table->timestamps();

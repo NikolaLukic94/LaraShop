@@ -6,8 +6,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="permissions" content="{{ \Auth::user()->permissions->pluck('name') }}">
-    <meta name="roles" content="{{ \Auth::user()->roles->pluck('name') }}">
+    <meta name="permissions">
+    <meta name="roles">
     <title>{{ config('app.name', 'Black Cat Bookstore') }}</title>
 
     <!-- Scripts -->

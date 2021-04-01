@@ -22,7 +22,7 @@
 </template>
 
 <script>
-    import {getNavbarItems} from '../helpers/sidebar.js'
+    import {getNavbarItems} from '../../helpers/sidebar.js'
 
     export default {
         name: 'new-sidebar-component',

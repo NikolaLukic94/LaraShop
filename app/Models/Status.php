@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ShipmentStatus extends Model
+class Status extends Model
 {
-    //
+    protected $fillable = ['type', 'name'];
 }

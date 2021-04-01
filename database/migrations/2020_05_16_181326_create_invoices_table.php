@@ -19,8 +19,8 @@ class CreateInvoicesTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders');
 
-            $table->unsignedBigInteger('invoice_status_code_id');
-            $table->foreign('invoice_status_code_id')->references('id')->on('invoice_status_codes');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('statuses');
 
             $table->date('date');
             $table->text('invoice_details');

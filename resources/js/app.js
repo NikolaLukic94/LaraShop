@@ -66,9 +66,9 @@ import 'vuetify/dist/vuetify.min.css'
 Vue.use(VueAxios, axios)
 Vue.use(Element)
 
-Vue.component('invoice-status-code-component', require('./components/InvoiceStatusCode.vue').default);
-Vue.component('order-item-status-codes-component', require('./components/OrderItemsStatusCode.vue').default);
-Vue.component('order-status-codes-component', require('./components/OrderStatusCodes').default);
+// Todo: remove components that are not top level
+
+Vue.component('status-codes-component', require('./components/StatusCodesComponent.vue').default);
 Vue.component('product-types-component', require('./components/ProductType').default);
 Vue.component('users-component', require('./components/UsersComponent.vue').default);
 Vue.component('products-component', require('./components/ProductComponent.vue').default);
@@ -77,24 +77,19 @@ Vue.component('cart-items', require('./components/CartItem').default);
 Vue.component('user-payment-methods', require('./components/PaymentMethod').default);
 Vue.component('order-review', require('./components/OrderReview').default);
 Vue.component('payment-methods-component', require('./components/PaymentMethodComponent.vue').default);
-Vue.component('shipment-status-component', require('./components/ShipmentStatus').default);
 Vue.component('order-component', require('./components/OrderComponent').default);
 Vue.component('shipment-component', require('./components/ShipmentComponent').default);
 Vue.component('cart-component', require('./components/CartComponent').default);
-Vue.component('navbar-component', require('./components/Navbar').default);
-Vue.component('new-sidebar-component', require('./components/Sidebar').default);
-Vue.component('login-form-component', require('./components/LoginFormComponent').default);
-Vue.component('register-form-component', require('./components/RegisterComponent').default);
-Vue.component('footer-component', require('./components/FooterComponent').default);
+
+Vue.component('footer-component', require('./components/visuals/FooterComponent').default);
 Vue.component('dashboard-chart-component', require('./components/DashboardChart').default);
 Vue.component('reports-component', require('./components/ReportsComponent').default);
 Vue.component('products-table-component', require('./components/ProductsDisplay').default);
 Vue.component('map-component', require('./components/MapComponent').default);
-Vue.component('info-component', require('./components/InfoComponent').default);
 Vue.component('stripe-checkout-component', require('./components/StripeCheckoutComponent').default);
 Vue.component('roles-component', require('./components/RoleComponent').default);
 Vue.component('statuses-component', require('./components/StatusesComponent').default);
-Vue.component('single-product-component', require('./components/SingleProduct').default);
+Vue.component('single-product-component', require('./components/visuals/SingleProduct').default);
 Vue.component('autocomplete', require('./components/Autocomplete').default);
 Vue.component('vue-loader', require('./components/LoaderComponent').default);
 Vue.component('general-component', require('./components/GeneralComponent').default);
@@ -102,8 +97,14 @@ Vue.component('scroll-link', require('./components/ScrollLink').default);
 Vue.component('conditional-visibility', require('./components/ConditionalVisibility').default);
 Vue.component('landing-page', require('./components/Carousel').default);
 Vue.component('home-page', require('./components/HomePage').default);
-Vue.component('about', require('./components/About').default);
 Vue.component('product-modal', require('./components/ProductModal').default);
+
+Vue.component('navbar-component', require('./components/Navbar').default);
+Vue.component('new-sidebar-component', require('./components/visuals/Sidebar').default);
+Vue.component('about', require('./components/visuals/About').default);
+Vue.component('login-form-component', require('./components/visuals/LoginFormComponent').default);
+Vue.component('register-form-component', require('./components/visuals/RegisterComponent').default);
+Vue.component('info-component', require('./components/visuals/InfoComponent').default);
 
 const app = new Vue({
     el: '#app',

@@ -7,32 +7,41 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/order-status-codes', 'API\OrderStatusCodeController');
 
-Route::get('/invoice-status-codes', 'API\InvoiceStatusCodeController');
+Route::group(['middleware' => 'auth:api'], function () {
 
-Route::get('/order-item-status-codes', 'API\OrderItemStatusCodeController');
 
-Route::get('/product-types', 'API\ProductTypeController');
+    Route::get('/statuses', 'API\StatusController@index');
+    Route::post('/statuses', 'API\StatusController@store');
+    Route::patch('/statuses/{id}', 'API\StatusController@update');
+    Route::delete('/statuses/{id}', 'API\StatusController@destroy');
 
-Route::get('/roles', 'API\RoleController');
+    Route::get('/order-status-codes', 'API\OrderStatusCodeController');
 
-Route::get('/payment-methods', 'PaymentMethodController@getAll');
+    Route::get('/invoice-status-codes', 'API\InvoiceStatusCodeController');
+    Route::get('/order-item-status-codes', 'API\OrderItemStatusCodeController');
 
-Route::get('/users', 'API\UserController@index');
+    Route::get('/product-types', 'API\ProductTypeController');
 
-Route::get('/orders', 'API\OrderController@index');
+    Route::get('/roles', 'API\RoleController');
 
-Route::get('/user', 'API\UserController@authUser');
+    Route::get('/payment-methods', 'PaymentMethodController@getAll');
 
-Route::get('/search', 'API\ProductController@search');
+    Route::get('/users', 'API\UserController@index');
 
-Route::post('/products/filter', 'API\ProductController@filter');
+    Route::get('/orders', 'API\OrderController@index');
 
-Route::get('/auth-role', 'API\UserController@authUser');
+    Route::get('/user', 'API\UserController@authUser');
 
-Route::post('/shipments', 'API\ShipmentController@index');
+    Route::get('/search', 'API\ProductController@search');
 
-Route::get('/products/{id}', 'API\ProductController@show');
+    Route::post('/products/filter', 'API\ProductController@filter');
 
-Route::get('/products/', 'API\ProductController@index');
+    Route::get('/auth-role', 'API\UserController@authUser');
+
+    Route::post('/shipments', 'API\ShipmentController@index');
+
+    Route::get('/products/{id}', 'API\ProductController@show');
+
+    Route::get('/products/', 'API\ProductController@index');
+});

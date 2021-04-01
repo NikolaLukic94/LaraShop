@@ -9,7 +9,7 @@ class Product extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -25,12 +25,13 @@ class Product extends JsonResource
             'quantity' => $this->quantity,
             'size' => $this->size,
             'otherProductDetails' => $this->other_product_details,
-            'relationships' => new ProductRelationshipsResource($this),    
-            'createdAt' => $this->created_at->diffForHumans(),     
+            'relationships' => new ProductRelationshipsResource($this),
+            'createdAt' => $this->created_at->diffForHumans(),
         ];
     }
 
-    public function with($request) {
+    public function with($request)
+    {
         return [
             'version' => '1.0.0',
             'author_url' => url('https://github.com/NikolaLukic94')

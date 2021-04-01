@@ -42,34 +42,33 @@
                     </form>
                 </v-container>
                 <v-container>
-                    <hr>
-                    <v-toolbar color="teal" dark>
-                        <v-spacer></v-spacer>
-                        <v-spacer>
-                            <v-toolbar-title>
-                                <a href="/login/github">
-                                    <v-icon dark class="pr-3">
-                                        mdi-github
-                                    </v-icon>
-                                </a>
-                                <a href="/login/twitch">
-                                    <v-icon dark class="pr-3">
-                                        mdi-twitch
-                                    </v-icon>
-                                </a>
-                                <a href="/login/facebook">
-                                    <v-icon dark class="pr-3">
-                                        mdi-facebook
-                                    </v-icon>
-                                </a>
-                            </v-toolbar-title>
-                        </v-spacer>
-                    </v-toolbar>
-                    <br>
+                    <v-row class="pb-0 mb-0">
+                        <v-card-text>
+                            <p class="text-md-center text--secondary"><i>Or Login With</i></p>
+                        </v-card-text>
+                    </v-row>
+                    <v-row>
+                        <v-col class="text-center">
+                            <v-btn color="teal lighten-1" @click="redirectToThirdPartyLogin('twitch')">
+                                <v-icon dark class="white--text">
+                                    mdi-twitch
+                                </v-icon>
+                            </v-btn>
+                            <v-btn color="teal lighten-1" @click="redirectToThirdPartyLogin('github')">
+                                <v-icon dark class="white--text">
+                                    mdi-github
+                                </v-icon>
+                            </v-btn>
+                            <v-btn color="teal lighten-1" @click="redirectToThirdPartyLogin('facebook')">
+                                <v-icon dark class="white--text">
+                                    mdi-facebook
+                                </v-icon>
+                            </v-btn>
+                        </v-col>
+                    </v-row>
                 </v-container>
             </v-card>
         </v-container>
-        <footer-component></footer-component>
     </v-app>
 </template>
 
@@ -94,6 +93,9 @@
                 // console.log(this.$refs.form)
                 document.getElementById("login_form").submit()
             },
+            redirectToThirdPartyLogin(providerName) {
+                window.location.href = '/login/' + providerName;
+            }
         }
     }
 </script>
