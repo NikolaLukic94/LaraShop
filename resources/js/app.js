@@ -72,6 +72,7 @@ Vue.component('status-codes-component', require('./components/StatusCodesCompone
 Vue.component('product-types-component', require('./components/ProductType').default);
 Vue.component('users-component', require('./components/UsersComponent.vue').default);
 Vue.component('products-component', require('./components/ProductComponent.vue').default);
+Vue.component('product-modal', require('./components/ProductModal.vue').default);
 Vue.component('invoices-component', require('./components/Invoice.vue').default);
 Vue.component('cart-items', require('./components/CartItem').default);
 Vue.component('user-payment-methods', require('./components/PaymentMethod').default);

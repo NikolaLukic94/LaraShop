@@ -11,32 +11,18 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'HomeController@welcome');
 
-Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
-Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
-
 Route::get('statuses', 'StatusController@index');
+
+Route::group(['prefix' => '/login'], function() {
+    Route::get('/{provider}', 'Auth\LoginController@redirectToProvider');
+    Route::get('/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+});
 
 Route::group(['middleware' => 'verified'], function () {
     // create own api permissions controller
     Route::get('permissions', 'API\UserController@permissions');
 
     Route::get('order/payment', 'OrderController@create');
-
-    Route::group(['prefix' => '/invoice-status-codes'], function() {
-        Route::get('/', 'InvoiceStatusCodeController@index');
-        Route::post('/', 'InvoiceStatusCodeController@store');
-        Route::get('/{invoiceStatusCode}/edit', 'InvoiceStatusCodeController@edit');
-        Route::patch('/{invoiceStatusCode}', 'InvoiceStatusCodeController@update');
-        Route::delete('/{invoiceStatusCode}', 'InvoiceStatusCodeController@destroy');
-    });
-
-    Route::group(['prefix' => '/order-status-codes'], function() {
-        Route::get('/', 'OrderStatusCodeController@index');
-        Route::post('/', 'OrderStatusCodeController@store');
-        Route::get('/{orderStatusCode}/edit', 'OrderStatusCodeController@edit');
-        Route::patch('/{orderStatusCode}', 'OrderStatusCodeController@update');
-        Route::delete('/{orderStatusCode}', 'OrderStatusCodeController@destroy');
-    });
 
     Route::group(['prefix' => '/product-types'], function() {
         Route::get('/', 'ProductTypeController@index');
@@ -54,21 +40,12 @@ Route::group(['middleware' => 'verified'], function () {
         Route::delete('/{paymentMethod}', 'PaymentMethodController@destroy');
     });
 
-
     Route::group(['prefix' => '/orders'], function() {
         Route::get('/', 'OrderController@index');
         Route::post('/', 'OrderController@store');
         Route::get('/{order}/edit', 'OrderController@edit');
         Route::patch('/{order}', 'OrderController@update');
         Route::delete('/{order}', 'OrderController@destroy');
-    });
-
-    Route::group(['prefix' => '/order-items-status-codes'], function() {
-        Route::get('/', 'OrderItemStatusCodeController@index');
-        Route::post('/', 'OrderItemStatusCodeController@store');
-        Route::get('/{orderItemStatusCode}/edit', 'OrderItemStatusCodeController@edit');
-        Route::patch('/{orderItemStatusCode}', 'OrderItemStatusCodeController@update');
-        Route::delete('/{orderItemStatusCode}', 'OrderItemStatusCodeController@destroy');
     });
 
     Route::group(['prefix' => '/users'], function() {
@@ -100,9 +77,9 @@ Route::group(['middleware' => 'verified'], function () {
     });
 
     Route::get('/cart/index', 'CartItemController');
-
     Route::post('/cart/create/{id}', 'CartController@store');
 
+    // WIP
     Route::group(['prefix' => 'products'], function() {
         Route::get('/', 'ProductController@index');
         Route::post('/create', 'ProductController@store');
@@ -123,12 +100,7 @@ Route::group(['middleware' => 'verified'], function () {
         Route::get('/monthly-breakdown', 'DashboardChartController@getMonthlySalesBreakdown');
     });
 
-    Route::group(['prefix' => '/api/cart-items' ], function() {
-        Route::get('/', 'API\CartItemsController@index');
-        Route::post('/', 'API\CartItemsController@store');
-        Route::post('/{id}/edit', 'API\CartItemsController@update');
-        Route::delete('/{cartItem}', 'API\CartItemsController@destroy');
-    });
+
 });
 
 Route::post('stripe-payment', 'StripeController@store')->name('stripe.payment');

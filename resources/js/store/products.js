@@ -6,7 +6,7 @@ const state = {
     recomended: [],
     mostPopular: [],
     searchResults: [],
-
+    inEditProductId: ''
 }
 
 const getters = {
@@ -15,6 +15,7 @@ const getters = {
     getRecommended: state => state.recomended,
     getMostPopular: state => state.mostPopular,
     getSearchResults: state => state.searchResults,
+    getInEditProductId: state => state.inEditProductId
 };
 
 const actions = {
@@ -39,13 +40,13 @@ const actions = {
     filterForProduct({commit}, name) {
         let param = typeof name == "object" ? name.type : name;
 
-        return axios.post('/api/products/filter', {
+        return axios.get('/api/products', {
             name: param
         })
             .then(function (response) {
-                if (param == 'recommended') {
+                if (param === 'recomended') {
                     commit('setRecomended', response.data.data)
-                } else if (param == 'mostPopular') {
+                } else if (param === 'mostPopular') {
                     commit('setMostPopular', response.data.data)
                 } else {
                     commit('filterForProduct', response.data.data)
@@ -54,21 +55,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     createProduct({commit}, request) {
-
-        return axios.post('/products/create', {
-            id: request.id,
-            productTypeId: 1,
-            name: request.name,
-            author: request.author,
-            publisher: request.publisher,
-            description: request.description,
-            price: request.price,
-            quantity: request.quantity,
-            color: request.color,
-            size: request.size,
-            other: request.other,
-            genre: request.genre
-        })
+        return axios.post('/api/products', request)
             .then(function (response) {
                 commit('createProduct', response.data.createdProduct)
                 toast.fire({
@@ -80,23 +67,9 @@ const actions = {
             .catch(err => console.log(err))
     },
     updateProduct({commit}, request) {
-
-        return axios.post('/products/create', {
-            id: request.id,
-            productTypeId: 1,
-            name: request.name,
-            author: request.author,
-            publisher: request.publisher,
-            description: request.description,
-            price: request.price,
-            quantity: request.quantity,
-            color: request.color,
-            size: request.size,
-            other: request.other,
-            genre: request.genre
-        })
+        return axios.patch('/api/products/' + request.id, request)
             .then(function (response) {
-                commit('updateProduct', response.data.createdProduct)
+                commit('updateProduct', response.data.updatedProduct)
                 toast.fire({
                     icon: response.data.status,
                     type: response.data.status,
@@ -118,10 +91,15 @@ const actions = {
             .catch(err => console.log(err))
     },
     searchProduct({commit}, stringParam) {
-        axios.get('/api/search',
+        axios.get('/',
             {params: {searchBy: this.input}}).then(response => {
             commit('setSearchResults', response.data.data);
         });
+    },
+    setInEdit({commit}, id) {
+        console.log(id)
+        console.log('called')
+        commit('setInEdit', id)
     }
 };
 
@@ -161,6 +139,9 @@ const mutations = {
     },
     setSearchResults: (state, theProducts) => {
         state.searchResults = theProducts;
+    },
+    setInEdit: (state, id) => {
+        state.inEditProductId = id;
     },
 };
 

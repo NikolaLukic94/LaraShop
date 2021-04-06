@@ -16,12 +16,12 @@
                 }"
             >
                 <template slot="table-row" slot-scope="props">
-                      <span v-if="props.column.field == 'action'">
+                      <span v-if="props.column.field === 'action'">
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
                               <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
-                            <button class="btn btn-info" @click="openEditModal({id: props.row.id, name: props.row.name, type: props.row.type})">
+                            <button class="btn btn-info" @click="setInEdit(props.row.id)">
                               <i class="fa fa-pencil" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -53,14 +53,6 @@
                     'updateStatusCode',
                     'setInEdit'
                 ]),
-            openEditModal(rowId) {
-                this.setInEdit(rowId)
-            },
-            handleCreateOrderStatusCode() {
-                this.createOrderStatusCode(this.name);
-                this.$refs.modalClose.click();
-                this.name = '';
-            },
             openDeleteModal(rowId) {
                 this.$swal.fire({
                     title: 'Are you sure?',

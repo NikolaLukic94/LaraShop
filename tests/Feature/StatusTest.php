@@ -5,12 +5,20 @@ namespace Tests\Feature;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class StatusTest extends TestCase
 {
     use RefreshDatabase;
+
+    /**
+     * @var string[]
+     */
+    private $statusExampleData;
+    /**
+     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
+     */
+    private $user;
 
     /**
      * Set up the test
@@ -46,7 +54,8 @@ class StatusTest extends TestCase
 
         Status::create($secondStatus);
 
-        $this->actingAs($this->user, 'api')
+        $this
+            ->actingAs($this->user, 'api')
             ->json('GET', 'api/statuses')
             ->assertStatus(200)
             ->assertJson([
@@ -61,7 +70,8 @@ class StatusTest extends TestCase
     /** @test * */
     public function unauthenticatedUserCannotCreateStatus()
     {
-        $this->json('POST', 'api/statuses', $data = [])
+        $this
+            ->json('POST', 'api/statuses', $data = [])
             ->assertStatus(401)
             ->assertJson([
                 "message" => "Unauthenticated.",
@@ -71,7 +81,9 @@ class StatusTest extends TestCase
     /** @test * */
     public function nameIsRequired()
     {
-        $this->actingAs($this->user, 'api')->json('POST', 'api/statuses', $data = [])
+        $this
+            ->actingAs($this->user, 'api')
+            ->json('POST', 'api/statuses', $data = [])
             ->assertJson([
                 "message" => "The given data was invalid.",
                 "errors" => [
@@ -84,7 +96,8 @@ class StatusTest extends TestCase
     /** @test * */
     public function typeIsRequired()
     {
-        $this->actingAs($this->user, 'api')
+        $this
+            ->actingAs($this->user, 'api')
             ->json('POST', 'api/statuses', ['name' => 'Exists'])
             ->assertStatus(422)
             ->assertJson([
@@ -96,9 +109,10 @@ class StatusTest extends TestCase
     }
 
     /** @test * */
-    public function canCreateStatus()
+    public function authenticatedUserCanCreateStatus()
     {
-        $this->actingAs($this->user, 'api')
+        $this
+            ->actingAs($this->user, 'api')
             ->json('POST', 'api/statuses', $this->statusExampleData)
             ->assertStatus(201)
             ->assertJson([
@@ -109,7 +123,7 @@ class StatusTest extends TestCase
     }
 
     /** @test * */
-    public function canUpdateStatus()
+    public function authenticatedUserCanUpdateStatus()
     {
         $theStatus = Status::create($this->statusExampleData);
 
@@ -118,7 +132,8 @@ class StatusTest extends TestCase
             'type' => 'New type'
         ];
 
-        $this->actingAs($this->user, 'api')
+        $this
+            ->actingAs($this->user, 'api')
             ->json('PATCH', 'api/statuses/' . $theStatus->id, $data)
             ->assertStatus(200);
     }
@@ -128,7 +143,8 @@ class StatusTest extends TestCase
     {
         $theStatus = Status::create($this->statusExampleData);
 
-        $this->actingAs($this->user, 'api')
+        $this
+            ->actingAs($this->user, 'api')
             ->json('DELETE', 'api/statuses/' . $theStatus->id)
             ->assertStatus(200)
             ->assertJson([

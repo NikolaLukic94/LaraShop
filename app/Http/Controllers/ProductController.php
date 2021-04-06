@@ -36,57 +36,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    // StoreProduct
-    public function store(Request $request)
-    {
-        if ($product = Product::find($request['id'])) {
-
-            $product->name = $request['name'];
-            $product->description = $request['description'];
-            $product->price = $request['price'];
-            $product->color = $request['color'];
-            $product->quantity = $request['quantity'];
-
-            $product->save();
-        } else {
-            $product = Product::create([
-                'name' => $request['name'],
-                'description' => $request['description'],
-                'price' => $request['price'],
-                'color' => $request['color'],
-                // 'size' => $request['size'],
-                // 'other' => $request->other,
-                'quantity' => $request['quantity'],
-                'product_type_id' => $request['productTypeId']
-            ]);
-        }
-
-        // $images = $request->images;
-
-        // foreach($images as $image) {
-        //     $imagePath = Storage::disk('uploads')->put(
-        //         $product->name . '/products' . $product->id, $image
-        //     );
-
-        //     ProductImage::create([
-        //         'product_id' => $product,
-        //         'image_path' => $imagePath
-        //     ]);
-        // }
-
-        return response()->json([
-            'createdProduct' => $product,
-            'status' => 'success',
-            'message' => 'Product created successfully'
-        ]);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param \App\Product $product
@@ -99,7 +48,7 @@ class ProductController extends Controller
         $visits = Redis::zincrby('trending_products.', 1 , $product);
 
         return view('products.show', [
-            'product' => $id, 
+            'product' => $id,
             'visits' => $visits
         ]);
     }

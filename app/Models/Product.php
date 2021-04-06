@@ -29,4 +29,9 @@ class Product extends Model
     {
         return $query->inRandomOrder()->take(5);
     }
+
+    public function scopeFilter($query, QueryFilter $filters)
+    {
+        return $filters->apply($query);
+    }
 }

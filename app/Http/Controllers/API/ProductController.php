@@ -2,64 +2,102 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Requests\StoreProduct;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Resources\Product as ProductResource;
-use Illuminate\Support\Facades\Redis;
+use App\Models\ProductFilter;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     /**
      * Return a resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param ProductFilter $filters
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(ProductFilter $filters)
     {
-        return ProductResource::collection(
-            Product::paginate(15)
-        );
+        $products = Product::filter($filters);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully fetched!',
+            'data' => ProductResource::collection(
+                $products->paginate(15)
+            )
+        ]);
     }
 
-    public function filter(Request $request)
+//    public function filter(Request $request)
+//    {
+//        if ($request->name == 'mostPopular') {
+//            $trending = Redis::zrevrange('trending_products.', 0, 2); //returns an Array
+//            $products = Product::hydrate(array_map('json_decode', $trending));
+//        } else if ($request->name == 'recommended') {
+//            $bestsellers = Redis::zrevrange('bestsellers.', 0, 2); //returns an Array
+//            $products = Product::hydrate(array_map('json_decode', $bestsellers));
+//        } else {
+//            $products = Product::where('name', 'like', '%' . $request->name . '%')->get();
+//        }
+//
+//        $number = 0;
+//
+//        if (count($products) < 5) {
+//            $number = count($products) - 5;
+//        } elseif ((count($products) % 5) !== 0) {
+//            $number = 5 - count($products) % 5;
+//        }
+//
+//        if ($number !== 0) {
+//            $remainingProducts = Product::get()->take($number);
+//            $products = $products->merge($remainingProducts);
+//        }
+//
+//        return ProductResource::collection($products);
+//    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(StoreProduct $request)
     {
-        if ($request->name == 'mostPopular') {
-            $trending = Redis::zrevrange('trending_products.', 0, 2); //returns an Array
-            $products = Product::hydrate(array_map('json_decode', $trending));
-        } else if ($request->name == 'recommended') {
-            $bestsellers = Redis::zrevrange('bestsellers.', 0, 2); //returns an Array
-            $products = Product::hydrate(array_map('json_decode', $bestsellers));
-        } else {
-            $products = Product::where('name', 'like', '%' . $request->name . '%')->get();
-        }
+        $product = Product::create([
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'price' => $request['price'],
+            'quantity' => $request['quantity'],
+            'product_type_id' => $request['productTypeId']
+        ]);
 
-        $number = 0;
-
-        if (count($products) < 5) {
-            $number = count($products) - 5;
-        } elseif ((count($products) % 5) !== 0) {
-            $number = 5 - count($products) % 5;
-        }
-
-        if ($number !== 0) {
-            $remainingProducts = Product::get()->take($number);
-            $products = $products->merge($remainingProducts);
-        }
-
-        return ProductResource::collection($products);
+        return response()->json([
+            'createdProduct' => $product,
+            'status' => 'success',
+            'message' => 'Product created successfully'
+        ]);
     }
 
-    public function search(Request $request)
+    public function update(Request $request, $id)
     {
-        $query = (string)$request->searchBy;
+        $product = Product::find($id);
 
-        $products = Product::where('name', 'like', '%' . $query . '%')
-            ->orWhere('author', 'like', '%' . $query . '%')
-            ->orWhere('publisher', 'like', '%' . $query . '%')
-            ->get();
+        $product->name = $request['name'];
+        $product->description = $request['description'];
+        $product->price = $request['price'];
+        $product->quantity = $request['quantity'];
+        $product->product_type_id = $request['product_type_id'];
 
-        return ProductResource::collection($products);
+        $product->save();
+
+        return response()->json([
+            'updatedProduct' => $product,
+            'status' => 'success',
+            'message' => 'Product updated successfully'
+        ]);
     }
 
     public function show($id)
@@ -67,5 +105,15 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         return new ProductResource($product);
+    }
+
+    public function destroy($id)
+    {
+        Product::find($id)->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Product successfully deleted!',
+        ], 200);
     }
 }

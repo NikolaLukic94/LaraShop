@@ -55,7 +55,6 @@ class CartItemsController extends Controller
         $cartItem = CartItem::find($id);
 
         if (!is_numeric($request->value)) {
-
             $request->value == 'increase' ? $cartItem->quantity++ : $cartItem->quantity--;
             $message = $request->value == 'increase' ? 'Quantity increased!' : 'Quantity decreased';
 

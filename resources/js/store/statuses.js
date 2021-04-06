@@ -1,6 +1,6 @@
 const state = {
     statusCodes: [],
-    inEditStatusId: 'aa'
+    inEditStatusId: ''
 }
 
 const getters = {

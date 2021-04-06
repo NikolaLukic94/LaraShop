@@ -41,16 +41,6 @@ export function getNavbarItems() {
     navbarArray['view permission']['href'] = "/permissions";
     navbarArray['view permission']['icon'] = "mdi-wrench";
 
-    navbarArray['view invoice status code'] = [];
-    navbarArray['view invoice status code']['title'] = "Invoice Status Code";
-    navbarArray['view invoice status code']['href'] = "/invoice-status-codes";
-    navbarArray['view invoice status code']['icon'] = "mdi-wrench";
-
-    navbarArray['view order status code'] = [];
-    navbarArray['view order status code']['title'] = "Order Status Code";
-    navbarArray['view order status code']['href'] = "/order-items-status-codes";
-    navbarArray['view order status code']['icon'] = "mdi-wrench";
-
     navbarArray['view product type'] = [];
     navbarArray['view product type']['title'] = "Product Type";
     navbarArray['view product type']['href'] = "/product-types";
@@ -60,11 +50,6 @@ export function getNavbarItems() {
     navbarArray['view payment method']['title'] = "Payment Method";
     navbarArray['view payment method']['href'] = "/payment-methods";
     navbarArray['view payment method']['icon'] = "mdi-wrench";
-
-    navbarArray['view order items status code'] = [];
-    navbarArray['view order items status code']['title'] = "Order Items Status Code";
-    navbarArray['view order items status code']['href'] = "/order-items-status-codes";
-    navbarArray['view order items status code']['icon'] = "mdi-wrench";
 
     navbarArray['view invoices'] = [];
     navbarArray['view invoices']['title'] = "Invoices";
