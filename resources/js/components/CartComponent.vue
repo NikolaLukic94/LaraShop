@@ -1,10 +1,29 @@
 <template>
-    <div id="cart-component">
-        <p class="p-1 mb-0" id="elements">
-            <a class="text-center">
-                {{ getCartItems.length }}<i class="fa fa-shopping-bag pl-1" aria-hidden="true"></i>
-            </a>
-        </p>
+    <div>
+        <v-btn
+            w-100
+            :loading="loading3"
+            :disabled="loading3"
+            color="blue-grey"
+            class="ma-2 white--text"
+            @click="loader = 'loading3'"
+        >
+            <div>
+                {{ getOrderItems.length }}
+                <v-icon
+                    right
+                    dark
+                >
+                    fa fa-shopping-bag
+                </v-icon>
+            </div>
+        </v-btn>
+
+<!--        <p class="p-1 mb-0" id="elements">-->
+<!--            <a class="text-center">-->
+<!--                {{ getOrderItems.length }}<i class="fa fa-shopping-bag pl-1" aria-hidden="true"></i>-->
+<!--            </a>-->
+<!--        </p>-->
     </div>
 </template>
 
@@ -15,14 +34,14 @@
     export default {
         name: 'cart-component',
         computed: {
-            ...mapGetters('cartItem', ['getCartItems'])
+            ...mapGetters('orderItem', ['getOrderItems'])
         },
         methods: {
             ...mapActions(
-                'cartItem', ['setCartItems']),
+                'orderItem', ['setOrderItems']),
         },
         created() {
-            this.setCartItems();
+            this.setOrderItems();
         },
     }
 </script>
@@ -43,7 +62,6 @@
         color: black;
         text-decoration: none;
     }
-
 
     #cart-component {
         display: inline-block;

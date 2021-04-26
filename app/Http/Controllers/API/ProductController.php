@@ -89,7 +89,7 @@ class ProductController extends Controller
         $product->description = $request['description'];
         $product->price = $request['price'];
         $product->quantity = $request['quantity'];
-        $product->product_type_id = $request['product_type_id'];
+        $product->product_type_id = $request['productTypeId'];
 
         $product->save();
 

@@ -17,19 +17,19 @@
                 <img class="d-block w-100" src="/img/carousel/1.jpg" alt="Third slide">
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+<!--        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">-->
+<!--            <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--            <span class="sr-only">Prelvious</span>-->
+<!--        </a>-->
+<!--        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">-->
+<!--            <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--            <span class="sr-only">Next</span>-->
+<!--        </a>-->
 
-        <info-component></info-component>
+<!--        <info-component></info-component>-->
 
         <p style="font-size:18px; font-weight: 100; padding: 20px 0; margin: 20px;">Recomended for you</p>
-        <products-table-component :filter="'recommended'"></products-table-component>
+        <products-table-component :filter="'newest'"></products-table-component>
 
         <p style="font-size:18px; font-weight: 100; padding: 20px 0; margin: 20px;">Bestsellers</p>
         <products-table-component :filter="'mostPopular'"></products-table-component>

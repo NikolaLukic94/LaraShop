@@ -18,7 +18,8 @@ class OrderItem extends JsonResource
             'id' => $this->id,
             'quantity' => $this->quantity,
             'price' => $this->price,
-            'createdAt' => $this->created_at->diffForHumans()
+            'createdAt' => $this->created_at->diffForHumans(),
+            'relationships' => new OrderItemRelationshipsResource($this),
         ];
     }
 }

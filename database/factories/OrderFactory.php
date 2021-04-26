@@ -2,15 +2,14 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model;
+use App\Models\Status;
 use Faker\Generator as Faker;
-use App\Models\Order;
 use App\Models\User;
 
 $factory->define(App\Models\Order::class, function (Faker $faker) {
     return [
-        'status_id' => 1,
-        'user_id' => $faker->numberBetween(1, User::count()),
+        'status_id' => factory(Status::class)->create()->id,
+        'user_id' => factory(User::class)->create()->id,
         'date_placed' => $faker->dateTimeBetween('+1 week', '+6 month')
     ];
 });

@@ -19,10 +19,7 @@ class CreateOrderItemsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->unsignedBigInteger('status_id');
-            $table->foreign('status_id')->references('id')->on('statuses');
-
-            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('order_id')->nullable();
             $table->foreign('order_id')->references('id')->on('orders');
 
             $table->unsignedBigInteger('product_id');
@@ -30,10 +27,6 @@ class CreateOrderItemsTable extends Migration
 
             $table->integer('quantity');
             $table->integer('price');
-
-            // uid
-            // issued by
-            // issue date
 
             $table->timestamps();
         });

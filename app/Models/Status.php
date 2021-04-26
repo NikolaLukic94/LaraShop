@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
 {
-    protected $fillable = ['type', 'name'];
+    protected $fillable = [
+        'type',
+        'name'
+    ];
 }

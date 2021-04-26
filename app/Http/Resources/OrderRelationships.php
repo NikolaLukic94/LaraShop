@@ -25,7 +25,7 @@ class OrderRelationships extends JsonResource
             'invoice' => [
                 'data' => $this->invoice
             ],
-//            'orderStatus' => $this->orderStatusCode
+            'orderStatus' => $this->statusCode
         ];
     }
 }

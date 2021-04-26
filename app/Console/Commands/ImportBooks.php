@@ -60,7 +60,7 @@ class ImportBooks extends Command
             fclose($handle);
         }
 
-        foreach ($data as $bookData) 
+        foreach ($data as $bookData)
         {
             $product = Product::create([
                 'name' => $bookData['Title'],
@@ -69,8 +69,6 @@ class ImportBooks extends Command
                 'genre' => $bookData['Genre'],
                 'description' => $faker->paragraph,
                 'price' => $faker->numberBetween(1,199),
-                'color' => $faker->hexcolor,
-                'size' => $faker->numberBetween(1,199),
                 'quantity' => $faker->numberBetween(0,199),
                 'other_product_details' => $faker->paragraph,
                 'product_type_id' => $faker->numberBetween(1,2),

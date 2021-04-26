@@ -25,10 +25,8 @@ class StoreOrderItem extends FormRequest
     {
         return [
             'user_id' => 'required|numeric',
-            'order_item_status_code_id' => 'required|numeric',
             'product_id' => 'required|numeric',
             'quantity' => 'required|numeric',
-            'price' => 'required|numeric',
         ];
     }
 }

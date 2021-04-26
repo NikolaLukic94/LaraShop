@@ -1,19 +1,19 @@
 const state = {
-    cartItems: [],
+    orderItems: [],
     totalPremium: 0,
     allAreDigital: true
 }
 
 const getters = {
-    getCartItems: state => state.cartItems,
+    getOrderItems: state => state.orderItems,
     getTotalPremium: state => state.totalPremium
 };
 
 const actions = {
-    setCartItems({commit}) {
-        return axios.get('/api/cart-items')
+    setOrderItems({commit}) {
+        return axios.get('/api/order-items')
             .then((response) => {
-                commit('setCartItems', response.data.data);
+                commit('setOrderItems', response.data.data);
                 commit('setAllAreDigital', response.data.data);
                 commit('setTotalPremium')
             })
@@ -21,10 +21,10 @@ const actions = {
                 console.log(error);
             })
     },
-    deleteCartItem({commit}, id) {
-        return axios.delete('/api/cart-items/' + id)
+    deleteOrderItem({commit}, id) {
+        return axios.delete('/api/order-items/' + id)
             .then((response) => {
-                commit('deleteCartItem', id);
+                commit('deleteOrderItem', id);
                 toast.fire({
                     icon: response.data.status,
                     type: response.data.status,
@@ -35,29 +35,30 @@ const actions = {
                 console.log(error);
             })
     },
-    changeQuantity({commit}, data) {
-        let theId = data.id
-        return axios.post('/api/cart-items/' + theId + '/edit', {
-            value: data.value
-        })
-            .then((response) => {
-                commit('changeQuantity', {id: theId, quantity: response.data.quantity});
-                toast.fire({
-                    icon: response.data.status,
-                    type: response.data.status,
-                    title: response.data.message
-                })
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    },
-    storeCartItem: ({commit}, productId) => {
-        return axios.post('/api/cart-items', {
+    // changeQuantity({commit}, data) {
+    //     let theId = data.id
+    //     return axios.post('/api/order-items/' + theId + '/edit', {
+    //         value: data.value
+    //     })
+    //         .then((response) => {
+    //             commit('changeQuantity', {id: theId, quantity: response.data.quantity});
+    //             toast.fire({
+    //                 icon: response.data.status,
+    //                 type: response.data.status,
+    //                 title: response.data.message
+    //             })
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         })
+    // },
+    storeOrderItem: ({commit}, productId) => {
+        return axios.post('/api/order-items', {
             productId: productId,
         })
             .then((response) => {
-                commit('storeCartItem', response.data.data);
+                commit('storeOrderItem', response.data.data);
+
                 toast.fire({
                     icon: response.data.status,
                     type: response.data.status,
@@ -71,18 +72,18 @@ const actions = {
 };
 
 const mutations = {
-    setCartItems: (state, cartItems) => {
-        state.cartItems = cartItems;
+    setOrderItems: (state, orderItems) => {
+        state.orderItems = orderItems;
     },
-    deleteCartItem: (state, id) => {
-        state.cartItems = state.cartItems.filter(c => c.id !== id);
+    deleteOrderItem: (state, id) => {
+        state.orderItems = state.orderItems.filter(c => c.id !== id);
     },
-    changeQuantity: (state, data) => {
-        let item = state.cartItems.find(c => c.id === data.id);
-        item.quantity = data.quantity;
-    },
-    storeCartItem: (state, cartItem) => {
-        state.cartItems.push(cartItem);
+    // changeQuantity: (state, data) => {
+    //     let item = state.orderItems.find(c => c.id === data.id);
+    //     item.quantity = data.quantity;
+    // },
+    storeOrderItem: (state, orderItems) => {
+        state.orderItems.push(orderItems);
     },
     setAllAreDigital: (state, data) => {
         let nonDigital = Object.keys(data)
@@ -95,7 +96,7 @@ const mutations = {
     setTotalPremium: (state) => {
         let total = 0;
 
-        state.cartItems.forEach(ci => {
+        state.orderItems.forEach(ci => {
             total += ci.quantity * ci.relationships.product.data.price
         })
 

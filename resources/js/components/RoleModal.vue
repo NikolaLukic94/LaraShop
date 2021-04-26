@@ -27,38 +27,6 @@
                                     <v-row>
                                         <v-col>
                                             <v-text-field
-                                                v-model="name"
-                                                class="m-auto pb-2"
-                                                label="Enter name"
-                                                hide-details="auto"
-                                            ></v-text-field>
-                                        </v-col>
-                                    </v-row>
-                                    <v-row>
-                                        <v-col>
-                                            <v-text-field
-                                                v-model="author"
-                                                class="m-auto pb-2"
-                                                label="Enter author"
-                                                :rules="generalRules"
-                                                hide-details="auto"
-                                            ></v-text-field>
-                                        </v-col>
-                                    </v-row>
-                                    <v-row>
-                                        <v-col>
-                                            <v-text-field
-                                                v-model="publisher"
-                                                class="m-auto pb-2"
-                                                label="Enter publisher"
-                                                :rules="generalRules"
-                                                hide-details="auto"
-                                            ></v-text-field>
-                                        </v-col>
-                                    </v-row>
-                                    <v-row>
-                                        <v-col>
-                                            <v-text-field
                                                 v-model="description"
                                                 class="m-auto pb-2"
                                                 label="Enter description"
@@ -66,39 +34,6 @@
                                                 hide-details="auto"
                                             ></v-text-field>
                                         </v-col>
-                                    </v-row>
-                                    <v-row>
-                                        <v-col>
-                                            <v-autocomplete
-                                                v-model="genre"
-                                                :items="['Realism', 'Sci-fi', 'History']"
-                                                label="genre"
-                                            ></v-autocomplete>
-                                        </v-col>
-                                        <v-col>
-                                            <v-text-field
-                                                v-model="price"
-                                                class="m-auto pb-2"
-                                                label="Enter price"
-                                                :rules="generalRules"
-                                                hide-details="auto"
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col>
-                                            <v-text-field
-                                                v-model="quantity"
-                                                class="m-auto pb-2"
-                                                label="Enter quantity"
-                                                hide-details="auto"
-                                            ></v-text-field>
-                                        </v-col>
-                                        <!--                                        <v-col>-->
-                                        <!--                                            <v-autocomplete-->
-                                        <!--                                                v-model="dimensions"-->
-                                        <!--                                                :items="['100x30', '50x50', '80x60']"-->
-                                        <!--                                                label="Dimensions"-->
-                                        <!--                                            ></v-autocomplete>-->
-                                        <!--                                        </v-col>-->
                                     </v-row>
                                     <v-row>
                                         <v-col>
@@ -147,7 +82,7 @@
     import {mapState, mapGetters, mapActions} from "vuex";
 
     export default {
-        name: 'statuses-component',
+        name: 'role-modal',
         computed: {
             ...mapState('products', ['inEditProductId']),
             ...mapGetters('products', ['getInEditProductId']),
@@ -157,14 +92,14 @@
                 dialog: false,
                 inEditId: '',
 
-                name: '',
-                author: '',
-                publisher: '',
-                description: '',
-                genre: '',
-                price: '',
-                quantity: '',
-                otherProductDetails: '',
+                // name: '',
+                // author: '',
+                // publisher: '',
+                // description: '',
+                // genre: '',
+                // price: '',
+                // quantity: '',
+                // otherProductDetails: '',
 
                 expand: false,
                 generalRules: [
@@ -211,14 +146,14 @@
                 this.resetFields();
             },
             resetFields() {
-                this.name = '';
-                this.author = '';
-                this.publisher = '';
-                this.description = '';
-                this.genre = '';
-                this.price = '';
-                this.quantity = '';
-                this.otherProductDetails = '';
+                // this.name = '';
+                // this.author = '';
+                // this.publisher = '';
+                // this.description = '';
+                // this.genre = '';
+                // this.price = '';
+                // this.quantity = '';
+                // this.otherProductDetails = '';
             }
         },
         watch: {
@@ -227,14 +162,14 @@
                     this.inEditId = val.id;
                     this.dialog = true;
 
-                    this.name = val.name;
-                    this.author = val.author;
-                    this.publisher = val.publisher;
-                    this.description = val.description;
-                    this.genre = val.genre;
-                    this.price = val.price;
-                    this.quantity = val.quantity;
-                    this.otherProductDetails = val.otherProductDetails;
+                    // this.name = val.name;
+                    // this.author = val.author;
+                    // this.publisher = val.publisher;
+                    // this.description = val.description;
+                    // this.genre = val.genre;
+                    // this.price = val.price;
+                    // this.quantity = val.quantity;
+                    // this.otherProductDetails = val.otherProductDetails;
                 } else {
                     this.dialog = false;
                 }

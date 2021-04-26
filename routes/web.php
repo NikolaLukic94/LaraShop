@@ -11,96 +11,44 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'HomeController@welcome');
 
-Route::get('statuses', 'StatusController@index');
-
-Route::group(['prefix' => '/login'], function() {
+Route::group(['prefix' => '/login'], function () {
     Route::get('/{provider}', 'Auth\LoginController@redirectToProvider');
     Route::get('/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 });
 
 Route::group(['middleware' => 'verified'], function () {
-    // create own api permissions controller
-    Route::get('permissions', 'API\UserController@permissions');
+
+    Route::get('/products', 'ProductController@index');
+
+    Route::get('/statuses', 'StatusController@index');
+
+    Route::get('/orders', 'OrderController@index');
+
+    Route::get('/users', 'UserController@index');
+
+    Route::get('/roles', 'RoleController@index');
+
+    Route::get('/product-types', 'ProductTypeController@index');
+
+    Route::get('/payment-methods', 'PaymentMethodController@index');
+
+    Route::get('permissions', function () {
+        return view('permissions.index');
+    });
 
     Route::get('order/payment', 'OrderController@create');
 
-    Route::group(['prefix' => '/product-types'], function() {
-        Route::get('/', 'ProductTypeController@index');
-        Route::post('/', 'ProductTypeController@store');
-        Route::get('/{productType}/edit', 'ProductTypeController@edit');
-        Route::patch('/{productType}', 'ProductTypeController@update');
-        Route::delete('/{productType}', 'ProductTypeController@destroy');
-    });
-
-    Route::group(['prefix' => '/payment-methods'], function() {
-        Route::get('/', 'PaymentMethodController@index');
-        Route::post('/', 'PaymentMethodController@store');
-        Route::get('/{paymentMethod}/edit', 'PaymentMethodController@edit');
-        Route::patch('/{paymentMethod}', 'PaymentMethodController@update');
-        Route::delete('/{paymentMethod}', 'PaymentMethodController@destroy');
-    });
-
-    Route::group(['prefix' => '/orders'], function() {
-        Route::get('/', 'OrderController@index');
-        Route::post('/', 'OrderController@store');
-        Route::get('/{order}/edit', 'OrderController@edit');
-        Route::patch('/{order}', 'OrderController@update');
-        Route::delete('/{order}', 'OrderController@destroy');
-    });
-
-    Route::group(['prefix' => '/users'], function() {
-        Route::get('/', 'UserController@index');
-        Route::get('/{user}', 'UserController@edit');
-        Route::post('/', 'UserController@store');
-        Route::get('/{user}/edit', 'UserController@edit');
-        Route::post('/users/update/{user}', 'UserController@update'); // todo: unify
-        Route::delete('/{user}', 'UserController@destroy');
-    });
-
-    Route::group(['prefix' => '/roles'], function() {
-        Route::get('/', 'RoleController@index');
-        Route::get('/{role}', 'RoleController@show');
-        Route::post('/', 'RoleController@store');
-        Route::get('/{roles}/edit', 'RoleController@edit');
-        Route::post('roles/{role}', 'RoleController@update'); // todo
-        Route::delete('/{roles}', 'RoleController@destroy');
-    });
-
-    Route::group(['prefix' => 'reports'], function() {
+    Route::group(['prefix' => 'reports'], function () {
         Route::get('/', 'ReportController@index');
         Route::get('/create', 'ReportController@store');
     });
 
-    Route::group(['prefix' => 'invoices', 'middleware' => ['role:superadmin|admin']], function() {
+    Route::group(['prefix' => 'invoices', 'middleware' => ['role:superadmin|admin']], function () {
         Route::get('/', 'InvoiceController@getAll');
         Route::get('/index', 'InvoiceController@index');
     });
 
-    Route::get('/cart/index', 'CartItemController');
-    Route::post('/cart/create/{id}', 'CartController@store');
-
-    // WIP
-    Route::group(['prefix' => 'products'], function() {
-        Route::get('/', 'ProductController@index');
-        Route::post('/create', 'ProductController@store');
-        Route::post('/edit', 'ProductController@update');
-        Route::get('/search', 'ProductController@search');
-        Route::get('/show/{product}', 'ProductController@show');
-        Route::post('/delete/{id}', 'ProductController@destroy');
-    });
-
-    Route::group(['prefix' => 'shipments', 'middleware' => ['role:superadmin|admin']], function() {
-        Route::get('/home', 'ShipmentController@home');
-        Route::get('/index', 'ShipmentController@index');
-        Route::get('/index/all', 'ShipmentController@browse');
-    });
-
-    Route::group(['prefix' => 'dashboard'], function() {
-        Route::get('/', 'DashboardChartController@index');
-        Route::get('/monthly-breakdown', 'DashboardChartController@getMonthlySalesBreakdown');
-    });
-
-
+    Route::get('shipments', 'ShipmentController@index');
 });
 
 Route::post('stripe-payment', 'StripeController@store')->name('stripe.payment');

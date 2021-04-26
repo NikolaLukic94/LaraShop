@@ -10,7 +10,7 @@ import paymentMethods from './paymentMethods';
 import users from './users';
 import products from './products';
 import invoices from './invoices';
-import cartItem from './CartItem';
+import orderItem from './orderItem';
 import userAddress from './userAddress';
 import orderReview from './orderReview';
 import order from './order';
@@ -18,6 +18,7 @@ import shipment from './shipment';
 import payment from './payment';
 import aStore from './aStore';
 import role from './role';
+import permission from './permission';
 
 const debug = process.env.NODE_ENV !== 'production';
 
@@ -28,7 +29,7 @@ export default new Vuex.Store({
         users,
         products,
         invoices,
-        cartItem,
+        orderItem,
         userAddress,
         orderReview,
         order,
@@ -36,7 +37,8 @@ export default new Vuex.Store({
         payment,
         aStore,
         role,
-        statuses
+        statuses,
+        permission
     },
     strict: debug
 

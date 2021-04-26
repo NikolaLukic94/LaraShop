@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Status;
+use App\Models\Status;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -11,7 +11,7 @@ class Order extends Model
         'date_placed', 'order_details', 'user_id', 'order_status_codes_id'
     ];
 
-    public function orderStatusCode()
+    public function statusCode()
     {
         return $this->belongsTo(Status::class)->where('type', 'Order');
     }
@@ -25,5 +25,4 @@ class Order extends Model
     {
         return $this->hasMany(Invoice::class);
     }
-
 }

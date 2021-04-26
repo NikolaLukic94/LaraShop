@@ -3,8 +3,6 @@ import {create} from "lodash";
 const state = {
     products: [],
     filteredProducts: [],
-    recomended: [],
-    mostPopular: [],
     searchResults: [],
     inEditProductId: ''
 }
@@ -12,8 +10,6 @@ const state = {
 const getters = {
     getProducts: state => state.products,
     getFilteredProducts: state => state.filteredProducts,
-    getRecommended: state => state.recomended,
-    getMostPopular: state => state.mostPopular,
     getSearchResults: state => state.searchResults,
     getInEditProductId: state => state.inEditProductId
 };
@@ -28,29 +24,20 @@ const actions = {
                 console.log(error);
             })
     },
-    setFilteredProducts({commit}) {
-        return axios.get('/api/products')
-            .then((response) => {
-                commit('setFilteredProducts', response.data.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    },
-    filterForProduct({commit}, name) {
-        let param = typeof name == "object" ? name.type : name;
+    // setFilteredProducts({commit}) {
+    //     return axios.get('/api/products')
+    //         .then((response) => {
+    //             commit('setFilteredProducts', response.data.data);
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         })
+    // },
+    filterForProduct({commit}, filterName) {
 
-        return axios.get('/api/products', {
-            name: param
-        })
+        return axios.get('/api/products?' + filterName)
             .then(function (response) {
-                if (param === 'recomended') {
-                    commit('setRecomended', response.data.data)
-                } else if (param === 'mostPopular') {
-                    commit('setMostPopular', response.data.data)
-                } else {
-                    commit('filterForProduct', response.data.data)
-                }
+                commit('setFilteredProducts', {data: response.data.data, filter: filterName});
             })
             .catch(err => console.log(err))
     },
@@ -107,8 +94,12 @@ const mutations = {
     setProducts: (state, products) => {
         state.products = products;
     },
-    setFilteredProducts: (state, products) => {
-        state.filteredProducts = products;
+    setFilteredProducts: (state, params) => {
+        state.filteredProducts.push(params.filter)
+
+        let ee = state.filteredProducts.find(a => params.filter)
+
+        ee[params.data] ;
     },
     filterForProduct: (state, filteredProducts) => {
         state.filteredProducts = filteredProducts;
@@ -131,12 +122,12 @@ const mutations = {
     deleteProduct: (state, id) => {
         state.products = state.products.filter(p => p.id !== id);
     },
-    setRecomended: (state, products) => {
-        state.recomended = products;
-    },
-    setMostPopular: (state, products) => {
-        state.mostPopular = products;
-    },
+    // setRecomended: (state, products) => {
+    //     state.recomended = products;
+    // },
+    // setMostPopular: (state, products) => {
+    //     state.mostPopular = products;
+    // },
     setSearchResults: (state, theProducts) => {
         state.searchResults = theProducts;
     },

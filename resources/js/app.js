@@ -68,6 +68,10 @@ Vue.use(Element)
 
 // Todo: remove components that are not top level
 
+Vue.component('permissions-component', require('./components/PermissionsComponent.vue').default);
+
+Vue.component('role-modal', require('./components/RoleModal.vue').default);
+Vue.component('order-modal', require('./components/OrderModel.vue').default);
 Vue.component('status-codes-component', require('./components/StatusCodesComponent.vue').default);
 Vue.component('product-types-component', require('./components/ProductType').default);
 Vue.component('users-component', require('./components/UsersComponent.vue').default);

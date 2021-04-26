@@ -1,49 +1,40 @@
 <template>
     <div>
+        <order-modal></order-modal>
         <div class="container">
             <vue-good-table
                 :pagination-options="{
-              enabled: true
-            }"
+                    enabled: true
+                }"
+                :search-options="{
+                    placeholder: 'Search for orders',
+                    enabled: true
+                }"
                 theme="black-rhino"
                 styleClass="vgt-table striped"
                 :columns="columns"
                 :rows="getOrders">
                 <template slot="table-row" slot-scope="props">
-              <span v-if="props.column.field == 'action'">
-                  <v-btn-toggle
-                      v-model="toggle_multiple"
-                      dense
-                      background-color="primary"
-                      dark
-                      multiple
-                  >
-                    <v-btn @click="openEditModal(props.row)">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </v-btn>
-                    <v-btn @click="openDeleteModal(props.row.id)">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </v-btn>
-                    </v-btn-toggle>
-                    <v-dialog
-                        v-model="dialog"
-                        width="500"
-                    >
-                    </v-dialog>
+              <span v-if="props.column.field === 'action'">
+                  <span v-if="props.column.field === 'action'">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button class="btn btn-info" @click="setInEdit(props.row)">
+                              <i class="fa fa-eye" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                  </span>
               </span>
                     <span v-else>
                 {{props.formattedRow[props.column.field]}}
               </span>
                 </template>
-
             </vue-good-table>
         </div>
     </div>
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
-    import {mapActions} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
@@ -52,7 +43,7 @@
             ...mapGetters('order', ['getOrders'])
         },
         methods: {
-            ...mapActions('order', ['setOrders']),
+            ...mapActions('order', ['setOrders', 'setInEdit']),
         },
         data: function () {
             return {
@@ -62,16 +53,12 @@
                         field: 'datePlaced',
                     },
                     {
-                        label: 'Order Details',
-                        field: 'orderDetails:',
+                        label: 'Sum',
+                        field: 'sum',
                     },
-                    // {
-                    //     label: 'Name',
-                    //     field: 'name',
-                    // },
                     {
                         label: 'Order Status',
-                        field: 'orderStatusCode',
+                        field: 'status',
                     },
                     {
                         label: 'Action',

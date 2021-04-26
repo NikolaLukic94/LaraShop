@@ -4,6 +4,16 @@ namespace App\Models;
 
 class ProductFilter extends QueryFilter
 {
+    public function contains($input)
+    {
+        return $this->builder
+            ->where('name', 'like', '%' . $input . '%')
+            ->orWhere('author', 'like', '%' . $input . '%')
+            ->orWhere('publisher', 'like', '%' . $input . '%')
+            ->orWhere('description', 'like', '%' . $input . '%')
+            ->orWhere('genre', 'like', '%' . $input . '%');
+    }
+
     public function popular($order = 'desc')
     {
         return $this->builder->orderBy('views', $order);
@@ -11,7 +21,7 @@ class ProductFilter extends QueryFilter
 
     public function newest()
     {
-        return $this->builder->orderBy('id', 'desc');
+        return $this->builder->orderBy('created_at', 'desc');
     }
 
     public function name($name)

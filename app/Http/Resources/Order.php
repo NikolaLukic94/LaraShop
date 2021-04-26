@@ -19,6 +19,9 @@ class Order extends JsonResource
             'datePlaced' => $this->date_placed,
             'orderDetails' => $this->order_details,
             'createdAt' => $this->created_at->diffForHumans(),
+            'sum' => $this->orderItems->sum(function ($oi) {
+               return $oi->price * $oi->quantity;
+            }),
             'relationships' => new OrderRelationships($this),
         ];
     }

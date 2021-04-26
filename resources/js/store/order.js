@@ -1,9 +1,11 @@
 const state = {
     orders: [],
+    inOrderId: ''
 }
 
 const getters = {
     getOrders: state => state.orders,
+    getInEdit: state => state.inOrderId
 };
 
 const actions = {
@@ -19,8 +21,8 @@ const actions = {
     createOrder({commit}) {
         return axios.post('/orders')
             .then((response) => {
-                console.log(response)
                 commit('createOrder', response.data.data);
+
                 toast.fire({
                     icon: response.data.status,
                     type: response.data.status,
@@ -31,6 +33,9 @@ const actions = {
                 console.log(error);
             })
     },
+    setInEdit({commit}, id) {
+        commit('setInEdit', id)
+    }
 };
 
 const mutations = {
@@ -39,6 +44,9 @@ const mutations = {
     },
     createOrder: (state, order) => {
         state.orders.push(order)
+    },
+    setInEdit: (state, id) => {
+        state.inOrderId = id;
     },
 };
 

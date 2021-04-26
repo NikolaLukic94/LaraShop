@@ -14,7 +14,7 @@
             <map-component></map-component>
         </div>
         <div v-if="this.product">
-            <products-table-component :filter="'none'"></products-table-component>
+            <products-table-component :filter="'newest'"></products-table-component>
         </div>
         <div v-if="this.about">
             <about></about>
@@ -32,7 +32,7 @@
     export default {
         name: 'home-page',
         computed: {
-            ...mapGetters('cartItem', ['getCartItems'])
+            ...mapGetters('orderItem', ['getOrderItems'])
         },
         data() {
             return {
@@ -48,7 +48,7 @@
             // always show navbar, other don't show all the time
         },
         methods: {
-            ...mapActions('cartItem', ['setCartItems']),
+            ...mapActions('orderItem', ['setOrderItems']),
             passData(value) {
                 Object.keys(this.$data).forEach(key => this.$data[key] = null);
 
@@ -83,7 +83,7 @@
             }
         },
         created() {
-            this.setCartItems();
+            this.setOrderItems();
         },
     }
 </script>

@@ -7,8 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class OrderItem extends Model
 {
     protected $fillable = [
-        'user_id', 'order_item_status_code_id', 'order_id', 'product_id', 'quantity', 'price'
+        'user_id', 'status_id', 'order_id', 'product_id', 'quantity', 'price'
     ];
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function product()
     {

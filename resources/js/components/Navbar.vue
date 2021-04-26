@@ -36,9 +36,9 @@
                     >
                         Join
                     </v-tab>
-                    <v-tab @click="checkout = !checkout" class="mr-12">
+<!--                    <v-tab @click="checkout = !checkout" class="mr-12">-->
                         <cart-component></cart-component>
-                    </v-tab>
+<!--                    </v-tab>-->
                 </v-tabs>
             </v-col>
         </v-row>

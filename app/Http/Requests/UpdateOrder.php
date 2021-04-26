@@ -24,9 +24,9 @@ class UpdateOrder extends FormRequest
     public function rules()
     {
         return [
-            'date_placed' => 'somethimes|date',
-            'order_details' => 'somethimes|min:2',
-            'user_id' => 'somethimes|numeric',
+//            'date_placed' => 'somethimes|date',
+//            'order_details' => 'somethimes|min:2',
+//            'user_id' => 'somethimes|numeric',
             'order_status_codes_id' => 'somethimes|numeric',
         ];
     }
