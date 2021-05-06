@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
-
-
 @section('content')
     <meta name="stripe_key" content="{{ $stripeKey }}">
-    <home-page></home-page>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="authUser" content="{{ json_encode(auth()->user()) }}">
+    <meta name="apiToken" content="{{ json_encode(auth()->user()->api_token) }}">
 
+    <home-page></home-page>
 @endsection
 

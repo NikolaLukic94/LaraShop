@@ -26,16 +26,16 @@ class OrderItemsController extends Controller {
 
         if ($orderItem === null) {
             $orderItem = OrderItem::create([
-                'product_id' => $request->product_id,
-                'user_id' => $request->user_id, // TODO@fix Auth::id(),
-                'quantity' => $request->quantity,
-                'price' => Product::find($request->product_id)->price * $request->quantity
+                'product_id' => $request->productId,
+                'user_id' => Auth::id(),
+                'quantity' => 1,
+                'price' => Product::find($request->productId)->price * $request->quantity
             ]);
 
             $message = 'New item added to cart!';
         } else {
             $orderItem->quantity = $orderItem->quantity + 1;
-            $orderItem->price = Product::find($request->product_id)->price + $orderItem->price;
+            $orderItem->price = Product::find($request->productId)->price + $orderItem->price;
             $orderItem->save();
 
             $message = 'Quantity increased!';

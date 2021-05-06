@@ -2,9 +2,9 @@
     <v-app style="height: 110px;">
         <v-row>
             <v-col cols=2 class="text-center">
-                <a href="/">
-                    <img src="/img/logo.png" height="110px;">
-                </a>
+<!--                <a href="/">-->
+<!--                    <img src="/img/logo.png" height="110px;">-->
+<!--                </a>-->
             </v-col>
             <v-col cols=10 class="mt-5">
                 <v-tabs color="teal" center-active class="v-tab-main">
@@ -36,9 +36,11 @@
                     >
                         Join
                     </v-tab>
-<!--                    <v-tab @click="checkout = !checkout" class="mr-12">-->
-                        <cart-component></cart-component>
-<!--                    </v-tab>-->
+                    <v-btn @click="cart = !cart" class="teal text-white mr-8">
+                        <v-icon  style="text-decoration:none">
+                            mdi-cart
+                        </v-icon>
+                        {{ getOrderItems.length }}</v-btn>
                 </v-tabs>
             </v-col>
         </v-row>
@@ -46,20 +48,22 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex';
+
     export default {
+
         name: 'navbar-component',
+        computed: {
+            ...mapGetters('orderItem', ['getOrderItems', 'getSidebarToogleValue'])
+        },
         data() {
             return {
+                drawer: null,
                 authUser: false,
                 home: false,
                 searchPage: false,
                 showSearch: false,
-                login: false,
-                register: false,
-                product: false,
-                checkout: false,
-                gMap: false,
-                about: false,
+                cart: false,
                 menu: [
                     {icon: 'home', title: 'home', href: '/'},
                     {icon: 'about us', title: 'about us', href: 'about-us'},
@@ -80,7 +84,9 @@
             getAuthStatus() {
                 axios.get('/api/user')
                     .then(response => {
-                        this.authUser = response.data === 1;
+                        console.log(response)
+                        this.authUser = response.data ? 1 : 0;
+                        console.log(this.authUser)
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -95,27 +101,9 @@
         },
         watch: {
             // change to watch all at once and apss newVal as second param to this.$emit
-            login: function (newVal) {
-                this.$emit('clicked', 'login')
-            },
-            register: function (newVal) {
-                this.$emit('clicked', 'register')
-            },
-            home: function (newVal) {
-                this.$emit('clicked', 'home')
-            },
-            product: function (newVal) {
-                this.$emit('clicked', 'product')
-            },
-            gMap: function (newVal) {
-                this.$emit('clicked', 'gMap')
-            },
-            checkout: function (newVal) {
-                this.$emit('clicked', 'checkout')
-            },
-            about: function (newVal) {
-                this.$emit('clicked', 'about')
-            },
+            cart: function (newVal) {
+                this.$emit('clicked', 'cart')
+            }
         },
     }
 </script>

@@ -10,6 +10,6 @@ class PermissionController extends Controller
 {
     public function index()
     {
-        return Auth::find(1)->getAllPermissions()->pluck('name')->flatten(); // todo: redo
+        return auth()->user()->getAllPermissions()->pluck('name')->flatten(); // todo: redo
     }
 }

@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function authUser()
+    {
+        return auth()->user();
+    }
+
     public function index()
     {
         return UserResource::collection(

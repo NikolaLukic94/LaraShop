@@ -53,7 +53,7 @@
         methods: {
             ...mapActions('role', ['setRoles']),
             redirectToShow(rowId) {
-                window.location.href = '/roles/' + rowId;
+                window.location.href = '/api/roles/' + rowId;
             }
         },
         data: function () {

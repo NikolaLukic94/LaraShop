@@ -7,26 +7,52 @@ Auth::routes();
 
 Auth::routes(['verify' => true]);
 
+Route::get('a', function() {
+    dd(auth()->user());
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'HomeController@welcome');
+
+Route::get('/token', function() {
+    return auth()->user()->api_token;
+});
 
 Route::group(['prefix' => '/login'], function () {
     Route::get('/{provider}', 'Auth\LoginController@redirectToProvider');
     Route::get('/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 });
 
+Route::get('/spa/{any}', 'SpaController@index')->where('any', '.*');
+
 Route::group(['middleware' => 'verified'], function () {
 
-    Route::get('/products', 'ProductController@index');
+    Route::get('/roles', function() {
+        return view('roles.index');
+    });
 
-    Route::get('/statuses', 'StatusController@index');
+    Route::get('/products', function() {
+        return view('products.index');
+    });
 
-    Route::get('/orders', 'OrderController@index');
+    Route::get('/dashboard', function() {
+        return view('dashboard.index');
+    });
 
-    Route::get('/users', 'UserController@index');
+    Route::get('/statuses', function() {
+        return view('statuses.index');
+    });
 
-    Route::get('/roles', 'RoleController@index');
+    Route::get('/orders', function() {
+        return view('orders.index');
+    });
+
+    Route::get('/users', function() {
+        return view('users.index');
+    });
+
+//    Route::get('/roles', 'RoleController@index');
 
     Route::get('/product-types', 'ProductTypeController@index');
 

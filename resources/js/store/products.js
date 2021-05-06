@@ -4,7 +4,8 @@ const state = {
     products: [],
     filteredProducts: [],
     searchResults: [],
-    inEditProductId: ''
+    inEditProductId: '',
+    inEditMode: ''
 }
 
 const getters = {
@@ -66,7 +67,7 @@ const actions = {
             .catch(err => console.log(err))
     },
     deleteProduct({commit}, id) {
-        return axios.post('/products/delete/' + id
+        return axios.delete('/api/products/' + id
         ).then(function (response) {
             commit('deleteProduct', id)
             toast.fire({
@@ -83,10 +84,9 @@ const actions = {
             commit('setSearchResults', response.data.data);
         });
     },
-    setInEdit({commit}, id) {
-        console.log(id)
-        console.log('called')
-        commit('setInEdit', id)
+    setInEdit({commit}, data) {
+        commit('setInEdit', data.value)
+        commit('setInEditMode', data.type)
     }
 };
 
@@ -133,6 +133,9 @@ const mutations = {
     },
     setInEdit: (state, id) => {
         state.inEditProductId = id;
+    },
+    setInEditMode: (state, type) => {
+        state.inEditMode = type;
     },
 };
 

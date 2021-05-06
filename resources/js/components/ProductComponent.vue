@@ -20,9 +20,15 @@
                         <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
-                        <button class="btn btn-info"
-                                @click="setInEdit(props.row)">
+                        <button
+                            class="btn btn-info"
+                            @click="setInEdit({'value': props.row, 'type': 'edit'})">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                        <button
+                            class="btn btn-info"
+                            @click="setInEdit({'value': props.row, 'type': 'show'})">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
                         </button>
                     </div>
                 </span>

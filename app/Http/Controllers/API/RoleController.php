@@ -7,27 +7,23 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Http\Resources\Role as RoleResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
-    public function __invoke()
+    public function index()
     {
         return RoleResource::collection(
             Role::paginate(15)
         );
     }
 
-    public function show(\Spatie\Permission\Models\Role $role)
+    public function show(Role $role)
     {
         return view('roles.show', [
             'role' => $role,
             'permissions' => Permission::all()
         ]);
-    }
-
-    public function create()
-    {
-        return view('roles.create');
     }
 
     public function update(Request $request, $id)

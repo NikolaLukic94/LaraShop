@@ -71,7 +71,7 @@ class OrderItemsTest extends TestCase
     {
         $input = [
             'order_id' => factory(Order::class)->create()->id,
-            'product_id' => factory(Product::class)->create()->id,
+            'productId' => factory(Product::class)->create()->id,
             'quantity' => 5,
         ];
 
@@ -95,7 +95,7 @@ class OrderItemsTest extends TestCase
         $input = [
             'user_id' => $this->user->id,
             'order_id' => factory(Order::class)->create()->id,
-            'product_id' => $product->id,
+            'productId' => $product->id,
             'quantity' => 1,
         ];
 
@@ -127,7 +127,7 @@ class OrderItemsTest extends TestCase
             ->assertJson([
                 "message" => "The given data was invalid.",
                 "errors" => [
-                    "product_id" => ["The product id field is required."],
+                    "productId" => ["The product id field is required."],
                 ]
             ]);
     }
@@ -140,7 +140,7 @@ class OrderItemsTest extends TestCase
         $input = [
             'user_id' => $this->user->id,
             'order_id' => factory(Order::class)->create()->id,
-            'product_id' => $product->id,
+            'productId' => $product->id,
             'quantity' => 1,
         ];
 

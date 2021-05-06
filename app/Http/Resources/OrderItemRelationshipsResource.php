@@ -21,9 +21,9 @@ class OrderItemRelationshipsResource extends JsonResource
             'order' => [
                 'data' => new Order($this->order)
             ],
-            'shipmentItem' => [
-                'data' => new ShipmentItem($this->shipmentItems)
-            ],
+//            'shipmentItem' => [
+//                'data' => new ShipmentItem($this->shipmentItems)
+//            ],
             'owner' => [
                 'data' => new UserResource($this->owner)
             ]

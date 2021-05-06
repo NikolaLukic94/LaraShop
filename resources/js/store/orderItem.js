@@ -1,7 +1,8 @@
 const state = {
     orderItems: [],
     totalPremium: 0,
-    allAreDigital: true
+    allAreDigital: true,
+    getSidebarToogleValue: null
 }
 
 const getters = {
@@ -73,6 +74,7 @@ const actions = {
 
 const mutations = {
     setOrderItems: (state, orderItems) => {
+        console.log('oraaaaa', orderItems)
         state.orderItems = orderItems;
     },
     deleteOrderItem: (state, id) => {

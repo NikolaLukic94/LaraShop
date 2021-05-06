@@ -42,7 +42,7 @@
                 });
             },
             getSalesBreakdown() {
-                return axios.get('/dashboard/monthly-breakdown')
+                return axios.get('/api/dashboard/monthly-breakdown')
                     .then((response) => {
                         this.values = response.data.values;
                         this.months = response.data.names;

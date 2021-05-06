@@ -35,10 +35,10 @@
                         <b>Sum</b>
                     </v-col>
                 </v-row>
-                <span v-if="getCartItems.length > 0">
+                <span v-if="getOrderItems.length > 0">
                     <v-row
                         no-gutters
-                        v-for="cartItem in getCartItems"
+                        v-for="cartItem in getOrderItems"
                         :key="cartItem.id"
                         align="center"
                         justify="center"
@@ -55,13 +55,6 @@
                         </v-col>
                     </v-row>
                 </span>
-            </v-container>
-            <v-container>
-                <v-card>
-                    <v-card-title>
-                        Total: $ {{ this.getTotalPremium }}
-                    </v-card-title>
-                </v-card>
             </v-container>
         </v-card>
     </v-app>
@@ -80,13 +73,13 @@
             }
         },
         computed: {
-            ...mapGetters('cartItem', ['getCartItems', 'getTotalPremium'])
+            ...mapGetters('orderItem', ['getOrderItems'])
         },
         methods: {
-            ...mapActions('cartItem', ['setCartItems']),
+            ...mapActions('orderItem', ['setOrderItems']),
         },
         created() {
-            this.setCartItems();
+            this.setOrderItems();
         },
     }
 </script>

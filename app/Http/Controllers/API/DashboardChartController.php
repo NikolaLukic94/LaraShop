@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardChartController extends Controller
 {
-    public function index()
-    {
-        return view('dashboard.index');
-    }
-
     public function getMonthlySalesBreakdown()
     {
         $months = [];

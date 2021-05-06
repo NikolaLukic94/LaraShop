@@ -24,9 +24,9 @@ class StoreOrderItem extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|numeric',
-            'product_id' => 'required|numeric',
-            'quantity' => 'required|numeric',
+//            'user_id' => 'required|numeric',
+            'productId' => 'required|numeric',
+//            'quantity' => 'required|numeric',
         ];
     }
 }

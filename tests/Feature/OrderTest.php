@@ -24,9 +24,9 @@ class OrderTest extends TestCase
     }
 
     /** @test * */
-    public function authenticatedUserCanFetchStatuses()
+    public function authenticatedUserCanFetchOrders()
     {
-        $this->placeOrder();
+//        $this->placeOrder();
 
         $this
             ->actingAs($this->user, 'api')

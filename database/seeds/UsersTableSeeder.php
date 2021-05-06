@@ -18,7 +18,8 @@ class UsersTableSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@test.com',
             'password' => bcrypt('password'),
-            'email_verified_at' => Carbon::now()
+            'email_verified_at' => Carbon::now(),
+            'api_token' => Illuminate\Support\Str::random(20)
         ]);
 
         $admin->assignRole('superadmin');
