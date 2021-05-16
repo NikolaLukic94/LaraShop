@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->string('api_token', 80)
                 ->unique()
-                ->nullable()
-                ->default(null);
+                ->nullable();
+
             $table->string('provider_id')->nullable();
             $table->string('provider')->nullable();
             $table->rememberToken();

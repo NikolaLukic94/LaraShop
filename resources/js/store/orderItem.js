@@ -36,30 +36,41 @@ const actions = {
                 console.log(error);
             })
     },
-    // changeQuantity({commit}, data) {
-    //     let theId = data.id
-    //     return axios.post('/api/order-items/' + theId + '/edit', {
-    //         value: data.value
-    //     })
-    //         .then((response) => {
-    //             commit('changeQuantity', {id: theId, quantity: response.data.quantity});
-    //             toast.fire({
-    //                 icon: response.data.status,
-    //                 type: response.data.status,
-    //                 title: response.data.message
-    //             })
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         })
-    // },
+    updateOrderItem({commit}, {item, value}) {
+        let newValue = value === 'increase' ? item.quantity++ : item.quantity--;
+
+        return axios.post('/api/order-items/' + item.id + '/edit', {
+            quantity: newValue
+        })
+            .then((response) => {
+                console.log(response)
+
+                commit('changeQuantity', {id: item.id, quantity: response.data.quantity});
+                toast.fire({
+                    icon: response.data.status,
+                    type: response.data.status,
+                    title: response.data.message
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+
+    },
     storeOrderItem: ({commit}, productId) => {
+        if (window.axios.defaults.headers.common['Authorization'] === 'Bearer ') {
+            toast.fire({
+                icon: 'error',
+                type: 'error',
+                title: 'Please log in first!'
+            })
+        }
+
         return axios.post('/api/order-items', {
             productId: productId,
         })
             .then((response) => {
                 commit('storeOrderItem', response.data.data);
-
                 toast.fire({
                     icon: response.data.status,
                     type: response.data.status,

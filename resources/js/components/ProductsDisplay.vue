@@ -1,5 +1,5 @@
 <template>
-    <div class="ml-8 mr-8 mt-8">
+    <div>
         <v-row v-for="books in this.chunkedProducts" :key="books.id">
             <div class="container" v-for="book in books" :key="book.id">
                 <img :src="book.relationships.images.data[0].imagePath" alt="Avatar"
@@ -54,7 +54,6 @@
                 return axios.get('/api/products?' + inputValue)
                     .then((response) => {
                         this.books = response.data.data;
-                        console.log(this.books)
                     })
                     .catch(err => console.log(err))
             }
@@ -69,7 +68,7 @@
             }
         },
         watch: {
-            filter: function(newVal, oldVal) { // watch it
+            filter: function(newVal, oldVal) {
                 this.search(newVal)
             }
         }

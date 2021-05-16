@@ -50,29 +50,25 @@ class OrderItemsController extends Controller {
 
     public function update(Request $request, $id)
     {
+        // TODO: validation
         $orderItem = OrderItem::find($id);
 
-        if (!is_numeric($request->value)) {
-            $request->value == 'increase' ? $orderItem->quantity++ : $orderItem->quantity--;
-            $message = $request->value == 'increase' ? 'Quantity increased!' : 'Quantity decreased';
+        $message = $request->quantity > $orderItem->quanitity ? 'Quantity increased!' : 'Quantity decreased!';
 
-            $orderItem->save();
-
-            return response()->json([
-                'quantity' => $orderItem->quantity,
-                'status' => 'success',
-                'message' => $message
-            ]);
-        }
-
-        $orderItem->quantity = $request->value;
+        $orderItem->quantity = $request->quantity;
+        $orderItem->price = $orderItem->quantity * $orderItem->product->price;
 
         $orderItem->save();
+
+        if ($orderItem->quantity === 0) {
+            $orderItem->delete();
+            $message = 'Item removed from cart!';
+        }
 
         return response()->json([
             'quantity' => $orderItem->quantity,
             'status' => 'success',
-            'message' => 'Quantity updated!'
+            'message' => $message
         ]);
     }
 

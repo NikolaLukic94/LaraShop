@@ -41,6 +41,7 @@ Date : Any future date
 
 ### Features
 
+- SPA (Non admin section)
 - Login with Github/Twitch/Facebook
 - Vue chart feature
 - Roles/permissions built with Spatie package
@@ -50,4 +51,4 @@ Date : Any future date
 - Nice autocomplete search
 - Dynamic home page for (customer) users
 
-More coming soon!
+Site is under rebuild && more coming soon!

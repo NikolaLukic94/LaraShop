@@ -6,7 +6,7 @@
                 max-width="600"
                 outlined
             >
-                <v-container v-for="cartItem in getCartItems" :key="cartItem.id">
+                <v-container v-for="cartItem in getOrderItems" :key="cartItem.id">
                     <v-row dense>
                         <v-card
                             class="card-outter"
@@ -33,47 +33,29 @@
                                     <v-card-actions class="card-actions mt-3">
                                         <v-btn text>
                                             <i class="fa fa-plus-circle pr-3" aria-hidden="true"
-                                               @click="changeQuantity({id:cartItem.id, value: 'increase'})">
+                                               @click="updateOrderItem({item:cartItem, value: 'increase'})">
                                             </i>
                                         </v-btn>
 
                                         <input type="text" :value="cartItem.quantity"
                                                style="width:25px; color: white"
-                                               @input="changeQuantity({id:cartItem.id, value: this.quantity})">
+                                               @input="updateOrderItem({item:cartItem, value: this.quantity})">
 
                                         <v-btn text>
                                             <i class="fa fa-minus-circle pr-3" aria-hidden="true"
-                                               @click="changeQuantity({id: cartItem.id, value: 'decrease'})">
+                                               @click="updateOrderItem({item: cartItem, value: 'decrease'})">
                                             </i>
                                         </v-btn>
 
                                         ${{ cartItem.quantity * cartItem.relationships.product.data.price }}
 
                                         <v-btn text><i class="fa fa-remove"
-                                                       @click="deleteCartItem(cartItem.id)"></i>
+                                                       @click="deleteOrderItem(cartItem.id)"></i>
                                         </v-btn>
                                     </v-card-actions>
                                 </v-col>
                             </v-row>
                         </v-card>
-                    </v-row>
-                </v-container>
-                <v-container>
-                    <v-row no-gutters>
-                        <v-col>
-                            <v-btn :href="'/products/search'" style="width: 100%">
-                                <i class="fa fa-arrow-left" aria-hidden="true"></i>Add more items
-                            </v-btn>
-                        </v-col>
-                        <v-col align="center">
-                            <b>Total: $ {{ this.getTotalPremium }}</b>
-                        </v-col>
-                        <v-col>
-                            <v-btn :href="'/checkout'" class="pull-right" style="width: 100%">
-                                Checkout
-                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                            </v-btn>
-                        </v-col>
                     </v-row>
                 </v-container>
             </v-card>
@@ -89,22 +71,20 @@
         name: 'cart-items',
         computed: {
             ...mapGetters(
-                'cartItem',
+                'orderItem',
                 [
-                    'getCartItems',
+                    'getOrderItems',
                     'getTotalPremium'
                 ]
             )
         },
         methods: {
             ...mapActions(
-                'cartItem',
+                'orderItem',
                 [
-                    'setCartItems',
-                    'increaseQuantity',
-                    'decreaseQuantity',
-                    'changeQuantity',
-                    'deleteCartItem',
+                    'setOrderItems',
+                    'updateOrderItem',
+                    'deleteOrderItem',
                 ]
             ),
         },
@@ -114,8 +94,7 @@
             }
         },
         created() {
-            this.setCartItems();
-            this.getTotalPremium;
+            this.setOrderItems();
         },
     }
 </script>
