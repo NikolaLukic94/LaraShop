@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -39,39 +38,31 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-        /**
-     * Redirect the user to the GitHub authentication page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function redirectToProvider($provider)
-    {
-        return Socialite::driver($provider)->redirect();
-    }
+    // public function redirectToProvider($provider)
+    // {
+    //     return Socialite::driver($provider)->redirect();
+    // }
 
-        /**
-     * Obtain the user information from GitHub.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function handleProviderCallback($provider)
-    {
-        $socialiteUser = Socialite::driver($provider)->user();
+    // public function handleProviderCallback($provider)
+    // {
+    //     $socialiteUser = Socialite::driver($provider)->user();
 
-        $user = User::firstOrCreate(
-            [
-                'provider_id' => $socialiteUser->getId(),
-                'provider' => $provider
-            ],
-            [
-                'email' => $socialiteUser->getEmail(),
-                'name' => $socialiteUser->getName(),
-                'email_verified_at' => \Carbon\Carbon::now()
-            ]
-        );
+    //     $user = User::firstOrCreate(
+    //         [
+    //             'provider_id' => $socialiteUser->getId(),
+    //             'provider' => $provider
+    //         ],
+    //         [
+    //             'email' => $socialiteUser->getEmail(),
+    //             'name' => $socialiteUser->getName(),
+    //             'email_verified_at' => \Carbon\Carbon::now()
+    //         ]
+    //     );
 
-        auth()->login($user, true);
+    //     $user->update(['api_token', Str::random(80)]);
 
-        return redirect('/');
-    }
+    //     auth()->login($user, true);
+
+    //     return redirect('/');
+    // }
 }

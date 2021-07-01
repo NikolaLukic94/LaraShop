@@ -1,30 +1,45 @@
 <template>
     <div>
-        <v-row v-for="books in this.chunkedProducts" :key="books.id">
-            <div class="container" v-for="book in books" :key="book.id">
-                <img :src="book.relationships.images.data[0].imagePath" alt="Avatar"
-                     class="image" style="width:100%">
-                <div class="middle">
-                    <button style="background-color: green; padding-top: 10px; padding-bottom: 10px; padding-left: 20px; padding-right: 20px; margin-top: 15px;">
-                        <i class="fa fa-eye text-white" style="font-size: 30" aria-hidden="true" title="View book"></i>
-                    </button>
-                    <button
-                        style="background-color: green; padding-top: 10px; padding-bottom: 10px; padding-left: 20px; padding-right: 20px; margin-top: 15px;">
-                        <i class="fa fa-cart-plus text-white" style="font-size: 30" aria-hidden="true"
-                           title="Add to cart"
-                           @click="storeOrderItem(book.id)"
-                        ></i>
-                    </button>
+        <v-row no-gutters v-for="books in this.chunkedProducts" :key="books.id"
+               class="ml-64 mr-64 justify-center">
+            <div v-for="book in books" :key="book.id">
+                <div class="pl-4 pr-4 mb-4" style="height: 350px;"
+                     @mouseover="selectItem(book.id)"
+                     @mouseleave="unSelectItem()"
+                >
+                    <img :src="book.relationships.images.data[0].imagePath" :id="book.id" alt="Book"
+                         style="height: 200px; width: 150px;"
+                         class="image pt-4">
+                    <p class="pt-2 text-center">{{ book.name.substring(0, 20) }}</p>
+                    <p class="text-center">${{ book.price }}</p>
+
+                    <!--                    <div class="middle">-->
+                    <div  v-if="hoverOverBookId === book.id">
+                        <button class="hover-buttons">
+                            <i class="fa fa-eye text-white" aria-hidden="true" title="View book"></i>
+                        </button>
+                        <button class="hover-buttons">
+                            <i class="fa fa-cart-plus text-white" aria-hidden="true"
+                               title="Add to cart"
+                               @click="storeOrderItem(book.id)"
+                            ></i>
+                        </button>
+                    </div>
                 </div>
             </div>
+
             <!--            <v-col>-->
-            <!--                <v-img-->
-            <!--                    max-height="250"-->
-            <!--                    max-width="180"-->
-            <!--                    style="margin-right: 25%;"-->
-            <!--                    v-bind:src="'https://prodimage.images-bn.com/pimages/9780062386908_p0_v6_s550x406.jpg'"-->
-            <!--                ></v-img>-->
+            <!--                <img :src="book.relationships.images.data[0].imagePath" alt="Book" class="image">-->
             <!--            </v-col>-->
+            <!--            &lt;!&ndash;            <v-col>&ndash;&gt;-->
+            <!--            &lt;!&ndash;                <v-img&ndash;&gt;-->
+            <!--            &lt;!&ndash;                    max-height="250"&ndash;&gt;-->
+            <!--            &lt;!&ndash;                    max-width="180"&ndash;&gt;-->
+            <!--            &lt;!&ndash;                    style="margin-right: 25%;"&ndash;&gt;-->
+            <!--            &lt;!&ndash;                    v-bind:src="'https://prodimage.images-bn.com/pimages/9780062386908_p0_v6_s550x406.jpg'"&ndash;&gt;-->
+            <!--            &lt;!&ndash;                ></v-img>&ndash;&gt;-->
+            <!--            &lt;!&ndash;            </v-col>&ndash;&gt;-->
+            <!--                        </div>-->
         </v-row>
     </div>
 </template>
@@ -39,12 +54,13 @@
         computed: {
             ...mapGetters('products', ['getFilteredProducts']),
             chunkedProducts() {
-                return _.chunk(Object.values(this.books), 5);
+                return _.chunk(Object.values(this.books), 6);
             },
         },
         data: function () {
             return {
                 books: [],
+                hoverOverBookId: null
             }
         },
         methods: {
@@ -56,6 +72,12 @@
                         this.books = response.data.data;
                     })
                     .catch(err => console.log(err))
+            },
+            selectItem(item) {
+                this.hoverOverBookId = item
+            },
+            unSelectItem(item) {
+                this.hoverOverBookId = false
             }
         },
         created() {
@@ -68,7 +90,7 @@
             }
         },
         watch: {
-            filter: function(newVal, oldVal) {
+            filter: function (newVal, oldVal) {
                 this.search(newVal)
             }
         }
@@ -123,5 +145,14 @@
         color: white;
         font-size: 16px;
         padding: 16px 32px;
+    }
+
+    .hover-buttons {
+        background-color: green;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 15px;
     }
 </style>

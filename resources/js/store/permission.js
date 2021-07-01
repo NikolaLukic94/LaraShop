@@ -8,25 +8,23 @@ const getters = {
 
 const actions = {
     setPermissions({commit}) {
-        return axios.get('/api/permissions')
+        return axios.get('/api/permissions-all')
             .then((response) => {
-                console.log(reponse)
 
-                commit('setPermissions', response.data.data);
+                commit('setPermissions', response.data);
+
                 toast.fire({
                     icon: 'success',
                     type: 'success',
                     title: 'Permissions fetched!'
                 })
             })
-            .catch(function (error) {
-                console.log(error);
-            })
+            .catch(function (error) {console.log(error);})
     },
 };
 
 const mutations = {
-    setPermissions: (state, roles) => {
+    setPermissions: (state, permissions) => {
         state.permissions = permissions;
     },
 };

@@ -25,11 +25,6 @@
                             @click="setInEdit({'value': props.row, 'type': 'edit'})">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </button>
-                        <button
-                            class="btn btn-info"
-                            @click="setInEdit({'value': props.row, 'type': 'show'})">
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                        </button>
                     </div>
                 </span>
                     <span v-else>{{props.formattedRow[props.column.field]}}</span>
@@ -42,9 +37,11 @@
 <script>
     import {mapActions, mapGetters} from 'vuex';
     import 'vue-good-table/dist/vue-good-table.css';
+    import ProductModal from "./ProductModal";
 
     export default {
         name: 'products-component',
+        components: {ProductModal},
         computed: {
             ...mapGetters('products', ['getProducts'])
         },
@@ -55,7 +52,8 @@
                     'createProduct',
                     'deleteProduct',
                     'updateProduct',
-                    'setInEdit'
+                    'setInEdit',
+                    'setUploadPhotoModeId'
                 ]
             ),
             openDeleteModal(id) {
@@ -70,12 +68,6 @@
                 }).then((result) => {
                     if (result.value) {
                         this.deleteProduct(id);
-
-                        Swal.fire(
-                            'Deleted!',
-                            'Product status code has been deleted.',
-                            'success'
-                        )
                     }
                 })
             },

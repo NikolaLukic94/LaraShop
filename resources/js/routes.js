@@ -8,6 +8,7 @@ import ProductsTable from './components/ProductComponent';
 import ProductsDisplay from './components/ProductsDisplay';
 import SingleProduct from './components/visuals/SingleProduct';
 import History from './components/visuals/History';
+import AdminHome from './components/AdminHome';
 
 export default {
     mode: 'history',
@@ -61,6 +62,11 @@ export default {
             path: '/spa/register',
             component: Register,
             name: 'register'
+        },
+        {
+            path: '/spa/admin',
+            component: AdminHome,
+            name: 'admin'
         },
     ]
 }

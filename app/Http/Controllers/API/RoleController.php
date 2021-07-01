@@ -42,6 +42,10 @@ class RoleController extends Controller
             'guard_name' => 'web'
         ]);
 
-        return redirect('roles/index');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Role successfully created!',
+            'role' => $role
+        ]);
     }
 }

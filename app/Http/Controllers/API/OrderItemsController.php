@@ -50,8 +50,16 @@ class OrderItemsController extends Controller {
 
     public function update(Request $request, $id)
     {
-        // TODO: validation
+        // TODO: move to validation class
         $orderItem = OrderItem::find($id);
+
+        if ($request->quantity < 1) {
+            return response()->json([
+                'orderItem' => $orderItem,
+                'status' => 'error',
+                'message' => 'Unable to decrease the quantity!'
+            ]);
+        }
 
         $message = $request->quantity > $orderItem->quanitity ? 'Quantity increased!' : 'Quantity decreased!';
 
@@ -60,13 +68,14 @@ class OrderItemsController extends Controller {
 
         $orderItem->save();
 
-        if ($orderItem->quantity === 0) {
+        if ($request->quantity === 0) {
             $orderItem->delete();
+            $orderItem = null;
             $message = 'Item removed from cart!';
         }
 
         return response()->json([
-            'quantity' => $orderItem->quantity,
+            'orderItem' => $orderItem,
             'status' => 'success',
             'message' => $message
         ]);

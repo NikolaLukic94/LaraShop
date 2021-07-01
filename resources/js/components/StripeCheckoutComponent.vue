@@ -33,7 +33,7 @@
                     @loading="loading = $event"
                 >
                 </stripe-elements>
-                <button class="btn btn-info mt-1" @click="submit">Make a purchase / Pay
+                <button class="btn btn-info mt-1" @click="submit">Make a purchase / Pay {{ this.getTotalPremium }}
                 </button>
             </v-container>
         </v-card>
@@ -49,7 +49,7 @@
             StripeElements
         },
         computed: {
-            ...mapGetters('orderReview', ['getOrders']),
+            ...mapGetters('orderReview', ['getOrders', 'getTotalPremium']),
             ...mapGetters('orderItem'),
         },
         data: () => ({
@@ -60,7 +60,7 @@
             charge: null
         }),
         methods: {
-            ...mapActions('orderItem', ['setOrderItems']),
+            ...mapActions('orderItem', ['setOrderItems', 'setTotalPremium']),
             submit() {
                 this.loading = true;
                 this.$refs.elementsRef.submit();
@@ -102,7 +102,7 @@
         },
         created() {
             this.setOrderItems();
-
+            this.setTotalPremium();
             this.publishableKey = document.querySelector('meta[name="stripe_key"]').content;
         }
     }

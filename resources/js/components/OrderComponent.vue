@@ -34,11 +34,13 @@
 </template>
 
 <script>
+    import OrderModal from "./OrderModel";
     import {mapGetters, mapActions} from 'vuex';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
         name: 'order-component',
+        components: {OrderModal},
         computed: {
             ...mapGetters('order', ['getOrders'])
         },

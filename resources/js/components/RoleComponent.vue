@@ -11,24 +11,15 @@
                 :columns="columns"
                 :rows="getRoles">
                 <template slot="table-row" slot-scope="props">
-              <span v-if="props.column.field == 'action'">
-                    <v-btn-toggle
-                        v-model="toggle_multiple"
-                        dense
-                        background-color="primary"
-                        dark
-                        multiple
-                    >
-                    <v-btn @click="redirectToShow(props.row.id)">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-                    </v-btn>
-                    </v-btn-toggle>
-                    <v-dialog
-                        v-model="dialog"
-                        width="500"
-                    >
-                    </v-dialog>
-              </span>
+                    <span v-if="props.column.field === 'action'">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button
+                            class="btn btn-info"
+                            @click="setInEdit({'value': props.row})">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </span>
                     <span v-else>
                 {{props.formattedRow[props.column.field]}}
               </span>
@@ -40,21 +31,19 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
-    import {mapActions} from 'vuex';
+    import RoleModal from "./RoleModal";
+    import {mapGetters, mapActions} from 'vuex';
     import {VueGoodTable} from 'vue-good-table';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
         name: 'roles-component',
+        components: {RoleModal},
         computed: {
             ...mapGetters('role', ['getRoles'])
         },
         methods: {
-            ...mapActions('role', ['setRoles']),
-            redirectToShow(rowId) {
-                window.location.href = '/api/roles/' + rowId;
-            }
+            ...mapActions('role', ['setRoles', 'setInEdit']),
         },
         data: function () {
             return {

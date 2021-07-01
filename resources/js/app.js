@@ -8,22 +8,31 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import Vuex from 'vuex'
 
-Vue.use(Vuex)
 
 import store from "./store/store"
-
+import Vuex from 'vuex'
 import VueGoodTablePlugin from 'vue-good-table';
-
+import Vue from 'vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import VueMeta from 'vue-meta'
+import Element from 'element-ui'
+import Vuetify from 'vuetify';
+import * as VueGoogleMaps from 'vue2-google-maps';
+import Overdrive from 'vue-overdrive'
+import VueAnimate from 'vue-animate-scroll'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-Vue.use(VueSweetalert2);
-
 import swal from 'sweetalert2'
-window.swal = swal;
 
+Vue.use(VueSweetalert2);
+Vue.use(Vuex)
 Vue.use(VueGoodTablePlugin);
+Vue.use(Overdrive)
+Vue.use(VueAnimate)
+
+window.swal = swal;
 
 window.axios = require('axios')
 
@@ -37,24 +46,13 @@ if (token) {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token')
 }
 
-import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-import VueMeta from 'vue-meta'
-import Element from 'element-ui'
-import Vuetify from 'vuetify';
-import * as VueGoogleMaps from 'vue2-google-maps';
+window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.head.querySelector('meta[name="auth-token"]').getAttribute('content');
 
-import Overdrive from 'vue-overdrive'
-Vue.use(Overdrive)
-
-import VueAnimate from 'vue-animate-scroll'
-
-Vue.use(VueAnimate)
+console.log('qqq', document.head.querySelector('meta[name="auth-token"]').getAttribute('content'))
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: ''
+    key: 'AIzaSyC0vyc1yK4h7D1zoTL_EA40mh6rZUOW92g'
   }
 })
 
@@ -66,63 +64,56 @@ import 'vuetify/dist/vuetify.min.css'
 Vue.use(VueAxios, axios)
 Vue.use(Element)
 
-// Todo: remove components that are not top level
-
 Vue.component('permissions-component', require('./components/PermissionsComponent.vue').default);
-
-Vue.component('role-modal', require('./components/RoleModal.vue').default);
-Vue.component('order-modal', require('./components/OrderModel.vue').default);
 Vue.component('status-codes-component', require('./components/StatusCodesComponent.vue').default);
 Vue.component('product-types-component', require('./components/ProductType').default);
 Vue.component('users-component', require('./components/UsersComponent.vue').default);
 Vue.component('products-component', require('./components/ProductComponent.vue').default);
-Vue.component('product-modal', require('./components/ProductModal.vue').default);
 Vue.component('invoices-component', require('./components/Invoice.vue').default);
-Vue.component('cart-items', require('./components/CartItem').default);
 Vue.component('user-payment-methods', require('./components/PaymentMethod').default);
-Vue.component('order-review', require('./components/OrderReview').default);
 Vue.component('payment-methods-component', require('./components/PaymentMethodComponent.vue').default);
 Vue.component('order-component', require('./components/OrderComponent').default);
 Vue.component('shipment-component', require('./components/ShipmentComponent').default);
-Vue.component('cart-component', require('./components/CartComponent').default);
-
-Vue.component('footer-component', require('./components/visuals/FooterComponent').default);
 Vue.component('dashboard-chart-component', require('./components/DashboardChart').default);
 Vue.component('reports-component', require('./components/ReportsComponent').default);
-Vue.component('products-table-component', require('./components/ProductsDisplay').default);
-Vue.component('map-component', require('./components/MapComponent').default);
-Vue.component('stripe-checkout-component', require('./components/StripeCheckoutComponent').default);
 Vue.component('roles-component', require('./components/RoleComponent').default);
 Vue.component('statuses-component', require('./components/StatusesComponent').default);
 Vue.component('single-product-component', require('./components/visuals/SingleProduct').default);
-Vue.component('autocomplete', require('./components/Autocomplete').default);
-Vue.component('vue-loader', require('./components/LoaderComponent').default);
-Vue.component('general-component', require('./components/GeneralComponent').default);
-Vue.component('scroll-link', require('./components/ScrollLink').default);
-Vue.component('conditional-visibility', require('./components/ConditionalVisibility').default);
-Vue.component('landing-page', require('./components/Carousel').default);
+
 Vue.component('home-page', require('./components/HomePage').default);
-Vue.component('product-modal', require('./components/ProductModal').default);
+Vue.component('login-form-component', require('./components/visuals/LoginFormComponent').default);
+Vue.component('register-form-component', require('./components/visuals/RegisterComponent').default);
+
+Vue.component('autocomplete', require('./components/Autocomplete').default);
 
 Vue.component('navbar-component', require('./components/Navbar').default);
 Vue.component('new-sidebar-component', require('./components/visuals/Sidebar').default);
-Vue.component('about', require('./components/visuals/About').default);
-Vue.component('login-form-component', require('./components/visuals/LoginFormComponent').default);
-Vue.component('register-form-component', require('./components/visuals/RegisterComponent').default);
-Vue.component('info-component', require('./components/visuals/InfoComponent').default);
+Vue.component('products-table-component', require('./components/ProductsDisplay').default);
+
+// Vue.component('user-payment-methods', require('./components/PaymentMethod').default);
+// Vue.component('payment-methods-component', require('./components/PaymentMethodComponent.vue').default);
+// Vue.component('statuses-component', require('./components/StatusesComponent').default);
+
+import VueRouter from 'vue-router';
+import routes from './routes';
+
+Vue.use(VueRouter);
 
 const app = new Vue({
     el: '#app',
     store,
     vuetify: new Vuetify(),
+    router: new VueRouter(routes)
 });
 
 const toast = swal.mixin({
   toast: true,
-  position: 'top-end',
+  position: 'bottom-end',
   showConfirmButton: false,
   timer: 3000
 });
 
 window.toast = toast;
+
+
 

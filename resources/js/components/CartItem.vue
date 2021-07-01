@@ -47,7 +47,6 @@
                                             </i>
                                         </v-btn>
 
-                                        ${{ cartItem.quantity * cartItem.relationships.product.data.price }}
 
                                         <v-btn text><i class="fa fa-remove"
                                                        @click="deleteOrderItem(cartItem.id)"></i>
@@ -64,18 +63,13 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
-    import {mapActions} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
 
     export default {
         name: 'cart-items',
         computed: {
             ...mapGetters(
-                'orderItem',
-                [
-                    'getOrderItems',
-                    'getTotalPremium'
-                ]
+                'orderItem', ['getOrderItems']
             )
         },
         methods: {

@@ -27,39 +27,51 @@
                                     <v-row>
                                         <v-col>
                                             <v-text-field
-                                                v-model="description"
+                                                v-model="name"
                                                 class="m-auto pb-2"
-                                                label="Enter description"
+                                                label="Enter name"
                                                 :rules="generalRules"
                                                 hide-details="auto"
                                             ></v-text-field>
                                         </v-col>
                                     </v-row>
                                     <v-row>
+                                        <p>Permissions:</p>
                                         <v-col>
-                                            <v-text-field
-                                                v-model="otherProductDetails"
-                                                class="m-auto pb-2"
-                                                label="Enter other product details"
-                                                hide-details="auto"
-                                            ></v-text-field>
+                                            <div v-for="permission in getPermissions">
+                                                <div v-if="permission.id % 2 === 0">
+                                                    <v-checkbox
+                                                        @click="updateSelectedPermissions(permission.id)"
+                                                        :label="permission.name"
+                                                    ></v-checkbox>
+                                                </div>
+                                            </div>
+                                        </v-col>
+                                        <v-col>
+                                            <div v-for="permission in getPermissions">
+                                                <div v-if="permission.id % 2 !== 0">
+                                                    <v-checkbox
+                                                        @click="updateSelectedPermissions(permission.id)"
+                                                        :label="permission.name"
+                                                    ></v-checkbox>
+                                                </div>
+                                            </div>
                                         </v-col>
                                     </v-row>
                                 </v-card-text>
                                 <v-card-actions class="justify-end">
-                                    <div v-if="inEditId !== ''">
+                                    <div v-if="getInEditRoleId === ''">
                                         <v-btn
                                             color="teal text-white"
-                                            @click="expand=!expand; callUpdateProduct();">
-                                            Update
+                                            @click="expand=!expand; callCreateRole(); dialog.value = false;">
+                                            Submit
                                         </v-btn>
                                     </div>
                                     <div v-else>
                                         <v-btn
                                             color="teal text-white"
-                                            @click="expand=!expand; callCreateProduct(); dialog.value = false;">
-                                            Add
-                                            New
+                                            @click="expand=!expand; callUpdateRole(); dialog.value = false;">
+                                            Submit
                                         </v-btn>
                                     </div>
                                     <v-btn
@@ -79,98 +91,57 @@
 
 <script>
     import 'vue-good-table/dist/vue-good-table.css';
-    import {mapState, mapGetters, mapActions} from "vuex";
+    import {mapGetters, mapActions} from "vuex";
 
     export default {
         name: 'role-modal',
         computed: {
-            ...mapState('products', ['inEditProductId']),
-            ...mapGetters('products', ['getInEditProductId']),
+            ...mapGetters('role', ['getInEditRoleId']),
+            ...mapGetters('permission', ['getPermissions']),
         },
         data: function () {
             return {
+                selectedPermissions: [],
                 dialog: false,
                 inEditId: '',
-
-                // name: '',
-                // author: '',
-                // publisher: '',
-                // description: '',
-                // genre: '',
-                // price: '',
-                // quantity: '',
-                // otherProductDetails: '',
-
+                name: '',
                 expand: false,
                 generalRules: [
                     r => !!r || 'This field is required',
-                    r => r.length <= 30 || 'The field must be less than 30 characters',
                     r => r.length > 5 || 'The field must be at least 5 characters',
                 ],
             }
         },
         methods: {
-            ...mapActions('products', ['createProduct', 'updateProduct', 'setInEdit']),
-            callCreateProduct() {
-                let newProductData = {
-                    name: this.name,
-                    author: this.author,
-                    publisher: this.publisher,
-                    description: this.description,
-                    genre: this.genre,
-                    price: this.price,
-                    quantity: this.quantity,
-                    otherProductDetails: this.otherProductDetails,
-                    productTypeId: 1,
-                }
-
-                this.createProduct(newProductData);
-                this.resetFields();
+            ...mapActions('role', ['createRole', 'setInEdit']),
+            callCreateRole() {
+                this.createRole(this.name);
+                this.name = '';
             },
-            callUpdateProduct() {
-                let updatedProductData = {
+            callUpdateRole() {
+                let updatedRoleData = {
                     id: this.inEditId,
                     name: this.name,
-                    author: this.author,
-                    publisher: this.publisher,
-                    description: this.description,
-                    genre: this.genre,
-                    price: this.price,
-                    quantity: this.quantity,
-                    otherProductDetails: this.otherProductDetails,
-                    productTypeId: 1,
                 }
 
-                this.updateProduct(updatedProductData);
+                this.updateRole(updatedRoleData);
                 this.setInEdit('');
-                this.resetFields();
+                this.name = '';
             },
-            resetFields() {
-                // this.name = '';
-                // this.author = '';
-                // this.publisher = '';
-                // this.description = '';
-                // this.genre = '';
-                // this.price = '';
-                // this.quantity = '';
-                // this.otherProductDetails = '';
+            updateSelectedPermissions(permissionId) {
+                this.selectedPermissions = this.selectedPermissions.includes(permissionId)
+                    ? this.selectedPermissions.filter(p => p.id !== permissionId)
+                    : this.selectedPermissions.push(permissionId);
             }
         },
         watch: {
-            getInEditProductId(val) {
+            getInEditRoleId(val) {
                 if (val !== '') {
                     this.inEditId = val.id;
                     this.dialog = true;
-
-                    // this.name = val.name;
-                    // this.author = val.author;
-                    // this.publisher = val.publisher;
-                    // this.description = val.description;
-                    // this.genre = val.genre;
-                    // this.price = val.price;
-                    // this.quantity = val.quantity;
-                    // this.otherProductDetails = val.otherProductDetails;
+                    this.name = val.name;
                 } else {
+                    this.inEditId = '';
                     this.dialog = false;
                 }
             },

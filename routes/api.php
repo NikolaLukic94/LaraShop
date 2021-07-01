@@ -5,11 +5,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/products', 'API\ProductController@index');
 
+Route::get('/user', 'API\UserController@authUser');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::post('stripe-payment', 'StripeController@store')->name('stripe.payment');
+//Route::get('checkout', 'StripeController@index');
 
+Route::get('/order-items', 'API\OrderItemsController@index');
 
 Route::group(['middleware' => 'auth:api'], function () {
 
@@ -27,9 +28,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::delete('/{id}', 'API\ProductController@destroy');
     });
 
-    // FE todo: adding to cart, removing from cart etc
     Route::group(['prefix' => '/order-items'], function () {
-        Route::get('/', 'API\OrderItemsController@index');
         Route::post('/', 'API\OrderItemsController@store');
         Route::post('/{id}/edit', 'API\OrderItemsController@update');
         Route::delete('/{cartItem}', 'API\OrderItemsController@destroy');
@@ -71,17 +70,20 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
     Route::get('/permissions', 'API\PermissionController@index');
+    Route::get('/permissions-all', 'API\PermissionController@getAll');
 
     Route::get('/payment-methods', 'PaymentMethodController@getAll');
 
     Route::get('/users', 'API\UserController@index');
-    Route::get('/user', 'API\UserController@user');
 
     Route::get('/orders', 'API\OrderController@index');
-
-    Route::get('/user', 'API\UserController@authUser');
 
     Route::get('/auth-role', 'API\UserController@authUser');
 
     Route::post('/shipments', 'API\ShipmentController@index');
+
+    Route::post('/product-images', 'API\ProductImageController@store');
 });
+
+Route::get('/stores', 'API\StoreController@index');
+

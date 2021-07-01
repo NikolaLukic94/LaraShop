@@ -12,17 +12,6 @@
                 :rows="getPermissions">
                 <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
-                    <v-btn-toggle
-                        v-model="toggle_multiple"
-                        dense
-                        background-color="primary"
-                        dark
-                        multiple
-                    >
-                    <v-btn @click="redirectToShow(props.row.id)">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-                    </v-btn>
-                    </v-btn-toggle>
                     <v-dialog
                         v-model="dialog"
                         width="500"
@@ -51,15 +40,9 @@
         },
         methods: {
             ...mapActions('permission', ['setPermissions']),
-            // redirectToShow(rowId) {
-            //     window.location.href = '/roles/' + rowId;
-            // }
         },
         data: function () {
             return {
-                // dialog: false,
-                // name: '',
-                // newOrderItemStatusColumnName: '',
                 columns: [
                     {
                         label: 'Name',
@@ -67,7 +50,7 @@
                     },
                     {
                         label: 'Created',
-                        field: 'createdAt',
+                        field: 'created_at',
                     },
                     {
                         label: 'Action',

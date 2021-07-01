@@ -5,14 +5,16 @@ const state = {
     filteredProducts: [],
     searchResults: [],
     inEditProductId: '',
-    inEditMode: ''
+    inEditMode: '',
+    photosOfProductInEdit: []
 }
 
 const getters = {
     getProducts: state => state.products,
     getFilteredProducts: state => state.filteredProducts,
     getSearchResults: state => state.searchResults,
-    getInEditProductId: state => state.inEditProductId
+    getInEditProductId: state => state.inEditProductId,
+    getPhotosOfProductInEdit: state => state.photosOfProductInEdit
 };
 
 const actions = {
@@ -25,17 +27,7 @@ const actions = {
                 console.log(error);
             })
     },
-    // setFilteredProducts({commit}) {
-    //     return axios.get('/api/products')
-    //         .then((response) => {
-    //             commit('setFilteredProducts', response.data.data);
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         })
-    // },
     filterForProduct({commit}, filterName) {
-
         return axios.get('/api/products?' + filterName)
             .then(function (response) {
                 commit('setFilteredProducts', {data: response.data.data, filter: filterName});
@@ -87,19 +79,28 @@ const actions = {
     setInEdit({commit}, data) {
         commit('setInEdit', data.value)
         commit('setInEditMode', data.type)
-    }
+
+        if (data.value.relationships.images.data.length) {
+            commit('setPhotosOfProductInEdit', data.value.relationships.images)
+        } else {
+            commit('setPhotosOfProductInEdit', [])
+        }
+    },
 };
 
 const mutations = {
-    setProducts: (state, products) => {
-        state.products = products;
+    setPhotosOfProductInEdit: (state, photos) => {
+        state.photosOfProductInEdit = photos;
+    },
+    setProducts: (state, id) => {
+        state.products = id;
     },
     setFilteredProducts: (state, params) => {
         state.filteredProducts.push(params.filter)
 
         let ee = state.filteredProducts.find(a => params.filter)
 
-        ee[params.data] ;
+        ee[params.data];
     },
     filterForProduct: (state, filteredProducts) => {
         state.filteredProducts = filteredProducts;
@@ -122,12 +123,6 @@ const mutations = {
     deleteProduct: (state, id) => {
         state.products = state.products.filter(p => p.id !== id);
     },
-    // setRecomended: (state, products) => {
-    //     state.recomended = products;
-    // },
-    // setMostPopular: (state, products) => {
-    //     state.mostPopular = products;
-    // },
     setSearchResults: (state, theProducts) => {
         state.searchResults = theProducts;
     },

@@ -13,33 +13,33 @@ class StoresSeeder extends Seeder
     public function run()
     {
         Store::create([
-            'name' => 'First Shop',
-            'address' => '4142 SW Testing Way',
-            'city' => 'Orlando',
-            'state' => 'FL',
+            'name' => 'Gallery #1',
+            'address' => 'Kneza Mihaila 3',
+            'city' => 'Belgrade',
+            'state' => 'Serbia',
             'hours' => '9:00am-6:00pm',
-            'latitude' => 28.452763,
-            'longitude' => -81.412228
+            'latitude' => '44.81534194729186',
+            'longitude' => '20.45951407401414'
         ]);
 
         Store::create([
-            'name' => 'Second Shop',
-            'address' => '28275 Test Lane',
-            'city' => 'Orlando',
-            'state' => 'FL',
-            'hours' => '10:00am-6:00pm',
-            'latitude' => 28.473342,
-            'longitude' => -81.491581
+            'name' => 'Gallery #2',
+            'address' => 'Vojvode Stepe 10',
+            'city' => 'Belgrade',
+            'state' => 'Serbia',
+            'hours' => '9:00am-6:00pm',
+            'latitude' => '44.78600772928174',
+            'longitude' => '20.46751629787823'
         ]);
 
         Store::create([
-            'name' => 'Thrid Shop',
-            'address' => '352 Faking Drive',
-            'city' => 'Orlando',
-            'state' => 'FL',
-            'hours' => '7:00am-6:00pm',
-            'latitude' => 28.526046,
-            'longitude' => -81.396101
+            'name' => 'Gallery #3',
+            'address' => 'Ustanicka 33',
+            'city' => 'Belgrade',
+            'state' => 'Serbia',
+            'hours' => '9:00am-6:00pm',
+            'latitude' => '44.788403580668515',
+            'longitude' => '20.475040313219793'
         ]);
     }
 }

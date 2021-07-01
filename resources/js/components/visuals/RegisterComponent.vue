@@ -43,7 +43,7 @@
                         ></v-text-field>
                         <v-row>
                             <v-col>
-                                <v-btn @click="validate()" color="teal" class="white--text" style="width: 100%">
+                                <v-btn @click="registerUser()" color="teal" class="white--text" style="width: 100%">
                                     Register
                                 </v-btn>
                             </v-col>
@@ -134,14 +134,24 @@
             model: 'validateField',
         },
         methods: {
+            registerUser() {
+                return axios.post('/register', {
+                    'name': this.name,
+                    'password': this.password,
+                    'password_confirmation': this.password_confirmation,
+                    'email': this.email
+                }).then((res) => {
+                    this.redirectAfterSuccess();
+                })
+            },
+            redirectAfterSuccess() {
+                this.$router.push({name: 'admin'})
+            },
             validateField() {
                 this.$refs.form.validate()
             },
-            validate() {
-                document.getElementById("register_form").submit()
-            },
             redirectToThirdPartyLogin(providerName) {
-                window.location.href = '/login/' + providerName;
+                // window.location.href = '/login/' + providerName;
             }
         },
     }

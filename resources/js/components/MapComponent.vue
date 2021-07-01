@@ -22,7 +22,7 @@
                         <h2 v-text="this.activeStore.city"></h2>
                     </div>
                     <gmap-marker
-                        v-for="r in this.getStores"
+                        v-for="r in this.stores"
                         :key="r.id"
                         :position="getPosition(r)"
                         :clickable="true"
@@ -42,14 +42,12 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
-    import {mapActions} from 'vuex';
-    import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
         name: 'map-component',
         data: function () {
             return {
+                stores: null,
                 infoWindowOptions: {
                     pixelOffset: {
                         width: 0,
@@ -57,50 +55,70 @@
                     }
                 },
                 activeStore: null,
-                infoWindowPosition: {
-                    lat: '',
-                    lng: ''
-                },
                 infoWindowOpened: false
             }
         },
         computed: {
-            ...mapGetters('aStore', ['getStores']),
             mapCenter() {
-                if (!this.getStores.length) {
-                    return {
-                        lat: 10,
-                        lng: 10
-                    }
-                }
+                return axios.get('/api/stores')
+                    .then(response => {
+                       if (response.data.length) {
 
-                return {
-                    lat: parseFloat(this.getStores[0].latitude),
-                    lng: parseFloat(this.getStores[0].longitude)
-                }
+                           this.activeStore = response.data[0];
+
+                           return {
+                               lat: parseFloat(parseInt(response.data[0].latitude)),
+                               lng: parseFloat(parseInt(response.data[0].longitude))
+                           }
+                       }
+                    })
+
             },
-            // infoWindowPosition() {
-            //     return {
-            //         lat: parseFloat(this.activeStore.latitude),
-            //         lat: parseFloat(this.activeStore.longitude)
-            //     }
-            // }
+            infoWindowPosition() {
+                return axios.get('/api/stores')
+                    .then(response => {
+                        if (response.data.length) {
+
+                            this.activeStore = response.data[0];
+
+                            return {
+                                len: parseFloat(this.activeStore.latitude),
+                                lat: parseFloat(this.activeStore.longitude)
+                            }
+                        }
+                    })
+
+                // return {
+                //     len: parseFloat(this.activeStore.latitude),
+                //     lat: parseFloat(this.activeStore.longitude)
+                // }
+            }
         },
         methods: {
-            ...mapActions('aStore', ['setStores']),
             getPosition(r) {
                 return {
                     lat: parseFloat(r.latitude),
                     lng: parseFloat(r.longitude)
                 }
             },
+            handleMarkerClicked(r) {
+                this.activeStore = r;
+                this.infoWindowOpened = true;
+            },
             handleInfoWindowClose() {
-                this.activeStore = {},
-                    this.infoWindowOptions = false
+                this.activeStore = {};
+                this.infoWindowOptions = false
             }
         },
         created() {
-            this.setStores();
+            return axios.get('/api/stores')
+                .then(response => {
+                    this.activeStore = response.data[0];
+
+                    this.stores = response.data;
+                })
+
+            console.log('mounted', this.stores)
         },
     }
 </script>

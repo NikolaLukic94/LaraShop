@@ -43,7 +43,7 @@
                 </v-container>
                 <v-container>
                     <v-row class="pb-0 mb-0">
-                        <v-card-text>
+                        <v-card-text @click="logUser()">
                             <p class="text-md-center text--secondary"><i>Or Login With</i></p>
                         </v-card-text>
                     </v-row>
@@ -72,7 +72,6 @@
     </v-app>
 </template>
 
-
 <script>
     export default {
         name: 'login-form-component',
@@ -89,13 +88,19 @@
             }
         },
         methods: {
-            validate() {
-                // console.log(this.$refs.form)
-                document.getElementById("login_form").submit()
-            },
-            redirectToThirdPartyLogin(providerName) {
-                window.location.href = '/login/' + providerName;
+            // validate() {
+            logUser() {
+                return axios.post('login', {
+                    'email' : this.email,
+                    'password': this.password
+                }).then((res) => {
+                    console.log('logged in')
+                    this.$router.push({name: 'admin'})
+                }).catch((error) => console.log(error));
             }
+            // redirectToThirdPartyLogin(providerName) {
+            //     window.location.href = '/login/' + providerName;
+            // }
         }
     }
 </script>
