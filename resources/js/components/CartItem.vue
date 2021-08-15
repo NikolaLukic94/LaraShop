@@ -6,7 +6,7 @@
                 max-width="600"
                 outlined
             >
-                <v-container v-for="cartItem in getOrderItems" :key="cartItem.id">
+                <v-container v-for="cartItem in getOrderItems">
                     <v-row dense>
                         <v-card
                             class="card-outter"

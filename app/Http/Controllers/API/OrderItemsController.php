@@ -7,42 +7,38 @@ use App\Http\Requests\StoreOrderItem;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class OrderItemsController extends Controller {
 
     public function index()
     {
-        $authUserCartItems = OrderItem::where('user_id', Auth::id())->get();
+        $authUserCartItems = auth()->user()->cartItems;
 
         return \App\Http\Resources\OrderItem::collection($authUserCartItems);
     }
 
     public function store(StoreOrderItem $request)
     {
-        $orderItem = OrderItem::where('product_id', $request->product_id)
-            ->where('user_id', Auth::id())
-            ->first();
+        $authUser = auth()->user();
 
-        if ($orderItem === null) {
-            $orderItem = OrderItem::create([
+        $theCartItem = $authUser->cartItems->where('product_id', $request->productId)->first();
+
+        if ($theCartItem) {
+            $theCartItem->update(['quantity' => $theCartItem->quantity + 1]);
+
+            $message = 'Quantity increased!';
+        } else {
+            $theCartItem = $authUser->cartItems()->create([
                 'product_id' => $request->productId,
-                'user_id' => Auth::id(),
                 'quantity' => 1,
                 'price' => Product::find($request->productId)->price * $request->quantity
             ]);
 
             $message = 'New item added to cart!';
-        } else {
-            $orderItem->quantity = $orderItem->quantity + 1;
-            $orderItem->price = Product::find($request->productId)->price + $orderItem->price;
-            $orderItem->save();
-
-            $message = 'Quantity increased!';
         }
 
         return response()->json([
-            'cartItem' => $orderItem,
+            'cartItem' => $theCartItem,
             'status' => 'success',
             'message' => $message
         ]);
@@ -61,7 +57,7 @@ class OrderItemsController extends Controller {
             ]);
         }
 
-        $message = $request->quantity > $orderItem->quanitity ? 'Quantity increased!' : 'Quantity decreased!';
+        $message = $request->quantity > $orderItem->quantity ? 'Quantity increased!' : 'Quantity decreased!';
 
         $orderItem->quantity = $request->quantity;
         $orderItem->price = $orderItem->quantity * $orderItem->product->price;

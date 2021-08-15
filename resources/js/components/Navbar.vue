@@ -11,7 +11,7 @@
             <v-toolbar-items class="hidden-sm-and-down" @click="redirect('map')">
                 <v-btn text>Find Us</v-btn>
             </v-toolbar-items>
-            <v-toolbar-items class="hidden-sm-and-down"  @click="showSearch = !showSearch">
+            <v-toolbar-items class="hidden-sm-and-down" @click="showSearch = !showSearch">
                 <autocomplete></autocomplete>
             </v-toolbar-items>
             <v-toolbar-items class="hidden-sm-and-down" @click="redirect('history')">
@@ -34,8 +34,8 @@
                 </v-toolbar-items>
             </div>
 
-            <v-toolbar-items class="hidden-sm-and-down">
-                <v-btn @click="drawer = !drawer" text>Cart</v-btn>
+            <v-toolbar-items class="hidden-sm-and-down" v-if="getOrderItems.length > 0">
+                <v-btn @click="drawer = !drawer" text>{{ getOrderItems.length }} in Cart</v-btn>
             </v-toolbar-items>
         </v-toolbar>
         <v-sheet
@@ -91,6 +91,7 @@
             }
         },
         methods: {
+            ...mapActions('orderItem', ['setOrderItems']),
             redirect(val) {
                 this.$router.push({name: val})
             },
@@ -102,6 +103,9 @@
         mounted() {
             this.$router.push({name: 'home'})
             this.tokenIsset = document.head.querySelector('meta[name="auth-token"]').getAttribute('content') !== 'not-authenticated' ? true : false
+        },
+        created() {
+            this.setOrderItems()
         },
         watch: {
             cart: function (newVal) {

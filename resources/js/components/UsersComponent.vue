@@ -71,8 +71,12 @@
         <div class="container">
             <vue-good-table
                 :pagination-options="{
-              enabled: true
-            }"
+                  enabled: true
+                }"
+                :search-options="{
+                    placeholder: 'Search for users',
+                    enabled: true
+                }"
                 theme="black-rhino"
                 styleClass="vgt-table striped"
                 :columns="columns"
@@ -82,7 +86,6 @@
               <div class="btn-group" role="group">
                 <div class="btn-group" role="group">
                     <v-btn-toggle
-                        v-model="toggle_multiple"
                         dense
                         background-color="primary"
                         dark
@@ -153,6 +156,16 @@
                     }
                 })
             },
+            userRoles(rowObject) {
+
+                let roles = [];
+
+                rowObject.relationships.roles.forEach(r => {
+                    roles.push(r.name)
+                })
+
+                return roles;
+            }
         },
         data: function () {
             return {
@@ -194,6 +207,10 @@
                     {
                         label: 'Action',
                         field: 'action',
+                    },
+                    {
+                        label: 'Roles',
+                        field: this.userRoles,
                     },
                 ]
             }

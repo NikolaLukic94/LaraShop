@@ -16,6 +16,7 @@ class UserRelationshipsResource extends JsonResource
     {
         return [
             'addresses' => UserAddresses::collection($this->addresses),
+            'roles' => RolesResource::collection($this->roles),
             // 'cartItems' => CartItem::collection($this->cartItems)
         ];
     }

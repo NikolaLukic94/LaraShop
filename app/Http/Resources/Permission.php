@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Role extends JsonResource
+class Permission extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,6 @@ class Role extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'guardName' => $this->guard_name,
         ];
     }
 }

@@ -12,6 +12,7 @@ const actions = {
     setOrders({commit}) {
         return axios.get('/api/orders')
             .then((response) => {
+                console.log('order response', response)
                 commit('setOrders', response.data.data);
             })
             .catch(function (error) {

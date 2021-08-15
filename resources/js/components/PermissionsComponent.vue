@@ -50,7 +50,7 @@
                     },
                     {
                         label: 'Created',
-                        field: 'created_at',
+                        field: 'createdAt',
                     },
                     {
                         label: 'Action',

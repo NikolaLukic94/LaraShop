@@ -7,10 +7,9 @@ const getters = {
 };
 
 const actions = {
-    setUser({commit}, id) {
-        return axios.get('/shipment/index')
+    setShipments({commit}, id) {
+        return axios.get('/api/shipments')
             .then((response) => {
-                console.log('asasd', response.data.data)
                 commit('setShipments', response);
             })
             .catch(function (error) {

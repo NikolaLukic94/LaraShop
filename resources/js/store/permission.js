@@ -10,8 +10,7 @@ const actions = {
     setPermissions({commit}) {
         return axios.get('/api/permissions-all')
             .then((response) => {
-
-                commit('setPermissions', response.data);
+                commit('setPermissions', response.data.data);
 
                 toast.fire({
                     icon: 'success',

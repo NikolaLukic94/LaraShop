@@ -19,7 +19,7 @@
                         <v-card-title class="title">
                             Lorem Ipsum Dolor
                         </v-card-title>
-                        <v-card-text class="white text--primary">
+                        <v-card-text class="white text--primary pt-4">
                             <p>Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.</p>
                             <v-btn
                                 :color="item.color"
@@ -45,19 +45,19 @@
             return {
                 items: [
                     {
-                        color: 'red lighten-2',
+                        color: 'teal',
                         icon: 'mdi-star',
                     },
                     {
-                        color: 'purple darken-1',
+                        color: 'teal',
                         icon: 'mdi-book-variant',
                     },
                     {
-                        color: 'green lighten-1',
+                        color: 'teal',
                         icon: 'mdi-airballoon',
                     },
                     {
-                        color: 'indigo',
+                        color: 'teal',
                         icon: 'mdi-buffer',
                     },
                 ],

@@ -42,7 +42,7 @@ const actions = {
             })
     },
     updateOrderItem({commit}, {item, value}) {
-        let newValue = value === 'increase' ? item.quantity++ : item.quantity--;
+        let newValue = value == 'increase' ? item.quantity + 1 : item.quantity - 1;
 
         return axios.post('/api/order-items/' + item.id + '/edit', {
             quantity: newValue
@@ -93,6 +93,7 @@ const actions = {
 
 const mutations = {
     setOrderItems: (state, orderItems) => {
+        console.log(orderItems);
         state.orderItems = orderItems;
     },
     updateOrderItem: (state, orderItem) => {

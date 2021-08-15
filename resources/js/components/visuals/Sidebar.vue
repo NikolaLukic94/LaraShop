@@ -36,10 +36,6 @@
                 <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
         </v-app-bar>
-
-<!--        <main>-->
-<!--            <span>Vuetify Container</span>-->
-<!--        </main>-->
     </v-app>
 </template>
 
@@ -57,7 +53,7 @@
                 navbarItems: [],
 
                 appTitle: "App Prototype",
-                drawer: false,
+                drawer: true,
                 clipped: false,
 
                 newitem: false,

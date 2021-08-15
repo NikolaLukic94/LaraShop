@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $fillable = [
-        'date_placed', 'order_details', 'user_id', 'order_status_codes_id'
+        'date_placed', 'order_details', 'user_id', 'order_status_codes_id', 'status_id'
     ];
 
     public function statusCode()

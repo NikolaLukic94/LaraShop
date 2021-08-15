@@ -1,7 +1,7 @@
 <template>
     <div style="padding-top: 0; margin-top: 0;">
         <div v-if="this.loading === true">
-            <vue-loader></vue-loader>
+<!--            <vue-loader></vue-loader>-->
         </div>
         <v-card
             class="mx-auto mb-2"
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-    import {mapState, mapGetters, mapActions} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
     import {StripeElements} from 'vue-stripe-checkout';
 
     export default {
@@ -78,13 +78,12 @@
             sendTokenToServer(charge) {
                 this.loading = true;
 
-                return axios.post('/stripe-payment', {
+                return axios.post('/api/stripe-payment', {
                     amount: charge.amount,
                     stripeToken: charge.source,
                     description: charge.description
                 })
                     .then((response) => {
-
                         this.loading = true;
 
                         toast.fire({
@@ -93,7 +92,7 @@
                             title: 'Successful purchase! Please check your inbox!'
                         })
 
-                        window.location.href = 'http://larashop.abc/';
+                        window.location.href = '/spa/home';
                     })
                     .catch(function (error) {
                         console.log(error);

@@ -7,12 +7,12 @@ Route::get('/products', 'API\ProductController@index');
 
 Route::get('/user', 'API\UserController@authUser');
 
-//Route::post('stripe-payment', 'StripeController@store')->name('stripe.payment');
 //Route::get('checkout', 'StripeController@index');
 
-Route::get('/order-items', 'API\OrderItemsController@index');
-
 Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('stripe-payment', 'StripeController@store')->name('stripe.payment');
+
+    Route::get('/order-items', 'API\OrderItemsController@index');
 
     Route::group(['prefix' => '/statuses'], function () {
         Route::get('/', 'API\StatusController@index');
@@ -80,7 +80,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/auth-role', 'API\UserController@authUser');
 
-    Route::post('/shipments', 'API\ShipmentController@index');
+    Route::get('/shipments', 'API\ShipmentController@index');
 
     Route::post('/product-images', 'API\ProductImageController@store');
 });

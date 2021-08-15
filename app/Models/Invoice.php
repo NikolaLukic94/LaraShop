@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
-    protected $fillable = ['order_id', 'invoice_status_code_id', 'date', 'invoice_details'];
-
+    protected $fillable = ['order_id', 'invoice_status_code_id', 'date', 'invoice_details', 'status_id'];
+    // todo: rename
     public function invoiceStatusCode()
     {
-        return $this->belongsTo(InvoiceStatusCode::class);
+        return $this->belongsTo(Status::class)->where('type', 'Invoice');
     }
 
     public function payments()

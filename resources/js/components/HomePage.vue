@@ -11,7 +11,7 @@
             <v-col></v-col>
         </v-row>
 
-        <p style="font-size:18px; font-weight: 100; padding: 20px 0; margin: 20px;">Recomended for you</p>
+        <p style="font-size:18px; font-weight: 100; padding: 20px 0; margin: 20px;"></p>
         <products-table-component :filter="'newest'"></products-table-component>
 
         <info-component></info-component>
@@ -33,16 +33,10 @@
                 carouselSection: true,
                 items: [
                     {
-                        src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+                        src: 'https://cdn.hipwallpaper.com/i/40/57/t5Bz9j.jpg',
                     },
                     {
-                        src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-                    },
-                    {
-                        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-                    },
-                    {
-                        src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+                        src: 'https://cdn.concreteplayground.com/content/uploads/2018/10/reading-book-bed-stock-unsplash.jpg',
                     },
                 ],
             }
