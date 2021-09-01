@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -38,31 +40,31 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // public function redirectToProvider($provider)
-    // {
-    //     return Socialite::driver($provider)->redirect();
-    // }
+     public function redirectToProvider($provider)
+     {
+         return Socialite::driver($provider)->redirect();
+     }
 
-    // public function handleProviderCallback($provider)
-    // {
-    //     $socialiteUser = Socialite::driver($provider)->user();
+     public function handleProviderCallback($provider)
+     {
+         $socialiteUser = Socialite::driver($provider)->user();
 
-    //     $user = User::firstOrCreate(
-    //         [
-    //             'provider_id' => $socialiteUser->getId(),
-    //             'provider' => $provider
-    //         ],
-    //         [
-    //             'email' => $socialiteUser->getEmail(),
-    //             'name' => $socialiteUser->getName(),
-    //             'email_verified_at' => \Carbon\Carbon::now()
-    //         ]
-    //     );
+         $user = User::firstOrCreate(
+             [
+                 'provider_id' => $socialiteUser->getId(),
+                 'provider' => $provider
+             ],
+             [
+                 'email' => $socialiteUser->getEmail(),
+                 'name' => $socialiteUser->getName(),
+                 'email_verified_at' => \Carbon\Carbon::now()
+             ]
+         );
 
-    //     $user->update(['api_token', Str::random(80)]);
+         $user->update(['api_token', Str::random(80)]);
 
-    //     auth()->login($user, true);
+         auth()->login($user, true);
 
-    //     return redirect('/');
-    // }
+         return redirect('/');
+     }
 }

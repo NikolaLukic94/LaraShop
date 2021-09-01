@@ -26,16 +26,21 @@ class ProductFilter extends QueryFilter
 
     public function name($name)
     {
-        return $this->where('name', 'like', '%' . $name . '%');
+        return $this->builder->where('name', 'like', '%' . $name . '%');
     }
 
     public function author($author)
     {
-        return $this->where('name', 'like', '%' . $author . '%');
+        return $this->builder->where('name', 'like', '%' . $author . '%');
     }
 
     public function publisher($publisher)
     {
-        return $this->where('name', 'like', '%' . $publisher . '%');
+        return $this->builder->where('name', 'like', '%' . $publisher . '%');
+    }
+
+    public function id($id)
+    {
+        return $this->builder->where('id', $id);
     }
 }

@@ -16,7 +16,7 @@
                     transition="dialog-bottom-transition"
                 >
                     <template v-slot:activator="{ on, attrs }">
-                        <v-btn @click="showSearch = !showSearch"          color="teal"
+                        <v-btn @click="showSearch = !showSearch" color="teal"
                                dark
                                v-bind="attrs"
                                v-on="on">
@@ -53,7 +53,6 @@
 
 <script>
 
-    import {mapActions, mapGetters} from 'vuex';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
@@ -64,12 +63,6 @@
                 dialog: false,
                 benched: 0,
             }
-        },
-        computed: {
-
-        },
-        methods: {
-
         },
     }
 </script>

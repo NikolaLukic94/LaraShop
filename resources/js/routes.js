@@ -6,18 +6,18 @@ import Register from './components/visuals/RegisterComponent';
 import NotFound from './components/visuals/NotFound';
 import ProductsTable from './components/ProductComponent';
 import ProductsDisplay from './components/ProductsDisplay';
-import SingleProduct from './components/visuals/SingleProduct';
 import History from './components/visuals/History';
 import AdminHome from './components/AdminHome';
+import SingleProduct from './components/visuals/SingleProduct';
 
 export default {
     mode: 'history',
 
     routes: [
-        {
-            path: '/spa/*',
-            component: NotFound,
-        },
+        // {
+        //     path: '/spa/*',
+        //     component: NotFound,
+        // },
         {
             path: '/product/:id',
             component: SingleProduct,
@@ -28,11 +28,11 @@ export default {
             component: History,
             name: 'history'
         },
-        {
-            path: '/spa/products',
-            component: ProductsTable,
-            name: 'productsTable'
-        },
+        // {
+        //     path: '/spa/products/:id',
+        //     component: ProductsTable,
+        //     name: 'productsTable'
+        // },
         {
             path: '/spa/home',
             component: HomePage,
@@ -67,6 +67,11 @@ export default {
             path: '/spa/admin',
             component: AdminHome,
             name: 'admin'
+        },
+        {
+            path: '/spa/product/:id',
+            component: SingleProduct,
+            name: 'singleProduct'
         },
     ]
 }

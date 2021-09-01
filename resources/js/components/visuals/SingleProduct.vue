@@ -1,47 +1,36 @@
 <template>
-    <div>
-        <div class="container">
-        <span v-if="this.product.relationships.images.data">
-            <div v-for="image in this.product.relationships.images.data">
-                <img v-bind:src="image.imagePath" alt="">
-            </div>
-        </span>
-            <p>{{ this.product.id }}</p>
-            <p>{{ this.product.name }}</p>
-            <p>{{ this.product.author }}</p>
-            <p>{{ this.product.publisher }}</p>
-            <button class="btn btn-info" @click="callStoreCartItem()">Add to cart</button>
-        </div>
-    </div>
+    <v-app class="container">
+        <v-row v-for="product in this.getFilteredProducts">
+            <v-col>
+                <img :src="product.relationships.images.data[0].imagePath" alt="Book" height="250" class="pt-4 pl-4">
+            </v-col>
+            <v-col>
+                <p>{{ product.name }}</p>
+                <p>$ {{ product.price }}</p>
+                <p>{{ product.author }}</p>
+                <p>{{ product.publisher }}</p>
+                <button class="btn btn-info tile" @click="storeOrderItem(product.id)">Add to cart</button>
+            </v-col>
+        </v-row>
+    </v-app>
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import 'vue-good-table/dist/vue-good-table.css';
 
     export default {
         name: 'single-product-component',
-        data: function () {
-            return {
-                product: ''
-            }
-        },
         methods: {
-            ...mapActions('cartItem', ['storeCartItem']),
-            callStoreCartItem() {
-                this.storeCartItem(this.product.id);
-            },
+            // plural?
+            ...mapActions('orderItem', ['storeOrderItem']),
+            ...mapActions('products', ['filterForProduct']),
+        },
+        computed: {
+            ...mapGetters('products', ['getFilteredProducts']),
         },
         created() {
-            this.product = document.querySelector('meta[name="product"]').content;
-            axios.get('/api/products/' + this.product)
-                .then((response) => {
-                    console.log(response)
-                    this.product = response.data.data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
+            this.filterForProduct('id=' + this.$route.params.id);
         }
     }
 </script>

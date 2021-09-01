@@ -11,7 +11,7 @@
             <v-col></v-col>
         </v-row>
 
-        <p style="font-size:18px; font-weight: 100; padding: 20px 0; margin: 20px;"></p>
+<!--        <p style="font-size:18px; font-weight: 100; padding: 20px 0; margin: 20px;"></p>-->
         <products-table-component :filter="'newest'"></products-table-component>
 
         <info-component></info-component>

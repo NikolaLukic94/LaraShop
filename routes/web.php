@@ -7,10 +7,10 @@ Auth::routes();
 
 Auth::routes(['verify' => true]);
 
-//Route::group(['prefix' => '/login'], function () {
-//    Route::get('/{provider}', 'Auth\LoginController@redirectToProvider');
-//    Route::get('/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
-//});
+Route::group(['prefix' => '/login'], function () {
+    Route::get('/{provider}', 'Auth\LoginController@redirectToProvider');
+    Route::get('/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+});
 
 Route::get('/roles', function() {
     return view('roles.index');
@@ -40,9 +40,11 @@ Route::get('/reports', function() {
     return view('reports.index');
 });
 
-Route::get('/orders', function() {
-    return view('orders.index');
+Route::get('/reports', function() {
+    return view('reports.index');
 });
+
+Route::get('/reports/create', 'ReportController@store');
 
 Route::get('/users', function() {
     return view('users.index');

@@ -97,10 +97,10 @@
                     console.log('logged in')
                     this.$router.push({name: 'admin'})
                 }).catch((error) => console.log(error));
+            },
+            redirectToThirdPartyLogin(providerName) {
+                window.location.href = '/login/' + providerName;
             }
-            // redirectToThirdPartyLogin(providerName) {
-            //     window.location.href = '/login/' + providerName;
-            // }
         }
     }
 </script>

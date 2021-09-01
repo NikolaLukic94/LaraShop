@@ -1,18 +1,18 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/products', 'API\ProductController@index');
+Route::get('/products/{id}', 'API\ProductController@show');
 
 Route::get('/user', 'API\UserController@authUser');
 
 //Route::get('checkout', 'StripeController@index');
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('stripe-payment', 'StripeController@store')->name('stripe.payment');
-
     Route::get('/order-items', 'API\OrderItemsController@index');
+
+    Route::post('stripe-payment', 'StripeController@store')->name('stripe.payment');
 
     Route::group(['prefix' => '/statuses'], function () {
         Route::get('/', 'API\StatusController@index');
@@ -24,7 +24,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => '/products'], function () {
         Route::post('/', 'API\ProductController@store');
         Route::patch('/{id}', 'API\ProductController@update');
-        Route::get('/{id}', 'API\ProductController@show');
         Route::delete('/{id}', 'API\ProductController@destroy');
     });
 

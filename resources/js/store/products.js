@@ -30,7 +30,7 @@ const actions = {
     filterForProduct({commit}, filterName) {
         return axios.get('/api/products?' + filterName)
             .then(function (response) {
-                commit('setFilteredProducts', {data: response.data.data, filter: filterName});
+                commit('setFilteredProducts', response.data.data);
             })
             .catch(err => console.log(err))
     },
@@ -80,11 +80,9 @@ const actions = {
         commit('setInEdit', data.value)
         commit('setInEditMode', data.type)
 
-        if (data.value.relationships.images.data.length) {
-            commit('setPhotosOfProductInEdit', data.value.relationships.images)
-        } else {
-            commit('setPhotosOfProductInEdit', [])
-        }
+        data.value.relationships.images.data.length
+            ? commit('setPhotosOfProductInEdit', data.value.relationships.images)
+            : commit('setPhotosOfProductInEdit', []);
     },
 };
 
@@ -95,12 +93,8 @@ const mutations = {
     setProducts: (state, id) => {
         state.products = id;
     },
-    setFilteredProducts: (state, params) => {
-        state.filteredProducts.push(params.filter)
-
-        let ee = state.filteredProducts.find(a => params.filter)
-
-        ee[params.data];
+    setFilteredProducts: (state, data) => {
+        state.filteredProducts = data;
     },
     filterForProduct: (state, filteredProducts) => {
         state.filteredProducts = filteredProducts;

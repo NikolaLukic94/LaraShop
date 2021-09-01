@@ -7,9 +7,10 @@ use App\Http\Requests\StoreOrderItem;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class OrderItemsController extends Controller {
-
+class OrderItemsController extends Controller
+{
     public function index()
     {
         $authUserCartItems = auth()->user()->cartItems;

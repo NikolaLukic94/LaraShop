@@ -56,5 +56,10 @@ export function getNavbarItems() {
     navbarArray['view invoices']['href'] = "/invoices";
     navbarArray['view invoices']['icon'] = "mdi-wrench";
 
+    navbarArray['view logout'] = [];
+    navbarArray['view logout']['title'] = "Logout";
+    navbarArray['view logout']['href'] = "/logout";
+    navbarArray['view logout']['icon'] = "mdi-logout";
+
     return navbarArray;
 }
