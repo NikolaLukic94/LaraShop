@@ -1,36 +1,45 @@
 <template>
-    <div>
-        <div class="container">
-            <statuses-component></statuses-component>
-            <vue-good-table
-                :pagination-options="{
-                      enabled: true
-                    }"
-                theme="black-rhino"
-                styleClass="vgt-table striped"
-                :columns="columns"
-                :rows="getStatusCodes"
-                :search-options="{
-                    placeholder: 'Search for the statuses',
-                    enabled: true
-                }"
-            >
-                <template slot="table-row" slot-scope="props">
-                      <span v-if="props.column.field === 'action'">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
-                              <i class="fa fa-trash" aria-hidden="true"></i>
-                            </button>
-                            <button class="btn btn-info" @click="setInEdit(props.row.id)">
-                              <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                      </span>
-                    <span v-else>
-                        {{props.formattedRow[props.column.field]}}
-                      </span>
-                </template>
-            </vue-good-table>
+    <div class="container">
+        <br><br><br>
+        <div class="row">
+            <new-sidebar-component></new-sidebar-component>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-14">
+                    <h1 class="h2">Statuses</h1>
+                </div>
+                <div class="container">
+                    <statuses-component></statuses-component>
+                    <vue-good-table
+                        :pagination-options="{
+                          enabled: true
+                        }"
+                        theme="black-rhino"
+                        styleClass="vgt-table striped"
+                        :columns="columns"
+                        :rows="getStatusCodes"
+                        :search-options="{
+                            placeholder: 'Search for the statuses',
+                            enabled: true
+                        }"
+                    >
+                        <template slot="table-row" slot-scope="props">
+                            <span v-if="props.column.field === 'action'">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button class="btn btn-info" @click="openDeleteModal(props.row.id)">
+                                      <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-info" @click="setInEdit(props.row.id)">
+                                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </span>
+                            <span v-else>
+                                {{props.formattedRow[props.column.field]}}
+                            </span>
+                        </template>
+                    </vue-good-table>
+                </div>
+            </main>
         </div>
     </div>
 </template>

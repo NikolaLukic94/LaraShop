@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Product as ProductResource;
 use App\Models\ProductFilter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class ProductController extends Controller
 {
@@ -103,6 +104,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
+
+        Redis::zincrby('trending_products', 1, $product);
 
         return new ProductResource($product);
     }

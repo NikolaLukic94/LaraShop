@@ -1,87 +1,94 @@
 <template>
-    <div>
-        <div class="text-center">
-            <v-dialog
-                v-model="dialog"
-                width="500"
-            >
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
-                    >
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                    </v-btn>
-                </template>
 
-                <v-card>
-                    <v-card-title class="headline grey lighten-2">
-                        Add new users
-                    </v-card-title>
-                    <v-container class="grey lighten-5">
-                        <div>
-                            <v-text-field
-                                label="Name"
-                                v-model="userName"
-                                hide-details="auto"
-                                class="mb-3">
-                            </v-text-field>
-                        </div>
-                        <div>
-                            <v-text-field
-                                label="Email"
-                                v-model="userEmail"
-                                hide-details="auto"
-                                class="mb-3">
-                            </v-text-field>
-                        </div>
-                        <div>
-                            <v-text-field
-                                label="Password"
-                                v-model="userPassword"
-                                hide-details="auto"
-                                class="mb-3">
-                            </v-text-field>
-                        </div>
-                    </v-container>
-                    <v-divider></v-divider>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            color="green darken-1"
-                            text
-                            @click="dialog = false"
-                        >
-                            Close
-                        </v-btn>
-                        <v-btn
-                            color="primary"
-                            text
-                            @click="
+    <div class="container">
+        <div class="row">
+            <new-sidebar-component></new-sidebar-component>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-14">
+                    <h1 class="h2">Users</h1>
+                </div>
+                <div class="text-center">
+                    <v-dialog
+                        v-model="dialog"
+                        width="500"
+                    >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                                dark
+                                v-bind="attrs"
+                                v-on="on"
+                            >
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </v-btn>
+                        </template>
+
+                        <v-card>
+                            <v-card-title class="headline grey lighten-2">
+                                Add new users
+                            </v-card-title>
+                            <v-container class="grey lighten-5">
+                                <div>
+                                    <v-text-field
+                                        label="Name"
+                                        v-model="userName"
+                                        hide-details="auto"
+                                        class="mb-3">
+                                    </v-text-field>
+                                </div>
+                                <div>
+                                    <v-text-field
+                                        label="Email"
+                                        v-model="userEmail"
+                                        hide-details="auto"
+                                        class="mb-3">
+                                    </v-text-field>
+                                </div>
+                                <div>
+                                    <v-text-field
+                                        label="Password"
+                                        v-model="userPassword"
+                                        hide-details="auto"
+                                        class="mb-3">
+                                    </v-text-field>
+                                </div>
+                            </v-container>
+                            <v-divider></v-divider>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                    color="green darken-1"
+                                    text
+                                    @click="dialog = false"
+                                >
+                                    Close
+                                </v-btn>
+                                <v-btn
+                                    color="primary"
+                                    text
+                                    @click="
                           dialog = false;
                           storeUser({name: userName, email: userEmail, password: userPassword})"
-                        >
-                            Save
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-        </div>
-        <div class="container">
-            <vue-good-table
-                :pagination-options="{
+                                >
+                                    Save
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                </div>
+                <div class="container">
+                    <vue-good-table
+                        :pagination-options="{
                   enabled: true
                 }"
-                :search-options="{
+                        :search-options="{
                     placeholder: 'Search for users',
                     enabled: true
                 }"
-                theme="black-rhino"
-                styleClass="vgt-table striped"
-                :columns="columns"
-                :rows="getUsers">
-                <template slot="table-row" slot-scope="props">
+                        theme="black-rhino"
+                        styleClass="vgt-table striped"
+                        :columns="columns"
+                        :rows="getUsers">
+                        <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'action'">
               <div class="btn-group" role="group">
                 <div class="btn-group" role="group">
@@ -106,12 +113,14 @@
                 </div>
               </div>
               </span>
-                    <span v-else>
+                            <span v-else>
                 {{props.formattedRow[props.column.field]}}
               </span>
-                </template>
+                        </template>
 
-            </vue-good-table>
+                    </vue-good-table>
+                </div>
+            </main>
         </div>
     </div>
 </template>

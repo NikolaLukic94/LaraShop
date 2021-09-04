@@ -1,6 +1,18 @@
 <template>
     <div class="container">
-        <canvas class="pt-8" id="canvas"></canvas>
+        <br><br><br>
+        <div class="row">
+            <new-sidebar-component></new-sidebar-component>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="row">
+                    <div class="col-md">
+                        <div class="container">
+                            <canvas class="pt-8" id="canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
 </template>
 

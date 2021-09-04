@@ -1,15 +1,22 @@
 <template>
-    <div>
-        <div class="container">
-            <vue-good-table
-                :pagination-options="{
+
+    <div class="container">
+        <br><br><br>
+        <div class="row">
+            <new-sidebar-component></new-sidebar-component>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mt-14">
+                    <h1 class="h2">Shipments</h1>
+                </div>
+                <vue-good-table
+                    :pagination-options="{
                     enabled: true
                 }"
-                theme="black-rhino"
-                styleClass="vgt-table striped"
-                :columns="columns"
-                :rows="getShipments">
-                <template slot="table-row" slot-scope="props">
+                    theme="black-rhino"
+                    styleClass="vgt-table striped"
+                    :columns="columns"
+                    :rows="getShipments">
+                    <template slot="table-row" slot-scope="props">
                   <span v-if="props.column.field == 'action'">
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button class="btn btn-info" @click="openEditModal(props.row)">
@@ -20,11 +27,12 @@
                             </button>
                         </div>
                   </span>
-                    <span v-else>
+                        <span v-else>
                         {{props.formattedRow[props.column.field]}}
                     </span>
-                </template>
-            </vue-good-table>
+                    </template>
+                </vue-good-table>
+            </main>
         </div>
     </div>
 </template>

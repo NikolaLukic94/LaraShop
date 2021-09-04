@@ -4,17 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateOrder;
-use App\Models\Cart;
-use App\Models\Invoice;
 use App\Models\Order;
 use App\Http\Resources\Order as OrderResource;
-use App\Models\OrderItem;
-use App\Models\Payment;
-use App\Models\Shipment;
-use App\Models\ShipmentItem;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {

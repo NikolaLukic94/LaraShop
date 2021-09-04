@@ -6,11 +6,9 @@ use App\Jobs\SendSuccessfulPurchaseEmail;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Stripe;
-use Session;
 
-use App\Models\Cart;
-use App\Models\CartItem;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Shipment;
@@ -32,7 +30,13 @@ class StripeController extends Controller
                 'status_id' => 1,
             ]);
 
-            $cartItems = OrderItem::where('order_id', null)->where('user_id', Auth::id())->get();
+            $cartItems = OrderItem::with('product')->where('order_id', null)->where('user_id', Auth::id())->get();
+
+            $products = $cartItems->pluck('product')->flatten();
+
+            foreach ($products as $product) {
+                Redis::zincrby('bestsellers', $product->quantity,  $product);
+            }
 
             $paymentAmount = $cartItems->pluck('price')->sum();
 
@@ -71,54 +75,15 @@ class StripeController extends Controller
 
             // Handle Stripe transaction
 
-            // Create an order
-//            $order = Order::create([
-//                'date_placed' => date('Y-m-d'),
-//                'order_details' => "request->orderDetails",
-//                'user_id' => Auth::id(),
-//                'order_status_codes_id' => 2,
-//            ]);
-//
-//            $orderItems = auth()->user()->cartItems->update(['order_id', $order->id]);
-//
-//            $invoice = Invoice::create([
-//                'order_id' => $order->id,
-//                'invoice_status_code_id' => 2, // Issued
-//                'date' => Carbon::now()->format('Y-m-d'),
-//                'invoice_details' => 'test'
-//            ]);
-//
-//            $shipment = Shipment::create([
-//                'order_id' => $order->id,
-//                'invoice_id' => $invoice->id,
-//                'tracking_number' => rand(1, 9999999),
-//                'date' => Carbon::now()->format('Y-m-d'),
-//            ]);
-//
-//            foreach ($orderItems as $orderItem) {
-//
-//                ShipmentItem::create([
-//                    'shipment_id' => $shipment->id,
-//                    'order_item_id' => $orderItem->id,
-//                    'user_address_id' => null,
-//                ]);
-//            }
-//
             Stripe\Stripe::setApiKey(config('stripe.stripeSecret'));
 //
-//            $totalSum = $order->orderItems->sum('price');
-//
-            $stripeObject = Stripe\Charge::create([
+            Stripe\Charge::create([
                 "amount" => $paymentAmount,
                 "currency" => "usd",
                 "source" => $request->stripeToken,
                 "description" => $request->description ?: 'Test',
             ]);
-//
-//            $stripeObject->order = $order;
-//            $stripeObject->invoice = $invoice;
-//            $stripeObject->shipmentItems = $shipment->shipmentItems;
-//            // queue
+
 
 //            dispatch(new SendSuccessfulPurchaseEmail($stripeObject)); // TODO: redo w/ QUEUE
 

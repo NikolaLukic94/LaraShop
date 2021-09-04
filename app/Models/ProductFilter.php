@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Redis;
+
 class ProductFilter extends QueryFilter
 {
     public function contains($input)
@@ -16,7 +18,24 @@ class ProductFilter extends QueryFilter
 
     public function popular($order = 'desc')
     {
-        return $this->builder->orderBy('views', $order);
+        $trending = Redis::zrevrange('trending_products', 0, 4);
+
+        return Product::hydrate(
+            array_map('json_decode', $trending)
+        );
+
+        //return $this->builder->orderBy('views', $order);
+    }
+
+    public function bestsellers($order = 'desc')
+    {
+        $trending = Redis::zrevrange('bestsellers', 0, 4);
+
+        return Product::hydrate(
+            array_map('json_decode', $trending)
+        );
+
+        //return $this->builder->orderBy('views', $order);
     }
 
     public function newest()
@@ -41,6 +60,10 @@ class ProductFilter extends QueryFilter
 
     public function id($id)
     {
-        return $this->builder->where('id', $id);
+        $product = $this->builder->where('id', $id);
+
+        Redis::zincrby('trending_products', 1,  $product->first());
+
+        return $product;
     }
 }

@@ -15,9 +15,19 @@
                         ></v-progress-linear>
                     </template>
 
-                    <img :src="book.relationships.images.data[0].imagePath" :id="book.id" alt="Book" height="250" class="pt-4 pl-4">
+                    <img :src="book.relationships.images.data[0].imagePath"
+                         :id="book.id"
+                         alt="Book"
+                         height="300"
+                         width="220"
+                         class="pt-4 pl-4"
+                        style="vertical-align: middle;border-radius: 15px;"
+                    >
 
-                        <v-card-title :title="book.name">{{ book.name.substring(0, 20) }}</v-card-title>
+                        <v-card-title
+                            :title="book.name"
+                            style="font-weight: 400;font-size: 17px;font-family: 'New Baskerville', Baskerville, serif;"
+                        >{{ book.name.substring(0, 20) }}</v-card-title>
 
                         <v-card-text>
                             <v-row
@@ -38,7 +48,11 @@
                                 </div>
                             </v-row>
 
-                            <div class="my-4 text-subtitle-1">
+                            <div class="my-4 text-subtitle-1" style="font-family: 'Source Sans Pro', Arial, sans-serif;
+                                font-size: 15px;
+                                line-height: 1.2;
+                                font-weight: 300;
+                                color: #000;">
                                 $ {{ book.price }}
                             </div>
 
@@ -71,6 +85,7 @@
                     </v-card>
                 </div>
             </v-row>
+
         </div>
     </template>
 
@@ -187,5 +202,112 @@
             padding-left: 20px;
             padding-right: 20px;
             margin-top: 15px;
+        }
+
+
+
+         .container {
+             position: relative;
+             width: 50%;
+         }
+
+        .image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #008CBA;
+            overflow: hidden;
+            width: 100%;
+            height: 0;
+            transition: .5s ease;
+        }
+
+        .container:hover .overlay {
+            height: 100%;
+        }
+
+        .text {
+            color: white;
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .container {
+            position: relative;
+            width: 50%;
+        }
+
+        .image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #008CBA;
+            overflow: hidden;
+            width: 100%;
+            height: 0;
+            transition: .5s ease;
+        }
+
+        .container:hover .overlay {
+            height: 100%;
+        }
+
+        .text {
+            color: white;
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
         }
     </style>

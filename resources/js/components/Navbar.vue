@@ -5,9 +5,9 @@
             <v-toolbar-items class="hidden-sm-and-down" @click="redirect('home')">
                 <v-btn text>Home</v-btn>
             </v-toolbar-items>
-<!--            <v-toolbar-items class="hidden-sm-and-down" @click="redirect('browse')"> here redis stuff -->
-<!--                <v-btn text>Browse</v-btn>-->
-<!--            </v-toolbar-items>-->
+            <v-toolbar-items class="hidden-sm-and-down" @click="redirect('browse')">
+                <v-btn text>Browse</v-btn>
+            </v-toolbar-items>
             <v-toolbar-items class="hidden-sm-and-down" @click="redirect('map')">
                 <v-btn text>Find Us</v-btn>
             </v-toolbar-items>
@@ -78,13 +78,6 @@
                 drawer: null,
                 authUser: false,
                 showSearch: false,
-                menu: [
-                    {icon: 'home', title: 'home', href: '/'},
-                    {icon: 'about us', title: 'about us', href: 'about-us'},
-                    {icon: 'catalog', title: 'catalog', href: '/products/search'},
-                    {icon: 'new', title: 'new', href: '/products/search'},
-                    {icon: 'contracts', title: 'contracts', href: '/products/search'},
-                ],
             }
         },
         methods: {

@@ -10,7 +10,7 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "@mdi/font": "^5.7.55",
+        "@mdi/font": "^5.9.55",
         "axios": "^0.21.1",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",

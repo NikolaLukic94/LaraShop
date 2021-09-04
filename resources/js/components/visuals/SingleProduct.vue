@@ -1,6 +1,6 @@
 <template>
     <v-app class="container">
-        <v-row v-for="product in this.getFilteredProducts">
+        <v-row v-for="product in this.getFilteredProductsByKey('id=' + this.$route.params.id)">
             <v-col>
                 <img :src="product.relationships.images.data[0].imagePath" alt="Book" height="250" class="pt-4 pl-4">
             </v-col>
@@ -22,12 +22,11 @@
     export default {
         name: 'single-product-component',
         methods: {
-            // plural?
             ...mapActions('orderItem', ['storeOrderItem']),
             ...mapActions('products', ['filterForProduct']),
         },
         computed: {
-            ...mapGetters('products', ['getFilteredProducts']),
+            ...mapGetters('products', ['getFilteredProductsByKey']),
         },
         created() {
             this.filterForProduct('id=' + this.$route.params.id);

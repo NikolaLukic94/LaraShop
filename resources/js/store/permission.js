@@ -12,11 +12,11 @@ const actions = {
             .then((response) => {
                 commit('setPermissions', response.data.data);
 
-                toast.fire({
-                    icon: 'success',
-                    type: 'success',
-                    title: 'Permissions fetched!'
-                })
+                // toast.fire({
+                //     icon: 'success',
+                //     type: 'success',
+                //     title: 'Permissions fetched!'
+                // })
             })
             .catch(function (error) {console.log(error);})
     },

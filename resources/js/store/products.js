@@ -12,6 +12,9 @@ const state = {
 const getters = {
     getProducts: state => state.products,
     getFilteredProducts: state => state.filteredProducts,
+    getFilteredProductsByKey: (state) => (key) => {
+        return state.filteredProducts.find(f => f.key === key).data;
+    },
     getSearchResults: state => state.searchResults,
     getInEditProductId: state => state.inEditProductId,
     getPhotosOfProductInEdit: state => state.photosOfProductInEdit
@@ -30,7 +33,10 @@ const actions = {
     filterForProduct({commit}, filterName) {
         return axios.get('/api/products?' + filterName)
             .then(function (response) {
-                commit('setFilteredProducts', response.data.data);
+                let data = [];
+                data.key = filterName;
+                data.result = response.data.data;
+                commit('setFilteredProducts', data);
             })
             .catch(err => console.log(err))
     },
@@ -94,7 +100,19 @@ const mutations = {
         state.products = id;
     },
     setFilteredProducts: (state, data) => {
-        state.filteredProducts = data;
+
+        let result = {
+            'key': data.key,
+            'data': data.result
+        }
+
+        let aa = state.filteredProducts.find(f => f.key === data.key);
+
+        if (!aa) {
+            state.filteredProducts.push(result);
+        } else {
+            aa.data = data.result;
+        }
     },
     filterForProduct: (state, filteredProducts) => {
         state.filteredProducts = filteredProducts;

@@ -79,6 +79,7 @@ Vue.component('reports-component', require('./components/ReportsComponent').defa
 Vue.component('roles-component', require('./components/RoleComponent').default);
 Vue.component('statuses-component', require('./components/StatusesComponent').default);
 Vue.component('single-product-component', require('./components/visuals/SingleProduct').default);
+Vue.component('product-group', require('./components/ProductGroup').default);
 
 Vue.component('home-page', require('./components/HomePage').default);
 Vue.component('login-form-component', require('./components/visuals/LoginFormComponent').default);
