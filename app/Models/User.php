@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail, JWTSubject
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens;
     use Notifiable;
     use HasRoles;
     /**
